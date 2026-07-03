@@ -6,6 +6,7 @@ from homeassistant.const import CONF_PASSWORD
 import itertools
 import time
 import logging
+from . import normalizer
 
 from .const import DOMAIN, SENSOR_LIST, CONF_DEBUG
 from .sensor import PwsSensor, PwsDevice
@@ -161,6 +162,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
                 # Use the normalized key
                 key = normalized_key
 
+                # Get sensor configuration (from const.py)
+                sensor_conf = SENSOR_LIST.get(key)
+
                 # Attempt to convert the value to a number (int or float)
                 try:
                     if "." in value:
@@ -171,6 +175,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
                     # Leave value as string if conversion fails
                     pass
+                
+                # Battery normalization (ONLY based on config)
+                if sensor_conf and (battery_scale := sensor_conf.get("battery_scale")) is not None:
+                    value = normalizer.normalize_battery(value, battery_scale)
 
                 # Update the sensor value in the device's data dictionary
                 device.data[key] = value

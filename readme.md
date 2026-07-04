@@ -73,7 +73,7 @@ Some weather stations do not support natively custom URLs. A workaround is possi
     *   **URL**: Your Home Assistant URL (e.g., `https://my-home-assistant.duckdns.org` or `http://192.168.1.100:8123`).
     *   **Sender ID**: A unique name for your station (e.g., `bresser_station`).
     *   **Station Key**: The same key you entered in the Home Assistant integration.
-    *   **API Type**: Select **"WUnderground API"**.
+    *   **API Type**: Select **"WUnderground API"** or **WSLINK**, both should work.
     *   **Upload Interval**: Set your desired update frequency (e.g., 60 seconds).
 5.  **Done!** Your weather station data should now appear as a new device in Home Assistant.
 
@@ -142,7 +142,7 @@ Make sure to set these parameters in the WSLink application:
 - **Sender ID**: any identifier (e.g., my_station) — this will become the device ID in Home Assistant
 - **Station Key**: a password known only to you
 - **Upload** Interval: any interval you want, e.g., 60 seconds
-- **API Type**: Note that some stations have this field. In that case, make sure to select "WUnderground API".
+- **API Type**: Note that some stations have this field. In that case, make sure to select "WUnderground API" or "WSLink API".
 
 This configuration will allow your Weather Station to send weather data correctly to Home Assistant via the PWS integration. As this integration only allows you to configure one station key, all of your Weather Stations should use the same.
 
@@ -242,11 +242,9 @@ When the integration is removed:
 
 ## Contributing
 
-Contributions are welcome! Please open issues or pull requests on GitHub.
+Contributions are welcome!
 
-- Add new sensors to `SENSOR_LIST` for additional weather data.
-- Improve error handling
-- Optimize performance or add async support where possible.
+Please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or submitting a pull request.
 
 ---
 

@@ -60,7 +60,13 @@ Feel free to try your own weather station and see if it works, and consider cont
 
 ### Advanced workaround
 
-Some weather stations do not support natively custom URLs. A workaround is possible, see detailed setup here: [Intercepting Wunderground traffic (issue #20)](../../issues/20)
+Some weather stations do not natively support custom upload URLs. Two workarounds are available:
+
+- **Manual workaround:** Intercept Weather Underground traffic. See the detailed setup instructions in [Intercepting Wunderground traffic (issue #20)](../../issues/20).
+- **All-in-one solution:** Use the **WSLink Add-on**, developed by @schizza, which intercepts Weather Underground traffic and forwards the decoded weather data to Home Assistant. See the project [here](https://github.com/schizza/wslink-addon)
+> [!WARNING]
+> **WSLink Add-on v0.0.7 is currently broken and is not compatible with this integration.**
+> Until the issue is resolved, please use @derbmann's [fork](https://github.com/derbmann/wslink-addon).
 
 ---
 

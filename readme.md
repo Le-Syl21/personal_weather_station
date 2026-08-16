@@ -47,13 +47,15 @@ Each sensor supports metadata such as **name**, **unit of measurement**, **icon*
 
 The following personal weather stations have been confirmed to work with this integration:
 
-- **Bresser 7-in-1 Weather Station**
+- **Bresser Weather Stations**
   - 7002586
   - 7002582
   - 7002620 
   - 7003300
   - 7003400
   - 7004406
+- **YOUSHIKO Weather Stations**
+  - YC9471 
 
 Other stations may also work if they can send HTTP/HTTPS GET requests with query parameters matching the keys defined in `SENSOR_LIST`.  
 Feel free to try your own weather station and see if it works, and consider contributing any new compatible models to the project!

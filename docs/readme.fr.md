@@ -164,6 +164,9 @@ est celui qui permet de diriger la station vers votre propre Home Assistant.
 > Les deux fonctionnent et sont pris en charge ici. WUnderground API n'est le bon
 > choix que si votre station ne propose pas WSLink.
 
+Le bouton **WSLink API ⤓** en dessous vous remet la documentation du protocole,
+si vous voulez savoir exactement ce que votre station envoie.
+
 Appuyez ensuite sur **Save**.
 
 **5. Confirm & Exit**

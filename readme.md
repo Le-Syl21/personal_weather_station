@@ -152,6 +152,9 @@ is the one that lets you point the station at your own Home Assistant.
 > Both work, and both are supported here. WUnderground API is the right choice
 > only when your station does not offer WSLink.
 
+The **WSLink API ⤓** button below hands you the protocol documentation, if you
+want to know exactly what your station sends.
+
 Then press **Save**.
 
 **5. Confirm & Exit**

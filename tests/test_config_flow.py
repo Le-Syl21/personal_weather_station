@@ -398,15 +398,16 @@ async def test_onboarding_repair_reports_a_failure_after_the_wait(
     assert ir.async_get(hass).async_get_issue(DOMAIN, ISSUE_NO_STATION_YET) is not None
 
 
-async def test_instructions_stay_reachable_from_the_options(hass, setup_pws):
+async def test_the_walkthrough_is_reachable_from_the_options(hass, setup_pws):
     """
     The onboarding repair goes away once a station has posted.
 
-    Someone adding a second station months later still needs the address to
-    point it at, so the options keep the instructions.
+    Someone adding a second station months later needs the same five screens as
+    the first one, so the options walk them too, ending without touching
+    anything the user has configured.
     """
 
-    entry, client = await setup_pws()
+    entry, client = await setup_pws(options={CONF_AVAILABILITY_TIMEOUT: 42})
 
     await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1tem=21.5")
     await hass.async_block_till_done()
@@ -416,15 +417,22 @@ async def test_instructions_stay_reachable_from_the_options(hass, setup_pws):
         result["flow_id"], user_input={"next_step_id": "instructions"}
     )
 
-    assert result["type"] == FlowResultType.FORM
-    assert result["step_id"] == "instructions"
-    assert {"urls", "key_hint", "endpoints"} <= result[
-        "description_placeholders"
-    ].keys()
+    for step in ("station", "settings", "server", "form", "confirm"):
+        assert result["type"] == FlowResultType.FORM
+        assert result["step_id"] == step
 
-    # Closing it returns to the menu rather than saving anything.
-    back = await hass.config_entries.options.async_configure(result["flow_id"], {})
-    assert back["type"] == FlowResultType.MENU
+        placeholders = result["description_placeholders"]
+        assert IMAGES_URL in placeholders["image"]
+        assert {"urls", "key_hint", "endpoints"} <= placeholders.keys()
+
+        result = await hass.config_entries.options.async_configure(
+            result["flow_id"], {}
+        )
+
+    assert result["type"] == FlowResultType.CREATE_ENTRY
+
+    # Walking the instructions is not a settings change.
+    assert entry.options[CONF_AVAILABILITY_TIMEOUT] == 42
 
 
 async def test_failed_wait_does_not_resolve_the_repair(hass, setup_pws, monkeypatch):

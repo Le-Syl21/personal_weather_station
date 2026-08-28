@@ -35,7 +35,55 @@ WALKTHROUGH = {
 }
 
 
-class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+class Walkthrough:
+    """
+    The five screens of the station's app, walked one at a time.
+
+    Shared by both flows: someone adding a second station needs exactly the
+    same guidance as someone adding the first, and keeping one copy means the
+    screens cannot drift apart or be translated twice.
+    """
+
+    # Where the last screen leads. Setting up waits for the first upload;
+    # adding another station has nothing to wait for, the endpoints are already
+    # listening and the device turns up on its own.
+    _after_confirm = "wait"
+
+    def _walkthrough_placeholders(self):
+        """The addresses and key hint, worked out for this flow."""
+
+        raise NotImplementedError
+
+    async def _async_walk(self, step, next_step, user_input):
+        if user_input is not None:
+            return await getattr(self, f"async_step_{next_step}")()
+
+        return self.async_show_form(
+            step_id=step,
+            data_schema=vol.Schema({}),
+            description_placeholders={
+                "image": image(WALKTHROUGH[step]),
+                **self._walkthrough_placeholders(),
+            },
+        )
+
+    async def async_step_station(self, user_input=None):
+        return await self._async_walk("station", "settings", user_input)
+
+    async def async_step_settings(self, user_input=None):
+        return await self._async_walk("settings", "server", user_input)
+
+    async def async_step_server(self, user_input=None):
+        return await self._async_walk("server", "form", user_input)
+
+    async def async_step_form(self, user_input=None):
+        return await self._async_walk("form", "confirm", user_input)
+
+    async def async_step_confirm(self, user_input=None):
+        return await self._async_walk("confirm", self._after_confirm, user_input)
+
+
+class ConfigFlow(Walkthrough, config_entries.ConfigFlow, domain=DOMAIN):
     """Walk the user through the station app, then wait for its first upload."""
 
     def __init__(self):
@@ -60,26 +108,6 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Stop accepting uploads on behalf of a flow that is going away."""
 
         self.hass.data.pop(DATA_ONBOARDING, None)
-
-    def _placeholders(self, step):
-        """Screenshot plus the addresses, for one walkthrough step."""
-
-        return {
-            "image": image(WALKTHROUGH[step]),
-            **async_placeholders(self.hass, self._data.get(CONF_PASSWORD)),
-        }
-
-    async def _async_step_walkthrough(self, step, next_step, user_input):
-        """Show one screen of the station app, then move on."""
-
-        if user_input is not None:
-            return await getattr(self, f"async_step_{next_step}")()
-
-        return self.async_show_form(
-            step_id=step,
-            data_schema=vol.Schema({}),
-            description_placeholders=self._placeholders(step),
-        )
 
     async def async_step_user(self, user_input=None):
         if user_input is None:
@@ -109,20 +137,8 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         return await self.async_step_station()
 
-    async def async_step_station(self, user_input=None):
-        return await self._async_step_walkthrough("station", "settings", user_input)
-
-    async def async_step_settings(self, user_input=None):
-        return await self._async_step_walkthrough("settings", "server", user_input)
-
-    async def async_step_server(self, user_input=None):
-        return await self._async_step_walkthrough("server", "form", user_input)
-
-    async def async_step_form(self, user_input=None):
-        return await self._async_step_walkthrough("form", "confirm", user_input)
-
-    async def async_step_confirm(self, user_input=None):
-        return await self._async_step_walkthrough("confirm", "wait", user_input)
+    def _walkthrough_placeholders(self):
+        return async_placeholders(self.hass, self._data.get(CONF_PASSWORD))
 
     async def async_step_wait(self, user_input=None):
         """Watch for the first upload while the user is still looking."""
@@ -229,11 +245,16 @@ async def _async_wait_for_upload(hass, timeout):
     return None
 
 
-class OptionsFlowHandler(config_entries.OptionsFlow):
-    """Handle the options."""
+class OptionsFlowHandler(Walkthrough, config_entries.OptionsFlow):
+    """Handle the options, and walk a second station through the same screens."""
+
+    _after_confirm = "done"
 
     def __init__(self, config_entry):
         self._config_entry = config_entry
+
+    def _walkthrough_placeholders(self):
+        return async_placeholders_for_entry(self.hass, self._config_entry)
 
     async def async_step_init(self, user_input=None):
         """
@@ -248,17 +269,14 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         )
 
     async def async_step_instructions(self, user_input=None):
-        if user_input is not None:
-            return await self.async_step_init()
+        """Menu entry point: hand straight over to the walkthrough."""
 
-        return self.async_show_form(
-            step_id="instructions",
-            data_schema=vol.Schema({}),
-            description_placeholders={
-                "image": image(WALKTHROUGH["form"]),
-                **async_placeholders_for_entry(self.hass, self._config_entry),
-            },
-        )
+        return await self.async_step_station()
+
+    async def async_step_done(self, user_input=None):
+        """Close the dialog, leaving the options exactly as they were."""
+
+        return self.async_create_entry(title="", data=dict(self._config_entry.options))
 
     async def async_step_options(self, user_input=None):
         if user_input is not None:

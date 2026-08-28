@@ -159,10 +159,35 @@ def cmd_phrases():
     ui = {
         path[-1] if len(path) < 2 else "::".join(path): value
         for path, value in flatten(load_json(STRINGS))
-        if path[0] != "entity"
+        if path[0] != "entity" and not walkthrough_alias("::".join(path))
     }
 
     print(json.dumps({"entities": template, "ui": ui}, indent=2, ensure_ascii=False))
+
+
+WALKTHROUGH_STEPS = ("station", "settings", "server", "form", "confirm")
+
+
+def walkthrough_alias(key):
+    """
+    The config key holding the same text as an options walkthrough key.
+
+    Both flows show the same five screens of the station's app, so translating
+    them twice would be asking a translator to do the same work again and
+    leaving two copies to drift apart.
+    """
+
+    prefix = "options::step::"
+
+    if not key.startswith(prefix):
+        return None
+
+    rest = key[len(prefix) :]
+
+    if rest.split("::", 1)[0] not in WALKTHROUGH_STEPS:
+        return None
+
+    return "config::step::" + rest
 
 
 def expand(language, book):
@@ -196,7 +221,9 @@ def expand(language, book):
         if path[0] == "entity":
             continue
 
-        translated = book.get("ui", {}).get("::".join(path))
+        ui = book.get("ui", {})
+        key = "::".join(path)
+        translated = ui.get(key) or ui.get(walkthrough_alias(key) or "")
 
         if not translated:
             continue

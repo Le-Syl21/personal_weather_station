@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Passo 1 di 5 — la vostra stazione",
+        "description": "{image}\n\nÈ la vostra stazione meteo a creare i propri dispositivi e sensori: qui non c'è nulla da aggiungere. Quel che segue è ciò che va inserito nell'applicazione della stazione.\n\nAprite l'applicazione, verificate che il firmware della stazione sia aggiornato, poi aprite le sue impostazioni."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Passo 2 di 5 — servizio meteo",
+        "description": "{image}\n\nScegliete **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Passo 3 di 5 — altro server",
+        "description": "{image}\n\nScegliete **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Passo 4 di 5 — impostazioni del server",
+        "description": "{image}\n\nCompilate il modulo, poi premete **Save**.\n\n**URL**\n{urls}\nSenza `http://` né `https://`. Usate un indirizzo che la stazione possa raggiungere sulla vostra rete: non c'è alcun motivo di esporre Home Assistant a Internet per questo. Se la stazione non risolve i nomi, mettete l'indirizzo IP.\n\n**Station ID** — quello che volete. Diventerà il nome del dispositivo in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuto è un buon valore.\n\n**API type** — *WSLink API*. Scegliete *WUnderground API* solo se la vostra stazione non offre WSLink: trasporta metà delle letture e soltanto quattro canali.\n\n**Upload** — lasciatelo attivo.\n\n> ⏱️ Alcune stazioni perdono il Wi-Fi se ci si attarda su questa schermata. Tenete l'indirizzo a portata di mano, inseritelo e salvate."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+        "title": "Passo 5 di 5 — confirm & exit",
+        "description": "{image}\n\nTornate indietro, poi premete **Confirm & Exit**.\n\n> ⚠️ **È Confirm & Exit a scrivere le impostazioni nella stazione.** Salvare da solo non cambia nulla.\n\nPremete Avanti una volta fatto."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "La vostra stazione parla con Home Assistant",
+        "description": "**{station}** ha appena inviato il primo caricamento.\n\nI suoi sensori compariranno al successivo, e sono creati a partire da ciò che la stazione invia davvero: qui non c'è nulla da scegliere."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Non è ancora arrivato nulla",
+        "description": "Nessuna stazione ha inviato dati negli ultimi {minutes} minuti.{key_hint_extra}\n\nLe cause abituali sono un indirizzo che la stazione non riesce a raggiungere, **Confirm & Exit** non premuto, oppure un firmware dalla 3.02 in poi, che richiede HTTPS.\n\nGli indirizzi a cui puntarla sono:\n{urls}\nI punti di ingresso in ascolto sono:\n{endpoints}\n\nPremete Avanti per concludere comunque: la configurazione è conservata, i punti di ingresso si mettono davvero in ascolto, e una riparazione vi riporterà qui finché non si presenta una stazione."
       }
     },
     "abort": {
       "single_instance_allowed": "Già configurato. Una sola istanza serve tutte le stazioni meteo."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "In attesa del primo caricamento della vostra stazione…"
     }
   },
   "options": {
@@ -66,9 +66,25 @@
           "debug": "Scrive il contenuto completo di ogni richiesta nel registro di Home Assistant. Utile durante la configurazione di una stazione, rumoroso in seguito."
         }
       },
-      "instructions": {
-        "title": "Puntare una stazione su Home Assistant",
-        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+      "station": {
+        "title": "Passo 1 di 5 — la vostra stazione",
+        "description": "{image}\n\nÈ la vostra stazione meteo a creare i propri dispositivi e sensori: qui non c'è nulla da aggiungere. Quel che segue è ciò che va inserito nell'applicazione della stazione.\n\nAprite l'applicazione, verificate che il firmware della stazione sia aggiornato, poi aprite le sue impostazioni."
+      },
+      "settings": {
+        "title": "Passo 2 di 5 — servizio meteo",
+        "description": "{image}\n\nScegliete **Weather server**."
+      },
+      "server": {
+        "title": "Passo 3 di 5 — altro server",
+        "description": "{image}\n\nScegliete **Other Server**."
+      },
+      "form": {
+        "title": "Passo 4 di 5 — impostazioni del server",
+        "description": "{image}\n\nCompilate il modulo, poi premete **Save**.\n\n**URL**\n{urls}\nSenza `http://` né `https://`. Usate un indirizzo che la stazione possa raggiungere sulla vostra rete: non c'è alcun motivo di esporre Home Assistant a Internet per questo. Se la stazione non risolve i nomi, mettete l'indirizzo IP.\n\n**Station ID** — quello che volete. Diventerà il nome del dispositivo in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuto è un buon valore.\n\n**API type** — *WSLink API*. Scegliete *WUnderground API* solo se la vostra stazione non offre WSLink: trasporta metà delle letture e soltanto quattro canali.\n\n**Upload** — lasciatelo attivo.\n\n> ⏱️ Alcune stazioni perdono il Wi-Fi se ci si attarda su questa schermata. Tenete l'indirizzo a portata di mano, inseritelo e salvate."
+      },
+      "confirm": {
+        "title": "Passo 5 di 5 — confirm & exit",
+        "description": "{image}\n\nTornate indietro, poi premete **Confirm & Exit**.\n\n> ⚠️ **È Confirm & Exit a scrivere le impostazioni nella stazione.** Salvare da solo non cambia nulla.\n\nPremete Avanti una volta fatto."
       }
     }
   },

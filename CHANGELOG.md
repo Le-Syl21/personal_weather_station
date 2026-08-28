@@ -47,10 +47,15 @@
   the code, or given a unit or battery scale the specification does not state.
   All 108 data parameters are covered.
 
+- **The walkthrough is also reachable from the integration's options**, for
+  pointing a second station at Home Assistant. Both flows show the same five
+  screens, translated once and shown in both places.
+
 ### Known gaps
 
-- The wizard's new screens are English for now in the languages other than the
-  eight reviewed ones; the rest of the interface is translated as before.
+- The walkthrough's new screens are translated into the eight reviewed
+  languages and fall back to English in the other 56; the rest of the interface
+  is translated as before.
 
 ## 1.1.0
 

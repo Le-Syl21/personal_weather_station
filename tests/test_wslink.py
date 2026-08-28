@@ -140,3 +140,51 @@ async def test_stale_station_clock_falls_back_to_server_time(
 
     assert not state_of(hass, DEVICE_ID, "last_update").state.startswith("2000")
     assert state_of(hass, DEVICE_ID, "t1tem").state == "38"
+
+
+async def test_several_stations_share_one_config_entry(hass, setup_pws):
+    """
+    Nothing limits how many stations post to the integration.
+
+    A single config entry is deliberate — there is one HTTP endpoint and one
+    station key — but every station that posts gets its own device and its own
+    sensors under it.
+    """
+
+    entry, client = await setup_pws(password=STATION_KEY)
+
+    for station, temperature in (("jardin", 12.4), ("serre", 27.1), ("cave", 9.8)):
+        response = await client.get(
+            f"{WSLINK_ENDPOINT}?wsid={station}&wspw={STATION_KEY}"
+            f"&t1tem={temperature}&t1hum=60"
+        )
+        assert response.status == 200
+
+    await hass.async_block_till_done()
+
+    from homeassistant.helpers import device_registry as dr
+
+    from custom_components.personal_weather_station.const import DOMAIN
+
+    devices = {
+        identifier[1]
+        for device in dr.async_entries_for_config_entry(
+            dr.async_get(hass), entry.entry_id
+        )
+        for identifier in device.identifiers
+        if identifier[0] == DOMAIN
+    }
+    assert devices == {"jardin", "serre", "cave"}
+
+    # Each keeps its own readings.
+    assert state_of(hass, "jardin", "t1tem").state == "12.4"
+    assert state_of(hass, "serre", "t1tem").state == "27.1"
+    assert state_of(hass, "cave", "t1tem").state == "9.8"
+
+    # And its own north calibration, stored per station.
+    await client.get(f"{WSLINK_ENDPOINT}?wsid=jardin&wspw={STATION_KEY}&t1wdir=237")
+    await client.get(f"{WSLINK_ENDPOINT}?wsid=serre&wspw={STATION_KEY}&t1wdir=90")
+    await hass.async_block_till_done()
+
+    assert state_of(hass, "jardin", "wind_offset", "number") is not None
+    assert state_of(hass, "serre", "wind_offset", "number") is not None

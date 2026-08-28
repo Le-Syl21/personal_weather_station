@@ -59,10 +59,12 @@ def async_placeholders(hass, station_key):
             "you reach it at, port included."
         )
 
+    # Phrased to read correctly both after a dash and after a colon, since the
+    # setup screen and the failure screen both use it.
     key_hint = (
-        "the station key you set here"
+        "the one you entered here"
         if station_key
-        else "not needed — you left the key blank, so every request is accepted"
+        else "not needed, you left it blank — every request is accepted"
     )
 
     return {

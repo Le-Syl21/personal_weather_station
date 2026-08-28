@@ -79,7 +79,7 @@
           },
           "timeout": {
             "title": "Bisher nichts empfangen",
-            "description": "In {minutes} Minuten ist keine Übertragung eingegangen.\n\nPrüfenswert:\n\n  - Die in der Station eingetragene URL ist eine von diesen:\n{urls}\n  - Manche Bresser-Firmwares ab **3.02** lehnen einfaches HTTP ab und brauchen eine `https://`-Adresse.\n  - Der Stationsschlüssel ist {key_hint}.\n  - Das Übertragungsintervall ist möglicherweise schlicht länger als die Wartezeit.\n\nHat die Station Home Assistant erreicht, wurde aber abgewiesen, wird das getrennt in **Einstellungen → System → Reparaturen** gemeldet.\n\nSie können schließen. Der Hinweis bleibt, bis eine Station auftaucht, und ein erneutes Öffnen startet die Wartezeit neu."
+            "description": "In {minutes} Minuten ist keine Übertragung eingegangen.\n\n**Prüfen Sie die in der Station eingetragene URL.** Sie muss eine von diesen sein:\n{urls}\n\nDanach, nach Wahrscheinlichkeit:\n\n  - Manche Bresser-Firmwares ab **3.02** lehnen einfaches HTTP ab und brauchen eine `https://`-Adresse.\n  - Das Übertragungsintervall ist möglicherweise schlicht länger als die Wartezeit.\n  - **Stationsschlüssel**: {key_hint}.\n\nHat die Station Home Assistant erreicht, wurde aber abgewiesen, wird das getrennt in **Einstellungen → System → Reparaturen** gemeldet.\n\nSie können schließen. Der Hinweis bleibt, bis eine Station auftaucht, und ein erneutes Öffnen startet die Wartezeit neu."
           }
         },
         "progress": {

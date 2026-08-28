@@ -79,7 +79,7 @@
           },
           "timeout": {
             "title": "Todavía no se ha recibido nada",
-            "description": "No ha llegado ningún envío en {minutes} minutos.\n\nMerece la pena comprobar:\n\n  - La URL introducida en la estación es una de estas:\n{urls}\n  - Algunos firmwares Bresser a partir de la **3.02** rechazan el HTTP simple y necesitan una dirección `https://`.\n  - La clave de estación es {key_hint}.\n  - El intervalo de envío puede ser sencillamente más largo que la espera.\n\nSi la estación llegó a Home Assistant pero fue rechazada, se informa por separado en **Ajustes → Sistema → Reparaciones**.\n\nPuede cerrar. El aviso permanece hasta que aparezca una estación, y volver a abrirlo reinicia la espera."
+            "description": "No ha llegado ningún envío en {minutes} minutos.\n\n**Compruebe la URL introducida en la estación.** Debe ser una de estas:\n{urls}\n\nDespués, por orden de probabilidad:\n\n  - Algunos firmwares Bresser a partir de la **3.02** rechazan el HTTP simple y necesitan una dirección `https://`.\n  - El intervalo de envío puede ser sencillamente más largo que la espera.\n  - **Clave de estación**: {key_hint}.\n\nSi la estación llegó a Home Assistant pero fue rechazada, se informa por separado en **Ajustes → Sistema → Reparaciones**.\n\nPuede cerrar. El aviso permanece hasta que aparezca una estación, y volver a abrirlo reinicia la espera."
           }
         },
         "progress": {

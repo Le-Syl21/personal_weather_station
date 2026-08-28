@@ -79,7 +79,7 @@
           },
           "timeout": {
             "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nThings worth checking:\n\n  - The URL entered in the station is one of:\n{urls}\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an `https://` address.\n  - The station key is {key_hint}.\n  - The upload interval may simply be longer than the wait.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "description": "No upload arrived in {minutes} minutes.\n\n**Check the URL entered in the station.** It has to be one of these:\n{urls}\n\nThen, in order of likelihood:\n\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an `https://` address.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
           }
         },
         "progress": {

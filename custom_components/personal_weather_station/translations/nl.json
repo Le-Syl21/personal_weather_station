@@ -79,7 +79,7 @@
           },
           "timeout": {
             "title": "Nog niets ontvangen",
-            "description": "Er is in {minutes} minuten geen upload binnengekomen.\n\nDe moeite van het controleren waard:\n\n  - De URL in het station is een van deze:\n{urls}\n  - Sommige Bresser-firmwares vanaf **3.02** weigeren gewoon HTTP en hebben een `https://`-adres nodig.\n  - De stationssleutel is {key_hint}.\n  - Het uploadinterval is misschien simpelweg langer dan de wachttijd.\n\nHeeft het station Home Assistant wel bereikt maar werd het geweigerd, dan wordt dat apart gemeld bij **Instellingen → Systeem → Reparaties**.\n\nU kunt dit sluiten. Het blijft staan tot er een station opduikt, en opnieuw openen start de wachttijd opnieuw."
+            "description": "Er is in {minutes} minuten geen upload binnengekomen.\n\n**Controleer de URL in het station.** Die moet een van deze zijn:\n{urls}\n\nDaarna, op volgorde van waarschijnlijkheid:\n\n  - Sommige Bresser-firmwares vanaf **3.02** weigeren gewoon HTTP en hebben een `https://`-adres nodig.\n  - Het uploadinterval is misschien simpelweg langer dan de wachttijd.\n  - **Stationssleutel**: {key_hint}.\n\nHeeft het station Home Assistant wel bereikt maar werd het geweigerd, dan wordt dat apart gemeld bij **Instellingen → Systeem → Reparaties**.\n\nU kunt dit sluiten. Het blijft staan tot er een station opduikt, en opnieuw openen start de wachttijd opnieuw."
           }
         },
         "progress": {

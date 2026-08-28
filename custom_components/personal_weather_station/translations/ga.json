@@ -102,8 +102,8 @@
       }
     },
     "unknown_parameters": {
-      "title": "Station {station} is sending readings that are being dropped",
-      "description": "**{count} parameters** from **{station}** are not recognised, so their values are discarded on every upload:\n\n{parameters}\n\nThe usual cause is a station reporting more than its protocol can carry. Weather Underground has only **4 slots** for extra sensors; if your station offers **WSLink** as an *API type*, switching to it exposes seven channels and roughly twice as many readings.\n\nIf that is not it, these parameter names are exactly what a bug report needs: open one on the [issue tracker](https://github.com/MaxensF/personal_weather_station/issues) and they can be added.\n\nYou can also ignore this — nothing is broken, these particular values simply do not arrive."
+      "title": "Tá an stáisiún {station} ag seoladh léamha atá á gcaitheamh amach",
+      "description": "Ní aithnítear **{count} paraiméadar** ó **{station}**, agus mar sin caitear a luachanna amach le gach uaslódáil:\n\n{parameters}\n\nIs é an chúis is coitianta ná stáisiún a thuairiscíonn níos mó ná mar is féidir lena phrótacal a iompar. Níl ach **4 sliotán** ag Weather Underground do bhraiteoirí breise; má thairgeann do stáisiún **WSLink** mar *API type*, nochtann aistriú chuige seacht gcainéal agus timpeall dhá oiread léamha.\n\nMura é sin é, is iad na hainmneacha paraiméadar seo go díreach a theastaíonn ó thuairisc fhabht: oscail ceann ar an [rianaitheoir saincheisteanna](https://github.com/MaxensF/personal_weather_station/issues) agus is féidir iad a chur leis.\n\nIs féidir leat neamhaird a dhéanamh de seo freisin — níl aon rud briste, níl na luachanna áirithe seo ag teacht, sin an méid."
     }
   },
   "exceptions": {

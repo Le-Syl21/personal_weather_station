@@ -102,8 +102,8 @@
       }
     },
     "unknown_parameters": {
-      "title": "Station {station} is sending readings that are being dropped",
-      "description": "**{count} parameters** from **{station}** are not recognised, so their values are discarded on every upload:\n\n{parameters}\n\nThe usual cause is a station reporting more than its protocol can carry. Weather Underground has only **4 slots** for extra sensors; if your station offers **WSLink** as an *API type*, switching to it exposes seven channels and roughly twice as many readings.\n\nIf that is not it, these parameter names are exactly what a bug report needs: open one on the [issue tracker](https://github.com/MaxensF/personal_weather_station/issues) and they can be added.\n\nYou can also ignore this — nothing is broken, these particular values simply do not arrive."
+      "title": "Stasjon {station} stjoert mjittingen dy't fuortsmiten wurde",
+      "description": "**{count} parameters** fan **{station}** wurde net werkend, dus har wearden wurde by elke oplaad fuortsmiten:\n\n{parameters}\n\nDe gewoane oarsaak is in stasjon dat mear meldt as syn protokol drage kin. Weather Underground hat mar **4 plakken** foar ekstra sensoren; as jo stasjon **WSLink** as *API type* oanbiedt, jout oerstappen dêrop sân kanalen en sawat twa kear safolle mjittingen.\n\nIs dat it net, dan binne dizze parameternammen krekt wat in flaterrapport nedich hat: iepenje der ien op de [issue tracker](https://github.com/MaxensF/personal_weather_station/issues) en dan kinne se tafoege wurde.\n\nJo kinne dit ek negearje — der is neat stikken, dizze bepaalde wearden komme gewoan net oan."
     }
   },
   "exceptions": {

@@ -102,8 +102,8 @@
       }
     },
     "unknown_parameters": {
-      "title": "Station {station} is sending readings that are being dropped",
-      "description": "**{count} parameters** from **{station}** are not recognised, so their values are discarded on every upload:\n\n{parameters}\n\nThe usual cause is a station reporting more than its protocol can carry. Weather Underground has only **4 slots** for extra sensors; if your station offers **WSLink** as an *API type*, switching to it exposes seven channels and roughly twice as many readings.\n\nIf that is not it, these parameter names are exactly what a bug report needs: open one on the [issue tracker](https://github.com/MaxensF/personal_weather_station/issues) and they can be added.\n\nYou can also ignore this — nothing is broken, these particular values simply do not arrive."
+      "title": "Stöðin {station} sendir mælingar sem er fleygt",
+      "description": "**{count} færibreytur** frá **{station}** þekkjast ekki, svo gildum þeirra er fleygt í hverri sendingu:\n\n{parameters}\n\nVenjuleg ástæða er stöð sem tilkynnir meira en samskiptastaðall hennar ræður við. Weather Underground hefur aðeins **4 sæti** fyrir aukaskynjara; bjóði stöðin þín upp á **WSLink** sem *API type* opnar skipti yfir í hann sjö rásir og um það bil tvöfalt fleiri mælingar.\n\nSé ástæðan ekki sú eru einmitt þessi heiti færibreyta það sem villuskýrsla þarf: opnaðu eina á [villuskránni](https://github.com/MaxensF/personal_weather_station/issues) og þá má bæta þeim við.\n\nÞú mátt líka hunsa þetta — ekkert er bilað, þessi tilteknu gildi berast einfaldlega ekki."
     }
   },
   "exceptions": {

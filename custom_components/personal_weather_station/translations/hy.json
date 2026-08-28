@@ -102,8 +102,8 @@
       }
     },
     "unknown_parameters": {
-      "title": "Station {station} is sending readings that are being dropped",
-      "description": "**{count} parameters** from **{station}** are not recognised, so their values are discarded on every upload:\n\n{parameters}\n\nThe usual cause is a station reporting more than its protocol can carry. Weather Underground has only **4 slots** for extra sensors; if your station offers **WSLink** as an *API type*, switching to it exposes seven channels and roughly twice as many readings.\n\nIf that is not it, these parameter names are exactly what a bug report needs: open one on the [issue tracker](https://github.com/MaxensF/personal_weather_station/issues) and they can be added.\n\nYou can also ignore this — nothing is broken, these particular values simply do not arrive."
+      "title": "{station} կայանն ուղարկում է չափումներ, որոնք դեն են նետվում",
+      "description": "**{station}**-ից եկող **{count} պարամետր** չեն ճանաչվում, ուստի դրանց արժեքները դեն են նետվում ամեն ուղարկման ժամանակ․\n\n{parameters}\n\nՍովորական պատճառն այն է, որ կայանն ավելին է հաղորդում, քան իր արձանագրությունը կարող է տանել։ Weather Underground-ը լրացուցիչ տվիչների համար ունի ընդամենը **4 տեղ**․ եթե ձեր կայանն առաջարկում է **WSLink** որպես *API type*, դրան անցնելը բացում է յոթ ալիք և մոտավորապես երկու անգամ ավելի չափում։\n\nԵթե պատճառն այդ չէ, ապա հենց այս պարամետրերի անուններն են, ինչ պետք է սխալի հաղորդագրությանը․ բացեք այն [խնդիրների հետագծիչում](https://github.com/MaxensF/personal_weather_station/issues), և դրանք կկարողանան ավելացվել։\n\nԿարող եք նաև անտեսել սա — ոչինչ չի խափանվել, պարզապես այս կոնկրետ արժեքները չեն հասնում։"
     }
   },
   "exceptions": {

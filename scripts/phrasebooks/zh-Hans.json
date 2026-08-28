@@ -145,6 +145,8 @@
     "issues::legacy_entity_ids::fix_flow::step::confirm::description": "在 1.0.8 版本之前，本集成生成的实体 ID 会包含两次气象站名称，例如 `{example_old}`。新气象站不再如此。\n\n可以重命名 **{count} 个实体**，例如改为 `{example_new}`。\n\n历史记录和长期统计会自动跟随重命名。**自动化、脚本、场景和仪表板不会** —— 所有引用旧 ID 的地方都需要您自行更新。\n\n如果您更愿意保持原样，请忽略此修复项。",
     "issues::legacy_status_sensors::title": "连接和漏水状态仍是数字",
     "issues::legacy_status_sensors::fix_flow::step::confirm::title": "转换为二元传感器",
-    "issues::legacy_status_sensors::fix_flow::step::confirm::description": "连接和漏水状态以 1 或 0 上报。在 1.0.8 版本之前，它们显示为数值传感器，例如 `{example}`，无法配合 Home Assistant 的标准漏水卡片和提醒使用。新气象站现在会获得显示 **潮湿 / 干燥** 和 **已连接 / 已断开** 的二元传感器。\n\n可以转换 **{count} 个实体**。电量不受影响：它们仍是百分比，低电量提醒正是基于此。\n\n更换平台不是重命名，因此旧实体会被移除并作为 `binary_sensor` 重新创建。**它们已记录的历史将丢失** —— 这些读数没有长期统计，因此只影响原始历史 —— 并且**引用它们的自动化、脚本、场景和仪表板必须更新**。新实体将在气象站下次上传时出现。\n\n如果您更愿意保持原样，请忽略此修复项。"
+    "issues::legacy_status_sensors::fix_flow::step::confirm::description": "连接和漏水状态以 1 或 0 上报。在 1.0.8 版本之前，它们显示为数值传感器，例如 `{example}`，无法配合 Home Assistant 的标准漏水卡片和提醒使用。新气象站现在会获得显示 **潮湿 / 干燥** 和 **已连接 / 已断开** 的二元传感器。\n\n可以转换 **{count} 个实体**。电量不受影响：它们仍是百分比，低电量提醒正是基于此。\n\n更换平台不是重命名，因此旧实体会被移除并作为 `binary_sensor` 重新创建。**它们已记录的历史将丢失** —— 这些读数没有长期统计，因此只影响原始历史 —— 并且**引用它们的自动化、脚本、场景和仪表板必须更新**。新实体将在气象站下次上传时出现。\n\n如果您更愿意保持原样，请忽略此修复项。",
+    "issues::unknown_parameters::title": "气象站 {station} 发送的读数正被丢弃",
+    "issues::unknown_parameters::description": "来自 **{station}** 的 **{count} 个参数** 无法识别，因此每次上传时其数值都会被丢弃：\n\n{parameters}\n\n常见原因是气象站上报的内容超出了其协议所能承载的范围。Weather Underground 只有 **4 个** 额外传感器的位置；如果您的气象站在 *API type* 中提供 **WSLink**，切换过去可获得七个通道以及大约两倍的读数。\n\n如果原因并非如此，这些参数名正是一份缺陷报告所需要的：请在 [问题追踪器](https://github.com/MaxensF/personal_weather_station/issues) 中提交，之后即可将它们加入。\n\n您也可以忽略此提示 — 没有任何东西损坏，只是这些特定数值没有送达。"
   }
 }

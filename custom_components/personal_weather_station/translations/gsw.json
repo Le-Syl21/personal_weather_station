@@ -102,8 +102,8 @@
       }
     },
     "unknown_parameters": {
-      "title": "Station {station} is sending readings that are being dropped",
-      "description": "**{count} parameters** from **{station}** are not recognised, so their values are discarded on every upload:\n\n{parameters}\n\nThe usual cause is a station reporting more than its protocol can carry. Weather Underground has only **4 slots** for extra sensors; if your station offers **WSLink** as an *API type*, switching to it exposes seven channels and roughly twice as many readings.\n\nIf that is not it, these parameter names are exactly what a bug report needs: open one on the [issue tracker](https://github.com/MaxensF/personal_weather_station/issues) and they can be added.\n\nYou can also ignore this — nothing is broken, these particular values simply do not arrive."
+      "title": "D Stazion {station} schickt Wärt, wo verworfe werde",
+      "description": "**{count} Parameter** vo **{station}** werde nid erkennt, drum werde ihri Wärt bi jedem Uebertrag verworfe:\n\n{parameters}\n\nDe üblich Grund isch e Stazion, wo meh meldet, als ihres Protokoll cha trage. Weather Underground het nume **4 Plätz** für zuesätzligi Sensore; wenn dini Stazion **WSLink** als *API type* aabietet, macht e Wächsel dert ane sibe Kanäl und öppe doppelt so vil Wärt zuegänglich.\n\nWenn's das nid isch, si genau die Parameternäme, wo e Fählermäldig bruucht: mach eini uf im [Issue-Tracker](https://github.com/MaxensF/personal_weather_station/issues) uf, denn chöi si zuegfüegt werde.\n\nDu chasch das au ignoriere — es isch nüt kaputt, die bestimmte Wärt chöme eifach nid aa."
     }
   },
   "exceptions": {

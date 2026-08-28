@@ -102,8 +102,8 @@
       }
     },
     "unknown_parameters": {
-      "title": "Station {station} is sending readings that are being dropped",
-      "description": "**{count} parameters** from **{station}** are not recognised, so their values are discarded on every upload:\n\n{parameters}\n\nThe usual cause is a station reporting more than its protocol can carry. Weather Underground has only **4 slots** for extra sensors; if your station offers **WSLink** as an *API type*, switching to it exposes seven channels and roughly twice as many readings.\n\nIf that is not it, these parameter names are exactly what a bug report needs: open one on the [issue tracker](https://github.com/MaxensF/personal_weather_station/issues) and they can be added.\n\nYou can also ignore this — nothing is broken, these particular values simply do not arrive."
+      "title": "स्टेशन {station} ऐसे मान भेज रहा है जो छोड़ दिए जा रहे हैं",
+      "description": "**{station}** से आए **{count} पैरामीटर** पहचाने नहीं जा रहे, इसलिए हर अपलोड पर उनके मान छोड़ दिए जाते हैं:\n\n{parameters}\n\nआम वजह यह होती है कि स्टेशन अपने प्रोटोकॉल की क्षमता से ज़्यादा भेज रहा है। अतिरिक्त सेंसर के लिए Weather Underground में केवल **4 स्थान** हैं; यदि आपका स्टेशन *API type* के रूप में **WSLink** देता है, तो उस पर जाने से सात चैनल और लगभग दोगुने मान मिलते हैं।\n\nयदि कारण यह नहीं है, तो किसी बग रिपोर्ट को ठीक इन्हीं पैरामीटर नामों की ज़रूरत होती है: [इशू ट्रैकर](https://github.com/MaxensF/personal_weather_station/issues) पर एक रिपोर्ट खोलें, तब उन्हें जोड़ा जा सकेगा।\n\nआप इसे अनदेखा भी कर सकते हैं — कुछ भी टूटा नहीं है, बस ये विशेष मान नहीं पहुँच रहे।"
     }
   },
   "exceptions": {

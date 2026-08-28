@@ -9,8 +9,8 @@
         }
       },
       "instructions": {
-        "title": "Set up your weather station",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Socraigh do stáisiún aimsire",
+        "description": "Is é do stáisiún aimsire a chruthaíonn na gléasanna agus na braiteoirí — níl aon rud le cur leis anseo.\n\nIn aip an stáisiúin, oscail do stáisiún, ansin **Settings → Weather server → Other Server**, agus líon isteach:\n\n**URL**\n{urls}\nGan `http://` ná `https://`. Bain úsáid as seoladh ar féidir le do stáisiún teacht air ar do líonra féin — níl aon chúis Home Assistant a nochtadh don idirlíon chuige seo. Mura réitíonn do stáisiún ainmneacha, úsáid an seoladh IP.\n\n**Station ID** — cibé rud is mian leat. Beidh sé ina ainm gléis in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — is luach maith é 1 nóiméad.\n\n**API type** — *WUnderground API*.\n\n**Upload** — fág cumasaithe é.\n\nBrúigh **Save**, téigh ar ais, ansin brúigh **Confirm & Exit**.\n\n> ⚠️ **Is é Confirm & Exit a scríobhann na socruithe chuig an stáisiún.** Ní athraíonn sábháil amháin faic. Tagann do bhraiteoirí i láthair soicind ina dhiaidh.\n\nIs iad na críochphointí atá ag éisteacht:\n{endpoints}"
       }
     },
     "abort": {
@@ -20,10 +20,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Personal Weather Station",
+        "title": "Stáisiún aimsire pearsanta",
         "menu_options": {
-          "options": "Settings",
-          "instructions": "How to point a station at Home Assistant"
+          "options": "Socruithe",
+          "instructions": "Conas stáisiún a dhíriú ar Home Assistant"
         }
       },
       "options": {
@@ -40,8 +40,8 @@
         }
       },
       "instructions": {
-        "title": "Point a station at Home Assistant",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Dírigh stáisiún ar Home Assistant",
+        "description": "Is é do stáisiún aimsire a chruthaíonn na gléasanna agus na braiteoirí — níl aon rud le cur leis anseo.\n\nIn aip an stáisiúin, oscail do stáisiún, ansin **Settings → Weather server → Other Server**, agus líon isteach:\n\n**URL**\n{urls}\nGan `http://` ná `https://`. Bain úsáid as seoladh ar féidir le do stáisiún teacht air ar do líonra féin — níl aon chúis Home Assistant a nochtadh don idirlíon chuige seo. Mura réitíonn do stáisiún ainmneacha, úsáid an seoladh IP.\n\n**Station ID** — cibé rud is mian leat. Beidh sé ina ainm gléis in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — is luach maith é 1 nóiméad.\n\n**API type** — *WUnderground API*.\n\n**Upload** — fág cumasaithe é.\n\nBrúigh **Save**, téigh ar ais, ansin brúigh **Confirm & Exit**.\n\n> ⚠️ **Is é Confirm & Exit a scríobhann na socruithe chuig an stáisiún.** Ní athraíonn sábháil amháin faic. Tagann do bhraiteoirí i láthair soicind ina dhiaidh.\n\nIs iad na críochphointí atá ag éisteacht:\n{endpoints}"
       }
     }
   },
@@ -55,49 +55,49 @@
       "description": "Sheol stáisiún aimsire ag {ip} sonraí gan aitheantóir stáisiúin.\n\nSocraigh Sender ID san aip WSLink, nó paraiméadar ID i gcumraíocht an stáisiúin. Imeoidh an teachtaireacht seo aisti féin a luaithe a ghlacfar le hiarratas ó {ip}."
     },
     "legacy_entity_ids": {
-      "title": "Entity IDs repeat the station name",
+      "title": "Athdhéanann aitheantóirí na n-aonán ainm an stáisiúin",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Shorten the entity IDs",
-            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Giorraigh aitheantóirí na n-aonán",
+            "description": "Suas go dtí leagan 1.0.8 thóg an comhtháthú seo aitheantóirí aonán ina bhfuil ainm an stáisiúin faoi dhó, mar `{example_old}`. Ní dhéanann stáisiúin nua é sin a thuilleadh.\n\nIs féidir **{count} aonán** a athainmniú, mar shampla go `{example_new}`.\n\nLeanann an stair agus na staitisticí fadtéarmacha an t-athainmniú go huathoibríoch. **Ní leanann uathoibrithe, scripteanna, radhairc ná deaisbhoird** — beidh ort féin gach rud a thagraíonn do na sean-aitheantóirí a nuashonrú.\n\nMás fearr leat iad a fhágáil mar atá, déan neamhaird den deisiúchán seo."
           }
         }
       }
     },
     "legacy_status_sensors": {
-      "title": "Connection and leak readings are still numbers",
+      "title": "Is uimhreacha iad léamha an cheangail agus an sceite fós",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Convert to binary sensors",
-            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Tiontaigh go braiteoirí dénártha",
+            "description": "Tuairiscítear léamha an cheangail agus sceite uisce mar 1 nó 0. Suas go dtí leagan 1.0.8 taispeánadh iad mar bhraiteoirí uimhriúla, mar `{example}`, nach féidir a úsáid le cártaí agus foláirimh sceite caighdeánacha Home Assistant. Faigheann stáisiúin nua braiteoirí dénártha anois a thaispeánann **Fliuch / Tirim** agus **Ceangailte / Dícheangailte**.\n\nIs féidir **{count} aonán** a thiontú. Ní chuirtear isteach ar leibhéil ceallraí: fanann siad ina gcéatadáin, agus is orthu sin a oibríonn na foláirimh ceallraí ísle.\n\nNí athainmniú é ardán a athrú, mar sin baintear na sean-aonáin agus atógtar iad mar `binary_sensor`. **Cailltear a stair thaifeadta** — níl aon staitisticí fadtéarmacha ag na léamha seo, mar sin ní chuirtear isteach ach ar an stair amh — agus **caithfear uathoibrithe, scripteanna, radhairc agus deaisbhoird a thagraíonn dóibh a nuashonrú**. Tagann na haonáin nua chun cinn ag an gcéad uaslódáil eile ón stáisiún.\n\nMás fearr leat iad a fhágáil mar atá, déan neamhaird den deisiúchán seo."
           }
         }
       }
     },
     "no_station_yet": {
-      "title": "No weather station has sent anything yet",
+      "title": "Níor sheol aon stáisiún aimsire rud ar bith fós",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Set up your weather station",
-            "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+            "title": "Socraigh do stáisiún aimsire",
+            "description": "Is é do stáisiún aimsire a chruthaíonn na gléasanna agus na braiteoirí — níl aon rud le cur leis anseo.\n\nIn aip an stáisiúin, oscail do stáisiún, ansin **Settings → Weather server → Other Server**, agus líon isteach:\n\n**URL**\n{urls}\nGan `http://` ná `https://`. Bain úsáid as seoladh ar féidir le do stáisiún teacht air ar do líonra féin — níl aon chúis Home Assistant a nochtadh don idirlíon chuige seo. Mura réitíonn do stáisiún ainmneacha, úsáid an seoladh IP.\n\n**Station ID** — cibé rud is mian leat. Beidh sé ina ainm gléis in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — is luach maith é 1 nóiméad.\n\n**API type** — *WUnderground API*.\n\n**Upload** — fág cumasaithe é.\n\nBrúigh **Save**, téigh ar ais, ansin brúigh **Confirm & Exit**.\n\n> ⚠️ **Is é Confirm & Exit a scríobhann na socruithe chuig an stáisiún.** Ní athraíonn sábháil amháin faic. Tagann do bhraiteoirí i láthair soicind ina dhiaidh.\n\nIs iad na críochphointí atá ag éisteacht:\n{endpoints}"
           },
           "received": {
-            "title": "Your station is through",
-            "description": "**{station}** has sent its first upload. Its sensors are being created now, and more appear as the station reports them.\n\nThis message will not come back."
+            "title": "Tháinig do stáisiún tríd",
+            "description": "Sheol **{station}** a chéad uaslódáil. Tá a bhraiteoirí á gcruthú anois, agus tiocfaidh tuilleadh chun cinn de réir mar a thuairiscíonn an stáisiún iad.\n\nNí thiocfaidh an teachtaireacht seo ar ais."
           },
           "timeout": {
-            "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nIn order of likelihood:\n\n  - **Did you press Confirm & Exit?** Saving the server screen alone does not write anything to the station.\n  - The **URL** has to be {urls_inline}, without `http://`, and reachable by the station on your network.\n  - **Upload** must be enabled on that screen.\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an address serving HTTPS.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "title": "Faic faighte fós",
+            "description": "Níor tháinig aon uaslódáil i gceann {minutes} nóiméad.\n\nIn ord dóchúlachta:\n\n  - **Ar bhrúigh tú Confirm & Exit?** Ní scríobhann sábháil scáileán an fhreastalaí amháin faic chuig an stáisiún.\n  - Caithfidh an **URL** a bheith {urls_inline}, gan `http://`, agus insroichte ag an stáisiún ar do líonra.\n  - Caithfidh **Upload** a bheith cumasaithe ar an scáileán sin.\n  - Diúltaíonn roinnt dochtearraí Bresser ó **3.02** ar aghaidh do ghnáth-HTTP agus teastaíonn seoladh a fhreastalaíonn ar HTTPS uathu.\n  - D'fhéadfadh an t-eatramh uaslódála a bheith níos faide ná an fanacht go simplí.\n  - **Eochair an stáisiúin**: {key_hint}.\n\nMá shroich an stáisiún Home Assistant ach gur diúltaíodh dó, tuairiscítear é sin ar leithligh in **Socruithe → Córas → Deisiúcháin**.\n\nIs féidir leat é seo a dhúnadh. Fanann sé anseo go dtí go dtagann stáisiún chun cinn, agus tosaíonn a athoscailt an fanacht as an nua."
           }
         },
         "progress": {
-          "waiting_for_station": "Waiting for your station's first upload…"
+          "waiting_for_station": "Ag fanacht le chéad uaslódáil do stáisiúin…"
         },
         "abort": {
-          "not_received": "Nothing has arrived yet, so this is left open. It stays in Repairs until a station shows up, and you can reopen it to wait again."
+          "not_received": "Níor tháinig faic fós, mar sin fágtar é seo ar oscailt. Fanann sé i nDeisiúcháin go dtí go dtagann stáisiún chun cinn, agus is féidir leat é a athoscailt chun fanacht arís."
         }
       }
     }

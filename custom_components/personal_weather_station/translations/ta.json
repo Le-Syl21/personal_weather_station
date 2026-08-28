@@ -20,6 +20,13 @@
   "options": {
     "step": {
       "init": {
+        "title": "Personal Weather Station",
+        "menu_options": {
+          "options": "Settings",
+          "instructions": "How to point a station at Home Assistant"
+        }
+      },
+      "options": {
         "title": "தனிப்பட்ட வானிலை நிலையம்",
         "description": "உங்கள் வானிலை நிலையங்களின் தரவு நிராகரிக்கப்படாமல் இருக்க அவை அனுப்ப வேண்டிய நிலைய விசையை இங்கே அமைக்கவும். புலத்தை காலியாக விட்டால், அனைத்து கோரிக்கைகளும் ஏற்கப்படும்.",
         "data": {
@@ -31,6 +38,10 @@
           "availability_timeout": "உணரிகள் கிடைக்கவில்லை எனக் குறிக்கப்படுவதற்கு முன் ஒரு நிலையம் எவ்வளவு நேரம் அமைதியாக இருக்கலாம். 0 என்றால் ஒருபோதும் குறிக்க வேண்டாம்.",
           "debug": "ஒவ்வொரு கோரிக்கையின் முழு உள்ளடக்கத்தையும் Home Assistant பதிவேட்டில் எழுதுகிறது. ஒரு நிலையத்தை அமைக்கும்போது பயனுள்ளது, பிறகு தொந்தரவானது."
         }
+      },
+      "instructions": {
+        "title": "Point a station at Home Assistant",
+        "description": "Your weather station is what creates the devices and sensors — there is no device to add here.\n\nEnter the following in your station, or in the WSLink app:\n\n**URL**\n{urls}\n\n**Sender ID** — anything you like, it becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**API type** — *WUnderground API* or *WSLink*, either works.\n\n**Upload interval** — 60 seconds is a good default.\n\nYour sensors appear on the first upload received. If nothing shows up, check **Settings → System → Repairs**: a rejected station is reported there.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },

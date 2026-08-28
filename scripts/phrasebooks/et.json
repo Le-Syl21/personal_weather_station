@@ -112,17 +112,17 @@
     "config::step::user::description": "Määrake siin jaamavõti, mille teie ilmajaamad peavad edastama, et nende andmeid ei lükataks tagasi. Kui jätate välja tühjaks, võetakse vastu kõik päringud.",
     "config::step::user::data::password": "Jaamavõti",
     "config::abort::single_instance_allowed": "Juba seadistatud. Üksainus eksemplar teenindab kõiki ilmajaamu.",
-    "options::step::init::title": "Isiklik ilmajaam",
-    "options::step::init::description": "Määrake siin jaamavõti, mille teie ilmajaamad peavad edastama, et nende andmeid ei lükataks tagasi. Kui jätate välja tühjaks, võetakse vastu kõik päringud.",
-    "options::step::init::data::password": "Jaamavõti",
-    "options::step::init::data::availability_timeout": "Märgi kättesaamatuks pärast (minutit)",
-    "options::step::init::data::debug": "Logi iga sissetulev päring",
-    "options::step::init::data_description::availability_timeout": "Kui kaua tohib jaam vaikida, enne kui tema andurid märgitakse kättesaamatuks. 0 tähendab, et neid ei märgita kunagi.",
-    "options::step::init::data_description::debug": "Kirjutab iga päringu kogu sisu Home Assistanti logisse. Kasulik jaama seadistamisel, hiljem lärmakas.",
     "issues::invalid_station_key::title": "Ilmajaam tagasi lükatud: vale jaamavõti",
     "issues::invalid_station_key::description": "Ilmajaam aadressil {ip} üritas saata andmeid nimega `{station_id}`, edastamata oodatud jaamavõtit.\n\nKontrollige, kas jaamas või WSLinki rakenduses seadistatud võti ühtib selles sidumises määratuga. See teade kaob iseenesest, niipea kui päring aadressilt {ip} vastu võetakse.",
     "issues::missing_device_id::title": "Ilmajaam tagasi lükatud: jaama identifikaator puudub",
     "issues::missing_device_id::description": "Ilmajaam aadressil {ip} saatis andmeid ilma jaama identifikaatorita.\n\nMäärake WSLinki rakenduses Sender ID või jaama seadistuses ID-parameeter. See teade kaob iseenesest, niipea kui päring aadressilt {ip} vastu võetakse.",
-    "exceptions::no_wind_direction::message": "Jaam {device} ei ole veel tuule suunda edastanud, seega pole millegi järgi kalibreerida. Oodake järgmist saadetist ja proovige uuesti."
+    "exceptions::no_wind_direction::message": "Jaam {device} ei ole veel tuule suunda edastanud, seega pole millegi järgi kalibreerida. Oodake järgmist saadetist ja proovige uuesti.",
+    "options::step::options::title": "Isiklik ilmajaam",
+    "options::step::options::description": "Määrake siin jaamavõti, mille teie ilmajaamad peavad edastama, et nende andmeid ei lükataks tagasi. Kui jätate välja tühjaks, võetakse vastu kõik päringud.",
+    "options::step::options::data::password": "Jaamavõti",
+    "options::step::options::data::availability_timeout": "Märgi kättesaamatuks pärast (minutit)",
+    "options::step::options::data::debug": "Logi iga sissetulev päring",
+    "options::step::options::data_description::availability_timeout": "Kui kaua tohib jaam vaikida, enne kui tema andurid märgitakse kättesaamatuks. 0 tähendab, et neid ei märgita kunagi.",
+    "options::step::options::data_description::debug": "Kirjutab iga päringu kogu sisu Home Assistanti logisse. Kasulik jaama seadistamisel, hiljem lärmakas."
   }
 }

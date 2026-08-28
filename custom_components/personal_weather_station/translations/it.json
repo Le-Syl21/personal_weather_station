@@ -21,6 +21,13 @@
     "step": {
       "init": {
         "title": "Stazione meteo personale",
+        "menu_options": {
+          "options": "Impostazioni",
+          "instructions": "Come puntare una stazione su Home Assistant"
+        }
+      },
+      "options": {
+        "title": "Stazione meteo personale",
         "description": "Imposta qui una chiave di stazione che le tue stazioni meteo dovranno trasmettere affinché i loro dati non vengano rifiutati. Se lasci il campo vuoto, tutte le richieste saranno accettate.",
         "data": {
           "password": "Chiave di stazione",
@@ -31,6 +38,10 @@
           "availability_timeout": "Per quanto tempo una stazione può restare in silenzio prima che i suoi sensori vengano segnati come non disponibili. 0 per non segnarli mai.",
           "debug": "Scrive il contenuto completo di ogni richiesta nel registro di Home Assistant. Utile durante la configurazione di una stazione, rumoroso in seguito."
         }
+      },
+      "instructions": {
+        "title": "Puntare una stazione su Home Assistant",
+        "description": "È la tua stazione meteo a creare i dispositivi e i sensori — qui non c'è nessun dispositivo da aggiungere.\n\nInserisci quanto segue nella stazione, o nell'app WSLink:\n\n**URL**\n{urls}\n\n**Sender ID** — quello che preferisci, diventerà il nome del dispositivo in Home Assistant.\n\n**Chiave di stazione** — {key_hint}.\n\n**Tipo di API** — *WUnderground API* o *WSLink*, funzionano entrambi.\n\n**Intervallo di invio** — 60 secondi è un buon valore predefinito.\n\nI tuoi sensori compaiono al primo invio ricevuto. Se non arriva nulla, guarda in **Impostazioni → Sistema → Riparazioni**: una stazione rifiutata viene segnalata lì.\n\nGli endpoint in ascolto sono:\n{endpoints}"
       }
     }
   },

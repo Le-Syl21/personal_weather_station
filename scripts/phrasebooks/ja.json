@@ -112,17 +112,17 @@
     "config::step::user::description": "気象観測所のデータが拒否されないように、観測所が送信する必要のあるステーションキーをここで設定します。空欄のままにすると、すべてのリクエストが受け入れられます。",
     "config::step::user::data::password": "ステーションキー",
     "config::abort::single_instance_allowed": "すでに設定済みです。1つのインスタンスですべての気象観測所に対応します。",
-    "options::step::init::title": "パーソナル気象観測所",
-    "options::step::init::description": "気象観測所のデータが拒否されないように、観測所が送信する必要のあるステーションキーをここで設定します。空欄のままにすると、すべてのリクエストが受け入れられます。",
-    "options::step::init::data::password": "ステーションキー",
-    "options::step::init::data::availability_timeout": "利用不可とするまでの時間（分）",
-    "options::step::init::data::debug": "受信したリクエストをすべてログに記録",
-    "options::step::init::data_description::availability_timeout": "センサーが利用不可と表示されるまでに観測所が無通信でいられる時間。0 にすると利用不可にしません。",
-    "options::step::init::data_description::debug": "各リクエストの全内容を Home Assistant のログに書き込みます。観測所の設定中は便利ですが、その後は煩雑になります。",
     "issues::invalid_station_key::title": "気象観測所を拒否しました: ステーションキーが違います",
     "issues::invalid_station_key::description": "{ip} の気象観測所が、期待されるステーションキーを送信せずに `{station_id}` としてデータを送信しようとしました。\n\n観測所または WSLink アプリで設定されたキーが、この統合で設定したものと一致しているか確認してください。このメッセージは、{ip} からのリクエストが受け入れられ次第、自動的に消えます。",
     "issues::missing_device_id::title": "気象観測所を拒否しました: ステーション識別子がありません",
     "issues::missing_device_id::description": "{ip} の気象観測所が、ステーション識別子なしでデータを送信しました。\n\nWSLink アプリで Sender ID を、または観測所の設定で ID パラメーターを設定してください。このメッセージは、{ip} からのリクエストが受け入れられ次第、自動的に消えます。",
-    "exceptions::no_wind_direction::message": "観測所 {device} はまだ風向を送信していないため、基準にするものがありません。次の送信を待ってから再度お試しください。"
+    "exceptions::no_wind_direction::message": "観測所 {device} はまだ風向を送信していないため、基準にするものがありません。次の送信を待ってから再度お試しください。",
+    "options::step::options::title": "パーソナル気象観測所",
+    "options::step::options::description": "気象観測所のデータが拒否されないように、観測所が送信する必要のあるステーションキーをここで設定します。空欄のままにすると、すべてのリクエストが受け入れられます。",
+    "options::step::options::data::password": "ステーションキー",
+    "options::step::options::data::availability_timeout": "利用不可とするまでの時間（分）",
+    "options::step::options::data::debug": "受信したリクエストをすべてログに記録",
+    "options::step::options::data_description::availability_timeout": "センサーが利用不可と表示されるまでに観測所が無通信でいられる時間。0 にすると利用不可にしません。",
+    "options::step::options::data_description::debug": "各リクエストの全内容を Home Assistant のログに書き込みます。観測所の設定中は便利ですが、その後は煩雑になります。"
   }
 }

@@ -112,17 +112,17 @@
     "config::step::user::description": "Setzt hei e Statiounsschlëssel, deen Är Wiederstatiounen muss matschécken, fir datt hir Donnéeë net refuséiert ginn. Wann Dir d'Feld eidel loosst, ginn all Ufroe akzeptéiert.",
     "config::step::user::data::password": "Statiounsschlëssel",
     "config::abort::single_instance_allowed": "Scho konfiguréiert. Eng eenzeg Instanz bedéngt all Wiederstatiounen.",
-    "options::step::init::title": "Perséinlech Wiederstatioun",
-    "options::step::init::description": "Setzt hei e Statiounsschlëssel, deen Är Wiederstatiounen muss matschécken, fir datt hir Donnéeë net refuséiert ginn. Wann Dir d'Feld eidel loosst, ginn all Ufroe akzeptéiert.",
-    "options::step::init::data::password": "Statiounsschlëssel",
-    "options::step::init::data::availability_timeout": "Als net verfügbar markéieren no (Minutten)",
-    "options::step::init::data::debug": "All erakommend Ufro protokolléieren",
-    "options::step::init::data_description::availability_timeout": "Wéi laang eng Statioun stomm bleiwe kann, ier hir Sensore als net verfügbar markéiert ginn. 0 heescht ni markéieren.",
-    "options::step::init::data_description::debug": "Schreift de ganzen Inhalt vun all Ufro an de Home-Assistant-Protokoll. Nëtzlech beim Ariichte vun enger Statioun, stéierend duerno.",
     "issues::invalid_station_key::title": "Wiederstatioun refuséiert: falsche Statiounsschlëssel",
     "issues::invalid_station_key::description": "Eng Wiederstatioun op {ip} huet probéiert, Donnéeën als `{station_id}` ze schécken, ouni de erwaarte Statiounsschlëssel matzeschécken.\n\nKontrolléiert, ob de Schlëssel an der Statioun oder an der WSLink-App mat deem iwwereneestëmmt, deen hei agestallt ass. Dës Meldung verschwënnt vu selwer, soubal eng Ufro vun {ip} akzeptéiert gëtt.",
     "issues::missing_device_id::title": "Wiederstatioun refuséiert: keng Statiounskennung",
     "issues::missing_device_id::description": "Eng Wiederstatioun op {ip} huet Donnéeën ouni Statiounskennung geschéckt.\n\nSetzt an der WSLink-App eng Sender ID, oder en ID-Parameter an der Konfiguratioun vun der Statioun. Dës Meldung verschwënnt vu selwer, soubal eng Ufro vun {ip} akzeptéiert gëtt.",
-    "exceptions::no_wind_direction::message": "D'Statioun {device} huet nach keng Wandrichtung geschéckt, dofir gëtt et näischt fir ze kalibréieren. Waart op den nächsten Upload a probéiert et nach eng Kéier."
+    "exceptions::no_wind_direction::message": "D'Statioun {device} huet nach keng Wandrichtung geschéckt, dofir gëtt et näischt fir ze kalibréieren. Waart op den nächsten Upload a probéiert et nach eng Kéier.",
+    "options::step::options::title": "Perséinlech Wiederstatioun",
+    "options::step::options::description": "Setzt hei e Statiounsschlëssel, deen Är Wiederstatiounen muss matschécken, fir datt hir Donnéeë net refuséiert ginn. Wann Dir d'Feld eidel loosst, ginn all Ufroe akzeptéiert.",
+    "options::step::options::data::password": "Statiounsschlëssel",
+    "options::step::options::data::availability_timeout": "Als net verfügbar markéieren no (Minutten)",
+    "options::step::options::data::debug": "All erakommend Ufro protokolléieren",
+    "options::step::options::data_description::availability_timeout": "Wéi laang eng Statioun stomm bleiwe kann, ier hir Sensore als net verfügbar markéiert ginn. 0 heescht ni markéieren.",
+    "options::step::options::data_description::debug": "Schreift de ganzen Inhalt vun all Ufro an de Home-Assistant-Protokoll. Nëtzlech beim Ariichte vun enger Statioun, stéierend duerno."
   }
 }

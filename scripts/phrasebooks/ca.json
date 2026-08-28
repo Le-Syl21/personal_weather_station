@@ -112,17 +112,17 @@
     "config::step::user::description": "Definiu aquí una clau d'estació que les vostres estacions meteorològiques hauran de transmetre perquè les seves dades no siguin rebutjades. Si deixeu el camp buit, s'acceptaran totes les sol·licituds.",
     "config::step::user::data::password": "Clau d'estació",
     "config::abort::single_instance_allowed": "Ja configurat. Una sola instància serveix totes les estacions meteorològiques.",
-    "options::step::init::title": "Estació meteorològica personal",
-    "options::step::init::description": "Definiu aquí una clau d'estació que les vostres estacions meteorològiques hauran de transmetre perquè les seves dades no siguin rebutjades. Si deixeu el camp buit, s'acceptaran totes les sol·licituds.",
-    "options::step::init::data::password": "Clau d'estació",
-    "options::step::init::data::availability_timeout": "Marcar com a no disponible després de (minuts)",
-    "options::step::init::data::debug": "Registrar cada sol·licitud rebuda",
-    "options::step::init::data_description::availability_timeout": "Quant de temps pot romandre en silenci una estació abans que els seus sensors es marquin com a no disponibles. 0 per no marcar-los mai.",
-    "options::step::init::data_description::debug": "Escriu el contingut complet de cada sol·licitud al registre de Home Assistant. Útil mentre configureu una estació, sorollós després.",
     "issues::invalid_station_key::title": "Estació meteorològica rebutjada: clau d'estació incorrecta",
     "issues::invalid_station_key::description": "Una estació meteorològica a {ip} ha intentat enviar dades com a `{station_id}` sense transmetre la clau d'estació esperada.\n\nComproveu que la clau configurada a l'estació o a l'aplicació WSLink coincideix amb la definida en aquesta integració. Aquest missatge desapareixerà tot sol quan s'accepti una sol·licitud procedent de {ip}.",
     "issues::missing_device_id::title": "Estació meteorològica rebutjada: sense identificador d'estació",
     "issues::missing_device_id::description": "Una estació meteorològica a {ip} ha enviat dades sense identificador d'estació.\n\nDefiniu un Sender ID a l'aplicació WSLink, o un paràmetre ID a la configuració de l'estació. Aquest missatge desapareixerà tot sol quan s'accepti una sol·licitud procedent de {ip}.",
-    "exceptions::no_wind_direction::message": "L'estació {device} encara no ha transmès cap direcció del vent, així que no hi ha res amb què calibrar. Espereu el proper enviament i torneu-ho a provar."
+    "exceptions::no_wind_direction::message": "L'estació {device} encara no ha transmès cap direcció del vent, així que no hi ha res amb què calibrar. Espereu el proper enviament i torneu-ho a provar.",
+    "options::step::options::title": "Estació meteorològica personal",
+    "options::step::options::description": "Definiu aquí una clau d'estació que les vostres estacions meteorològiques hauran de transmetre perquè les seves dades no siguin rebutjades. Si deixeu el camp buit, s'acceptaran totes les sol·licituds.",
+    "options::step::options::data::password": "Clau d'estació",
+    "options::step::options::data::availability_timeout": "Marcar com a no disponible després de (minuts)",
+    "options::step::options::data::debug": "Registrar cada sol·licitud rebuda",
+    "options::step::options::data_description::availability_timeout": "Quant de temps pot romandre en silenci una estació abans que els seus sensors es marquin com a no disponibles. 0 per no marcar-los mai.",
+    "options::step::options::data_description::debug": "Escriu el contingut complet de cada sol·licitud al registre de Home Assistant. Útil mentre configureu una estació, sorollós després."
   }
 }

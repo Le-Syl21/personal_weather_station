@@ -21,6 +21,13 @@
     "step": {
       "init": {
         "title": "Persönliche Wetterstation",
+        "menu_options": {
+          "options": "Einstellungen",
+          "instructions": "Eine Station auf Home Assistant ausrichten"
+        }
+      },
+      "options": {
+        "title": "Persönliche Wetterstation",
         "description": "Legen Sie hier einen Stationsschlüssel fest, den Ihre Wetterstationen übertragen müssen, damit ihre Daten nicht abgewiesen werden. Wenn Sie das Feld leer lassen, werden alle Anfragen akzeptiert.",
         "data": {
           "password": "Stationsschlüssel",
@@ -31,6 +38,10 @@
           "availability_timeout": "Wie lange eine Station stumm bleiben darf, bevor ihre Sensoren als nicht verfügbar markiert werden. 0 bedeutet, dass sie nie markiert werden.",
           "debug": "Schreibt den vollständigen Inhalt jeder Anfrage in das Home-Assistant-Protokoll. Nützlich beim Einrichten einer Station, danach störend."
         }
+      },
+      "instructions": {
+        "title": "Eine Station auf Home Assistant ausrichten",
+        "description": "Ihre Wetterstation legt die Geräte und Sensoren an — hier gibt es kein Gerät hinzuzufügen.\n\nTragen Sie Folgendes in Ihrer Station oder in der WSLink-App ein:\n\n**URL**\n{urls}\n\n**Sender ID** — frei wählbar, sie wird zum Gerätenamen in Home Assistant.\n\n**Stationsschlüssel** — {key_hint}.\n\n**API-Typ** — *WUnderground API* oder *WSLink*, beides funktioniert.\n\n**Übertragungsintervall** — 60 Sekunden sind ein guter Standardwert.\n\nIhre Sensoren erscheinen bei der ersten empfangenen Übertragung. Kommt nichts an, schauen Sie in **Einstellungen → System → Reparaturen**: eine abgewiesene Station wird dort gemeldet.\n\nDie lauschenden Endpunkte sind:\n{endpoints}"
       }
     }
   },

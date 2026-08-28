@@ -112,17 +112,17 @@
     "config::step::user::description": "在此设置一个气象站密钥，您的气象站必须发送该密钥，其数据才不会被拒绝。若留空，则接受所有请求。",
     "config::step::user::data::password": "气象站密钥",
     "config::abort::single_instance_allowed": "已配置。单个实例即可服务所有气象站。",
-    "options::step::init::title": "个人气象站",
-    "options::step::init::description": "在此设置一个气象站密钥，您的气象站必须发送该密钥，其数据才不会被拒绝。若留空，则接受所有请求。",
-    "options::step::init::data::password": "气象站密钥",
-    "options::step::init::data::availability_timeout": "多长时间后标记为不可用（分钟）",
-    "options::step::init::data::debug": "记录每个收到的请求",
-    "options::step::init::data_description::availability_timeout": "气象站可以保持静默多久，之后其传感器会被标记为不可用。设为 0 则永不标记。",
-    "options::step::init::data_description::debug": "将每个请求的完整内容写入 Home Assistant 日志。设置气象站时很有用，之后会很嘈杂。",
     "issues::invalid_station_key::title": "气象站被拒绝：气象站密钥错误",
     "issues::invalid_station_key::description": "位于 {ip} 的气象站尝试以 `{station_id}` 的身份发送数据，但未发送预期的气象站密钥。\n\n请检查气象站或 WSLink 应用中配置的密钥是否与本集成中设置的一致。一旦来自 {ip} 的请求被接受，此消息会自动消失。",
     "issues::missing_device_id::title": "气象站被拒绝：缺少气象站标识",
     "issues::missing_device_id::description": "位于 {ip} 的气象站发送数据时未附带气象站标识。\n\n请在 WSLink 应用中设置 Sender ID，或在气象站配置中设置 ID 参数。一旦来自 {ip} 的请求被接受，此消息会自动消失。",
-    "exceptions::no_wind_direction::message": "气象站 {device} 尚未上报风向，因此没有可校准的基准。请等待下次上传后重试。"
+    "exceptions::no_wind_direction::message": "气象站 {device} 尚未上报风向，因此没有可校准的基准。请等待下次上传后重试。",
+    "options::step::options::title": "个人气象站",
+    "options::step::options::description": "在此设置一个气象站密钥，您的气象站必须发送该密钥，其数据才不会被拒绝。若留空，则接受所有请求。",
+    "options::step::options::data::password": "气象站密钥",
+    "options::step::options::data::availability_timeout": "多长时间后标记为不可用（分钟）",
+    "options::step::options::data::debug": "记录每个收到的请求",
+    "options::step::options::data_description::availability_timeout": "气象站可以保持静默多久，之后其传感器会被标记为不可用。设为 0 则永不标记。",
+    "options::step::options::data_description::debug": "将每个请求的完整内容写入 Home Assistant 日志。设置气象站时很有用，之后会很嘈杂。"
   }
 }

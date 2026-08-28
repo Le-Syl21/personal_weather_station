@@ -112,17 +112,17 @@
     "config::step::user::description": "Iestatiet šeit stacijas atslēgu, kas jūsu meteostacijām jāpārsūta, lai to dati netiktu noraidīti. Ja atstāsiet lauku tukšu, tiks pieņemti visi pieprasījumi.",
     "config::step::user::data::password": "Stacijas atslēga",
     "config::abort::single_instance_allowed": "Jau konfigurēts. Viena vienīga instance apkalpo visas meteostacijas.",
-    "options::step::init::title": "Personīgā meteostacija",
-    "options::step::init::description": "Iestatiet šeit stacijas atslēgu, kas jūsu meteostacijām jāpārsūta, lai to dati netiktu noraidīti. Ja atstāsiet lauku tukšu, tiks pieņemti visi pieprasījumi.",
-    "options::step::init::data::password": "Stacijas atslēga",
-    "options::step::init::data::availability_timeout": "Atzīmēt kā nepieejamu pēc (minūtēm)",
-    "options::step::init::data::debug": "Reģistrēt katru ienākošo pieprasījumu",
-    "options::step::init::data_description::availability_timeout": "Cik ilgi stacija drīkst klusēt, pirms tās sensori tiek atzīmēti kā nepieejami. 0 nozīmē nekad tos neatzīmēt.",
-    "options::step::init::data_description::debug": "Ieraksta katra pieprasījuma pilnu saturu Home Assistant žurnālā. Noderīgi, iestatot staciju, vēlāk traucējoši.",
     "issues::invalid_station_key::title": "Meteostacija noraidīta: nepareiza stacijas atslēga",
     "issues::invalid_station_key::description": "Meteostacija ar adresi {ip} mēģināja nosūtīt datus kā `{station_id}`, nepārsūtot gaidīto stacijas atslēgu.\n\nPārbaudiet, vai stacijā vai WSLink lietotnē iestatītā atslēga sakrīt ar šajā integrācijā norādīto. Šis ziņojums pazudīs pats, tiklīdz tiks pieņemts pieprasījums no {ip}.",
     "issues::missing_device_id::title": "Meteostacija noraidīta: nav stacijas identifikatora",
     "issues::missing_device_id::description": "Meteostacija ar adresi {ip} nosūtīja datus bez stacijas identifikatora.\n\nIestatiet Sender ID WSLink lietotnē vai ID parametru stacijas konfigurācijā. Šis ziņojums pazudīs pats, tiklīdz tiks pieņemts pieprasījums no {ip}.",
-    "exceptions::no_wind_direction::message": "Stacija {device} vēl nav nosūtījusi vēja virzienu, tāpēc nav pēc kā kalibrēt. Pagaidiet nākamo sūtījumu un mēģiniet vēlreiz."
+    "exceptions::no_wind_direction::message": "Stacija {device} vēl nav nosūtījusi vēja virzienu, tāpēc nav pēc kā kalibrēt. Pagaidiet nākamo sūtījumu un mēģiniet vēlreiz.",
+    "options::step::options::title": "Personīgā meteostacija",
+    "options::step::options::description": "Iestatiet šeit stacijas atslēgu, kas jūsu meteostacijām jāpārsūta, lai to dati netiktu noraidīti. Ja atstāsiet lauku tukšu, tiks pieņemti visi pieprasījumi.",
+    "options::step::options::data::password": "Stacijas atslēga",
+    "options::step::options::data::availability_timeout": "Atzīmēt kā nepieejamu pēc (minūtēm)",
+    "options::step::options::data::debug": "Reģistrēt katru ienākošo pieprasījumu",
+    "options::step::options::data_description::availability_timeout": "Cik ilgi stacija drīkst klusēt, pirms tās sensori tiek atzīmēti kā nepieejami. 0 nozīmē nekad tos neatzīmēt.",
+    "options::step::options::data_description::debug": "Ieraksta katra pieprasījuma pilnu saturu Home Assistant žurnālā. Noderīgi, iestatot staciju, vēlāk traucējoši."
   }
 }

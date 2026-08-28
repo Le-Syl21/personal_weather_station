@@ -112,17 +112,17 @@
     "config::step::user::description": "Nastavte tu kľúč stanice, ktorý musia vaše meteostanice odosielať, aby ich údaje neboli odmietnuté. Ak pole necháte prázdne, prijmú sa všetky požiadavky.",
     "config::step::user::data::password": "Kľúč stanice",
     "config::abort::single_instance_allowed": "Už nakonfigurované. Jediná inštancia obsluhuje všetky meteostanice.",
-    "options::step::init::title": "Osobná meteostanica",
-    "options::step::init::description": "Nastavte tu kľúč stanice, ktorý musia vaše meteostanice odosielať, aby ich údaje neboli odmietnuté. Ak pole necháte prázdne, prijmú sa všetky požiadavky.",
-    "options::step::init::data::password": "Kľúč stanice",
-    "options::step::init::data::availability_timeout": "Označiť ako nedostupné po (minútach)",
-    "options::step::init::data::debug": "Zaznamenávať každú prichádzajúcu požiadavku",
-    "options::step::init::data_description::availability_timeout": "Ako dlho môže stanica mlčať, kým budú jej senzory označené ako nedostupné. 0 znamená nikdy neoznačovať.",
-    "options::step::init::data_description::debug": "Zapisuje celý obsah každej požiadavky do denníka Home Assistant. Užitočné pri nastavovaní stanice, potom rušivé.",
     "issues::invalid_station_key::title": "Meteostanica odmietnutá: nesprávny kľúč stanice",
     "issues::invalid_station_key::description": "Meteostanica na adrese {ip} sa pokúsila odoslať údaje ako `{station_id}` bez toho, aby odoslala očakávaný kľúč stanice.\n\nSkontrolujte, či sa kľúč nastavený v stanici alebo v aplikácii WSLink zhoduje s kľúčom nastaveným v tejto integrácii. Táto správa zmizne sama, len čo bude prijatá požiadavka z {ip}.",
     "issues::missing_device_id::title": "Meteostanica odmietnutá: chýba identifikátor stanice",
     "issues::missing_device_id::description": "Meteostanica na adrese {ip} odoslala údaje bez identifikátora stanice.\n\nNastavte Sender ID v aplikácii WSLink alebo parameter ID v konfigurácii stanice. Táto správa zmizne sama, len čo bude prijatá požiadavka z {ip}.",
-    "exceptions::no_wind_direction::message": "Stanica {device} zatiaľ neodoslala žiadny smer vetra, takže niet podľa čoho kalibrovať. Počkajte na ďalšie odoslanie a skúste to znova."
+    "exceptions::no_wind_direction::message": "Stanica {device} zatiaľ neodoslala žiadny smer vetra, takže niet podľa čoho kalibrovať. Počkajte na ďalšie odoslanie a skúste to znova.",
+    "options::step::options::title": "Osobná meteostanica",
+    "options::step::options::description": "Nastavte tu kľúč stanice, ktorý musia vaše meteostanice odosielať, aby ich údaje neboli odmietnuté. Ak pole necháte prázdne, prijmú sa všetky požiadavky.",
+    "options::step::options::data::password": "Kľúč stanice",
+    "options::step::options::data::availability_timeout": "Označiť ako nedostupné po (minútach)",
+    "options::step::options::data::debug": "Zaznamenávať každú prichádzajúcu požiadavku",
+    "options::step::options::data_description::availability_timeout": "Ako dlho môže stanica mlčať, kým budú jej senzory označené ako nedostupné. 0 znamená nikdy neoznačovať.",
+    "options::step::options::data_description::debug": "Zapisuje celý obsah každej požiadavky do denníka Home Assistant. Užitočné pri nastavovaní stanice, potom rušivé."
   }
 }

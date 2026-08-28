@@ -112,17 +112,17 @@
     "config::step::user::description": "기상 관측소의 데이터가 거부되지 않도록 관측소가 전송해야 하는 스테이션 키를 여기에 설정하세요. 비워 두면 모든 요청이 수락됩니다.",
     "config::step::user::data::password": "스테이션 키",
     "config::abort::single_instance_allowed": "이미 구성되었습니다. 하나의 인스턴스가 모든 기상 관측소를 처리합니다.",
-    "options::step::init::title": "개인 기상 관측소",
-    "options::step::init::description": "기상 관측소의 데이터가 거부되지 않도록 관측소가 전송해야 하는 스테이션 키를 여기에 설정하세요. 비워 두면 모든 요청이 수락됩니다.",
-    "options::step::init::data::password": "스테이션 키",
-    "options::step::init::data::availability_timeout": "사용할 수 없음으로 표시하기까지 (분)",
-    "options::step::init::data::debug": "수신되는 모든 요청 기록",
-    "options::step::init::data_description::availability_timeout": "센서가 사용할 수 없음으로 표시되기까지 관측소가 무응답 상태로 있을 수 있는 시간입니다. 0이면 표시하지 않습니다.",
-    "options::step::init::data_description::debug": "각 요청의 전체 내용을 Home Assistant 로그에 기록합니다. 관측소를 설정할 때는 유용하지만 이후에는 번거롭습니다.",
     "issues::invalid_station_key::title": "기상 관측소 거부됨: 잘못된 스테이션 키",
     "issues::invalid_station_key::description": "{ip}의 기상 관측소가 예상되는 스테이션 키를 전송하지 않고 `{station_id}`(으)로 데이터를 보내려고 했습니다.\n\n관측소나 WSLink 앱에 설정된 키가 이 통합에 설정된 키와 일치하는지 확인하세요. 이 메시지는 {ip}에서 온 요청이 수락되는 즉시 자동으로 사라집니다.",
     "issues::missing_device_id::title": "기상 관측소 거부됨: 스테이션 식별자 없음",
     "issues::missing_device_id::description": "{ip}의 기상 관측소가 스테이션 식별자 없이 데이터를 보냈습니다.\n\nWSLink 앱에서 Sender ID를, 또는 관측소 설정에서 ID 매개변수를 지정하세요. 이 메시지는 {ip}에서 온 요청이 수락되는 즉시 자동으로 사라집니다.",
-    "exceptions::no_wind_direction::message": "{device} 관측소가 아직 풍향을 전송하지 않아 보정할 기준이 없습니다. 다음 전송을 기다린 후 다시 시도하세요."
+    "exceptions::no_wind_direction::message": "{device} 관측소가 아직 풍향을 전송하지 않아 보정할 기준이 없습니다. 다음 전송을 기다린 후 다시 시도하세요.",
+    "options::step::options::title": "개인 기상 관측소",
+    "options::step::options::description": "기상 관측소의 데이터가 거부되지 않도록 관측소가 전송해야 하는 스테이션 키를 여기에 설정하세요. 비워 두면 모든 요청이 수락됩니다.",
+    "options::step::options::data::password": "스테이션 키",
+    "options::step::options::data::availability_timeout": "사용할 수 없음으로 표시하기까지 (분)",
+    "options::step::options::data::debug": "수신되는 모든 요청 기록",
+    "options::step::options::data_description::availability_timeout": "센서가 사용할 수 없음으로 표시되기까지 관측소가 무응답 상태로 있을 수 있는 시간입니다. 0이면 표시하지 않습니다.",
+    "options::step::options::data_description::debug": "각 요청의 전체 내용을 Home Assistant 로그에 기록합니다. 관측소를 설정할 때는 유용하지만 이후에는 번거롭습니다."
   }
 }

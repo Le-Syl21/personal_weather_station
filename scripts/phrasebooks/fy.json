@@ -112,17 +112,17 @@
     "config::step::user::description": "Stel hjir in stasjonskaai yn dy't jo waarstasjons stjoere moatte sadat harren gegevens net wegere wurde. Litte jo it fjild leech, dan wurde alle fersiken akseptearre.",
     "config::step::user::data::password": "Stasjonskaai",
     "config::abort::single_instance_allowed": "Al konfigurearre. Ien inkelde ynstânsje betsjinnet alle waarstasjons.",
-    "options::step::init::title": "Persoanlik waarstasjon",
-    "options::step::init::description": "Stel hjir in stasjonskaai yn dy't jo waarstasjons stjoere moatte sadat harren gegevens net wegere wurde. Litte jo it fjild leech, dan wurde alle fersiken akseptearre.",
-    "options::step::init::data::password": "Stasjonskaai",
-    "options::step::init::data::availability_timeout": "Markearje as net beskikber nei (minuten)",
-    "options::step::init::data::debug": "Log elk ynkommend fersyk",
-    "options::step::init::data_description::availability_timeout": "Hoe lang in stasjon stil bliuwe mei foardat syn sensoren as net beskikber markearre wurde. 0 betsjut nea markearje.",
-    "options::step::init::data_description::debug": "Skriuwt de folsleine ynhâld fan elk fersyk nei it Home Assistant-loch. Nuttich by it ynstellen fan in stasjon, steurend dêrnei.",
     "issues::invalid_station_key::title": "Waarstasjon wegere: ferkearde stasjonskaai",
     "issues::invalid_station_key::description": "In waarstasjon op {ip} besocht gegevens te stjoeren as `{station_id}` sûnder de ferwachte stasjonskaai mei te stjoeren.\n\nKontrolearje oft de kaai dy't yn it stasjon of yn de WSLink-app ynsteld is, oerienkomt mei dyjinge yn dizze yntegraasje. Dit berjocht ferdwynt fansels sadree't in fersyk fan {ip} akseptearre wurdt.",
     "issues::missing_device_id::title": "Waarstasjon wegere: gjin stasjonsidentifikaasje",
     "issues::missing_device_id::description": "In waarstasjon op {ip} stjoerde gegevens sûnder stasjonsidentifikaasje.\n\nStel in Sender ID yn de WSLink-app yn, of in ID-parameter yn de konfiguraasje fan it stasjon. Dit berjocht ferdwynt fansels sadree't in fersyk fan {ip} akseptearre wurdt.",
-    "exceptions::no_wind_direction::message": "Stasjon {device} hat noch gjin wynrjochting stjoerd, dus der is neat om op te kalibrearjen. Wachtsje op de folgjende upload en besykje it nochris."
+    "exceptions::no_wind_direction::message": "Stasjon {device} hat noch gjin wynrjochting stjoerd, dus der is neat om op te kalibrearjen. Wachtsje op de folgjende upload en besykje it nochris.",
+    "options::step::options::title": "Persoanlik waarstasjon",
+    "options::step::options::description": "Stel hjir in stasjonskaai yn dy't jo waarstasjons stjoere moatte sadat harren gegevens net wegere wurde. Litte jo it fjild leech, dan wurde alle fersiken akseptearre.",
+    "options::step::options::data::password": "Stasjonskaai",
+    "options::step::options::data::availability_timeout": "Markearje as net beskikber nei (minuten)",
+    "options::step::options::data::debug": "Log elk ynkommend fersyk",
+    "options::step::options::data_description::availability_timeout": "Hoe lang in stasjon stil bliuwe mei foardat syn sensoren as net beskikber markearre wurde. 0 betsjut nea markearje.",
+    "options::step::options::data_description::debug": "Skriuwt de folsleine ynhâld fan elk fersyk nei it Home Assistant-loch. Nuttich by it ynstellen fan in stasjon, steurend dêrnei."
   }
 }

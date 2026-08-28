@@ -112,17 +112,17 @@
     "config::step::user::description": "Hava istasyonlarınızın verilerinin reddedilmemesi için göndermesi gereken istasyon anahtarını buraya girin. Alanı boş bırakırsanız tüm istekler kabul edilir.",
     "config::step::user::data::password": "İstasyon anahtarı",
     "config::abort::single_instance_allowed": "Zaten yapılandırıldı. Tek bir örnek tüm hava istasyonlarına hizmet eder.",
-    "options::step::init::title": "Kişisel hava istasyonu",
-    "options::step::init::description": "Hava istasyonlarınızın verilerinin reddedilmemesi için göndermesi gereken istasyon anahtarını buraya girin. Alanı boş bırakırsanız tüm istekler kabul edilir.",
-    "options::step::init::data::password": "İstasyon anahtarı",
-    "options::step::init::data::availability_timeout": "Şu süre sonra kullanılamaz olarak işaretle (dakika)",
-    "options::step::init::data::debug": "Gelen her isteği günlüğe kaydet",
-    "options::step::init::data_description::availability_timeout": "Bir istasyonun sensörleri kullanılamaz olarak işaretlenmeden önce ne kadar sessiz kalabileceği. 0 hiçbir zaman işaretleme anlamına gelir.",
-    "options::step::init::data_description::debug": "Her isteğin tüm içeriğini Home Assistant günlüğüne yazar. Bir istasyonu kurarken yararlı, sonrasında gürültülü.",
     "issues::invalid_station_key::title": "Hava istasyonu reddedildi: yanlış istasyon anahtarı",
     "issues::invalid_station_key::description": "{ip} adresindeki bir hava istasyonu, beklenen istasyon anahtarını göndermeden `{station_id}` olarak veri göndermeye çalıştı.\n\nİstasyonda veya WSLink uygulamasında ayarlanan anahtarın bu entegrasyondakiyle eşleştiğini kontrol edin. Bu mesaj, {ip} adresinden gelen bir istek kabul edilir edilmez kendiliğinden kaybolur.",
     "issues::missing_device_id::title": "Hava istasyonu reddedildi: istasyon tanımlayıcısı yok",
     "issues::missing_device_id::description": "{ip} adresindeki bir hava istasyonu, istasyon tanımlayıcısı olmadan veri gönderdi.\n\nWSLink uygulamasında bir Sender ID veya istasyon yapılandırmasında bir ID parametresi ayarlayın. Bu mesaj, {ip} adresinden gelen bir istek kabul edilir edilmez kendiliğinden kaybolur.",
-    "exceptions::no_wind_direction::message": "{device} istasyonu henüz bir rüzgâr yönü göndermedi, bu yüzden kalibre edilecek bir şey yok. Bir sonraki gönderimi bekleyip tekrar deneyin."
+    "exceptions::no_wind_direction::message": "{device} istasyonu henüz bir rüzgâr yönü göndermedi, bu yüzden kalibre edilecek bir şey yok. Bir sonraki gönderimi bekleyip tekrar deneyin.",
+    "options::step::options::title": "Kişisel hava istasyonu",
+    "options::step::options::description": "Hava istasyonlarınızın verilerinin reddedilmemesi için göndermesi gereken istasyon anahtarını buraya girin. Alanı boş bırakırsanız tüm istekler kabul edilir.",
+    "options::step::options::data::password": "İstasyon anahtarı",
+    "options::step::options::data::availability_timeout": "Şu süre sonra kullanılamaz olarak işaretle (dakika)",
+    "options::step::options::data::debug": "Gelen her isteği günlüğe kaydet",
+    "options::step::options::data_description::availability_timeout": "Bir istasyonun sensörleri kullanılamaz olarak işaretlenmeden önce ne kadar sessiz kalabileceği. 0 hiçbir zaman işaretleme anlamına gelir.",
+    "options::step::options::data_description::debug": "Her isteğin tüm içeriğini Home Assistant günlüğüne yazar. Bir istasyonu kurarken yararlı, sonrasında gürültülü."
   }
 }

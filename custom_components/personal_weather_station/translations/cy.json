@@ -20,6 +20,13 @@
   "options": {
     "step": {
       "init": {
+        "title": "Personal Weather Station",
+        "menu_options": {
+          "options": "Settings",
+          "instructions": "How to point a station at Home Assistant"
+        }
+      },
+      "options": {
         "title": "Gorsaf dywydd bersonol",
         "description": "Gosodwch allwedd gorsaf yma y mae'n rhaid i'ch gorsafoedd tywydd ei throsglwyddo fel na chaiff eu data ei wrthod. Os gadewch y maes yn wag, derbynnir pob cais.",
         "data": {
@@ -31,6 +38,10 @@
           "availability_timeout": "Pa mor hir y caiff gorsaf fod yn dawel cyn i'w synwyryddion gael eu marcio'n anghyraeddadwy. Mae 0 yn golygu peidio byth â'u marcio.",
           "debug": "Yn ysgrifennu cynnwys llawn pob cais i log Home Assistant. Defnyddiol wrth sefydlu gorsaf, swnllyd wedyn."
         }
+      },
+      "instructions": {
+        "title": "Point a station at Home Assistant",
+        "description": "Your weather station is what creates the devices and sensors — there is no device to add here.\n\nEnter the following in your station, or in the WSLink app:\n\n**URL**\n{urls}\n\n**Sender ID** — anything you like, it becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**API type** — *WUnderground API* or *WSLink*, either works.\n\n**Upload interval** — 60 seconds is a good default.\n\nYour sensors appear on the first upload received. If nothing shows up, check **Settings → System → Repairs**: a rejected station is reported there.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },

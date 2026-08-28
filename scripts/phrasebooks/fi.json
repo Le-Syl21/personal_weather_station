@@ -112,17 +112,17 @@
     "config::step::user::description": "Aseta tähän asema-avain, joka sääasemiesi on lähetettävä, jotta niiden tietoja ei hylätä. Jos jätät kentän tyhjäksi, kaikki pyynnöt hyväksytään.",
     "config::step::user::data::password": "Asema-avain",
     "config::abort::single_instance_allowed": "Jo määritetty. Yksi ainoa instanssi palvelee kaikkia sääasemia.",
-    "options::step::init::title": "Oma sääasema",
-    "options::step::init::description": "Aseta tähän asema-avain, joka sääasemiesi on lähetettävä, jotta niiden tietoja ei hylätä. Jos jätät kentän tyhjäksi, kaikki pyynnöt hyväksytään.",
-    "options::step::init::data::password": "Asema-avain",
-    "options::step::init::data::availability_timeout": "Merkitse ei-saatavilla olevaksi (minuuttia)",
-    "options::step::init::data::debug": "Kirjaa jokainen saapuva pyyntö",
-    "options::step::init::data_description::availability_timeout": "Kuinka kauan asema saa olla hiljaa ennen kuin sen anturit merkitään ei-saatavilla oleviksi. 0 tarkoittaa, ettei niitä merkitä koskaan.",
-    "options::step::init::data_description::debug": "Kirjoittaa jokaisen pyynnön koko sisällön Home Assistantin lokiin. Hyödyllistä asemaa määritettäessä, häiritsevää sen jälkeen.",
     "issues::invalid_station_key::title": "Sääasema hylätty: väärä asema-avain",
     "issues::invalid_station_key::description": "Osoitteessa {ip} oleva sääasema yritti lähettää tietoja nimellä `{station_id}` lähettämättä odotettua asema-avainta.\n\nTarkista, että asemaan tai WSLink-sovellukseen määritetty avain vastaa tässä integraatiossa asetettua. Tämä viesti katoaa itsestään heti, kun pyyntö osoitteesta {ip} hyväksytään.",
     "issues::missing_device_id::title": "Sääasema hylätty: ei asematunnistetta",
     "issues::missing_device_id::description": "Osoitteessa {ip} oleva sääasema lähetti tietoja ilman asematunnistetta.\n\nAseta Sender ID WSLink-sovelluksessa tai ID-parametri aseman asetuksissa. Tämä viesti katoaa itsestään heti, kun pyyntö osoitteesta {ip} hyväksytään.",
-    "exceptions::no_wind_direction::message": "Asema {device} ei ole vielä lähettänyt tuulen suuntaa, joten kalibroitavaa ei ole. Odota seuraavaa lähetystä ja yritä uudelleen."
+    "exceptions::no_wind_direction::message": "Asema {device} ei ole vielä lähettänyt tuulen suuntaa, joten kalibroitavaa ei ole. Odota seuraavaa lähetystä ja yritä uudelleen.",
+    "options::step::options::title": "Oma sääasema",
+    "options::step::options::description": "Aseta tähän asema-avain, joka sääasemiesi on lähetettävä, jotta niiden tietoja ei hylätä. Jos jätät kentän tyhjäksi, kaikki pyynnöt hyväksytään.",
+    "options::step::options::data::password": "Asema-avain",
+    "options::step::options::data::availability_timeout": "Merkitse ei-saatavilla olevaksi (minuuttia)",
+    "options::step::options::data::debug": "Kirjaa jokainen saapuva pyyntö",
+    "options::step::options::data_description::availability_timeout": "Kuinka kauan asema saa olla hiljaa ennen kuin sen anturit merkitään ei-saatavilla oleviksi. 0 tarkoittaa, ettei niitä merkitä koskaan.",
+    "options::step::options::data_description::debug": "Kirjoittaa jokaisen pyynnön koko sisällön Home Assistantin lokiin. Hyödyllistä asemaa määritettäessä, häiritsevää sen jälkeen."
   }
 }

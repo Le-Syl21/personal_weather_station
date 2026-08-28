@@ -53,7 +53,9 @@ to keep everything exactly as it is.
   button — the station creates its own device when it posts — so adding it now
   ends on the exact settings to enter, including this instance's address. Until a
   station has posted, a repair brings those instructions back and waits with you
-  for the first upload, telling you what to check if nothing arrives.
+  for the first upload, telling you what to check if nothing arrives. The same
+  instructions stay reachable from the integration's own settings, for whenever a
+  second station is added.
 - **Rejected requests are reported in Repairs**, with the source IP address. A
   wrong station key used to be invisible unless debug logging was on, while
   being the most likely reason for a station never showing up. Rejections are

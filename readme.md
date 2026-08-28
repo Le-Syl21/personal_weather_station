@@ -303,6 +303,10 @@ station has actually posted, a prompt sits in **Settings → System → Repairs*
 brings those instructions back and **waits with you** for the first upload,
 reporting what to check if nothing arrives within a few minutes.
 
+That prompt goes away once a station is through, so the same instructions stay
+available from the integration itself: **⚙️ → How to point a station at Home
+Assistant**. That is where to look when adding a second station later on.
+
 Once a station is misconfigured rather than absent, it looks exactly the same from
 here: an empty page. To make the difference visible, rejected requests raise their
 own repair:

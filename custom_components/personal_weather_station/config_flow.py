@@ -11,7 +11,7 @@ from .const import (
     DEFAULT_AVAILABILITY_TIMEOUT,
     DOMAIN,
 )
-from .instructions import async_placeholders
+from .instructions import async_placeholders, async_placeholders_for_entry
 
 AVAILABILITY_TIMEOUT_SELECTOR = vol.All(vol.Coerce(int), vol.Range(min=0, max=1440))
 
@@ -68,6 +68,30 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         self._config_entry = config_entry
 
     async def async_step_init(self, user_input=None):
+        """
+        Offer the settings, or the instructions for setting up a station.
+
+        The onboarding repair goes away once a station has posted, so this is
+        where the address to point a second one at stays reachable.
+        """
+
+        return self.async_show_menu(
+            step_id="init", menu_options=["options", "instructions"]
+        )
+
+    async def async_step_instructions(self, user_input=None):
+        if user_input is not None:
+            return await self.async_step_init()
+
+        return self.async_show_form(
+            step_id="instructions",
+            data_schema=vol.Schema({}),
+            description_placeholders=async_placeholders_for_entry(
+                self.hass, self._config_entry
+            ),
+        )
+
+    async def async_step_options(self, user_input=None):
         if user_input is not None:
             # Merge rather than replace: the per station wind calibration lives
             # in the options too and is not part of this form.
@@ -78,7 +102,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         options = self._config_entry.options
 
         return self.async_show_form(
-            step_id="init",
+            step_id="options",
             data_schema=vol.Schema(
                 {
                     vol.Optional(

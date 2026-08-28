@@ -112,17 +112,17 @@
     "config::step::user::description": "Vendosni këtu një çelës stacioni që stacionet tuaja meteorologjike duhet ta transmetojnë që të dhënat e tyre të mos refuzohen. Nëse e lini fushën bosh, të gjitha kërkesat do të pranohen.",
     "config::step::user::data::password": "Çelësi i stacionit",
     "config::abort::single_instance_allowed": "Tashmë i konfiguruar. Një instancë e vetme u shërben të gjitha stacioneve meteorologjike.",
-    "options::step::init::title": "Stacion meteorologjik personal",
-    "options::step::init::description": "Vendosni këtu një çelës stacioni që stacionet tuaja meteorologjike duhet ta transmetojnë që të dhënat e tyre të mos refuzohen. Nëse e lini fushën bosh, të gjitha kërkesat do të pranohen.",
-    "options::step::init::data::password": "Çelësi i stacionit",
-    "options::step::init::data::availability_timeout": "Shëno si të padisponueshëm pas (minuta)",
-    "options::step::init::data::debug": "Regjistro çdo kërkesë hyrëse",
-    "options::step::init::data_description::availability_timeout": "Sa gjatë mund të heshtë një stacion para se sensorët e saj të shënohen si të padisponueshëm. 0 do të thotë kurrë.",
-    "options::step::init::data_description::debug": "Shkruan të gjithë përmbajtjen e çdo kërkese në regjistrin e Home Assistant. E dobishme gjatë konfigurimit të një stacioni, e zhurmshme më pas.",
     "issues::invalid_station_key::title": "Stacioni meteorologjik u refuzua: çelës stacioni i gabuar",
     "issues::invalid_station_key::description": "Një stacion meteorologjik në {ip} u përpoq të dërgonte të dhëna si `{station_id}` pa transmetuar çelësin e pritur të stacionit.\n\nKontrolloni nëse çelësi i konfiguruar në stacion ose në aplikacionin WSLink përputhet me atë të vendosur në këtë integrim. Ky mesazh zhduket vetë sapo një kërkesë nga {ip} të pranohet.",
     "issues::missing_device_id::title": "Stacioni meteorologjik u refuzua: pa identifikues stacioni",
     "issues::missing_device_id::description": "Një stacion meteorologjik në {ip} dërgoi të dhëna pa identifikues stacioni.\n\nVendosni një Sender ID në aplikacionin WSLink, ose një parametër ID në konfigurimin e stacionit. Ky mesazh zhduket vetë sapo një kërkesë nga {ip} të pranohet.",
-    "exceptions::no_wind_direction::message": "Stacioni {device} nuk ka dërguar ende asnjë drejtim ere, prandaj nuk ka asgjë për t'u kalibruar. Prisni ngarkimin e radhës dhe provoni përsëri."
+    "exceptions::no_wind_direction::message": "Stacioni {device} nuk ka dërguar ende asnjë drejtim ere, prandaj nuk ka asgjë për t'u kalibruar. Prisni ngarkimin e radhës dhe provoni përsëri.",
+    "options::step::options::title": "Stacion meteorologjik personal",
+    "options::step::options::description": "Vendosni këtu një çelës stacioni që stacionet tuaja meteorologjike duhet ta transmetojnë që të dhënat e tyre të mos refuzohen. Nëse e lini fushën bosh, të gjitha kërkesat do të pranohen.",
+    "options::step::options::data::password": "Çelësi i stacionit",
+    "options::step::options::data::availability_timeout": "Shëno si të padisponueshëm pas (minuta)",
+    "options::step::options::data::debug": "Regjistro çdo kërkesë hyrëse",
+    "options::step::options::data_description::availability_timeout": "Sa gjatë mund të heshtë një stacion para se sensorët e saj të shënohen si të padisponueshëm. 0 do të thotë kurrë.",
+    "options::step::options::data_description::debug": "Shkruan të gjithë përmbajtjen e çdo kërkese në regjistrin e Home Assistant. E dobishme gjatë konfigurimit të një stacioni, e zhurmshme më pas."
   }
 }

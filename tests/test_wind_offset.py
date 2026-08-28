@@ -200,6 +200,12 @@ async def test_options_flow_keeps_the_calibration(hass, setup_pws):
     await press(hass, "set_north")
 
     result = await hass.config_entries.options.async_init(entry.entry_id)
+
+    # The options open on a menu now: settings, or how to point a station here.
+    assert result["type"] == "menu"
+    result = await hass.config_entries.options.async_configure(
+        result["flow_id"], user_input={"next_step_id": "options"}
+    )
     result = await hass.config_entries.options.async_configure(
         result["flow_id"],
         user_input={"password": "newkey", "availability_timeout": 30, "debug": False},

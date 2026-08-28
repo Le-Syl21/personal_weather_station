@@ -112,17 +112,17 @@
     "config::step::user::description": "Nustatykite čia stoties raktą, kurį jūsų meteorologijos stotys turi perduoti, kad jų duomenys nebūtų atmesti. Jei paliksite lauką tuščią, bus priimamos visos užklausos.",
     "config::step::user::data::password": "Stoties raktas",
     "config::abort::single_instance_allowed": "Jau sukonfigūruota. Vienas egzempliorius aptarnauja visas meteorologijos stotis.",
-    "options::step::init::title": "Asmeninė meteorologijos stotis",
-    "options::step::init::description": "Nustatykite čia stoties raktą, kurį jūsų meteorologijos stotys turi perduoti, kad jų duomenys nebūtų atmesti. Jei paliksite lauką tuščią, bus priimamos visos užklausos.",
-    "options::step::init::data::password": "Stoties raktas",
-    "options::step::init::data::availability_timeout": "Pažymėti kaip nepasiekiamą po (minučių)",
-    "options::step::init::data::debug": "Registruoti kiekvieną gaunamą užklausą",
-    "options::step::init::data_description::availability_timeout": "Kiek laiko stotis gali tylėti, kol jos jutikliai bus pažymėti kaip nepasiekiami. 0 reiškia niekada jų nežymėti.",
-    "options::step::init::data_description::debug": "Įrašo visą kiekvienos užklausos turinį į Home Assistant žurnalą. Naudinga nustatant stotį, vėliau triukšminga.",
     "issues::invalid_station_key::title": "Meteorologijos stotis atmesta: neteisingas stoties raktas",
     "issues::invalid_station_key::description": "Meteorologijos stotis adresu {ip} bandė siųsti duomenis kaip `{station_id}` neperdavusi laukiamo stoties rakto.\n\nPatikrinkite, ar stotyje arba WSLink programėlėje nustatytas raktas sutampa su nurodytu šioje integracijoje. Šis pranešimas dings savaime, kai tik bus priimta užklausa iš {ip}.",
     "issues::missing_device_id::title": "Meteorologijos stotis atmesta: nėra stoties identifikatoriaus",
     "issues::missing_device_id::description": "Meteorologijos stotis adresu {ip} atsiuntė duomenis be stoties identifikatoriaus.\n\nNustatykite Sender ID WSLink programėlėje arba ID parametrą stoties konfigūracijoje. Šis pranešimas dings savaime, kai tik bus priimta užklausa iš {ip}.",
-    "exceptions::no_wind_direction::message": "Stotis {device} dar neperdavė vėjo krypties, todėl nėra pagal ką kalibruoti. Palaukite kito siuntimo ir bandykite dar kartą."
+    "exceptions::no_wind_direction::message": "Stotis {device} dar neperdavė vėjo krypties, todėl nėra pagal ką kalibruoti. Palaukite kito siuntimo ir bandykite dar kartą.",
+    "options::step::options::title": "Asmeninė meteorologijos stotis",
+    "options::step::options::description": "Nustatykite čia stoties raktą, kurį jūsų meteorologijos stotys turi perduoti, kad jų duomenys nebūtų atmesti. Jei paliksite lauką tuščią, bus priimamos visos užklausos.",
+    "options::step::options::data::password": "Stoties raktas",
+    "options::step::options::data::availability_timeout": "Pažymėti kaip nepasiekiamą po (minučių)",
+    "options::step::options::data::debug": "Registruoti kiekvieną gaunamą užklausą",
+    "options::step::options::data_description::availability_timeout": "Kiek laiko stotis gali tylėti, kol jos jutikliai bus pažymėti kaip nepasiekiami. 0 reiškia niekada jų nežymėti.",
+    "options::step::options::data_description::debug": "Įrašo visą kiekvienos užklausos turinį į Home Assistant žurnalą. Naudinga nustatant stotį, vėliau triukšminga."
   }
 }

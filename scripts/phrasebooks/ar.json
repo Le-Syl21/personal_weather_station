@@ -112,17 +112,17 @@
     "config::step::user::description": "عيّن هنا مفتاح محطة يجب أن ترسله محطات الطقس لديك حتى لا تُرفض بياناتها. إذا تركت الحقل فارغًا، فسيتم قبول جميع الطلبات.",
     "config::step::user::data::password": "مفتاح المحطة",
     "config::abort::single_instance_allowed": "تم الإعداد بالفعل. نسخة واحدة تخدم جميع محطات الطقس.",
-    "options::step::init::title": "محطة طقس شخصية",
-    "options::step::init::description": "عيّن هنا مفتاح محطة يجب أن ترسله محطات الطقس لديك حتى لا تُرفض بياناتها. إذا تركت الحقل فارغًا، فسيتم قبول جميع الطلبات.",
-    "options::step::init::data::password": "مفتاح المحطة",
-    "options::step::init::data::availability_timeout": "وضع علامة غير متاح بعد (دقائق)",
-    "options::step::init::data::debug": "تسجيل كل طلب وارد",
-    "options::step::init::data_description::availability_timeout": "المدة التي يمكن أن تظل فيها المحطة صامتة قبل وضع علامة غير متاح على مستشعراتها. القيمة 0 تعني عدم وضع العلامة أبدًا.",
-    "options::step::init::data_description::debug": "يكتب المحتوى الكامل لكل طلب في سجل Home Assistant. مفيد أثناء إعداد محطة، ومزعج بعد ذلك.",
     "issues::invalid_station_key::title": "تم رفض محطة الطقس: مفتاح محطة خاطئ",
     "issues::invalid_station_key::description": "حاولت محطة طقس على العنوان {ip} إرسال بيانات باسم `{station_id}` دون إرسال مفتاح المحطة المتوقع.\n\nتحقق من أن المفتاح المضبوط في المحطة أو في تطبيق WSLink يطابق المفتاح المحدد في هذا التكامل. تختفي هذه الرسالة تلقائيًا بمجرد قبول طلب وارد من {ip}.",
     "issues::missing_device_id::title": "تم رفض محطة الطقس: لا يوجد معرّف للمحطة",
     "issues::missing_device_id::description": "أرسلت محطة طقس على العنوان {ip} بيانات دون معرّف للمحطة.\n\nعيّن Sender ID في تطبيق WSLink، أو معامل ID في إعدادات المحطة. تختفي هذه الرسالة تلقائيًا بمجرد قبول طلب وارد من {ip}.",
-    "exceptions::no_wind_direction::message": "لم ترسل المحطة {device} أي اتجاه للرياح بعد، لذا لا يوجد ما يمكن المعايرة عليه. انتظر الإرسال التالي ثم حاول مرة أخرى."
+    "exceptions::no_wind_direction::message": "لم ترسل المحطة {device} أي اتجاه للرياح بعد، لذا لا يوجد ما يمكن المعايرة عليه. انتظر الإرسال التالي ثم حاول مرة أخرى.",
+    "options::step::options::title": "محطة طقس شخصية",
+    "options::step::options::description": "عيّن هنا مفتاح محطة يجب أن ترسله محطات الطقس لديك حتى لا تُرفض بياناتها. إذا تركت الحقل فارغًا، فسيتم قبول جميع الطلبات.",
+    "options::step::options::data::password": "مفتاح المحطة",
+    "options::step::options::data::availability_timeout": "وضع علامة غير متاح بعد (دقائق)",
+    "options::step::options::data::debug": "تسجيل كل طلب وارد",
+    "options::step::options::data_description::availability_timeout": "المدة التي يمكن أن تظل فيها المحطة صامتة قبل وضع علامة غير متاح على مستشعراتها. القيمة 0 تعني عدم وضع العلامة أبدًا.",
+    "options::step::options::data_description::debug": "يكتب المحتوى الكامل لكل طلب في سجل Home Assistant. مفيد أثناء إعداد محطة، ومزعج بعد ذلك."
   }
 }

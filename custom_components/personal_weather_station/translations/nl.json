@@ -21,6 +21,13 @@
     "step": {
       "init": {
         "title": "Persoonlijk weerstation",
+        "menu_options": {
+          "options": "Instellingen",
+          "instructions": "Een station naar Home Assistant laten sturen"
+        }
+      },
+      "options": {
+        "title": "Persoonlijk weerstation",
         "description": "Stel hier een stationssleutel in die uw weerstations moeten meesturen zodat hun gegevens niet worden geweigerd. Laat u het veld leeg, dan worden alle verzoeken geaccepteerd.",
         "data": {
           "password": "Stationssleutel",
@@ -31,6 +38,10 @@
           "availability_timeout": "Hoe lang een station stil mag blijven voordat de sensoren als niet beschikbaar worden gemarkeerd. 0 betekent nooit markeren.",
           "debug": "Schrijft de volledige inhoud van elk verzoek naar het Home Assistant-logboek. Handig bij het instellen van een station, daarna storend."
         }
+      },
+      "instructions": {
+        "title": "Een station naar Home Assistant laten sturen",
+        "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
       }
     }
   },

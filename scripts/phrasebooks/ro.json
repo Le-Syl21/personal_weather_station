@@ -112,17 +112,17 @@
     "config::step::user::description": "Setați aici o cheie de stație pe care stațiile dvs. meteo trebuie să o transmită pentru ca datele lor să nu fie respinse. Dacă lăsați câmpul gol, toate cererile vor fi acceptate.",
     "config::step::user::data::password": "Cheie de stație",
     "config::abort::single_instance_allowed": "Deja configurat. O singură instanță deservește toate stațiile meteo.",
-    "options::step::init::title": "Stație meteo personală",
-    "options::step::init::description": "Setați aici o cheie de stație pe care stațiile dvs. meteo trebuie să o transmită pentru ca datele lor să nu fie respinse. Dacă lăsați câmpul gol, toate cererile vor fi acceptate.",
-    "options::step::init::data::password": "Cheie de stație",
-    "options::step::init::data::availability_timeout": "Marchează ca indisponibil după (minute)",
-    "options::step::init::data::debug": "Înregistrează fiecare cerere primită",
-    "options::step::init::data_description::availability_timeout": "Cât timp poate rămâne tăcută o stație înainte ca senzorii ei să fie marcați ca indisponibili. 0 înseamnă să nu fie marcați niciodată.",
-    "options::step::init::data_description::debug": "Scrie conținutul complet al fiecărei cereri în jurnalul Home Assistant. Util la configurarea unei stații, deranjant după aceea.",
     "issues::invalid_station_key::title": "Stație meteo respinsă: cheie de stație incorectă",
     "issues::invalid_station_key::description": "O stație meteo de la {ip} a încercat să trimită date ca `{station_id}` fără a transmite cheia de stație așteptată.\n\nVerificați dacă cheia configurată în stație sau în aplicația WSLink corespunde celei setate în această integrare. Acest mesaj dispare de la sine de îndată ce o cerere de la {ip} este acceptată.",
     "issues::missing_device_id::title": "Stație meteo respinsă: fără identificator de stație",
     "issues::missing_device_id::description": "O stație meteo de la {ip} a trimis date fără identificator de stație.\n\nSetați un Sender ID în aplicația WSLink sau un parametru ID în configurația stației. Acest mesaj dispare de la sine de îndată ce o cerere de la {ip} este acceptată.",
-    "exceptions::no_wind_direction::message": "Stația {device} nu a transmis încă nicio direcție a vântului, deci nu există după ce să se calibreze. Așteptați următoarea trimitere și încercați din nou."
+    "exceptions::no_wind_direction::message": "Stația {device} nu a transmis încă nicio direcție a vântului, deci nu există după ce să se calibreze. Așteptați următoarea trimitere și încercați din nou.",
+    "options::step::options::title": "Stație meteo personală",
+    "options::step::options::description": "Setați aici o cheie de stație pe care stațiile dvs. meteo trebuie să o transmită pentru ca datele lor să nu fie respinse. Dacă lăsați câmpul gol, toate cererile vor fi acceptate.",
+    "options::step::options::data::password": "Cheie de stație",
+    "options::step::options::data::availability_timeout": "Marchează ca indisponibil după (minute)",
+    "options::step::options::data::debug": "Înregistrează fiecare cerere primită",
+    "options::step::options::data_description::availability_timeout": "Cât timp poate rămâne tăcută o stație înainte ca senzorii ei să fie marcați ca indisponibili. 0 înseamnă să nu fie marcați niciodată.",
+    "options::step::options::data_description::debug": "Scrie conținutul complet al fiecărei cereri în jurnalul Home Assistant. Util la configurarea unei stații, deranjant după aceea."
   }
 }

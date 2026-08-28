@@ -112,17 +112,17 @@
     "config::step::user::description": "Angiv her en stationsnøgle, som dine vejrstationer skal sende, for at deres data ikke bliver afvist. Lader du feltet stå tomt, accepteres alle forespørgsler.",
     "config::step::user::data::password": "Stationsnøgle",
     "config::abort::single_instance_allowed": "Allerede konfigureret. En enkelt instans betjener alle vejrstationer.",
-    "options::step::init::title": "Personlig vejrstation",
-    "options::step::init::description": "Angiv her en stationsnøgle, som dine vejrstationer skal sende, for at deres data ikke bliver afvist. Lader du feltet stå tomt, accepteres alle forespørgsler.",
-    "options::step::init::data::password": "Stationsnøgle",
-    "options::step::init::data::availability_timeout": "Markér som utilgængelig efter (minutter)",
-    "options::step::init::data::debug": "Log hver indkommende forespørgsel",
-    "options::step::init::data_description::availability_timeout": "Hvor længe en station må være tavs, før dens sensorer markeres som utilgængelige. 0 for aldrig at markere dem.",
-    "options::step::init::data_description::debug": "Skriver hele indholdet af hver forespørgsel til Home Assistant-loggen. Nyttigt mens en station sættes op, støjende bagefter.",
     "issues::invalid_station_key::title": "Vejrstation afvist: forkert stationsnøgle",
     "issues::invalid_station_key::description": "En vejrstation på {ip} forsøgte at sende data som `{station_id}` uden at sende den forventede stationsnøgle.\n\nKontrollér, at nøglen i stationen eller i WSLink-appen svarer til den, der er angivet i denne integration. Denne meddelelse forsvinder af sig selv, så snart en forespørgsel fra {ip} accepteres.",
     "issues::missing_device_id::title": "Vejrstation afvist: ingen stationsidentifikator",
     "issues::missing_device_id::description": "En vejrstation på {ip} sendte data uden stationsidentifikator.\n\nAngiv et Sender ID i WSLink-appen eller en ID-parameter i stationens konfiguration. Denne meddelelse forsvinder af sig selv, så snart en forespørgsel fra {ip} accepteres.",
-    "exceptions::no_wind_direction::message": "Stationen {device} har endnu ikke sendt en vindretning, så der er intet at kalibrere efter. Vent på næste upload, og prøv igen."
+    "exceptions::no_wind_direction::message": "Stationen {device} har endnu ikke sendt en vindretning, så der er intet at kalibrere efter. Vent på næste upload, og prøv igen.",
+    "options::step::options::title": "Personlig vejrstation",
+    "options::step::options::description": "Angiv her en stationsnøgle, som dine vejrstationer skal sende, for at deres data ikke bliver afvist. Lader du feltet stå tomt, accepteres alle forespørgsler.",
+    "options::step::options::data::password": "Stationsnøgle",
+    "options::step::options::data::availability_timeout": "Markér som utilgængelig efter (minutter)",
+    "options::step::options::data::debug": "Log hver indkommende forespørgsel",
+    "options::step::options::data_description::availability_timeout": "Hvor længe en station må være tavs, før dens sensorer markeres som utilgængelige. 0 for aldrig at markere dem.",
+    "options::step::options::data_description::debug": "Skriver hele indholdet af hver forespørgsel til Home Assistant-loggen. Nyttigt mens en station sættes op, støjende bagefter."
   }
 }

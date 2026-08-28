@@ -112,17 +112,17 @@
     "config::step::user::description": "Tetapkan kunci stasiun di sini yang harus dikirim oleh stasiun cuaca Anda agar datanya tidak ditolak. Jika Anda mengosongkan kolom ini, semua permintaan akan diterima.",
     "config::step::user::data::password": "Kunci stasiun",
     "config::abort::single_instance_allowed": "Sudah dikonfigurasi. Satu instans melayani semua stasiun cuaca.",
-    "options::step::init::title": "Stasiun cuaca pribadi",
-    "options::step::init::description": "Tetapkan kunci stasiun di sini yang harus dikirim oleh stasiun cuaca Anda agar datanya tidak ditolak. Jika Anda mengosongkan kolom ini, semua permintaan akan diterima.",
-    "options::step::init::data::password": "Kunci stasiun",
-    "options::step::init::data::availability_timeout": "Tandai sebagai tidak tersedia setelah (menit)",
-    "options::step::init::data::debug": "Catat setiap permintaan masuk",
-    "options::step::init::data_description::availability_timeout": "Berapa lama sebuah stasiun boleh diam sebelum sensornya ditandai tidak tersedia. 0 berarti tidak pernah ditandai.",
-    "options::step::init::data_description::debug": "Menulis seluruh isi setiap permintaan ke log Home Assistant. Berguna saat menyiapkan stasiun, mengganggu setelahnya.",
     "issues::invalid_station_key::title": "Stasiun cuaca ditolak: kunci stasiun salah",
     "issues::invalid_station_key::description": "Sebuah stasiun cuaca di {ip} mencoba mengirim data sebagai `{station_id}` tanpa mengirimkan kunci stasiun yang diharapkan.\n\nPeriksa apakah kunci yang dikonfigurasi di stasiun atau di aplikasi WSLink cocok dengan yang ditetapkan pada integrasi ini. Pesan ini hilang dengan sendirinya begitu permintaan dari {ip} diterima.",
     "issues::missing_device_id::title": "Stasiun cuaca ditolak: tanpa pengenal stasiun",
     "issues::missing_device_id::description": "Sebuah stasiun cuaca di {ip} mengirim data tanpa pengenal stasiun.\n\nTetapkan Sender ID di aplikasi WSLink, atau parameter ID pada konfigurasi stasiun. Pesan ini hilang dengan sendirinya begitu permintaan dari {ip} diterima.",
-    "exceptions::no_wind_direction::message": "Stasiun {device} belum mengirimkan arah angin, jadi tidak ada acuan untuk kalibrasi. Tunggu unggahan berikutnya lalu coba lagi."
+    "exceptions::no_wind_direction::message": "Stasiun {device} belum mengirimkan arah angin, jadi tidak ada acuan untuk kalibrasi. Tunggu unggahan berikutnya lalu coba lagi.",
+    "options::step::options::title": "Stasiun cuaca pribadi",
+    "options::step::options::description": "Tetapkan kunci stasiun di sini yang harus dikirim oleh stasiun cuaca Anda agar datanya tidak ditolak. Jika Anda mengosongkan kolom ini, semua permintaan akan diterima.",
+    "options::step::options::data::password": "Kunci stasiun",
+    "options::step::options::data::availability_timeout": "Tandai sebagai tidak tersedia setelah (menit)",
+    "options::step::options::data::debug": "Catat setiap permintaan masuk",
+    "options::step::options::data_description::availability_timeout": "Berapa lama sebuah stasiun boleh diam sebelum sensornya ditandai tidak tersedia. 0 berarti tidak pernah ditandai.",
+    "options::step::options::data_description::debug": "Menulis seluruh isi setiap permintaan ke log Home Assistant. Berguna saat menyiapkan stasiun, mengganggu setelahnya."
   }
 }

@@ -112,17 +112,17 @@
     "config::step::user::description": "Ustaw tutaj klucz stacji, który Twoje stacje pogodowe muszą przesyłać, aby ich dane nie były odrzucane. Jeśli pozostawisz pole puste, wszystkie żądania będą akceptowane.",
     "config::step::user::data::password": "Klucz stacji",
     "config::abort::single_instance_allowed": "Już skonfigurowano. Jedna instancja obsługuje wszystkie stacje pogodowe.",
-    "options::step::init::title": "Osobista stacja pogodowa",
-    "options::step::init::description": "Ustaw tutaj klucz stacji, który Twoje stacje pogodowe muszą przesyłać, aby ich dane nie były odrzucane. Jeśli pozostawisz pole puste, wszystkie żądania będą akceptowane.",
-    "options::step::init::data::password": "Klucz stacji",
-    "options::step::init::data::availability_timeout": "Oznacz jako niedostępne po (minutach)",
-    "options::step::init::data::debug": "Rejestruj każde przychodzące żądanie",
-    "options::step::init::data_description::availability_timeout": "Jak długo stacja może milczeć, zanim jej czujniki zostaną oznaczone jako niedostępne. 0 oznacza, że nigdy nie będą oznaczane.",
-    "options::step::init::data_description::debug": "Zapisuje pełną treść każdego żądania w dzienniku Home Assistant. Przydatne podczas konfigurowania stacji, uciążliwe później.",
     "issues::invalid_station_key::title": "Stacja pogodowa odrzucona: nieprawidłowy klucz stacji",
     "issues::invalid_station_key::description": "Stacja pogodowa pod adresem {ip} próbowała wysłać dane jako `{station_id}`, nie przesyłając oczekiwanego klucza stacji.\n\nSprawdź, czy klucz skonfigurowany w stacji lub w aplikacji WSLink zgadza się z ustawionym w tej integracji. Ten komunikat zniknie sam, gdy tylko żądanie z {ip} zostanie zaakceptowane.",
     "issues::missing_device_id::title": "Stacja pogodowa odrzucona: brak identyfikatora stacji",
     "issues::missing_device_id::description": "Stacja pogodowa pod adresem {ip} wysłała dane bez identyfikatora stacji.\n\nUstaw Sender ID w aplikacji WSLink lub parametr ID w konfiguracji stacji. Ten komunikat zniknie sam, gdy tylko żądanie z {ip} zostanie zaakceptowane.",
-    "exceptions::no_wind_direction::message": "Stacja {device} nie przesłała jeszcze kierunku wiatru, więc nie ma do czego kalibrować. Poczekaj na następną wysyłkę i spróbuj ponownie."
+    "exceptions::no_wind_direction::message": "Stacja {device} nie przesłała jeszcze kierunku wiatru, więc nie ma do czego kalibrować. Poczekaj na następną wysyłkę i spróbuj ponownie.",
+    "options::step::options::title": "Osobista stacja pogodowa",
+    "options::step::options::description": "Ustaw tutaj klucz stacji, który Twoje stacje pogodowe muszą przesyłać, aby ich dane nie były odrzucane. Jeśli pozostawisz pole puste, wszystkie żądania będą akceptowane.",
+    "options::step::options::data::password": "Klucz stacji",
+    "options::step::options::data::availability_timeout": "Oznacz jako niedostępne po (minutach)",
+    "options::step::options::data::debug": "Rejestruj każde przychodzące żądanie",
+    "options::step::options::data_description::availability_timeout": "Jak długo stacja może milczeć, zanim jej czujniki zostaną oznaczone jako niedostępne. 0 oznacza, że nigdy nie będą oznaczane.",
+    "options::step::options::data_description::debug": "Zapisuje pełną treść każdego żądania w dzienniku Home Assistant. Przydatne podczas konfigurowania stacji, uciążliwe później."
   }
 }

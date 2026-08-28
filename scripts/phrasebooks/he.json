@@ -112,17 +112,17 @@
     "config::step::user::description": "הגדר כאן מפתח תחנה שתחנות מזג האוויר שלך חייבות לשדר כדי שהנתונים שלהן לא יידחו. אם תשאיר את השדה ריק, כל הבקשות יתקבלו.",
     "config::step::user::data::password": "מפתח התחנה",
     "config::abort::single_instance_allowed": "כבר מוגדר. מופע יחיד משרת את כל תחנות מזג האוויר.",
-    "options::step::init::title": "תחנת מזג אוויר אישית",
-    "options::step::init::description": "הגדר כאן מפתח תחנה שתחנות מזג האוויר שלך חייבות לשדר כדי שהנתונים שלהן לא יידחו. אם תשאיר את השדה ריק, כל הבקשות יתקבלו.",
-    "options::step::init::data::password": "מפתח התחנה",
-    "options::step::init::data::availability_timeout": "סמן כלא זמין לאחר (דקות)",
-    "options::step::init::data::debug": "רשום כל בקשה נכנסת",
-    "options::step::init::data_description::availability_timeout": "כמה זמן תחנה יכולה לשתוק לפני שהחיישנים שלה יסומנו כלא זמינים. 0 פירושו לעולם לא לסמן.",
-    "options::step::init::data_description::debug": "כותב את התוכן המלא של כל בקשה ליומן של Home Assistant. שימושי בזמן הגדרת תחנה, מטריד לאחר מכן.",
     "issues::invalid_station_key::title": "תחנת מזג האוויר נדחתה: מפתח תחנה שגוי",
     "issues::invalid_station_key::description": "תחנת מזג אוויר בכתובת {ip} ניסתה לשלוח נתונים בשם `{station_id}` מבלי לשדר את מפתח התחנה הצפוי.\n\nבדוק שהמפתח שהוגדר בתחנה או באפליקציית WSLink תואם לזה שהוגדר באינטגרציה זו. הודעה זו נעלמת מעצמה ברגע שבקשה מ-{ip} תתקבל.",
     "issues::missing_device_id::title": "תחנת מזג האוויר נדחתה: אין מזהה תחנה",
     "issues::missing_device_id::description": "תחנת מזג אוויר בכתובת {ip} שלחה נתונים ללא מזהה תחנה.\n\nהגדר Sender ID באפליקציית WSLink, או פרמטר ID בהגדרות התחנה. הודעה זו נעלמת מעצמה ברגע שבקשה מ-{ip} תתקבל.",
-    "exceptions::no_wind_direction::message": "התחנה {device} עדיין לא שידרה כיוון רוח, ולכן אין לפי מה לכייל. המתן לשידור הבא ונסה שוב."
+    "exceptions::no_wind_direction::message": "התחנה {device} עדיין לא שידרה כיוון רוח, ולכן אין לפי מה לכייל. המתן לשידור הבא ונסה שוב.",
+    "options::step::options::title": "תחנת מזג אוויר אישית",
+    "options::step::options::description": "הגדר כאן מפתח תחנה שתחנות מזג האוויר שלך חייבות לשדר כדי שהנתונים שלהן לא יידחו. אם תשאיר את השדה ריק, כל הבקשות יתקבלו.",
+    "options::step::options::data::password": "מפתח התחנה",
+    "options::step::options::data::availability_timeout": "סמן כלא זמין לאחר (דקות)",
+    "options::step::options::data::debug": "רשום כל בקשה נכנסת",
+    "options::step::options::data_description::availability_timeout": "כמה זמן תחנה יכולה לשתוק לפני שהחיישנים שלה יסומנו כלא זמינים. 0 פירושו לעולם לא לסמן.",
+    "options::step::options::data_description::debug": "כותב את התוכן המלא של כל בקשה ליומן של Home Assistant. שימושי בזמן הגדרת תחנה, מטריד לאחר מכן."
   }
 }

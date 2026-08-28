@@ -112,17 +112,17 @@
     "config::step::user::description": "Socraigh eochair stáisiúin anseo nach mór do do stáisiúin aimsire a sheoladh ionas nach ndiúltófar dá gcuid sonraí. Má fhágann tú an réimse folamh, glacfar le gach iarratas.",
     "config::step::user::data::password": "Eochair an stáisiúin",
     "config::abort::single_instance_allowed": "Cumraithe cheana féin. Freastalaíonn aon ásc amháin ar gach stáisiún aimsire.",
-    "options::step::init::title": "Stáisiún aimsire pearsanta",
-    "options::step::init::description": "Socraigh eochair stáisiúin anseo nach mór do do stáisiúin aimsire a sheoladh ionas nach ndiúltófar dá gcuid sonraí. Má fhágann tú an réimse folamh, glacfar le gach iarratas.",
-    "options::step::init::data::password": "Eochair an stáisiúin",
-    "options::step::init::data::availability_timeout": "Marcáil mar neamhinfhaighte tar éis (nóiméad)",
-    "options::step::init::data::debug": "Logáil gach iarratas isteach",
-    "options::step::init::data_description::availability_timeout": "Cá fhad is féidir le stáisiún fanacht ina thost sula marcálfar a bhraiteoirí mar neamhinfhaighte. Ciallaíonn 0 gan iad a mharcáil riamh.",
-    "options::step::init::data_description::debug": "Scríobhann ábhar iomlán gach iarratais i logleabhar Home Assistant. Úsáideach agus stáisiún á shocrú, callánach ina dhiaidh sin.",
     "issues::invalid_station_key::title": "Diúltaíodh don stáisiún aimsire: eochair stáisiúin mhícheart",
     "issues::invalid_station_key::description": "Rinne stáisiún aimsire ag {ip} iarracht sonraí a sheoladh mar `{station_id}` gan an eochair stáisiúin a bhí ag teastáil a sheoladh.\n\nSeiceáil go bhfuil an eochair atá cumraithe sa stáisiún nó san aip WSLink ag teacht leis an gceann atá socraithe sa chomhtháthú seo. Imeoidh an teachtaireacht seo aisti féin a luaithe a ghlacfar le hiarratas ó {ip}.",
     "issues::missing_device_id::title": "Diúltaíodh don stáisiún aimsire: gan aitheantóir stáisiúin",
     "issues::missing_device_id::description": "Sheol stáisiún aimsire ag {ip} sonraí gan aitheantóir stáisiúin.\n\nSocraigh Sender ID san aip WSLink, nó paraiméadar ID i gcumraíocht an stáisiúin. Imeoidh an teachtaireacht seo aisti féin a luaithe a ghlacfar le hiarratas ó {ip}.",
-    "exceptions::no_wind_direction::message": "Níor sheol an stáisiún {device} treo gaoithe fós, mar sin níl aon rud le calabrú ina choinne. Fan leis an gcéad uaslódáil eile agus bain triail eile as."
+    "exceptions::no_wind_direction::message": "Níor sheol an stáisiún {device} treo gaoithe fós, mar sin níl aon rud le calabrú ina choinne. Fan leis an gcéad uaslódáil eile agus bain triail eile as.",
+    "options::step::options::title": "Stáisiún aimsire pearsanta",
+    "options::step::options::description": "Socraigh eochair stáisiúin anseo nach mór do do stáisiúin aimsire a sheoladh ionas nach ndiúltófar dá gcuid sonraí. Má fhágann tú an réimse folamh, glacfar le gach iarratas.",
+    "options::step::options::data::password": "Eochair an stáisiúin",
+    "options::step::options::data::availability_timeout": "Marcáil mar neamhinfhaighte tar éis (nóiméad)",
+    "options::step::options::data::debug": "Logáil gach iarratas isteach",
+    "options::step::options::data_description::availability_timeout": "Cá fhad is féidir le stáisiún fanacht ina thost sula marcálfar a bhraiteoirí mar neamhinfhaighte. Ciallaíonn 0 gan iad a mharcáil riamh.",
+    "options::step::options::data_description::debug": "Scríobhann ábhar iomlán gach iarratais i logleabhar Home Assistant. Úsáideach agus stáisiún á shocrú, callánach ina dhiaidh sin."
   }
 }

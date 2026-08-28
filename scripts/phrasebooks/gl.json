@@ -112,17 +112,17 @@
     "config::step::user::description": "Defina aquí unha clave de estación que as súas estacións meteorolóxicas deberán transmitir para que os seus datos non sexan rexeitados. Se deixa o campo baleiro, aceptaranse todas as solicitudes.",
     "config::step::user::data::password": "Clave de estación",
     "config::abort::single_instance_allowed": "Xa configurado. Unha única instancia atende todas as estacións meteorolóxicas.",
-    "options::step::init::title": "Estación meteorolóxica persoal",
-    "options::step::init::description": "Defina aquí unha clave de estación que as súas estacións meteorolóxicas deberán transmitir para que os seus datos non sexan rexeitados. Se deixa o campo baleiro, aceptaranse todas as solicitudes.",
-    "options::step::init::data::password": "Clave de estación",
-    "options::step::init::data::availability_timeout": "Marcar como non dispoñible despois de (minutos)",
-    "options::step::init::data::debug": "Rexistrar cada solicitude recibida",
-    "options::step::init::data_description::availability_timeout": "Canto tempo pode permanecer en silencio unha estación antes de que os seus sensores se marquen como non dispoñibles. 0 para non marcalos nunca.",
-    "options::step::init::data_description::debug": "Escribe o contido completo de cada solicitude no rexistro de Home Assistant. Útil ao configurar unha estación, ruidoso despois.",
     "issues::invalid_station_key::title": "Estación meteorolóxica rexeitada: clave de estación incorrecta",
     "issues::invalid_station_key::description": "Unha estación meteorolóxica en {ip} intentou enviar datos como `{station_id}` sen transmitir a clave de estación agardada.\n\nComprobe que a clave configurada na estación ou na aplicación WSLink coincide coa definida nesta integración. Esta mensaxe desaparecerá soa en canto se acepte unha solicitude procedente de {ip}.",
     "issues::missing_device_id::title": "Estación meteorolóxica rexeitada: sen identificador de estación",
     "issues::missing_device_id::description": "Unha estación meteorolóxica en {ip} enviou datos sen identificador de estación.\n\nDefina un Sender ID na aplicación WSLink, ou un parámetro ID na configuración da estación. Esta mensaxe desaparecerá soa en canto se acepte unha solicitude procedente de {ip}.",
-    "exceptions::no_wind_direction::message": "A estación {device} aínda non transmitiu ningunha dirección do vento, así que non hai nada co que calibrar. Agarde o vindeiro envío e ténteo de novo."
+    "exceptions::no_wind_direction::message": "A estación {device} aínda non transmitiu ningunha dirección do vento, así que non hai nada co que calibrar. Agarde o vindeiro envío e ténteo de novo.",
+    "options::step::options::title": "Estación meteorolóxica persoal",
+    "options::step::options::description": "Defina aquí unha clave de estación que as súas estacións meteorolóxicas deberán transmitir para que os seus datos non sexan rexeitados. Se deixa o campo baleiro, aceptaranse todas as solicitudes.",
+    "options::step::options::data::password": "Clave de estación",
+    "options::step::options::data::availability_timeout": "Marcar como non dispoñible despois de (minutos)",
+    "options::step::options::data::debug": "Rexistrar cada solicitude recibida",
+    "options::step::options::data_description::availability_timeout": "Canto tempo pode permanecer en silencio unha estación antes de que os seus sensores se marquen como non dispoñibles. 0 para non marcalos nunca.",
+    "options::step::options::data_description::debug": "Escribe o contido completo de cada solicitude no rexistro de Home Assistant. Útil ao configurar unha estación, ruidoso despois."
   }
 }

@@ -112,17 +112,17 @@
     "config::step::user::description": "Tukaj nastavite ključ postaje, ki ga morajo vaše vremenske postaje pošiljati, da njihovi podatki ne bodo zavrnjeni. Če polje pustite prazno, bodo sprejete vse zahteve.",
     "config::step::user::data::password": "Ključ postaje",
     "config::abort::single_instance_allowed": "Že nastavljeno. En sam primerek streže vsem vremenskim postajam.",
-    "options::step::init::title": "Osebna vremenska postaja",
-    "options::step::init::description": "Tukaj nastavite ključ postaje, ki ga morajo vaše vremenske postaje pošiljati, da njihovi podatki ne bodo zavrnjeni. Če polje pustite prazno, bodo sprejete vse zahteve.",
-    "options::step::init::data::password": "Ključ postaje",
-    "options::step::init::data::availability_timeout": "Označi kot nedosegljivo po (minutah)",
-    "options::step::init::data::debug": "Zabeleži vsako dohodno zahtevo",
-    "options::step::init::data_description::availability_timeout": "Kako dolgo lahko postaja molči, preden so njeni senzorji označeni kot nedosegljivi. 0 pomeni nikoli.",
-    "options::step::init::data_description::debug": "Zapiše celotno vsebino vsake zahteve v dnevnik Home Assistanta. Uporabno med nastavljanjem postaje, pozneje moteče.",
     "issues::invalid_station_key::title": "Vremenska postaja zavrnjena: napačen ključ postaje",
     "issues::invalid_station_key::description": "Vremenska postaja na {ip} je poskušala poslati podatke kot `{station_id}`, ne da bi poslala pričakovani ključ postaje.\n\nPreverite, ali se ključ, nastavljen v postaji ali v aplikaciji WSLink, ujema s tistim v tej integraciji. To sporočilo izgine samo, takoj ko bo zahteva z {ip} sprejeta.",
     "issues::missing_device_id::title": "Vremenska postaja zavrnjena: brez identifikatorja postaje",
     "issues::missing_device_id::description": "Vremenska postaja na {ip} je poslala podatke brez identifikatorja postaje.\n\nNastavite Sender ID v aplikaciji WSLink ali parameter ID v nastavitvah postaje. To sporočilo izgine samo, takoj ko bo zahteva z {ip} sprejeta.",
-    "exceptions::no_wind_direction::message": "Postaja {device} še ni poslala smeri vetra, zato ni po čem umerjati. Počakajte na naslednje pošiljanje in poskusite znova."
+    "exceptions::no_wind_direction::message": "Postaja {device} še ni poslala smeri vetra, zato ni po čem umerjati. Počakajte na naslednje pošiljanje in poskusite znova.",
+    "options::step::options::title": "Osebna vremenska postaja",
+    "options::step::options::description": "Tukaj nastavite ključ postaje, ki ga morajo vaše vremenske postaje pošiljati, da njihovi podatki ne bodo zavrnjeni. Če polje pustite prazno, bodo sprejete vse zahteve.",
+    "options::step::options::data::password": "Ključ postaje",
+    "options::step::options::data::availability_timeout": "Označi kot nedosegljivo po (minutah)",
+    "options::step::options::data::debug": "Zabeleži vsako dohodno zahtevo",
+    "options::step::options::data_description::availability_timeout": "Kako dolgo lahko postaja molči, preden so njeni senzorji označeni kot nedosegljivi. 0 pomeni nikoli.",
+    "options::step::options::data_description::debug": "Zapiše celotno vsebino vsake zahteve v dnevnik Home Assistanta. Uporabno med nastavljanjem postaje, pozneje moteče."
   }
 }

@@ -112,13 +112,6 @@
     "config::step::user::description": "Stel hier een stationssleutel in die uw weerstations moeten meesturen zodat hun gegevens niet worden geweigerd. Laat u het veld leeg, dan worden alle verzoeken geaccepteerd.",
     "config::step::user::data::password": "Stationssleutel",
     "config::abort::single_instance_allowed": "Al geconfigureerd. Eén instantie bedient alle weerstations.",
-    "options::step::init::title": "Persoonlijk weerstation",
-    "options::step::init::description": "Stel hier een stationssleutel in die uw weerstations moeten meesturen zodat hun gegevens niet worden geweigerd. Laat u het veld leeg, dan worden alle verzoeken geaccepteerd.",
-    "options::step::init::data::password": "Stationssleutel",
-    "options::step::init::data::availability_timeout": "Als niet beschikbaar markeren na (minuten)",
-    "options::step::init::data::debug": "Elk binnenkomend verzoek loggen",
-    "options::step::init::data_description::availability_timeout": "Hoe lang een station stil mag blijven voordat de sensoren als niet beschikbaar worden gemarkeerd. 0 betekent nooit markeren.",
-    "options::step::init::data_description::debug": "Schrijft de volledige inhoud van elk verzoek naar het Home Assistant-logboek. Handig bij het instellen van een station, daarna storend.",
     "issues::invalid_station_key::title": "Weerstation geweigerd: verkeerde stationssleutel",
     "issues::invalid_station_key::description": "Een weerstation op {ip} probeerde gegevens te versturen als `{station_id}` maar stuurde niet de verwachte stationssleutel mee.\n\nControleer of de sleutel die in het station of in de WSLink-app is ingesteld overeenkomt met die van deze integratie. Dit bericht verdwijnt vanzelf zodra een verzoek van {ip} wordt geaccepteerd.",
     "issues::missing_device_id::title": "Weerstation geweigerd: geen stationsidentificatie",
@@ -139,6 +132,18 @@
     "issues::no_station_yet::fix_flow::progress::waiting_for_station": "Wachten op de eerste upload van uw station…",
     "config::step::instructions::description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}",
     "issues::no_station_yet::fix_flow::step::timeout::description": "Er is in {minutes} minuten geen upload binnengekomen.\n\n**Controleer de URL in het station.** Die moet een van deze zijn:\n{urls}\n\nDaarna, op volgorde van waarschijnlijkheid:\n\n  - Sommige Bresser-firmwares vanaf **3.02** weigeren gewoon HTTP en hebben een `https://`-adres nodig.\n  - Het uploadinterval is misschien simpelweg langer dan de wachttijd.\n  - **Stationssleutel**: {key_hint}.\n\nHeeft het station Home Assistant wel bereikt maar werd het geweigerd, dan wordt dat apart gemeld bij **Instellingen → Systeem → Reparaties**.\n\nU kunt dit sluiten. Het blijft staan tot er een station opduikt, en opnieuw openen start de wachttijd opnieuw.",
-    "issues::no_station_yet::fix_flow::step::confirm::description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
+    "issues::no_station_yet::fix_flow::step::confirm::description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}",
+    "options::step::options::title": "Persoonlijk weerstation",
+    "options::step::options::description": "Stel hier een stationssleutel in die uw weerstations moeten meesturen zodat hun gegevens niet worden geweigerd. Laat u het veld leeg, dan worden alle verzoeken geaccepteerd.",
+    "options::step::options::data::password": "Stationssleutel",
+    "options::step::options::data::availability_timeout": "Als niet beschikbaar markeren na (minuten)",
+    "options::step::options::data::debug": "Elk binnenkomend verzoek loggen",
+    "options::step::options::data_description::availability_timeout": "Hoe lang een station stil mag blijven voordat de sensoren als niet beschikbaar worden gemarkeerd. 0 betekent nooit markeren.",
+    "options::step::options::data_description::debug": "Schrijft de volledige inhoud van elk verzoek naar het Home Assistant-logboek. Handig bij het instellen van een station, daarna storend.",
+    "options::step::init::title": "Persoonlijk weerstation",
+    "options::step::init::menu_options::options": "Instellingen",
+    "options::step::init::menu_options::instructions": "Een station naar Home Assistant laten sturen",
+    "options::step::instructions::title": "Een station naar Home Assistant laten sturen",
+    "options::step::instructions::description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
   }
 }

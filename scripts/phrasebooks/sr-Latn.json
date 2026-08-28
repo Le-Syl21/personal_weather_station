@@ -112,17 +112,17 @@
     "config::step::user::description": "Ovde postavite ključ stanice koji vaše meteorološke stanice moraju da šalju kako njihovi podaci ne bi bili odbijeni. Ako polje ostavite prazno, prihvataće se svi zahtevi.",
     "config::step::user::data::password": "Ključ stanice",
     "config::abort::single_instance_allowed": "Već podešeno. Jedna jedina instanca opslužuje sve meteorološke stanice.",
-    "options::step::init::title": "Lična meteorološka stanica",
-    "options::step::init::description": "Ovde postavite ključ stanice koji vaše meteorološke stanice moraju da šalju kako njihovi podaci ne bi bili odbijeni. Ako polje ostavite prazno, prihvataće se svi zahtevi.",
-    "options::step::init::data::password": "Ključ stanice",
-    "options::step::init::data::availability_timeout": "Označi kao nedostupno nakon (minuta)",
-    "options::step::init::data::debug": "Zabeleži svaki dolazni zahtev",
-    "options::step::init::data_description::availability_timeout": "Koliko dugo stanica sme da ćuti pre nego što njeni senzori budu označeni kao nedostupni. 0 znači nikada.",
-    "options::step::init::data_description::debug": "Upisuje ceo sadržaj svakog zahteva u dnevnik Home Assistant-a. Korisno pri podešavanju stanice, bučno posle toga.",
     "issues::invalid_station_key::title": "Meteorološka stanica odbijena: pogrešan ključ stanice",
     "issues::invalid_station_key::description": "Meteorološka stanica na {ip} pokušala je da pošalje podatke kao `{station_id}` bez slanja očekivanog ključa stanice.\n\nProverite da li se ključ podešen u stanici ili u aplikaciji WSLink podudara sa onim podešenim u ovoj integraciji. Ova poruka nestaje sama čim zahtev sa {ip} bude prihvaćen.",
     "issues::missing_device_id::title": "Meteorološka stanica odbijena: nema identifikatora stanice",
     "issues::missing_device_id::description": "Meteorološka stanica na {ip} poslala je podatke bez identifikatora stanice.\n\nPostavite Sender ID u aplikaciji WSLink ili parametar ID u podešavanjima stanice. Ova poruka nestaje sama čim zahtev sa {ip} bude prihvaćen.",
-    "exceptions::no_wind_direction::message": "Stanica {device} još uvek nije poslala smer vetra, pa nema prema čemu da se kalibriše. Sačekajte sledeće slanje i pokušajte ponovo."
+    "exceptions::no_wind_direction::message": "Stanica {device} još uvek nije poslala smer vetra, pa nema prema čemu da se kalibriše. Sačekajte sledeće slanje i pokušajte ponovo.",
+    "options::step::options::title": "Lična meteorološka stanica",
+    "options::step::options::description": "Ovde postavite ključ stanice koji vaše meteorološke stanice moraju da šalju kako njihovi podaci ne bi bili odbijeni. Ako polje ostavite prazno, prihvataće se svi zahtevi.",
+    "options::step::options::data::password": "Ključ stanice",
+    "options::step::options::data::availability_timeout": "Označi kao nedostupno nakon (minuta)",
+    "options::step::options::data::debug": "Zabeleži svaki dolazni zahtev",
+    "options::step::options::data_description::availability_timeout": "Koliko dugo stanica sme da ćuti pre nego što njeni senzori budu označeni kao nedostupni. 0 znači nikada.",
+    "options::step::options::data_description::debug": "Upisuje ceo sadržaj svakog zahteva u dnevnik Home Assistant-a. Korisno pri podešavanju stanice, bučno posle toga."
   }
 }

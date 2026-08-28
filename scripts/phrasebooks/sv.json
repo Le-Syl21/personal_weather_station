@@ -112,17 +112,17 @@
     "config::step::user::description": "Ange här en stationsnyckel som dina väderstationer måste skicka med för att deras data inte ska avvisas. Lämnar du fältet tomt accepteras alla förfrågningar.",
     "config::step::user::data::password": "Stationsnyckel",
     "config::abort::single_instance_allowed": "Redan konfigurerad. En enda instans betjänar alla väderstationer.",
-    "options::step::init::title": "Personlig väderstation",
-    "options::step::init::description": "Ange här en stationsnyckel som dina väderstationer måste skicka med för att deras data inte ska avvisas. Lämnar du fältet tomt accepteras alla förfrågningar.",
-    "options::step::init::data::password": "Stationsnyckel",
-    "options::step::init::data::availability_timeout": "Markera som otillgänglig efter (minuter)",
-    "options::step::init::data::debug": "Logga varje inkommande förfrågan",
-    "options::step::init::data_description::availability_timeout": "Hur länge en station får vara tyst innan dess sensorer markeras som otillgängliga. 0 för att aldrig markera dem.",
-    "options::step::init::data_description::debug": "Skriver hela innehållet i varje förfrågan till Home Assistants logg. Användbart när en station ställs in, störande efteråt.",
     "issues::invalid_station_key::title": "Väderstation avvisad: fel stationsnyckel",
     "issues::invalid_station_key::description": "En väderstation på {ip} försökte skicka data som `{station_id}` utan att skicka med den förväntade stationsnyckeln.\n\nKontrollera att nyckeln som är inställd i stationen eller i WSLink-appen stämmer med den som angetts i den här integrationen. Meddelandet försvinner av sig självt så snart en förfrågan från {ip} accepteras.",
     "issues::missing_device_id::title": "Väderstation avvisad: ingen stationsidentifierare",
     "issues::missing_device_id::description": "En väderstation på {ip} skickade data utan stationsidentifierare.\n\nAnge ett Sender ID i WSLink-appen, eller en ID-parameter i stationens konfiguration. Meddelandet försvinner av sig självt så snart en förfrågan från {ip} accepteras.",
-    "exceptions::no_wind_direction::message": "Stationen {device} har ännu inte skickat någon vindriktning, så det finns inget att kalibrera mot. Vänta på nästa sändning och försök igen."
+    "exceptions::no_wind_direction::message": "Stationen {device} har ännu inte skickat någon vindriktning, så det finns inget att kalibrera mot. Vänta på nästa sändning och försök igen.",
+    "options::step::options::title": "Personlig väderstation",
+    "options::step::options::description": "Ange här en stationsnyckel som dina väderstationer måste skicka med för att deras data inte ska avvisas. Lämnar du fältet tomt accepteras alla förfrågningar.",
+    "options::step::options::data::password": "Stationsnyckel",
+    "options::step::options::data::availability_timeout": "Markera som otillgänglig efter (minuter)",
+    "options::step::options::data::debug": "Logga varje inkommande förfrågan",
+    "options::step::options::data_description::availability_timeout": "Hur länge en station får vara tyst innan dess sensorer markeras som otillgängliga. 0 för att aldrig markera dem.",
+    "options::step::options::data_description::debug": "Skriver hela innehållet i varje förfrågan till Home Assistants logg. Användbart när en station ställs in, störande efteråt."
   }
 }

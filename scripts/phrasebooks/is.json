@@ -112,17 +112,17 @@
     "config::step::user::description": "Stilltu hér stöðvarlykil sem veðurstöðvarnar þínar verða að senda svo gögnum þeirra sé ekki hafnað. Ef þú skilur reitinn eftir auðan verða allar beiðnir samþykktar.",
     "config::step::user::data::password": "Stöðvarlykill",
     "config::abort::single_instance_allowed": "Þegar uppsett. Eitt eintak þjónar öllum veðurstöðvum.",
-    "options::step::init::title": "Persónuleg veðurstöð",
-    "options::step::init::description": "Stilltu hér stöðvarlykil sem veðurstöðvarnar þínar verða að senda svo gögnum þeirra sé ekki hafnað. Ef þú skilur reitinn eftir auðan verða allar beiðnir samþykktar.",
-    "options::step::init::data::password": "Stöðvarlykill",
-    "options::step::init::data::availability_timeout": "Merkja sem ótiltækt eftir (mínútur)",
-    "options::step::init::data::debug": "Skrá hverja innkomna beiðni",
-    "options::step::init::data_description::availability_timeout": "Hversu lengi stöð má þegja áður en nemar hennar eru merktir ótiltækir. 0 til að merkja þá aldrei.",
-    "options::step::init::data_description::debug": "Skrifar allt innihald hverrar beiðni í annál Home Assistant. Gagnlegt meðan stöð er sett upp, hávaðasamt eftir það.",
     "issues::invalid_station_key::title": "Veðurstöð hafnað: rangur stöðvarlykill",
     "issues::invalid_station_key::description": "Veðurstöð á {ip} reyndi að senda gögn sem `{station_id}` án þess að senda væntanlegan stöðvarlykil.\n\nAthugaðu hvort lykillinn sem stilltur er í stöðinni eða í WSLink-forritinu passi við þann sem stilltur er í þessari samþættingu. Þessi skilaboð hverfa af sjálfu sér um leið og beiðni frá {ip} er samþykkt.",
     "issues::missing_device_id::title": "Veðurstöð hafnað: engin stöðvarauðkenni",
     "issues::missing_device_id::description": "Veðurstöð á {ip} sendi gögn án stöðvarauðkennis.\n\nStilltu Sender ID í WSLink-forritinu, eða ID-færibreytu í stillingum stöðvarinnar. Þessi skilaboð hverfa af sjálfu sér um leið og beiðni frá {ip} er samþykkt.",
-    "exceptions::no_wind_direction::message": "Stöðin {device} hefur ekki enn sent neina vindátt, svo það er ekkert til að kvarða eftir. Bíddu eftir næstu sendingu og reyndu aftur."
+    "exceptions::no_wind_direction::message": "Stöðin {device} hefur ekki enn sent neina vindátt, svo það er ekkert til að kvarða eftir. Bíddu eftir næstu sendingu og reyndu aftur.",
+    "options::step::options::title": "Persónuleg veðurstöð",
+    "options::step::options::description": "Stilltu hér stöðvarlykil sem veðurstöðvarnar þínar verða að senda svo gögnum þeirra sé ekki hafnað. Ef þú skilur reitinn eftir auðan verða allar beiðnir samþykktar.",
+    "options::step::options::data::password": "Stöðvarlykill",
+    "options::step::options::data::availability_timeout": "Merkja sem ótiltækt eftir (mínútur)",
+    "options::step::options::data::debug": "Skrá hverja innkomna beiðni",
+    "options::step::options::data_description::availability_timeout": "Hversu lengi stöð má þegja áður en nemar hennar eru merktir ótiltækir. 0 til að merkja þá aldrei.",
+    "options::step::options::data_description::debug": "Skrifar allt innihald hverrar beiðni í annál Home Assistant. Gagnlegt meðan stöð er sett upp, hávaðasamt eftir það."
   }
 }

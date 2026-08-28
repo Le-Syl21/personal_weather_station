@@ -112,17 +112,17 @@
     "config::step::user::description": "Ezarri hemen zure eguraldi-estazioek bidali behar duten estazio-gakoa, haien datuak baztertuak izan ez daitezen. Eremua hutsik uzten baduzu, eskaera guztiak onartuko dira.",
     "config::step::user::data::password": "Estazio-gakoa",
     "config::abort::single_instance_allowed": "Dagoeneko konfiguratuta. Instantzia bakar batek eguraldi-estazio guztiak zerbitzatzen ditu.",
-    "options::step::init::title": "Norberaren eguraldi-estazioa",
-    "options::step::init::description": "Ezarri hemen zure eguraldi-estazioek bidali behar duten estazio-gakoa, haien datuak baztertuak izan ez daitezen. Eremua hutsik uzten baduzu, eskaera guztiak onartuko dira.",
-    "options::step::init::data::password": "Estazio-gakoa",
-    "options::step::init::data::availability_timeout": "Markatu erabilgaitz gisa honen ondoren (minutuak)",
-    "options::step::init::data::debug": "Erregistratu jasotako eskaera bakoitza",
-    "options::step::init::data_description::availability_timeout": "Zenbat denbora egon daitekeen estazio bat isilik bere sentsoreak erabilgaitz gisa markatu aurretik. 0 inoiz ez markatzeko.",
-    "options::step::init::data_description::debug": "Eskaera bakoitzaren eduki osoa Home Assistant-en erregistroan idazten du. Erabilgarria estazio bat konfiguratzean, zaratatsua ondoren.",
     "issues::invalid_station_key::title": "Eguraldi-estazioa baztertuta: estazio-gako okerra",
     "issues::invalid_station_key::description": "{ip} helbideko eguraldi-estazio batek `{station_id}` gisa datuak bidaltzen saiatu da, espero zen estazio-gakoa bidali gabe.\n\nEgiaztatu estazioan edo WSLink aplikazioan konfiguratutako gakoa integrazio honetan ezarritakoarekin bat datorrela. Mezu hau bere kabuz desagertuko da {ip} helbidetik datorren eskaera bat onartu bezain laster.",
     "issues::missing_device_id::title": "Eguraldi-estazioa baztertuta: estazio-identifikatzailerik ez",
     "issues::missing_device_id::description": "{ip} helbideko eguraldi-estazio batek datuak bidali ditu estazio-identifikatzailerik gabe.\n\nEzarri Sender ID bat WSLink aplikazioan, edo ID parametro bat estazioaren konfigurazioan. Mezu hau bere kabuz desagertuko da {ip} helbidetik datorren eskaera bat onartu bezain laster.",
-    "exceptions::no_wind_direction::message": "{device} estazioak ez du oraindik haizearen norabiderik bidali, beraz ez dago ezer kalibratzeko. Itxaron hurrengo bidalketari eta saiatu berriro."
+    "exceptions::no_wind_direction::message": "{device} estazioak ez du oraindik haizearen norabiderik bidali, beraz ez dago ezer kalibratzeko. Itxaron hurrengo bidalketari eta saiatu berriro.",
+    "options::step::options::title": "Norberaren eguraldi-estazioa",
+    "options::step::options::description": "Ezarri hemen zure eguraldi-estazioek bidali behar duten estazio-gakoa, haien datuak baztertuak izan ez daitezen. Eremua hutsik uzten baduzu, eskaera guztiak onartuko dira.",
+    "options::step::options::data::password": "Estazio-gakoa",
+    "options::step::options::data::availability_timeout": "Markatu erabilgaitz gisa honen ondoren (minutuak)",
+    "options::step::options::data::debug": "Erregistratu jasotako eskaera bakoitza",
+    "options::step::options::data_description::availability_timeout": "Zenbat denbora egon daitekeen estazio bat isilik bere sentsoreak erabilgaitz gisa markatu aurretik. 0 inoiz ez markatzeko.",
+    "options::step::options::data_description::debug": "Eskaera bakoitzaren eduki osoa Home Assistant-en erregistroan idazten du. Erabilgarria estazio bat konfiguratzean, zaratatsua ondoren."
   }
 }

@@ -112,17 +112,17 @@
     "config::step::user::description": "Adjon meg itt egy állomáskulcsot, amelyet a meteorológiai állomásainak továbbítaniuk kell, hogy adataikat ne utasítsa el a rendszer. Ha üresen hagyja a mezőt, minden kérés elfogadásra kerül.",
     "config::step::user::data::password": "Állomáskulcs",
     "config::abort::single_instance_allowed": "Már konfigurálva. Egyetlen példány szolgálja ki az összes meteorológiai állomást.",
-    "options::step::init::title": "Személyes meteorológiai állomás",
-    "options::step::init::description": "Adjon meg itt egy állomáskulcsot, amelyet a meteorológiai állomásainak továbbítaniuk kell, hogy adataikat ne utasítsa el a rendszer. Ha üresen hagyja a mezőt, minden kérés elfogadásra kerül.",
-    "options::step::init::data::password": "Állomáskulcs",
-    "options::step::init::data::availability_timeout": "Megjelölés nem elérhetőként ennyi idő után (perc)",
-    "options::step::init::data::debug": "Minden beérkező kérés naplózása",
-    "options::step::init::data_description::availability_timeout": "Meddig hallgathat egy állomás, mielőtt érzékelőit nem elérhetőként jelöli meg a rendszer. A 0 azt jelenti, hogy soha.",
-    "options::step::init::data_description::debug": "Minden kérés teljes tartalmát a Home Assistant naplójába írja. Hasznos egy állomás beállításakor, utána zavaró.",
     "issues::invalid_station_key::title": "Meteorológiai állomás elutasítva: hibás állomáskulcs",
     "issues::invalid_station_key::description": "A(z) {ip} címen lévő meteorológiai állomás `{station_id}` néven próbált adatot küldeni anélkül, hogy elküldte volna a várt állomáskulcsot.\n\nEllenőrizze, hogy az állomásban vagy a WSLink alkalmazásban beállított kulcs megegyezik-e az ebben az integrációban megadottal. Ez az üzenet magától eltűnik, amint egy {ip} címről érkező kérés elfogadásra kerül.",
     "issues::missing_device_id::title": "Meteorológiai állomás elutasítva: nincs állomásazonosító",
     "issues::missing_device_id::description": "A(z) {ip} címen lévő meteorológiai állomás állomásazonosító nélkül küldött adatot.\n\nÁllítson be egy Sender ID-t a WSLink alkalmazásban, vagy egy ID paramétert az állomás konfigurációjában. Ez az üzenet magától eltűnik, amint egy {ip} címről érkező kérés elfogadásra kerül.",
-    "exceptions::no_wind_direction::message": "A(z) {device} állomás még nem küldött szélirányt, így nincs mihez kalibrálni. Várja meg a következő feltöltést, és próbálja újra."
+    "exceptions::no_wind_direction::message": "A(z) {device} állomás még nem küldött szélirányt, így nincs mihez kalibrálni. Várja meg a következő feltöltést, és próbálja újra.",
+    "options::step::options::title": "Személyes meteorológiai állomás",
+    "options::step::options::description": "Adjon meg itt egy állomáskulcsot, amelyet a meteorológiai állomásainak továbbítaniuk kell, hogy adataikat ne utasítsa el a rendszer. Ha üresen hagyja a mezőt, minden kérés elfogadásra kerül.",
+    "options::step::options::data::password": "Állomáskulcs",
+    "options::step::options::data::availability_timeout": "Megjelölés nem elérhetőként ennyi idő után (perc)",
+    "options::step::options::data::debug": "Minden beérkező kérés naplózása",
+    "options::step::options::data_description::availability_timeout": "Meddig hallgathat egy állomás, mielőtt érzékelőit nem elérhetőként jelöli meg a rendszer. A 0 azt jelenti, hogy soha.",
+    "options::step::options::data_description::debug": "Minden kérés teljes tartalmát a Home Assistant naplójába írja. Hasznos egy állomás beállításakor, utána zavaró."
   }
 }

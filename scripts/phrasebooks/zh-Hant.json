@@ -112,17 +112,17 @@
     "config::step::user::description": "在此設定一組氣象站金鑰，您的氣象站必須傳送該金鑰，其資料才不會被拒絕。若留空，則接受所有請求。",
     "config::step::user::data::password": "氣象站金鑰",
     "config::abort::single_instance_allowed": "已設定。單一實例即可服務所有氣象站。",
-    "options::step::init::title": "個人氣象站",
-    "options::step::init::description": "在此設定一組氣象站金鑰，您的氣象站必須傳送該金鑰，其資料才不會被拒絕。若留空，則接受所有請求。",
-    "options::step::init::data::password": "氣象站金鑰",
-    "options::step::init::data::availability_timeout": "多久後標記為無法使用（分鐘）",
-    "options::step::init::data::debug": "記錄每個收到的請求",
-    "options::step::init::data_description::availability_timeout": "氣象站可以保持靜默多久，之後其感測器會被標記為無法使用。設為 0 則永不標記。",
-    "options::step::init::data_description::debug": "將每個請求的完整內容寫入 Home Assistant 記錄檔。設定氣象站時很有用，之後會很吵雜。",
     "issues::invalid_station_key::title": "氣象站遭拒絕：氣象站金鑰錯誤",
     "issues::invalid_station_key::description": "位於 {ip} 的氣象站嘗試以 `{station_id}` 的身分傳送資料，但未傳送預期的氣象站金鑰。\n\n請檢查氣象站或 WSLink 應用程式中設定的金鑰是否與本整合中設定的一致。一旦來自 {ip} 的請求被接受，此訊息會自動消失。",
     "issues::missing_device_id::title": "氣象站遭拒絕：缺少氣象站識別碼",
     "issues::missing_device_id::description": "位於 {ip} 的氣象站傳送資料時未附上氣象站識別碼。\n\n請在 WSLink 應用程式中設定 Sender ID，或在氣象站設定中設定 ID 參數。一旦來自 {ip} 的請求被接受，此訊息會自動消失。",
-    "exceptions::no_wind_direction::message": "氣象站 {device} 尚未回報風向，因此沒有可校正的基準。請等待下次上傳後再試一次。"
+    "exceptions::no_wind_direction::message": "氣象站 {device} 尚未回報風向，因此沒有可校正的基準。請等待下次上傳後再試一次。",
+    "options::step::options::title": "個人氣象站",
+    "options::step::options::description": "在此設定一組氣象站金鑰，您的氣象站必須傳送該金鑰，其資料才不會被拒絕。若留空，則接受所有請求。",
+    "options::step::options::data::password": "氣象站金鑰",
+    "options::step::options::data::availability_timeout": "多久後標記為無法使用（分鐘）",
+    "options::step::options::data::debug": "記錄每個收到的請求",
+    "options::step::options::data_description::availability_timeout": "氣象站可以保持靜默多久，之後其感測器會被標記為無法使用。設為 0 則永不標記。",
+    "options::step::options::data_description::debug": "將每個請求的完整內容寫入 Home Assistant 記錄檔。設定氣象站時很有用，之後會很吵雜。"
   }
 }

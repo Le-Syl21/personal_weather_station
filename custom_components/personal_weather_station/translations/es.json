@@ -21,6 +21,13 @@
     "step": {
       "init": {
         "title": "Estación meteorológica personal",
+        "menu_options": {
+          "options": "Ajustes",
+          "instructions": "Cómo apuntar una estación a Home Assistant"
+        }
+      },
+      "options": {
+        "title": "Estación meteorológica personal",
         "description": "Defina aquí una clave de estación que sus estaciones meteorológicas deberán transmitir para que sus datos no sean rechazados. Si deja el campo vacío, se aceptarán todas las solicitudes.",
         "data": {
           "password": "Clave de estación",
@@ -31,6 +38,10 @@
           "availability_timeout": "Cuánto tiempo puede permanecer en silencio una estación antes de que sus sensores se marquen como no disponibles. 0 para no marcarlos nunca.",
           "debug": "Escribe el contenido completo de cada solicitud en el registro de Home Assistant. Útil al configurar una estación, ruidoso después."
         }
+      },
+      "instructions": {
+        "title": "Apuntar una estación a Home Assistant",
+        "description": "Es su estación meteorológica la que crea los dispositivos y sensores — aquí no hay ningún dispositivo que añadir.\n\nIntroduzca lo siguiente en su estación, o en la aplicación WSLink:\n\n**URL**\n{urls}\n\n**Sender ID** — el que quiera, será el nombre del dispositivo en Home Assistant.\n\n**Clave de estación** — {key_hint}.\n\n**Tipo de API** — *WUnderground API* o *WSLink*, ambos funcionan.\n\n**Intervalo de envío** — 60 segundos es un buen valor por defecto.\n\nSus sensores aparecerán en el primer envío recibido. Si no llega nada, mire en **Ajustes → Sistema → Reparaciones**: una estación rechazada se informa allí.\n\nLos puntos de entrada a la escucha son:\n{endpoints}"
       }
     }
   },

@@ -112,17 +112,17 @@
     "config::step::user::description": "Oppgi her ein stasjonsnøkkel som vêrstasjonane dine må sende med for at dataa deira ikkje skal bli avviste. Lèt du feltet stå tomt, blir alle førespurnader godtekne.",
     "config::step::user::data::password": "Stasjonsnøkkel",
     "config::abort::single_instance_allowed": "Allereie konfigurert. Éin einaste instans betener alle vêrstasjonar.",
-    "options::step::init::title": "Personleg vêrstasjon",
-    "options::step::init::description": "Oppgi her ein stasjonsnøkkel som vêrstasjonane dine må sende med for at dataa deira ikkje skal bli avviste. Lèt du feltet stå tomt, blir alle førespurnader godtekne.",
-    "options::step::init::data::password": "Stasjonsnøkkel",
-    "options::step::init::data::availability_timeout": "Merk som utilgjengeleg etter (minutt)",
-    "options::step::init::data::debug": "Logg kvar innkomande førespurnad",
-    "options::step::init::data_description::availability_timeout": "Kor lenge ein stasjon kan vere tagal før sensorane blir merkte som utilgjengelege. 0 for aldri å merke dei.",
-    "options::step::init::data_description::debug": "Skriv heile innhaldet i kvar førespurnad til Home Assistant-loggen. Nyttig medan ein stasjon blir sett opp, støyande etterpå.",
     "issues::invalid_station_key::title": "Vêrstasjon avvist: feil stasjonsnøkkel",
     "issues::invalid_station_key::description": "Ein vêrstasjon på {ip} prøvde å sende data som `{station_id}` utan å sende med forventa stasjonsnøkkel.\n\nKontroller at nøkkelen som er sett i stasjonen eller i WSLink-appen stemmer med den som er oppgitt i denne integrasjonen. Meldinga forsvinn av seg sjølv så snart ein førespurnad frå {ip} blir godteken.",
     "issues::missing_device_id::title": "Vêrstasjon avvist: ingen stasjonsidentifikator",
     "issues::missing_device_id::description": "Ein vêrstasjon på {ip} sende data utan stasjonsidentifikator.\n\nOppgi ein Sender ID i WSLink-appen, eller ein ID-parameter i konfigurasjonen til stasjonen. Meldinga forsvinn av seg sjølv så snart ein førespurnad frå {ip} blir godteken.",
-    "exceptions::no_wind_direction::message": "Stasjonen {device} har enno ikkje sendt nokon vindretning, så det er ingenting å kalibrere mot. Vent på neste sending og prøv igjen."
+    "exceptions::no_wind_direction::message": "Stasjonen {device} har enno ikkje sendt nokon vindretning, så det er ingenting å kalibrere mot. Vent på neste sending og prøv igjen.",
+    "options::step::options::title": "Personleg vêrstasjon",
+    "options::step::options::description": "Oppgi her ein stasjonsnøkkel som vêrstasjonane dine må sende med for at dataa deira ikkje skal bli avviste. Lèt du feltet stå tomt, blir alle førespurnader godtekne.",
+    "options::step::options::data::password": "Stasjonsnøkkel",
+    "options::step::options::data::availability_timeout": "Merk som utilgjengeleg etter (minutt)",
+    "options::step::options::data::debug": "Logg kvar innkomande førespurnad",
+    "options::step::options::data_description::availability_timeout": "Kor lenge ein stasjon kan vere tagal før sensorane blir merkte som utilgjengelege. 0 for aldri å merke dei.",
+    "options::step::options::data_description::debug": "Skriv heile innhaldet i kvar førespurnad til Home Assistant-loggen. Nyttig medan ein stasjon blir sett opp, støyande etterpå."
   }
 }

@@ -61,6 +61,12 @@ async def test_options_flow_defaults(hass, setup_pws):
 
     result = await hass.config_entries.options.async_init(entry.entry_id)
 
+    assert result["type"] == FlowResultType.MENU
+    assert set(result["menu_options"]) == {"options", "instructions"}
+
+    result = await hass.config_entries.options.async_configure(
+        result["flow_id"], user_input={"next_step_id": "options"}
+    )
     assert result["type"] == FlowResultType.FORM
 
     result = await hass.config_entries.options.async_configure(
@@ -241,3 +247,30 @@ async def test_onboarding_repair_reports_a_failure_after_the_wait(
     # Closing it leaves the prompt in place.
     assert (await flow.async_step_timeout({}))["type"] == FlowResultType.CREATE_ENTRY
     assert ir.async_get(hass).async_get_issue(DOMAIN, ISSUE_NO_STATION_YET) is not None
+
+
+async def test_instructions_stay_reachable_from_the_options(hass, setup_pws):
+    """
+    The onboarding repair goes away once a station has posted.
+
+    Someone adding a second station months later still needs the address to
+    point it at, so the options keep the instructions.
+    """
+
+    entry, client = await setup_pws()
+
+    await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1tem=21.5")
+    await hass.async_block_till_done()
+
+    result = await hass.config_entries.options.async_init(entry.entry_id)
+    result = await hass.config_entries.options.async_configure(
+        result["flow_id"], user_input={"next_step_id": "instructions"}
+    )
+
+    assert result["type"] == FlowResultType.FORM
+    assert result["step_id"] == "instructions"
+    assert {"urls", "key_hint", "endpoints"} <= result["description_placeholders"].keys()
+
+    # Closing it returns to the menu rather than saving anything.
+    back = await hass.config_entries.options.async_configure(result["flow_id"], {})
+    assert back["type"] == FlowResultType.MENU

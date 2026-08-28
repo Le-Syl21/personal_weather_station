@@ -112,17 +112,17 @@
     "config::step::user::description": "Agordu ĉi tie stacian ŝlosilon, kiun viaj veterstacioj devas sendi por ke iliaj datumoj ne estu malakceptitaj. Se vi lasas la kampon malplena, ĉiuj petoj estos akceptitaj.",
     "config::step::user::data::password": "Stacia ŝlosilo",
     "config::abort::single_instance_allowed": "Jam agordita. Unu sola instanco servas ĉiujn veterstaciojn.",
-    "options::step::init::title": "Persona veterstacio",
-    "options::step::init::description": "Agordu ĉi tie stacian ŝlosilon, kiun viaj veterstacioj devas sendi por ke iliaj datumoj ne estu malakceptitaj. Se vi lasas la kampon malplena, ĉiuj petoj estos akceptitaj.",
-    "options::step::init::data::password": "Stacia ŝlosilo",
-    "options::step::init::data::availability_timeout": "Marki kiel nedisponebla post (minutoj)",
-    "options::step::init::data::debug": "Protokoli ĉiun envenantan peton",
-    "options::step::init::data_description::availability_timeout": "Kiom longe stacio rajtas silenti antaŭ ol ĝiaj sensiloj estas markitaj kiel nedisponeblaj. 0 signifas neniam marki ilin.",
-    "options::step::init::data_description::debug": "Skribas la tutan enhavon de ĉiu peto en la protokolon de Home Assistant. Utila dum agordado de stacio, ĝena poste.",
     "issues::invalid_station_key::title": "Veterstacio malakceptita: malĝusta stacia ŝlosilo",
     "issues::invalid_station_key::description": "Veterstacio ĉe {ip} provis sendi datumojn kiel `{station_id}` sen sendi la atendatan stacian ŝlosilon.\n\nKontrolu ĉu la ŝlosilo agordita en la stacio aŭ en la aplikaĵo WSLink kongruas kun tiu agordita en ĉi tiu integriĝo. Ĉi tiu mesaĝo malaperos per si mem tuj kiam peto de {ip} estos akceptita.",
     "issues::missing_device_id::title": "Veterstacio malakceptita: neniu stacia identigilo",
     "issues::missing_device_id::description": "Veterstacio ĉe {ip} sendis datumojn sen stacia identigilo.\n\nAgordu Sender ID en la aplikaĵo WSLink, aŭ ID-parametron en la agordo de la stacio. Ĉi tiu mesaĝo malaperos per si mem tuj kiam peto de {ip} estos akceptita.",
-    "exceptions::no_wind_direction::message": "La stacio {device} ankoraŭ ne sendis ventan direkton, do estas nenio laŭ kio kalibri. Atendu la sekvan alŝuton kaj reprovu."
+    "exceptions::no_wind_direction::message": "La stacio {device} ankoraŭ ne sendis ventan direkton, do estas nenio laŭ kio kalibri. Atendu la sekvan alŝuton kaj reprovu.",
+    "options::step::options::title": "Persona veterstacio",
+    "options::step::options::description": "Agordu ĉi tie stacian ŝlosilon, kiun viaj veterstacioj devas sendi por ke iliaj datumoj ne estu malakceptitaj. Se vi lasas la kampon malplena, ĉiuj petoj estos akceptitaj.",
+    "options::step::options::data::password": "Stacia ŝlosilo",
+    "options::step::options::data::availability_timeout": "Marki kiel nedisponebla post (minutoj)",
+    "options::step::options::data::debug": "Protokoli ĉiun envenantan peton",
+    "options::step::options::data_description::availability_timeout": "Kiom longe stacio rajtas silenti antaŭ ol ĝiaj sensiloj estas markitaj kiel nedisponeblaj. 0 signifas neniam marki ilin.",
+    "options::step::options::data_description::debug": "Skribas la tutan enhavon de ĉiu peto en la protokolon de Home Assistant. Utila dum agordado de stacio, ĝena poste."
   }
 }

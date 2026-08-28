@@ -112,17 +112,17 @@
     "config::step::user::description": "Setz da en Stationsschlüssel, wo dini Wetterstatione müend mitschicke, damit ihri Date nöd abglehnt werdet. Wenn du s Fäld leer lasch, werdet alli Aafrage aagno.",
     "config::step::user::data::password": "Stationsschlüssel",
     "config::abort::single_instance_allowed": "Scho iigrichtet. Ei einzigi Instanz bedient alli Wetterstatione.",
-    "options::step::init::title": "Persönlichi Wetterstation",
-    "options::step::init::description": "Setz da en Stationsschlüssel, wo dini Wetterstatione müend mitschicke, damit ihri Date nöd abglehnt werdet. Wenn du s Fäld leer lasch, werdet alli Aafrage aagno.",
-    "options::step::init::data::password": "Stationsschlüssel",
-    "options::step::init::data::availability_timeout": "Als nöd verfüegbar markiere nach (Minute)",
-    "options::step::init::data::debug": "Jedi iigehendi Aafrag protokolliere",
-    "options::step::init::data_description::availability_timeout": "Wie lang e Station cha stumm bliibe, bevor ihri Sensore als nöd verfüegbar markiert werdet. 0 heisst nie markiere.",
-    "options::step::init::data_description::debug": "Schriibt de ganz Inhalt vo jedere Aafrag is Home-Assistant-Protokoll. Nützlich bim Iirichte vonere Station, nachher störend.",
     "issues::invalid_station_key::title": "Wetterstation abglehnt: falsche Stationsschlüssel",
     "issues::invalid_station_key::description": "E Wetterstation uf {ip} het probiert, Date als `{station_id}` z schicke, ohni de erwarteti Stationsschlüssel mitzschicke.\n\nPrüef, öb de Schlüssel i de Station oder i de WSLink-App mit dem übereistimmt, wo da iigstellt isch. Die Meldig verschwindet vo selber, sobald e Aafrag vo {ip} aagno wird.",
     "issues::missing_device_id::title": "Wetterstation abglehnt: kei Stationskennig",
     "issues::missing_device_id::description": "E Wetterstation uf {ip} het Date ohni Stationskennig gschickt.\n\nSetz i de WSLink-App e Sender ID, oder en ID-Parameter i de Stationskonfiguration. Die Meldig verschwindet vo selber, sobald e Aafrag vo {ip} aagno wird.",
-    "exceptions::no_wind_direction::message": "D Station {device} het no kei Windrichtig gschickt, drum gits nüt zum Kalibriere. Wart uf di nächst Übertragig und probiers nomal."
+    "exceptions::no_wind_direction::message": "D Station {device} het no kei Windrichtig gschickt, drum gits nüt zum Kalibriere. Wart uf di nächst Übertragig und probiers nomal.",
+    "options::step::options::title": "Persönlichi Wetterstation",
+    "options::step::options::description": "Setz da en Stationsschlüssel, wo dini Wetterstatione müend mitschicke, damit ihri Date nöd abglehnt werdet. Wenn du s Fäld leer lasch, werdet alli Aafrage aagno.",
+    "options::step::options::data::password": "Stationsschlüssel",
+    "options::step::options::data::availability_timeout": "Als nöd verfüegbar markiere nach (Minute)",
+    "options::step::options::data::debug": "Jedi iigehendi Aafrag protokolliere",
+    "options::step::options::data_description::availability_timeout": "Wie lang e Station cha stumm bliibe, bevor ihri Sensore als nöd verfüegbar markiert werdet. 0 heisst nie markiere.",
+    "options::step::options::data_description::debug": "Schriibt de ganz Inhalt vo jedere Aafrag is Home-Assistant-Protokoll. Nützlich bim Iirichte vonere Station, nachher störend."
   }
 }

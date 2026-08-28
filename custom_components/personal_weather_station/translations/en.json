@@ -21,6 +21,13 @@
     "step": {
       "init": {
         "title": "Personal Weather Station",
+        "menu_options": {
+          "options": "Settings",
+          "instructions": "How to point a station at Home Assistant"
+        }
+      },
+      "options": {
+        "title": "Personal Weather Station",
         "description": "Set a station key here that your weather stations must transmit so that their data is not rejected. If you leave the field blank, all requests will be accepted.",
         "data": {
           "password": "Station key",
@@ -31,6 +38,10 @@
           "availability_timeout": "How long a station may stay silent before its sensors are marked unavailable. Set to 0 to never mark them unavailable.",
           "debug": "Writes the full content of every request to the Home Assistant log. Useful while setting a station up, noisy afterwards."
         }
+      },
+      "instructions": {
+        "title": "Point a station at Home Assistant",
+        "description": "Your weather station is what creates the devices and sensors — there is no device to add here.\n\nEnter the following in your station, or in the WSLink app:\n\n**URL**\n{urls}\n\n**Sender ID** — anything you like, it becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**API type** — *WUnderground API* or *WSLink*, either works.\n\n**Upload interval** — 60 seconds is a good default.\n\nYour sensors appear on the first upload received. If nothing shows up, check **Settings → System → Repairs**: a rejected station is reported there.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -79,7 +90,7 @@
           },
           "timeout": {
             "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nThings worth checking:\n\n  - The URL entered in the station is one of:\n{urls}\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an `https://` address.\n  - The station key is {key_hint}.\n  - The upload interval may simply be longer than the wait.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "description": "No upload arrived in {minutes} minutes.\n\n**Check the URL entered in the station.** It has to be one of these:\n{urls}\n\nThen, in order of likelihood:\n\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an `https://` address.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
           }
         },
         "progress": {

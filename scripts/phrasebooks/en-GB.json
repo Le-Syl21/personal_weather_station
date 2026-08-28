@@ -112,17 +112,17 @@
     "config::step::user::description": "Set a station key here that your weather stations must transmit so that their data is not rejected. If you leave the field blank, all requests will be accepted.",
     "config::step::user::data::password": "Station key",
     "config::abort::single_instance_allowed": "Already configured. A single instance serves every weather station.",
-    "options::step::init::title": "Personal Weather Station",
-    "options::step::init::description": "Set a station key here that your weather stations must transmit so that their data is not rejected. If you leave the field blank, all requests will be accepted.",
-    "options::step::init::data::password": "Station key",
-    "options::step::init::data::availability_timeout": "Mark as unavailable after (minutes)",
-    "options::step::init::data::debug": "Log every incoming request",
-    "options::step::init::data_description::availability_timeout": "How long a station may stay silent before its sensors are marked unavailable. Set to 0 to never mark them unavailable.",
-    "options::step::init::data_description::debug": "Writes the full content of every request to the Home Assistant log. Useful while setting a station up, noisy afterwards.",
     "issues::invalid_station_key::title": "Weather station rejected: wrong station key",
     "issues::invalid_station_key::description": "A weather station at {ip} tried to send data as `{station_id}` but did not send the expected station key.\n\nCheck that the station key configured in the station or in the WSLink app matches the one set in this integration. This message disappears on its own once a request from {ip} is accepted.",
     "issues::missing_device_id::title": "Weather station rejected: no station identifier",
     "issues::missing_device_id::description": "A weather station at {ip} sent data without a station identifier.\n\nSet a Sender ID in the WSLink app, or an ID parameter in the station configuration. This message disappears on its own once a request from {ip} is accepted.",
-    "exceptions::no_wind_direction::message": "Station {device} has not reported a wind direction yet, so there is nothing to calibrate against. Wait for the next upload and try again."
+    "exceptions::no_wind_direction::message": "Station {device} has not reported a wind direction yet, so there is nothing to calibrate against. Wait for the next upload and try again.",
+    "options::step::options::title": "Personal Weather Station",
+    "options::step::options::description": "Set a station key here that your weather stations must transmit so that their data is not rejected. If you leave the field blank, all requests will be accepted.",
+    "options::step::options::data::password": "Station key",
+    "options::step::options::data::availability_timeout": "Mark as unavailable after (minutes)",
+    "options::step::options::data::debug": "Log every incoming request",
+    "options::step::options::data_description::availability_timeout": "How long a station may stay silent before its sensors are marked unavailable. Set to 0 to never mark them unavailable.",
+    "options::step::options::data_description::debug": "Writes the full content of every request to the Home Assistant log. Useful while setting a station up, noisy afterwards."
   }
 }

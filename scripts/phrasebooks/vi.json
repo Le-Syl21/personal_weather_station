@@ -112,17 +112,17 @@
     "config::step::user::description": "Đặt tại đây một khóa trạm mà các trạm thời tiết của bạn phải gửi kèm để dữ liệu không bị từ chối. Nếu để trống, mọi yêu cầu đều được chấp nhận.",
     "config::step::user::data::password": "Khóa trạm",
     "config::abort::single_instance_allowed": "Đã cấu hình. Một phiên bản duy nhất phục vụ tất cả các trạm thời tiết.",
-    "options::step::init::title": "Trạm thời tiết cá nhân",
-    "options::step::init::description": "Đặt tại đây một khóa trạm mà các trạm thời tiết của bạn phải gửi kèm để dữ liệu không bị từ chối. Nếu để trống, mọi yêu cầu đều được chấp nhận.",
-    "options::step::init::data::password": "Khóa trạm",
-    "options::step::init::data::availability_timeout": "Đánh dấu không khả dụng sau (phút)",
-    "options::step::init::data::debug": "Ghi nhật ký mọi yêu cầu đến",
-    "options::step::init::data_description::availability_timeout": "Một trạm có thể im lặng bao lâu trước khi các cảm biến của nó bị đánh dấu là không khả dụng. Đặt 0 để không bao giờ đánh dấu.",
-    "options::step::init::data_description::debug": "Ghi toàn bộ nội dung của mỗi yêu cầu vào nhật ký Home Assistant. Hữu ích khi thiết lập một trạm, gây nhiễu sau đó.",
     "issues::invalid_station_key::title": "Trạm thời tiết bị từ chối: sai khóa trạm",
     "issues::invalid_station_key::description": "Một trạm thời tiết tại {ip} đã cố gửi dữ liệu dưới tên `{station_id}` mà không gửi khóa trạm mong đợi.\n\nKiểm tra xem khóa được cấu hình trong trạm hoặc trong ứng dụng WSLink có khớp với khóa đặt trong tích hợp này không. Thông báo này sẽ tự biến mất ngay khi một yêu cầu từ {ip} được chấp nhận.",
     "issues::missing_device_id::title": "Trạm thời tiết bị từ chối: không có định danh trạm",
     "issues::missing_device_id::description": "Một trạm thời tiết tại {ip} đã gửi dữ liệu mà không có định danh trạm.\n\nĐặt Sender ID trong ứng dụng WSLink, hoặc tham số ID trong cấu hình trạm. Thông báo này sẽ tự biến mất ngay khi một yêu cầu từ {ip} được chấp nhận.",
-    "exceptions::no_wind_direction::message": "Trạm {device} chưa gửi hướng gió nào nên không có gì để hiệu chuẩn. Hãy đợi lần tải lên tiếp theo rồi thử lại."
+    "exceptions::no_wind_direction::message": "Trạm {device} chưa gửi hướng gió nào nên không có gì để hiệu chuẩn. Hãy đợi lần tải lên tiếp theo rồi thử lại.",
+    "options::step::options::title": "Trạm thời tiết cá nhân",
+    "options::step::options::description": "Đặt tại đây một khóa trạm mà các trạm thời tiết của bạn phải gửi kèm để dữ liệu không bị từ chối. Nếu để trống, mọi yêu cầu đều được chấp nhận.",
+    "options::step::options::data::password": "Khóa trạm",
+    "options::step::options::data::availability_timeout": "Đánh dấu không khả dụng sau (phút)",
+    "options::step::options::data::debug": "Ghi nhật ký mọi yêu cầu đến",
+    "options::step::options::data_description::availability_timeout": "Một trạm có thể im lặng bao lâu trước khi các cảm biến của nó bị đánh dấu là không khả dụng. Đặt 0 để không bao giờ đánh dấu.",
+    "options::step::options::data_description::debug": "Ghi toàn bộ nội dung của mỗi yêu cầu vào nhật ký Home Assistant. Hữu ích khi thiết lập một trạm, gây nhiễu sau đó."
   }
 }

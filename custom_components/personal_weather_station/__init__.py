@@ -27,9 +27,11 @@ from .const import (
     CONF_DEBUG,
     CONF_WIND_OFFSETS,
     DOMAIN,
+    ENDPOINTS,
     ID_PARAMS,
     ISSUE_LEGACY_ENTITY_IDS,
     ISSUE_LEGACY_STATUS_SENSORS,
+    ISSUE_NO_STATION_YET,
     KEY_LAST_UPDATE,
     KEY_WIND_DIR_RAW,
     PLATFORMS,
@@ -38,6 +40,7 @@ from .const import (
     SENSOR_LIST,
     TIMESTAMP_PARAMS,
 )
+from .instructions import async_placeholders_for_entry
 from .migration import async_find_legacy_entities, async_find_status_sensors
 from .models import PwsRuntime
 from .normalizer import normalize_battery, parse_value
@@ -49,12 +52,6 @@ REQUEST_COUNTER = itertools.count(1)
 # The integration is purely passive, so nothing else would ever notice that a
 # station went quiet. This tick is what flips entities to unavailable.
 AVAILABILITY_SCAN_INTERVAL = timedelta(minutes=1)
-
-# Weather Underground first, then the WSLink endpoint.
-ENDPOINTS = (
-    "/weatherstation/updateweatherstation.php",
-    "/data/upload.php",
-)
 
 # A station clock this far off is not trustworthy; fall back to server time.
 MAX_CLOCK_DRIFT = timedelta(days=1)
@@ -103,6 +100,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     _async_check_legacy_entity_ids(hass, entry)
     _async_check_legacy_status_sensors(hass, entry)
+    _async_check_no_station_yet(hass, entry, runtime)
 
     entry.async_on_unload(
         async_track_time_interval(
@@ -234,6 +232,39 @@ def _async_check_legacy_entity_ids(hass: HomeAssistant, entry: ConfigEntry):
         severity=ir.IssueSeverity.WARNING,
         translation_key=ISSUE_LEGACY_ENTITY_IDS,
         translation_placeholders={"count": str(len(renames))},
+        data={"entry_id": entry.entry_id},
+    )
+
+
+@callback
+def _async_check_no_station_yet(hass: HomeAssistant, entry: ConfigEntry, runtime):
+    """
+    Say what to do while no station has ever posted.
+
+    There is no "add device" button here, so an empty integration page is all a
+    user gets otherwise. The issue clears itself on the first payload.
+
+    Args:
+        hass: Home Assistant instance.
+        entry: Config entry object.
+        runtime: PwsRuntime, holding the devices rebuilt from the registries.
+
+    Returns:
+        None
+    """
+
+    if runtime.devices:
+        ir.async_delete_issue(hass, DOMAIN, ISSUE_NO_STATION_YET)
+        return
+
+    ir.async_create_issue(
+        hass,
+        DOMAIN,
+        ISSUE_NO_STATION_YET,
+        is_fixable=True,
+        severity=ir.IssueSeverity.WARNING,
+        translation_key=ISSUE_NO_STATION_YET,
+        translation_placeholders=async_placeholders_for_entry(hass, entry),
         data={"entry_id": entry.entry_id},
     )
 
@@ -546,6 +577,7 @@ class PwsView(HomeAssistantView):
 
         if is_new:
             debug_log("[#%d] New device detected: %s", request_id, device_id)
+            ir.async_delete_issue(hass, DOMAIN, ISSUE_NO_STATION_YET)
 
         device.last_seen = _parse_timestamp(params) or dt_util.utcnow()
         device.was_available = True

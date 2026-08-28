@@ -7,6 +7,10 @@
         "data": {
           "password": "Stationssleutel"
         }
+      },
+      "instructions": {
+        "title": "Stel uw weerstation in",
+        "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
       }
     },
     "abort": {
@@ -58,6 +62,28 @@
             "title": "Omzetten naar binaire sensoren",
             "description": "Verbindings- en waterlekstatus worden als 1 of 0 doorgegeven. Tot versie 1.0.8 werden ze als numerieke sensoren getoond, zoals `{example}`, die niet bruikbaar zijn met de standaard lekkaarten en -meldingen van Home Assistant. Nieuwe stations krijgen nu binaire sensoren die **Nat / Droog** en **Verbonden / Niet verbonden** tonen.\n\n**{count} entiteiten** kunnen worden omgezet. Batterijniveaus blijven ongemoeid: die blijven percentages, waarmee de meldingen bij een lege batterij werken.\n\nEen platformwissel is geen hernoeming: de oude entiteiten worden verwijderd en opnieuw aangemaakt als `binary_sensor`. **Hun opgeslagen geschiedenis gaat verloren** — deze metingen hebben geen langetermijnstatistieken, alleen de ruwe geschiedenis is betrokken — en **automatiseringen, scripts, scènes en dashboards die ernaar verwijzen moeten worden bijgewerkt**. De nieuwe entiteiten verschijnen bij de volgende upload van het station.\n\nWilt u ze liever zo laten, negeer dan deze reparatie."
           }
+        }
+      }
+    },
+    "no_station_yet": {
+      "title": "Nog geen weerstation heeft gegevens verstuurd",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Stel uw weerstation in",
+            "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
+          },
+          "received": {
+            "title": "Uw station is doorgekomen",
+            "description": "**{station}** heeft zijn eerste upload verstuurd. De sensoren worden nu aangemaakt, en er komen er meer bij naarmate het station ze doorgeeft.\n\nDit bericht komt niet terug."
+          },
+          "timeout": {
+            "title": "Nog niets ontvangen",
+            "description": "Er is in {minutes} minuten geen upload binnengekomen.\n\nDe moeite van het controleren waard:\n\n  - De URL in het station is een van deze:\n{urls}\n  - Sommige Bresser-firmwares vanaf **3.02** weigeren gewoon HTTP en hebben een `https://`-adres nodig.\n  - De stationssleutel is {key_hint}.\n  - Het uploadinterval is misschien simpelweg langer dan de wachttijd.\n\nHeeft het station Home Assistant wel bereikt maar werd het geweigerd, dan wordt dat apart gemeld bij **Instellingen → Systeem → Reparaties**.\n\nU kunt dit sluiten. Het blijft staan tot er een station opduikt, en opnieuw openen start de wachttijd opnieuw."
+          }
+        },
+        "progress": {
+          "waiting_for_station": "Wachten op de eerste upload van uw station…"
         }
       }
     }

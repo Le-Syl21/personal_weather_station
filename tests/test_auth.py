@@ -2,7 +2,10 @@
 
 from homeassistant.helpers import issue_registry as ir
 
-from custom_components.personal_weather_station.const import DOMAIN
+from custom_components.personal_weather_station.const import (
+    DOMAIN,
+    ISSUE_NO_STATION_YET,
+)
 
 from .conftest import WSLINK_ENDPOINT, state_of
 
@@ -11,12 +14,17 @@ STATION_KEY = "s3cr3t"
 
 
 def issues_for(hass):
-    """Return the Repairs issues raised by the integration."""
+    """
+    Return the Repairs issues about a rejected request.
+
+    The onboarding issue is filtered out: it is raised as soon as the
+    integration is set up, before any station has posted.
+    """
 
     return [
         issue
-        for (domain, _), issue in ir.async_get(hass).issues.items()
-        if domain == DOMAIN
+        for (domain, issue_id), issue in ir.async_get(hass).issues.items()
+        if domain == DOMAIN and not issue_id.startswith(ISSUE_NO_STATION_YET)
     ]
 
 

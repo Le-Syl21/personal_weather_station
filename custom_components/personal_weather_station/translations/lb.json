@@ -7,6 +7,10 @@
         "data": {
           "password": "Statiounsschlëssel"
         }
+      },
+      "instructions": {
+        "title": "Set up your weather station",
+        "description": "Your weather station is what creates the devices and sensors — there is no device to add here.\n\nEnter the following in your station, or in the WSLink app:\n\n**URL**\n{urls}\n\n**Sender ID** — anything you like, it becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**API type** — *WUnderground API* or *WSLink*, either works.\n\n**Upload interval** — 60 seconds is a good default.\n\nYour sensors appear on the first upload received. If nothing shows up, check **Settings → System → Repairs**: a rejected station is reported there.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     },
     "abort": {
@@ -58,6 +62,28 @@
             "title": "Convert to binary sensors",
             "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
           }
+        }
+      }
+    },
+    "no_station_yet": {
+      "title": "No weather station has sent anything yet",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Set up your weather station",
+            "description": "Your weather station is what creates the devices and sensors — there is no device to add here.\n\nEnter the following in your station, or in the WSLink app:\n\n**URL**\n{urls}\n\n**Sender ID** — anything you like, it becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**API type** — *WUnderground API* or *WSLink*, either works.\n\n**Upload interval** — 60 seconds is a good default.\n\nYour sensors appear on the first upload received. If nothing shows up, check **Settings → System → Repairs**: a rejected station is reported there.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+          },
+          "received": {
+            "title": "Your station is through",
+            "description": "**{station}** has sent its first upload. Its sensors are being created now, and more appear as the station reports them.\n\nThis message will not come back."
+          },
+          "timeout": {
+            "title": "Nothing received yet",
+            "description": "No upload arrived in {minutes} minutes.\n\nThings worth checking:\n\n  - The URL entered in the station is one of:\n{urls}\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an `https://` address.\n  - The station key is {key_hint}.\n  - The upload interval may simply be longer than the wait.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+          }
+        },
+        "progress": {
+          "waiting_for_station": "Waiting for your station's first upload…"
         }
       }
     }

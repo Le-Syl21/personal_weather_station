@@ -33,6 +33,12 @@ DOMAIN = "personal_weather_station"
 
 PLATFORMS = ["sensor", "binary_sensor", "number", "button"]
 
+# Weather Underground first, then the WSLink endpoint.
+ENDPOINTS = (
+    "/weatherstation/updateweatherstation.php",
+    "/data/upload.php",
+)
+
 # Options
 CONF_DEBUG = "debug"
 CONF_AVAILABILITY_TIMEOUT = "availability_timeout"
@@ -63,6 +69,11 @@ KEY_RESET_WIND_OFFSET = "reset_wind_offset"
 # Repairs
 ISSUE_LEGACY_ENTITY_IDS = "legacy_entity_ids"
 ISSUE_LEGACY_STATUS_SENSORS = "legacy_status_sensors"
+ISSUE_NO_STATION_YET = "no_station_yet"
+
+# How long the onboarding repair waits for a first upload before letting the
+# user go. Stations post every minute or so once they are configured.
+STATION_WAIT_TIMEOUT = 180
 
 # English names of the entities the integration builds itself. They feed both
 # the translation source and the entity ID, which stays English on purpose so a

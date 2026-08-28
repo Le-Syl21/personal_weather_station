@@ -11,12 +11,16 @@ from .const import (
     DEFAULT_AVAILABILITY_TIMEOUT,
     DOMAIN,
 )
+from .instructions import async_placeholders
 
 AVAILABILITY_TIMEOUT_SELECTOR = vol.All(vol.Coerce(int), vol.Range(min=0, max=1440))
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle the initial setup."""
+
+    def __init__(self):
+        self._data = {}
 
     @staticmethod
     @callback
@@ -30,8 +34,30 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 data_schema=vol.Schema({vol.Optional(CONF_PASSWORD): str}),
             )
 
-        return self.async_create_entry(
-            title="Personal Weather Station", data=user_input
+        self._data = user_input
+
+        return await self.async_step_instructions()
+
+    async def async_step_instructions(self, user_input=None):
+        """
+        Show what to type into the station before finishing.
+
+        There is no "add device" button to click afterwards: a station appears
+        on its own the first time it posts, so this is the moment to say what
+        makes that happen.
+        """
+
+        if user_input is not None:
+            return self.async_create_entry(
+                title="Personal Weather Station", data=self._data
+            )
+
+        return self.async_show_form(
+            step_id="instructions",
+            data_schema=vol.Schema({}),
+            description_placeholders=async_placeholders(
+                self.hass, self._data.get(CONF_PASSWORD)
+            ),
         )
 
 

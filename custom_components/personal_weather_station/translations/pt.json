@@ -7,6 +7,10 @@
         "data": {
           "password": "Chave de estação"
         }
+      },
+      "instructions": {
+        "title": "Configure a sua estação meteorológica",
+        "description": "É a sua estação meteorológica que cria os dispositivos e sensores — aqui não há nenhum dispositivo para adicionar.\n\nIntroduza o seguinte na sua estação, ou na aplicação WSLink:\n\n**URL**\n{urls}\n\n**Sender ID** — o que quiser, passará a ser o nome do dispositivo no Home Assistant.\n\n**Chave de estação** — {key_hint}.\n\n**Tipo de API** — *WUnderground API* ou *WSLink*, ambos funcionam.\n\n**Intervalo de envio** — 60 segundos é um bom valor por omissão.\n\nOs seus sensores aparecem no primeiro envio recebido. Se não chegar nada, veja em **Definições → Sistema → Reparações**: uma estação rejeitada é comunicada aí.\n\nOs pontos de entrada à escuta são:\n{endpoints}"
       }
     },
     "abort": {
@@ -58,6 +62,28 @@
             "title": "Converter em sensores binários",
             "description": "Os estados de ligação e de fuga de água são transmitidos como 1 ou 0. Até à versão 1.0.8 eram expostos como sensores numéricos, como `{example}`, que não podem ser usados com os cartões e alertas de fuga padrão do Home Assistant. As estações novas recebem agora sensores binários que mostram **Húmido / Seco** e **Ligado / Desligado**.\n\nPodem ser convertidas **{count} entidades**. Os níveis de bateria não são afetados: continuam em percentagem, com a qual os alertas de bateria fraca funcionam.\n\nUma mudança de plataforma não é uma mudança de nome: as entidades antigas são removidas e recriadas como `binary_sensor`. **O seu histórico registado perde-se** — estas leituras não têm estatísticas de longo prazo, apenas o histórico em bruto é afetado — e **as automações, scripts, cenas e painéis que as referenciam terão de ser atualizados**. As entidades novas aparecem no próximo envio da estação.\n\nSe preferir mantê-las como estão, ignore esta reparação."
           }
+        }
+      }
+    },
+    "no_station_yet": {
+      "title": "Nenhuma estação meteorológica enviou dados ainda",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Configure a sua estação meteorológica",
+            "description": "É a sua estação meteorológica que cria os dispositivos e sensores — aqui não há nenhum dispositivo para adicionar.\n\nIntroduza o seguinte na sua estação, ou na aplicação WSLink:\n\n**URL**\n{urls}\n\n**Sender ID** — o que quiser, passará a ser o nome do dispositivo no Home Assistant.\n\n**Chave de estação** — {key_hint}.\n\n**Tipo de API** — *WUnderground API* ou *WSLink*, ambos funcionam.\n\n**Intervalo de envio** — 60 segundos é um bom valor por omissão.\n\nOs seus sensores aparecem no primeiro envio recebido. Se não chegar nada, veja em **Definições → Sistema → Reparações**: uma estação rejeitada é comunicada aí.\n\nOs pontos de entrada à escuta são:\n{endpoints}"
+          },
+          "received": {
+            "title": "A sua estação chegou",
+            "description": "**{station}** enviou o seu primeiro envio. Os seus sensores estão a ser criados agora, e aparecerão mais à medida que a estação os reportar.\n\nEsta mensagem não voltará."
+          },
+          "timeout": {
+            "title": "Ainda não foi recebido nada",
+            "description": "Não chegou nenhum envio em {minutes} minutos.\n\nVale a pena verificar:\n\n  - O URL introduzido na estação é um destes:\n{urls}\n  - Alguns firmwares Bresser a partir da **3.02** recusam HTTP simples e exigem um endereço `https://`.\n  - A chave de estação é {key_hint}.\n  - O intervalo de envio pode ser simplesmente mais longo do que a espera.\n\nSe a estação chegou ao Home Assistant mas foi recusada, isso é comunicado em separado em **Definições → Sistema → Reparações**.\n\nPode fechar. O aviso mantém-se até aparecer uma estação, e reabri-lo recomeça a espera."
+          }
+        },
+        "progress": {
+          "waiting_for_station": "À espera do primeiro envio da sua estação…"
         }
       }
     }

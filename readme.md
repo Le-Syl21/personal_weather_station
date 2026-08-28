@@ -293,9 +293,19 @@ reboot no longer leaves a dashboard full of holes until the next upload.
 
 ## When nothing shows up
 
-A station that is misconfigured looks exactly like a station that has not posted
-yet: an empty integration page. To make the difference visible, rejected requests
-raise a repair in **Settings → System → Repairs**:
+This integration has **no "add device" button**, and that is not an oversight:
+your weather station creates its own device the first time it posts. Nothing here
+can go looking for it.
+
+So the setup flow ends by telling you exactly what to enter in the station — the
+address of your Home Assistant instance included, worked out for you. And until a
+station has actually posted, a prompt sits in **Settings → System → Repairs** that
+brings those instructions back and **waits with you** for the first upload,
+reporting what to check if nothing arrives within a few minutes.
+
+Once a station is misconfigured rather than absent, it looks exactly the same from
+here: an empty page. To make the difference visible, rejected requests raise their
+own repair:
 
 - **Wrong station key** — the key in the station or in the WSLink app does not
   match the one set here. The repair names the source IP address.

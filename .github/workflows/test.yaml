@@ -17,6 +17,9 @@ jobs:
         with:
           python-version: "3.13"
           cache: pip
+          # Without this the cache looks for requirements.txt or pyproject.toml,
+          # finds neither, and fails the job before a single test runs.
+          cache-dependency-path: requirements_test.txt
 
       - name: Install test dependencies
         run: pip install -r requirements_test.txt

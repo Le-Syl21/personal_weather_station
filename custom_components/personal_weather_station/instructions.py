@@ -6,12 +6,52 @@ page and no hint, so the setup flow ends on these instructions and a repair
 brings them back until a station actually shows up.
 """
 
+from pathlib import Path
 from urllib.parse import urlparse
 
+from homeassistant.components.http import StaticPathConfig
 from homeassistant.const import CONF_PASSWORD
 from homeassistant.helpers.network import NoURLAvailableError, get_url
 
-from .const import ENDPOINTS
+from .const import DATA_IMAGES_REGISTERED, ENDPOINTS, IMAGES_URL
+
+
+async def async_ensure_images(hass):
+    """
+    Serve the walkthrough screenshots, once per Home Assistant run.
+
+    The setup wizard runs before async_setup does — Home Assistant only sets a
+    component up once an entry exists — so this cannot live there. It is called
+    from the flow instead, and guarded, because Home Assistant offers no way to
+    unregister a static path and registering twice stacks a second route.
+
+    Args:
+        hass: Home Assistant instance.
+
+    Returns:
+        None
+    """
+
+    if hass.data.get(DATA_IMAGES_REGISTERED):
+        return
+
+    hass.data[DATA_IMAGES_REGISTERED] = True
+
+    await hass.http.async_register_static_paths(
+        [
+            StaticPathConfig(
+                IMAGES_URL,
+                str(Path(__file__).parent / "images"),
+                cache_headers=True,
+            )
+        ]
+    )
+
+
+def image(name):
+    """Markdown for one walkthrough screenshot, by file name."""
+
+    return f"![]({IMAGES_URL}/{name})"
 
 
 def async_urls(hass):

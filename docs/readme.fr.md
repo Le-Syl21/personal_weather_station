@@ -119,22 +119,22 @@ firmware à jour.
 
 **1. Ouvrez les paramètres de votre station**
 
-<img src="images/wslink-1-your-device.jpeg" width="260" alt="La liste des appareils WSLink, avec l'engrenage de réglages sur la station">
+<img src="../custom_components/personal_weather_station/images/wslink-1-your-device.jpeg" width="260" alt="La liste des appareils WSLink, avec l'engrenage de réglages sur la station">
 
 **2. Weather server**
 
-<img src="images/wslink-2-settings.jpeg" width="260" alt="Les réglages de la station, avec Weather server mis en évidence">
+<img src="../custom_components/personal_weather_station/images/wslink-2-settings.jpeg" width="260" alt="Les réglages de la station, avec Weather server mis en évidence">
 
 **3. Other Server**
 
-<img src="images/wslink-3-weather-server.jpeg" width="260" alt="La liste des services météo, avec Other Server mis en évidence">
+<img src="../custom_components/personal_weather_station/images/wslink-3-weather-server.jpeg" width="260" alt="La liste des services météo, avec Other Server mis en évidence">
 
 Weather Underground et Weathercloud envoient vers ces services. **Other Server**
 est celui qui permet de diriger la station vers votre propre Home Assistant.
 
 **4. Renseignez le serveur**
 
-<img src="images/wslink-4-other-server.jpeg" width="260" alt="Le formulaire Other Server, rempli">
+<img src="../custom_components/personal_weather_station/images/wslink-4-other-server.jpeg" width="260" alt="Le formulaire Other Server, rempli">
 
 | Champ | Quoi saisir |
 |---|---|
@@ -172,7 +172,7 @@ Appuyez ensuite sur **Save**.
 
 **5. Confirm & Exit**
 
-<img src="images/wslink-5-confirm-and-exit.jpeg" width="260" alt="Les réglages de la station, avec Confirm and Exit mis en évidence">
+<img src="../custom_components/personal_weather_station/images/wslink-5-confirm-and-exit.jpeg" width="260" alt="Les réglages de la station, avec Confirm and Exit mis en évidence">
 
 > [!IMPORTANT]
 > **C'est cette étape qui écrit réellement les réglages dans la station.**

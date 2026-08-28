@@ -109,22 +109,22 @@ firmware.
 
 **1. Open your station's settings**
 
-<img src="docs/images/wslink-1-your-device.jpeg" width="260" alt="The WSLink device list, with the settings gear on the station">
+<img src="custom_components/personal_weather_station/images/wslink-1-your-device.jpeg" width="260" alt="The WSLink device list, with the settings gear on the station">
 
 **2. Weather server**
 
-<img src="docs/images/wslink-2-settings.jpeg" width="260" alt="The station settings, with Weather server highlighted">
+<img src="custom_components/personal_weather_station/images/wslink-2-settings.jpeg" width="260" alt="The station settings, with Weather server highlighted">
 
 **3. Other Server**
 
-<img src="docs/images/wslink-3-weather-server.jpeg" width="260" alt="The weather service list, with Other Server highlighted">
+<img src="custom_components/personal_weather_station/images/wslink-3-weather-server.jpeg" width="260" alt="The weather service list, with Other Server highlighted">
 
 Weather Underground and Weathercloud upload to those services. **Other Server**
 is the one that lets you point the station at your own Home Assistant.
 
 **4. Fill in the server**
 
-<img src="docs/images/wslink-4-other-server.jpeg" width="260" alt="The Other Server form, filled in">
+<img src="custom_components/personal_weather_station/images/wslink-4-other-server.jpeg" width="260" alt="The Other Server form, filled in">
 
 | Field | What to enter |
 |---|---|
@@ -160,7 +160,7 @@ Then press **Save**.
 
 **5. Confirm & Exit**
 
-<img src="docs/images/wslink-5-confirm-and-exit.jpeg" width="260" alt="The station settings, with Confirm and Exit highlighted">
+<img src="custom_components/personal_weather_station/images/wslink-5-confirm-and-exit.jpeg" width="260" alt="The station settings, with Confirm and Exit highlighted">
 
 > [!IMPORTANT]
 > **This is the step that actually writes the settings to the station.** Pressing

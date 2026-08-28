@@ -8,13 +8,40 @@
           "password": "நிலைய விசை"
         }
       },
-      "instructions": {
-        "title": "உங்கள் வானிலை நிலையத்தை அமைக்கவும்",
-        "description": "சாதனங்களையும் உணரிகளையும் உருவாக்குவது உங்கள் வானிலை நிலையமே — இங்கே சேர்க்க எதுவும் இல்லை.\n\nநிலையத்தின் செயலியில் உங்கள் நிலையத்தைத் திறந்து, **Settings → Weather server → Other Server** சென்று நிரப்பவும்:\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்தவும் — இதற்காக Home Assistant-ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. உங்கள் நிலையம் பெயர்களைத் தீர்க்கவில்லை என்றால் IP முகவரியைப் பயன்படுத்தவும்.\n\n**Station ID** — நீங்கள் விரும்புவது. இது Home Assistant-இல் சாதனப் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WUnderground API*.\n\n**Upload** — இயக்கத்தில் விடவும்.\n\n**Save** அழுத்தி, பின்செல்லவும், பிறகு **Confirm & Exit** அழுத்தவும்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது. ஒரு நொடி கழித்து உங்கள் உணரிகள் தோன்றும்.\n\nகேட்டுக்கொண்டிருக்கும் முனைப்புள்ளிகள்:\n{endpoints}"
+      "station": {
+        "title": "Step 1 of 5 — your station",
+        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+      },
+      "settings": {
+        "title": "Step 2 of 5 — weather service",
+        "description": "{image}\n\nChoose **Weather server**."
+      },
+      "server": {
+        "title": "Step 3 of 5 — other server",
+        "description": "{image}\n\nChoose **Other Server**."
+      },
+      "form": {
+        "title": "Step 4 of 5 — server settings",
+        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+      },
+      "confirm": {
+        "title": "Step 5 of 5 — confirm & exit",
+        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+      },
+      "received": {
+        "title": "Your station is talking to Home Assistant",
+        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+      },
+      "timeout": {
+        "title": "Nothing arrived yet",
+        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
       }
     },
     "abort": {
       "single_instance_allowed": "ஏற்கனவே கட்டமைக்கப்பட்டுள்ளது. ஒரே நிகழ்வு அனைத்து வானிலை நிலையங்களுக்கும் சேவை செய்கிறது."
+    },
+    "progress": {
+      "waiting_for_station": "Waiting for your station's first upload…"
     }
   },
   "options": {
@@ -41,7 +68,7 @@
       },
       "instructions": {
         "title": "ஒரு நிலையத்தை Home Assistant-ஐ நோக்கித் திருப்பவும்",
-        "description": "சாதனங்களையும் உணரிகளையும் உருவாக்குவது உங்கள் வானிலை நிலையமே — இங்கே சேர்க்க எதுவும் இல்லை.\n\nநிலையத்தின் செயலியில் உங்கள் நிலையத்தைத் திறந்து, **Settings → Weather server → Other Server** சென்று நிரப்பவும்:\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்தவும் — இதற்காக Home Assistant-ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. உங்கள் நிலையம் பெயர்களைத் தீர்க்கவில்லை என்றால் IP முகவரியைப் பயன்படுத்தவும்.\n\n**Station ID** — நீங்கள் விரும்புவது. இது Home Assistant-இல் சாதனப் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WUnderground API*.\n\n**Upload** — இயக்கத்தில் விடவும்.\n\n**Save** அழுத்தி, பின்செல்லவும், பிறகு **Confirm & Exit** அழுத்தவும்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது. ஒரு நொடி கழித்து உங்கள் உணரிகள் தோன்றும்.\n\nகேட்டுக்கொண்டிருக்கும் முனைப்புள்ளிகள்:\n{endpoints}"
+        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +109,7 @@
         "step": {
           "confirm": {
             "title": "உங்கள் வானிலை நிலையத்தை அமைக்கவும்",
-            "description": "சாதனங்களையும் உணரிகளையும் உருவாக்குவது உங்கள் வானிலை நிலையமே — இங்கே சேர்க்க எதுவும் இல்லை.\n\nநிலையத்தின் செயலியில் உங்கள் நிலையத்தைத் திறந்து, **Settings → Weather server → Other Server** சென்று நிரப்பவும்:\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்தவும் — இதற்காக Home Assistant-ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. உங்கள் நிலையம் பெயர்களைத் தீர்க்கவில்லை என்றால் IP முகவரியைப் பயன்படுத்தவும்.\n\n**Station ID** — நீங்கள் விரும்புவது. இது Home Assistant-இல் சாதனப் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WUnderground API*.\n\n**Upload** — இயக்கத்தில் விடவும்.\n\n**Save** அழுத்தி, பின்செல்லவும், பிறகு **Confirm & Exit** அழுத்தவும்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது. ஒரு நொடி கழித்து உங்கள் உணரிகள் தோன்றும்.\n\nகேட்டுக்கொண்டிருக்கும் முனைப்புள்ளிகள்:\n{endpoints}"
+            "description": "சாதனங்களையும் உணரிகளையும் உருவாக்குவது உங்கள் வானிலை நிலையமே — இங்கே சேர்க்க எதுவும் இல்லை.\n\nநிலையத்தின் செயலியில் உங்கள் நிலையத்தைத் திறந்து, **Settings → Weather server → Other Server** சென்று நிரப்பவும்:\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்தவும் — இதற்காக Home Assistant-ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. உங்கள் நிலையம் பெயர்களைத் தீர்க்கவில்லை என்றால் IP முகவரியைப் பயன்படுத்தவும்.\n\n**Station ID** — நீங்கள் விரும்புவது. இது Home Assistant-இல் சாதனப் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WSLink API*.\n\n**Upload** — இயக்கத்தில் விடவும்.\n\n**Save** அழுத்தி, பின்செல்லவும், பிறகு **Confirm & Exit** அழுத்தவும்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது. ஒரு நொடி கழித்து உங்கள் உணரிகள் தோன்றும்.\n\nகேட்டுக்கொண்டிருக்கும் முனைப்புள்ளிகள்:\n{endpoints}"
           },
           "received": {
             "title": "உங்கள் நிலையம் வந்துவிட்டது",
@@ -103,7 +130,7 @@
     },
     "unknown_parameters": {
       "title": "{station} நிலையம் நிராகரிக்கப்படும் அளவீடுகளை அனுப்புகிறது",
-      "description": "**{station}** இலிருந்து வரும் **{count} அளபுருக்கள்** அடையாளம் காணப்படவில்லை, எனவே ஒவ்வொரு அனுப்புகையிலும் அவற்றின் மதிப்புகள் நிராகரிக்கப்படுகின்றன:\n\n{parameters}\n\nவழக்கமான காரணம், நிலையம் தன் நெறிமுறை சுமக்கக்கூடியதைவிட அதிகமாக அறிக்கையிடுவதுதான். கூடுதல் உணரிகளுக்கு Weather Underground இல் **4 இடங்கள்** மட்டுமே உள்ளன; உங்கள் நிலையம் *API type* ஆக **WSLink** ஐ வழங்கினால், அதற்கு மாறுவது ஏழு தடங்களையும் ஏறத்தாழ இரு மடங்கு அளவீடுகளையும் திறக்கும்.\n\nஅது காரணம் இல்லையெனில், ஒரு பிழை அறிக்கைக்குத் தேவைப்படுவது சரியாக இந்த அளபுருப் பெயர்கள்தான்: [சிக்கல் கண்காணிப்பில்](https://github.com/MaxensF/personal_weather_station/issues) ஒன்றைத் திறங்கள், அப்போது அவற்றைச் சேர்க்க முடியும்.\n\nஇதைப் புறக்கணிக்கவும் செய்யலாம் — எதுவும் பழுதாகவில்லை, இந்தக் குறிப்பிட்ட மதிப்புகள் மட்டும் வந்து சேரவில்லை."
+      "description": "**{station}** இலிருந்து வரும் **{count} அளபுருக்கள்** அடையாளம் காணப்படவில்லை, எனவே ஒவ்வொரு அனுப்புகையிலும் அவற்றின் மதிப்புகள் நிராகரிக்கப்படுகின்றன:\n\n{parameters}\n\nவழக்கமான காரணம், நிலையம் தன் நெறிமுறை சுமக்கக்கூடியதைவிட அதிகமாக அறிக்கையிடுவதுதான். கூடுதல் உணரிகளுக்கு Weather Underground இல் **4 இடங்கள்** மட்டுமே உள்ளன; உங்கள் நிலையம் *API type* ஆக **WSLink** ஐ வழங்கினால், அதற்கு மாறுவது ஏழு தடங்களையும் ஏறத்தாழ இரு மடங்கு அளவீடுகளையும் திறக்கும்.\n\nஅது காரணம் இல்லையெனில், ஒரு பிழை அறிக்கைக்குத் தேவைப்படுவது சரியாக இந்த அளபுருப் பெயர்கள்தான்: [சிக்கல் கண்காணிப்பில்]({issue_tracker}) ஒன்றைத் திறங்கள், அப்போது அவற்றைச் சேர்க்க முடியும்.\n\nஇதைப் புறக்கணிக்கவும் செய்யலாம் — எதுவும் பழுதாகவில்லை, இந்தக் குறிப்பிட்ட மதிப்புகள் மட்டும் வந்து சேரவில்லை."
     }
   },
   "exceptions": {

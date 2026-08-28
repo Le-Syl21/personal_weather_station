@@ -1,17 +1,23 @@
 """Config and options flows, and removing a station."""
 
+import pathlib
+
 from homeassistant import config_entries
 from homeassistant.const import CONF_PASSWORD
 from homeassistant.data_entry_flow import FlowResultType
 from homeassistant.helpers import device_registry as dr
+from homeassistant.setup import async_setup_component
 
 from custom_components.personal_weather_station import (
+    async_ensure_views,
     async_remove_config_entry_device,
+    config_flow,
 )
 from custom_components.personal_weather_station.const import (
     CONF_AVAILABILITY_TIMEOUT,
     CONF_WIND_OFFSETS,
     DOMAIN,
+    IMAGES_URL,
 )
 
 from .conftest import WSLINK_ENDPOINT, state_of
@@ -19,28 +25,171 @@ from .conftest import WSLINK_ENDPOINT, state_of
 DEVICE_ID = "wsabcde123"
 
 
-async def test_user_flow_creates_the_entry(hass):
+def test_every_walkthrough_step_has_its_screenshot():
+    """
+    A missing file would leave a broken image in the wizard and nothing else.
+
+    Nothing at runtime notices: the static route just answers 404, the flow
+    still works, and the user sees an empty box where the screen they are
+    looking for should be.
+    """
+
+    images = pathlib.Path(config_flow.__file__).parent / "images"
+
+    missing = [
+        name
+        for name in config_flow.WALKTHROUGH.values()
+        if not (images / name).is_file()
+    ]
+
+    assert not missing, missing
+
+
+async def _walk_to_the_wait(hass, client_factory, password="s3cr3t", upload=None):
+    """Drive the wizard from the first screen to the point where it waits."""
+
+    assert await async_setup_component(hass, "http", {})
+
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": config_entries.SOURCE_USER}
     )
 
-    assert result["type"] == FlowResultType.FORM
     assert result["step_id"] == "user"
 
     result = await hass.config_entries.flow.async_configure(
-        result["flow_id"], user_input={CONF_PASSWORD: "s3cr3t"}
+        result["flow_id"], user_input={CONF_PASSWORD: password} if password else {}
     )
 
-    # The station is what creates the devices, so the flow ends by saying what
-    # to type into it rather than dropping the user on an empty page.
+    for step in ("station", "settings", "server", "form", "confirm"):
+        assert result["type"] == FlowResultType.FORM
+        assert result["step_id"] == step
+
+        # Every walkthrough screen carries its screenshot.
+        assert IMAGES_URL in result["description_placeholders"]["image"]
+
+        if upload is not None and step == upload:
+            client = await client_factory()
+            assert (
+                await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&wspw={password}")
+            ).status == 200
+
+        result = await hass.config_entries.flow.async_configure(result["flow_id"], {})
+
+    return result
+
+
+async def test_the_wizard_waits_for_the_first_upload(
+    hass, hass_client_no_auth, monkeypatch
+):
+    """The whole point of the walkthrough: end it by seeing the station arrive."""
+
+    result = await _walk_to_the_wait(hass, hass_client_no_auth)
+
+    assert result["type"] == FlowResultType.SHOW_PROGRESS
+    assert result["progress_action"] == "waiting_for_station"
+
+    client = await hass_client_no_auth()
+    response = await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&wspw=s3cr3t")
+
+    # Answered 200 even though no entry exists yet: a station told the upload
+    # failed may stop trying.
+    assert response.status == 200
+
+    await hass.async_block_till_done()
+
+    result = await hass.config_entries.flow.async_configure(result["flow_id"])
     assert result["type"] == FlowResultType.FORM
-    assert result["step_id"] == "instructions"
-    assert "urls" in result["description_placeholders"]
+    assert result["step_id"] == "received"
+    assert result["description_placeholders"]["station"] == DEVICE_ID
 
     result = await hass.config_entries.flow.async_configure(result["flow_id"], {})
 
     assert result["type"] == FlowResultType.CREATE_ENTRY
     assert result["data"] == {CONF_PASSWORD: "s3cr3t"}
+
+
+async def test_a_station_configured_early_is_not_missed(hass, hass_client_no_auth):
+    """
+    These stations drop off Wi-Fi if you dawdle, so users configure them fast.
+
+    The endpoints are live from the first screen of the wizard, not from the
+    wait, so an upload that lands while the user is still reading still counts.
+    """
+
+    result = await _walk_to_the_wait(hass, hass_client_no_auth, upload="settings")
+
+    # The sighting was already recorded, so the wait is over before it starts.
+    while result["type"] == FlowResultType.SHOW_PROGRESS:
+        await hass.async_block_till_done()
+        result = await hass.config_entries.flow.async_configure(result["flow_id"])
+
+    assert result["step_id"] == "received"
+
+
+async def test_the_wizard_gives_up_and_still_keeps_the_setup(
+    hass, hass_client_no_auth, monkeypatch
+):
+    """A timeout must not throw away everything the user typed."""
+
+    monkeypatch.setattr(config_flow, "STATION_WAIT_TIMEOUT", 0)
+
+    result = await _walk_to_the_wait(hass, hass_client_no_auth)
+
+    while result["type"] == FlowResultType.SHOW_PROGRESS:
+        await hass.async_block_till_done()
+        result = await hass.config_entries.flow.async_configure(result["flow_id"])
+
+    assert result["step_id"] == "timeout"
+    assert result["description_placeholders"]["key_hint_extra"] == ""
+
+    result = await hass.config_entries.flow.async_configure(result["flow_id"], {})
+
+    assert result["type"] == FlowResultType.CREATE_ENTRY
+    assert result["data"] == {CONF_PASSWORD: "s3cr3t"}
+
+
+async def test_a_wrong_key_during_the_wizard_is_named(
+    hass, hass_client_no_auth, monkeypatch
+):
+    """A silent timeout hides the single most common setup mistake."""
+
+    monkeypatch.setattr(config_flow, "STATION_WAIT_TIMEOUT", 0)
+
+    assert await async_setup_component(hass, "http", {})
+
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": config_entries.SOURCE_USER}
+    )
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], user_input={CONF_PASSWORD: "s3cr3t"}
+    )
+
+    client = await hass_client_no_auth()
+    response = await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&wspw=wrong")
+
+    assert response.status == 401
+
+    for _ in range(5):
+        result = await hass.config_entries.flow.async_configure(result["flow_id"], {})
+
+    while result["type"] == FlowResultType.SHOW_PROGRESS:
+        await hass.async_block_till_done()
+        result = await hass.config_entries.flow.async_configure(result["flow_id"])
+
+    assert result["step_id"] == "timeout"
+    assert "does not match" in result["description_placeholders"]["key_hint_extra"]
+
+
+async def test_uploads_are_refused_when_no_wizard_is_running(hass, hass_client_no_auth):
+    """Outside onboarding, an upload with no entry is still a 503."""
+
+    assert await async_setup_component(hass, "http", {})
+    async_ensure_views(hass)
+
+    client = await hass_client_no_auth()
+    response = await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}")
+
+    assert response.status == 503
 
 
 async def test_only_one_entry_is_allowed(hass, setup_pws):
@@ -273,7 +422,9 @@ async def test_instructions_stay_reachable_from_the_options(hass, setup_pws):
 
     assert result["type"] == FlowResultType.FORM
     assert result["step_id"] == "instructions"
-    assert {"urls", "key_hint", "endpoints"} <= result["description_placeholders"].keys()
+    assert {"urls", "key_hint", "endpoints"} <= result[
+        "description_placeholders"
+    ].keys()
 
     # Closing it returns to the menu rather than saving anything.
     back = await hass.config_entries.options.async_configure(result["flow_id"], {})

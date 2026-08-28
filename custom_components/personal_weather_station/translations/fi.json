@@ -8,13 +8,40 @@
           "password": "Asema-avain"
         }
       },
-      "instructions": {
-        "title": "Määritä sääasemasi",
-        "description": "Sääasemasi luo laitteet ja anturit — täällä ei ole mitään lisättävää.\n\nAvaa aseman sovelluksessa asemasi, sitten **Settings → Weather server → Other Server**, ja täytä:\n\n**URL**\n{urls}\nIlman `http://`- tai `https://`-etuliitettä. Käytä osoitetta, johon asemasi pääsee omassa verkossasi — ei ole mitään syytä altistaa Home Assistantia internetille tätä varten. Jos asemasi ei selvitä nimiä, käytä IP-osoitetta.\n\n**Station ID** — mitä haluat. Siitä tulee laitteen nimi Home Assistantissa.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuutti on hyvä arvo.\n\n**API type** — *WUnderground API*.\n\n**Upload** — jätä käyttöön.\n\nPaina **Save**, palaa takaisin ja paina **Confirm & Exit**.\n\n> ⚠️ **Vasta Confirm & Exit kirjoittaa asetukset asemaan.** Pelkkä tallennus ei muuta mitään. Anturisi ilmestyvät sekunti sen jälkeen.\n\nKuuntelevat päätepisteet ovat:\n{endpoints}"
+      "station": {
+        "title": "Step 1 of 5 — your station",
+        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+      },
+      "settings": {
+        "title": "Step 2 of 5 — weather service",
+        "description": "{image}\n\nChoose **Weather server**."
+      },
+      "server": {
+        "title": "Step 3 of 5 — other server",
+        "description": "{image}\n\nChoose **Other Server**."
+      },
+      "form": {
+        "title": "Step 4 of 5 — server settings",
+        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+      },
+      "confirm": {
+        "title": "Step 5 of 5 — confirm & exit",
+        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+      },
+      "received": {
+        "title": "Your station is talking to Home Assistant",
+        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+      },
+      "timeout": {
+        "title": "Nothing arrived yet",
+        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
       }
     },
     "abort": {
       "single_instance_allowed": "Jo määritetty. Yksi ainoa instanssi palvelee kaikkia sääasemia."
+    },
+    "progress": {
+      "waiting_for_station": "Waiting for your station's first upload…"
     }
   },
   "options": {
@@ -41,7 +68,7 @@
       },
       "instructions": {
         "title": "Ohjaa asema Home Assistantiin",
-        "description": "Sääasemasi luo laitteet ja anturit — täällä ei ole mitään lisättävää.\n\nAvaa aseman sovelluksessa asemasi, sitten **Settings → Weather server → Other Server**, ja täytä:\n\n**URL**\n{urls}\nIlman `http://`- tai `https://`-etuliitettä. Käytä osoitetta, johon asemasi pääsee omassa verkossasi — ei ole mitään syytä altistaa Home Assistantia internetille tätä varten. Jos asemasi ei selvitä nimiä, käytä IP-osoitetta.\n\n**Station ID** — mitä haluat. Siitä tulee laitteen nimi Home Assistantissa.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuutti on hyvä arvo.\n\n**API type** — *WUnderground API*.\n\n**Upload** — jätä käyttöön.\n\nPaina **Save**, palaa takaisin ja paina **Confirm & Exit**.\n\n> ⚠️ **Vasta Confirm & Exit kirjoittaa asetukset asemaan.** Pelkkä tallennus ei muuta mitään. Anturisi ilmestyvät sekunti sen jälkeen.\n\nKuuntelevat päätepisteet ovat:\n{endpoints}"
+        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +109,7 @@
         "step": {
           "confirm": {
             "title": "Määritä sääasemasi",
-            "description": "Sääasemasi luo laitteet ja anturit — täällä ei ole mitään lisättävää.\n\nAvaa aseman sovelluksessa asemasi, sitten **Settings → Weather server → Other Server**, ja täytä:\n\n**URL**\n{urls}\nIlman `http://`- tai `https://`-etuliitettä. Käytä osoitetta, johon asemasi pääsee omassa verkossasi — ei ole mitään syytä altistaa Home Assistantia internetille tätä varten. Jos asemasi ei selvitä nimiä, käytä IP-osoitetta.\n\n**Station ID** — mitä haluat. Siitä tulee laitteen nimi Home Assistantissa.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuutti on hyvä arvo.\n\n**API type** — *WUnderground API*.\n\n**Upload** — jätä käyttöön.\n\nPaina **Save**, palaa takaisin ja paina **Confirm & Exit**.\n\n> ⚠️ **Vasta Confirm & Exit kirjoittaa asetukset asemaan.** Pelkkä tallennus ei muuta mitään. Anturisi ilmestyvät sekunti sen jälkeen.\n\nKuuntelevat päätepisteet ovat:\n{endpoints}"
+            "description": "Sääasemasi luo laitteet ja anturit — täällä ei ole mitään lisättävää.\n\nAvaa aseman sovelluksessa asemasi, sitten **Settings → Weather server → Other Server**, ja täytä:\n\n**URL**\n{urls}\nIlman `http://`- tai `https://`-etuliitettä. Käytä osoitetta, johon asemasi pääsee omassa verkossasi — ei ole mitään syytä altistaa Home Assistantia internetille tätä varten. Jos asemasi ei selvitä nimiä, käytä IP-osoitetta.\n\n**Station ID** — mitä haluat. Siitä tulee laitteen nimi Home Assistantissa.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuutti on hyvä arvo.\n\n**API type** — *WSLink API*.\n\n**Upload** — jätä käyttöön.\n\nPaina **Save**, palaa takaisin ja paina **Confirm & Exit**.\n\n> ⚠️ **Vasta Confirm & Exit kirjoittaa asetukset asemaan.** Pelkkä tallennus ei muuta mitään. Anturisi ilmestyvät sekunti sen jälkeen.\n\nKuuntelevat päätepisteet ovat:\n{endpoints}"
           },
           "received": {
             "title": "Asemasi pääsi läpi",
@@ -103,7 +130,7 @@
     },
     "unknown_parameters": {
       "title": "Asema {station} lähettää lukemia, jotka hylätään",
-      "description": "**{count} parametria** asemalta **{station}** ei tunnisteta, joten niiden arvot hylätään jokaisella lähetyksellä:\n\n{parameters}\n\nTavallinen syy on asema, joka raportoi enemmän kuin sen protokolla pystyy välittämään. Weather Undergroundissa on vain **4 paikkaa** lisäantureille; jos asemasi tarjoaa *API type* -asetukseksi **WSLinkin**, siihen vaihtaminen tuo esiin seitsemän kanavaa ja noin kaksinkertaisen määrän lukemia.\n\nJos syy ei ole tämä, juuri nämä parametrien nimet ovat sitä, mitä vikailmoitus tarvitsee: avaa sellainen [vikaseurannassa](https://github.com/MaxensF/personal_weather_station/issues), niin ne voidaan lisätä.\n\nVoit myös jättää tämän huomiotta — mikään ei ole rikki, nämä tietyt arvot eivät vain saavu perille."
+      "description": "**{count} parametria** asemalta **{station}** ei tunnisteta, joten niiden arvot hylätään jokaisella lähetyksellä:\n\n{parameters}\n\nTavallinen syy on asema, joka raportoi enemmän kuin sen protokolla pystyy välittämään. Weather Undergroundissa on vain **4 paikkaa** lisäantureille; jos asemasi tarjoaa *API type* -asetukseksi **WSLinkin**, siihen vaihtaminen tuo esiin seitsemän kanavaa ja noin kaksinkertaisen määrän lukemia.\n\nJos syy ei ole tämä, juuri nämä parametrien nimet ovat sitä, mitä vikailmoitus tarvitsee: avaa sellainen [vikaseurannassa]({issue_tracker}), niin ne voidaan lisätä.\n\nVoit myös jättää tämän huomiotta — mikään ei ole rikki, nämä tietyt arvot eivät vain saavu perille."
     }
   },
   "exceptions": {

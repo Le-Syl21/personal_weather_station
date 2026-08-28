@@ -8,13 +8,40 @@
           "password": "Eochair an stáisiúin"
         }
       },
-      "instructions": {
-        "title": "Socraigh do stáisiún aimsire",
-        "description": "Is é do stáisiún aimsire a chruthaíonn na gléasanna agus na braiteoirí — níl aon rud le cur leis anseo.\n\nIn aip an stáisiúin, oscail do stáisiún, ansin **Settings → Weather server → Other Server**, agus líon isteach:\n\n**URL**\n{urls}\nGan `http://` ná `https://`. Bain úsáid as seoladh ar féidir le do stáisiún teacht air ar do líonra féin — níl aon chúis Home Assistant a nochtadh don idirlíon chuige seo. Mura réitíonn do stáisiún ainmneacha, úsáid an seoladh IP.\n\n**Station ID** — cibé rud is mian leat. Beidh sé ina ainm gléis in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — is luach maith é 1 nóiméad.\n\n**API type** — *WUnderground API*.\n\n**Upload** — fág cumasaithe é.\n\nBrúigh **Save**, téigh ar ais, ansin brúigh **Confirm & Exit**.\n\n> ⚠️ **Is é Confirm & Exit a scríobhann na socruithe chuig an stáisiún.** Ní athraíonn sábháil amháin faic. Tagann do bhraiteoirí i láthair soicind ina dhiaidh.\n\nIs iad na críochphointí atá ag éisteacht:\n{endpoints}"
+      "station": {
+        "title": "Step 1 of 5 — your station",
+        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+      },
+      "settings": {
+        "title": "Step 2 of 5 — weather service",
+        "description": "{image}\n\nChoose **Weather server**."
+      },
+      "server": {
+        "title": "Step 3 of 5 — other server",
+        "description": "{image}\n\nChoose **Other Server**."
+      },
+      "form": {
+        "title": "Step 4 of 5 — server settings",
+        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+      },
+      "confirm": {
+        "title": "Step 5 of 5 — confirm & exit",
+        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+      },
+      "received": {
+        "title": "Your station is talking to Home Assistant",
+        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+      },
+      "timeout": {
+        "title": "Nothing arrived yet",
+        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
       }
     },
     "abort": {
       "single_instance_allowed": "Cumraithe cheana féin. Freastalaíonn aon ásc amháin ar gach stáisiún aimsire."
+    },
+    "progress": {
+      "waiting_for_station": "Waiting for your station's first upload…"
     }
   },
   "options": {
@@ -41,7 +68,7 @@
       },
       "instructions": {
         "title": "Dírigh stáisiún ar Home Assistant",
-        "description": "Is é do stáisiún aimsire a chruthaíonn na gléasanna agus na braiteoirí — níl aon rud le cur leis anseo.\n\nIn aip an stáisiúin, oscail do stáisiún, ansin **Settings → Weather server → Other Server**, agus líon isteach:\n\n**URL**\n{urls}\nGan `http://` ná `https://`. Bain úsáid as seoladh ar féidir le do stáisiún teacht air ar do líonra féin — níl aon chúis Home Assistant a nochtadh don idirlíon chuige seo. Mura réitíonn do stáisiún ainmneacha, úsáid an seoladh IP.\n\n**Station ID** — cibé rud is mian leat. Beidh sé ina ainm gléis in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — is luach maith é 1 nóiméad.\n\n**API type** — *WUnderground API*.\n\n**Upload** — fág cumasaithe é.\n\nBrúigh **Save**, téigh ar ais, ansin brúigh **Confirm & Exit**.\n\n> ⚠️ **Is é Confirm & Exit a scríobhann na socruithe chuig an stáisiún.** Ní athraíonn sábháil amháin faic. Tagann do bhraiteoirí i láthair soicind ina dhiaidh.\n\nIs iad na críochphointí atá ag éisteacht:\n{endpoints}"
+        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +109,7 @@
         "step": {
           "confirm": {
             "title": "Socraigh do stáisiún aimsire",
-            "description": "Is é do stáisiún aimsire a chruthaíonn na gléasanna agus na braiteoirí — níl aon rud le cur leis anseo.\n\nIn aip an stáisiúin, oscail do stáisiún, ansin **Settings → Weather server → Other Server**, agus líon isteach:\n\n**URL**\n{urls}\nGan `http://` ná `https://`. Bain úsáid as seoladh ar féidir le do stáisiún teacht air ar do líonra féin — níl aon chúis Home Assistant a nochtadh don idirlíon chuige seo. Mura réitíonn do stáisiún ainmneacha, úsáid an seoladh IP.\n\n**Station ID** — cibé rud is mian leat. Beidh sé ina ainm gléis in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — is luach maith é 1 nóiméad.\n\n**API type** — *WUnderground API*.\n\n**Upload** — fág cumasaithe é.\n\nBrúigh **Save**, téigh ar ais, ansin brúigh **Confirm & Exit**.\n\n> ⚠️ **Is é Confirm & Exit a scríobhann na socruithe chuig an stáisiún.** Ní athraíonn sábháil amháin faic. Tagann do bhraiteoirí i láthair soicind ina dhiaidh.\n\nIs iad na críochphointí atá ag éisteacht:\n{endpoints}"
+            "description": "Is é do stáisiún aimsire a chruthaíonn na gléasanna agus na braiteoirí — níl aon rud le cur leis anseo.\n\nIn aip an stáisiúin, oscail do stáisiún, ansin **Settings → Weather server → Other Server**, agus líon isteach:\n\n**URL**\n{urls}\nGan `http://` ná `https://`. Bain úsáid as seoladh ar féidir le do stáisiún teacht air ar do líonra féin — níl aon chúis Home Assistant a nochtadh don idirlíon chuige seo. Mura réitíonn do stáisiún ainmneacha, úsáid an seoladh IP.\n\n**Station ID** — cibé rud is mian leat. Beidh sé ina ainm gléis in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — is luach maith é 1 nóiméad.\n\n**API type** — *WSLink API*.\n\n**Upload** — fág cumasaithe é.\n\nBrúigh **Save**, téigh ar ais, ansin brúigh **Confirm & Exit**.\n\n> ⚠️ **Is é Confirm & Exit a scríobhann na socruithe chuig an stáisiún.** Ní athraíonn sábháil amháin faic. Tagann do bhraiteoirí i láthair soicind ina dhiaidh.\n\nIs iad na críochphointí atá ag éisteacht:\n{endpoints}"
           },
           "received": {
             "title": "Tháinig do stáisiún tríd",
@@ -103,7 +130,7 @@
     },
     "unknown_parameters": {
       "title": "Tá an stáisiún {station} ag seoladh léamha atá á gcaitheamh amach",
-      "description": "Ní aithnítear **{count} paraiméadar** ó **{station}**, agus mar sin caitear a luachanna amach le gach uaslódáil:\n\n{parameters}\n\nIs é an chúis is coitianta ná stáisiún a thuairiscíonn níos mó ná mar is féidir lena phrótacal a iompar. Níl ach **4 sliotán** ag Weather Underground do bhraiteoirí breise; má thairgeann do stáisiún **WSLink** mar *API type*, nochtann aistriú chuige seacht gcainéal agus timpeall dhá oiread léamha.\n\nMura é sin é, is iad na hainmneacha paraiméadar seo go díreach a theastaíonn ó thuairisc fhabht: oscail ceann ar an [rianaitheoir saincheisteanna](https://github.com/MaxensF/personal_weather_station/issues) agus is féidir iad a chur leis.\n\nIs féidir leat neamhaird a dhéanamh de seo freisin — níl aon rud briste, níl na luachanna áirithe seo ag teacht, sin an méid."
+      "description": "Ní aithnítear **{count} paraiméadar** ó **{station}**, agus mar sin caitear a luachanna amach le gach uaslódáil:\n\n{parameters}\n\nIs é an chúis is coitianta ná stáisiún a thuairiscíonn níos mó ná mar is féidir lena phrótacal a iompar. Níl ach **4 sliotán** ag Weather Underground do bhraiteoirí breise; má thairgeann do stáisiún **WSLink** mar *API type*, nochtann aistriú chuige seacht gcainéal agus timpeall dhá oiread léamha.\n\nMura é sin é, is iad na hainmneacha paraiméadar seo go díreach a theastaíonn ó thuairisc fhabht: oscail ceann ar an [rianaitheoir saincheisteanna]({issue_tracker}) agus is féidir iad a chur leis.\n\nIs féidir leat neamhaird a dhéanamh de seo freisin — níl aon rud briste, níl na luachanna áirithe seo ag teacht, sin an méid."
     }
   },
   "exceptions": {

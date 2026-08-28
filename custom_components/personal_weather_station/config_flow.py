@@ -1,5 +1,8 @@
 """Config flow for the Personal Weather Station integration."""
 
+import asyncio
+import time
+
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_PASSWORD
@@ -8,24 +11,75 @@ from homeassistant.core import callback
 from .const import (
     CONF_AVAILABILITY_TIMEOUT,
     CONF_DEBUG,
+    DATA_ONBOARDING,
     DEFAULT_AVAILABILITY_TIMEOUT,
     DOMAIN,
+    STATION_WAIT_TIMEOUT,
 )
-from .instructions import async_placeholders, async_placeholders_for_entry
+from .instructions import (
+    async_ensure_images,
+    async_placeholders,
+    async_placeholders_for_entry,
+    image,
+)
 
 AVAILABILITY_TIMEOUT_SELECTOR = vol.All(vol.Coerce(int), vol.Range(min=0, max=1440))
 
+# One screen per screen of the station's app, in the order they appear there.
+WALKTHROUGH = {
+    "station": "wslink-1-your-device.jpeg",
+    "settings": "wslink-2-settings.jpeg",
+    "server": "wslink-3-weather-server.jpeg",
+    "form": "wslink-4-other-server.jpeg",
+    "confirm": "wslink-5-confirm-and-exit.jpeg",
+}
+
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle the initial setup."""
+    """Walk the user through the station app, then wait for its first upload."""
 
     def __init__(self):
         self._data = {}
+        self._task = None
+        self._station = None
+
+        # Whether the closing screen has been shown. Home Assistant carries the
+        # user_input that submitted the previous step into the step that a
+        # finished progress task lands on, so "did the user submit?" cannot be
+        # read from user_input here: it would skip the screen entirely for the
+        # common case of a station that already posted.
+        self._closed = False
 
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
         return OptionsFlowHandler(config_entry)
+
+    @callback
+    def async_remove(self):
+        """Stop accepting uploads on behalf of a flow that is going away."""
+
+        self.hass.data.pop(DATA_ONBOARDING, None)
+
+    def _placeholders(self, step):
+        """Screenshot plus the addresses, for one walkthrough step."""
+
+        return {
+            "image": image(WALKTHROUGH[step]),
+            **async_placeholders(self.hass, self._data.get(CONF_PASSWORD)),
+        }
+
+    async def _async_step_walkthrough(self, step, next_step, user_input):
+        """Show one screen of the station app, then move on."""
+
+        if user_input is not None:
+            return await getattr(self, f"async_step_{next_step}")()
+
+        return self.async_show_form(
+            step_id=step,
+            data_schema=vol.Schema({}),
+            description_placeholders=self._placeholders(step),
+        )
 
     async def async_step_user(self, user_input=None):
         if user_input is None:
@@ -36,29 +90,143 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         self._data = user_input
 
-        return await self.async_step_instructions()
+        # The screenshots and the endpoints both have to be live before the
+        # entry exists: Home Assistant only calls async_setup once one does.
+        await async_ensure_images(self.hass)
 
-    async def async_step_instructions(self, user_input=None):
-        """
-        Show what to type into the station before finishing.
+        # Registered from here, not from the wait step. A station configured
+        # while the user is still reading is then already recorded when the
+        # wait begins, and its upload is not thrown away.
+        from . import async_ensure_views
 
-        There is no "add device" button to click afterwards: a station appears
-        on its own the first time it posts, so this is the moment to say what
-        makes that happen.
-        """
+        async_ensure_views(self.hass)
 
-        if user_input is not None:
-            return self.async_create_entry(
-                title="Personal Weather Station", data=self._data
+        self.hass.data[DATA_ONBOARDING] = {
+            "key": self._data.get(CONF_PASSWORD),
+            "station": None,
+            "key_mismatch": False,
+        }
+
+        return await self.async_step_station()
+
+    async def async_step_station(self, user_input=None):
+        return await self._async_step_walkthrough("station", "settings", user_input)
+
+    async def async_step_settings(self, user_input=None):
+        return await self._async_step_walkthrough("settings", "server", user_input)
+
+    async def async_step_server(self, user_input=None):
+        return await self._async_step_walkthrough("server", "form", user_input)
+
+    async def async_step_form(self, user_input=None):
+        return await self._async_step_walkthrough("form", "confirm", user_input)
+
+    async def async_step_confirm(self, user_input=None):
+        return await self._async_step_walkthrough("confirm", "wait", user_input)
+
+    async def async_step_wait(self, user_input=None):
+        """Watch for the first upload while the user is still looking."""
+
+        if self._task is None:
+            self._task = self.hass.async_create_task(
+                _async_wait_for_upload(self.hass, STATION_WAIT_TIMEOUT)
             )
 
-        return self.async_show_form(
-            step_id="instructions",
-            data_schema=vol.Schema({}),
-            description_placeholders=async_placeholders(
-                self.hass, self._data.get(CONF_PASSWORD)
-            ),
+        if not self._task.done():
+            return self.async_show_progress(
+                step_id="wait",
+                progress_action="waiting_for_station",
+                progress_task=self._task,
+            )
+
+        self._station = self._task.result()
+        self._task = None
+
+        return self.async_show_progress_done(
+            next_step_id="received" if self._station else "timeout"
         )
+
+    async def async_step_received(self, user_input=None):
+        if self._closed:
+            return self._async_finish()
+
+        self._closed = True
+
+        return self.async_show_form(
+            step_id="received",
+            data_schema=vol.Schema({}),
+            description_placeholders={"station": self._station},
+        )
+
+    async def async_step_timeout(self, user_input=None):
+        """
+        Nothing arrived in time.
+
+        The entry is still created: the endpoints only start listening for real
+        once it exists, and a repair picks the user back up from here. Throwing
+        the configuration away would mean typing it all again.
+        """
+
+        if self._closed:
+            return self._async_finish()
+
+        self._closed = True
+
+        onboarding = self.hass.data.get(DATA_ONBOARDING) or {}
+
+        return self.async_show_form(
+            step_id="timeout",
+            data_schema=vol.Schema({}),
+            description_placeholders={
+                "minutes": str(STATION_WAIT_TIMEOUT // 60),
+                "key_hint_extra": (
+                    "\n\n> ⚠️ A station did reach Home Assistant, but the station "
+                    "key it sent does not match the one you entered. Correct it "
+                    "in the station app, or leave the key blank here."
+                    if onboarding.get("key_mismatch")
+                    else ""
+                ),
+                **async_placeholders(self.hass, self._data.get(CONF_PASSWORD)),
+            },
+        )
+
+    def _async_finish(self):
+        self.hass.data.pop(DATA_ONBOARDING, None)
+
+        return self.async_create_entry(
+            title="Personal Weather Station", data=self._data
+        )
+
+
+async def _async_wait_for_upload(hass, timeout):
+    """
+    Wait until a station posts, or give up.
+
+    Polls rather than holding an event: the flow can be abandoned at any point,
+    and a task waiting on something nobody will ever set would outlive it.
+
+    Args:
+        hass: Home Assistant instance.
+        timeout: Seconds to wait.
+
+    Returns:
+        str or None: the identifier the station announced.
+    """
+
+    deadline = time.monotonic() + timeout
+
+    while time.monotonic() < deadline:
+        onboarding = hass.data.get(DATA_ONBOARDING)
+
+        if onboarding is None:
+            return None
+
+        if onboarding.get("station"):
+            return onboarding["station"]
+
+        await asyncio.sleep(1)
+
+    return None
 
 
 class OptionsFlowHandler(config_entries.OptionsFlow):
@@ -83,12 +251,15 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             return await self.async_step_init()
 
+        await async_ensure_images(self.hass)
+
         return self.async_show_form(
             step_id="instructions",
             data_schema=vol.Schema({}),
-            description_placeholders=async_placeholders_for_entry(
-                self.hass, self._config_entry
-            ),
+            description_placeholders={
+                "image": image(WALKTHROUGH["form"]),
+                **async_placeholders_for_entry(self.hass, self._config_entry),
+            },
         )
 
     async def async_step_options(self, user_input=None):

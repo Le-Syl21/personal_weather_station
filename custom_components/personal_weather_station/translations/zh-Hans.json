@@ -8,13 +8,40 @@
           "password": "气象站密钥"
         }
       },
-      "instructions": {
-        "title": "设置您的气象站",
-        "description": "创建设备和传感器的是您的气象站——这里没有什么需要添加。\n\n在气象站的应用中打开您的气象站，然后进入 **Settings → Weather server → Other Server**，填写：\n\n**URL**\n{urls}\n不要带 `http://` 或 `https://`。请使用气象站在您自己网络内可以访问的地址——没有任何理由为此把 Home Assistant 暴露到互联网。如果您的气象站无法解析名称，请填 IP 地址。\n\n**Station ID** — 随您喜欢。它将成为 Home Assistant 中的设备名称。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分钟是不错的值。\n\n**API type** — *WUnderground API*。\n\n**Upload** — 保持开启。\n\n按 **Save**，返回，然后按 **Confirm & Exit**。\n\n> ⚠️ **真正把设置写入气象站的是 Confirm & Exit。** 仅仅保存不会改变任何东西。您的传感器会在一秒后出现。\n\n正在监听的端点：\n{endpoints}"
+      "station": {
+        "title": "Step 1 of 5 — your station",
+        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+      },
+      "settings": {
+        "title": "Step 2 of 5 — weather service",
+        "description": "{image}\n\nChoose **Weather server**."
+      },
+      "server": {
+        "title": "Step 3 of 5 — other server",
+        "description": "{image}\n\nChoose **Other Server**."
+      },
+      "form": {
+        "title": "Step 4 of 5 — server settings",
+        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+      },
+      "confirm": {
+        "title": "Step 5 of 5 — confirm & exit",
+        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+      },
+      "received": {
+        "title": "Your station is talking to Home Assistant",
+        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+      },
+      "timeout": {
+        "title": "Nothing arrived yet",
+        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
       }
     },
     "abort": {
       "single_instance_allowed": "已配置。单个实例即可服务所有气象站。"
+    },
+    "progress": {
+      "waiting_for_station": "Waiting for your station's first upload…"
     }
   },
   "options": {
@@ -41,7 +68,7 @@
       },
       "instructions": {
         "title": "把气象站指向 Home Assistant",
-        "description": "创建设备和传感器的是您的气象站——这里没有什么需要添加。\n\n在气象站的应用中打开您的气象站，然后进入 **Settings → Weather server → Other Server**，填写：\n\n**URL**\n{urls}\n不要带 `http://` 或 `https://`。请使用气象站在您自己网络内可以访问的地址——没有任何理由为此把 Home Assistant 暴露到互联网。如果您的气象站无法解析名称，请填 IP 地址。\n\n**Station ID** — 随您喜欢。它将成为 Home Assistant 中的设备名称。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分钟是不错的值。\n\n**API type** — *WUnderground API*。\n\n**Upload** — 保持开启。\n\n按 **Save**，返回，然后按 **Confirm & Exit**。\n\n> ⚠️ **真正把设置写入气象站的是 Confirm & Exit。** 仅仅保存不会改变任何东西。您的传感器会在一秒后出现。\n\n正在监听的端点：\n{endpoints}"
+        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +109,7 @@
         "step": {
           "confirm": {
             "title": "设置您的气象站",
-            "description": "创建设备和传感器的是您的气象站——这里没有什么需要添加。\n\n在气象站的应用中打开您的气象站，然后进入 **Settings → Weather server → Other Server**，填写：\n\n**URL**\n{urls}\n不要带 `http://` 或 `https://`。请使用气象站在您自己网络内可以访问的地址——没有任何理由为此把 Home Assistant 暴露到互联网。如果您的气象站无法解析名称，请填 IP 地址。\n\n**Station ID** — 随您喜欢。它将成为 Home Assistant 中的设备名称。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分钟是不错的值。\n\n**API type** — *WUnderground API*。\n\n**Upload** — 保持开启。\n\n按 **Save**，返回，然后按 **Confirm & Exit**。\n\n> ⚠️ **真正把设置写入气象站的是 Confirm & Exit。** 仅仅保存不会改变任何东西。您的传感器会在一秒后出现。\n\n正在监听的端点：\n{endpoints}"
+            "description": "创建设备和传感器的是您的气象站——这里没有什么需要添加。\n\n在气象站的应用中打开您的气象站，然后进入 **Settings → Weather server → Other Server**，填写：\n\n**URL**\n{urls}\n不要带 `http://` 或 `https://`。请使用气象站在您自己网络内可以访问的地址——没有任何理由为此把 Home Assistant 暴露到互联网。如果您的气象站无法解析名称，请填 IP 地址。\n\n**Station ID** — 随您喜欢。它将成为 Home Assistant 中的设备名称。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分钟是不错的值。\n\n**API type** — *WSLink API*。\n\n**Upload** — 保持开启。\n\n按 **Save**，返回，然后按 **Confirm & Exit**。\n\n> ⚠️ **真正把设置写入气象站的是 Confirm & Exit。** 仅仅保存不会改变任何东西。您的传感器会在一秒后出现。\n\n正在监听的端点：\n{endpoints}"
           },
           "received": {
             "title": "您的气象站已接入",
@@ -103,7 +130,7 @@
     },
     "unknown_parameters": {
       "title": "气象站 {station} 发送的读数正被丢弃",
-      "description": "来自 **{station}** 的 **{count} 个参数** 无法识别，因此每次上传时其数值都会被丢弃：\n\n{parameters}\n\n常见原因是气象站上报的内容超出了其协议所能承载的范围。Weather Underground 只有 **4 个** 额外传感器的位置；如果您的气象站在 *API type* 中提供 **WSLink**，切换过去可获得七个通道以及大约两倍的读数。\n\n如果原因并非如此，这些参数名正是一份缺陷报告所需要的：请在 [问题追踪器](https://github.com/MaxensF/personal_weather_station/issues) 中提交，之后即可将它们加入。\n\n您也可以忽略此提示 — 没有任何东西损坏，只是这些特定数值没有送达。"
+      "description": "来自 **{station}** 的 **{count} 个参数** 无法识别，因此每次上传时其数值都会被丢弃：\n\n{parameters}\n\n常见原因是气象站上报的内容超出了其协议所能承载的范围。Weather Underground 只有 **4 个** 额外传感器的位置；如果您的气象站在 *API type* 中提供 **WSLink**，切换过去可获得七个通道以及大约两倍的读数。\n\n如果原因并非如此，这些参数名正是一份缺陷报告所需要的：请在 [问题追踪器]({issue_tracker}) 中提交，之后即可将它们加入。\n\n您也可以忽略此提示 — 没有任何东西损坏，只是这些特定数值没有送达。"
     }
   },
   "exceptions": {

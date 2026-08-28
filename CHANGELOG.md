@@ -1,5 +1,57 @@
 # Changelog
 
+## 1.2.0
+
+### Fixed
+
+- **The setup wizard was telling you to pick the wrong API.** It said
+  *WUnderground API* while the readme and the repairs recommend *WSLink API*,
+  which carries roughly twice as many readings and seven channels instead of
+  four. All 64 languages are corrected.
+- **`strings.json` failed Home Assistant's own validation.** hassfest rejects a
+  literal URL in a translated string; the link to the issue tracker in the
+  dropped-parameters repair is now a placeholder, and the repair also carries a
+  proper *Learn more* link.
+- The integration declares a `CONFIG_SCHEMA`, which hassfest asks of anything
+  defining `async_setup`.
+- The test workflow could never run: `cache: pip` looked for a `requirements.txt`
+  that does not exist here and failed the job before the first test.
+- The HACS validation workflow no longer runs on forks. Its two failures there —
+  no repository topics, issues not enabled — are properties of the fork rather
+  than of the code, so it could never pass and only mailed the fork's owner on
+  every push. The daily stale run is skipped on forks for the same reason.
+
+### Added
+
+- **The setup wizard is now a walkthrough, with the screenshots.** Five screens
+  matching the station app's own, one picture each, ending on Home Assistant
+  waiting with you for the first upload — and saying so explicitly when nothing
+  arrives, rather than dropping you on an empty page.
+- The endpoints start listening from the wizard's first screen, not from the
+  moment it starts waiting. These stations drop off Wi-Fi if you linger in their
+  settings, so people configure them quickly; an upload that lands while you are
+  still reading now counts instead of being thrown away.
+- If a station reaches Home Assistant during the wizard with the wrong station
+  key, the closing screen says so. That is the single most common setup mistake,
+  and it used to look exactly like nothing having arrived at all.
+- The station's response codes now follow the vendor specification in full:
+  **404** for a station posting more than 60 times a minute, counted per station,
+  and **405** when every recognised parameter in a payload fails to be read.
+  Parameters the integration does not know deliberately do not count as a format
+  error — a station speaking a newer API version is newer, not broken.
+
+### Changed
+
+- `WSLink API.pdf` is replaced by `WSLink API.md`, a full transcription. A test
+  parses its tables and fails the build if a documented parameter is dropped from
+  the code, or given a unit or battery scale the specification does not state.
+  All 108 data parameters are covered.
+
+### Known gaps
+
+- The wizard's new screens are English for now in the languages other than the
+  eight reviewed ones; the rest of the interface is translated as before.
+
 ## 1.1.0
 
 **Upgrading is safe: no entity is renamed or removed on its own.** The two

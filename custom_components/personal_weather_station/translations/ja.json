@@ -8,13 +8,40 @@
           "password": "ステーションキー"
         }
       },
-      "instructions": {
-        "title": "気象観測所を設定する",
-        "description": "デバイスとセンサーを作るのは気象観測所です。ここで追加するものはありません。\n\n観測所のアプリで観測所を開き、**Settings → Weather server → Other Server** に進んで入力します。\n\n**URL**\n{urls}\n`http://` や `https://` は付けません。観測所が同じネットワーク上で到達できるアドレスを使ってください。このために Home Assistant をインターネットへ公開する理由はありません。観測所が名前を解決できない場合は IP アドレスを入れてください。\n\n**Station ID** — 任意の名前。Home Assistant でのデバイス名になります。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分が適切です。\n\n**API type** — *WUnderground API*。\n\n**Upload** — 有効のままにします。\n\n**Save** を押し、戻ってから **Confirm & Exit** を押します。\n\n> ⚠️ **設定を観測所に書き込むのは Confirm & Exit です。** 保存だけでは何も変わりません。センサーはその 1 秒後に現れます。\n\n受信を待ち受けているエンドポイント：\n{endpoints}"
+      "station": {
+        "title": "Step 1 of 5 — your station",
+        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+      },
+      "settings": {
+        "title": "Step 2 of 5 — weather service",
+        "description": "{image}\n\nChoose **Weather server**."
+      },
+      "server": {
+        "title": "Step 3 of 5 — other server",
+        "description": "{image}\n\nChoose **Other Server**."
+      },
+      "form": {
+        "title": "Step 4 of 5 — server settings",
+        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+      },
+      "confirm": {
+        "title": "Step 5 of 5 — confirm & exit",
+        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+      },
+      "received": {
+        "title": "Your station is talking to Home Assistant",
+        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+      },
+      "timeout": {
+        "title": "Nothing arrived yet",
+        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
       }
     },
     "abort": {
       "single_instance_allowed": "すでに設定済みです。1つのインスタンスですべての気象観測所に対応します。"
+    },
+    "progress": {
+      "waiting_for_station": "Waiting for your station's first upload…"
     }
   },
   "options": {
@@ -41,7 +68,7 @@
       },
       "instructions": {
         "title": "観測所を Home Assistant に向ける",
-        "description": "デバイスとセンサーを作るのは気象観測所です。ここで追加するものはありません。\n\n観測所のアプリで観測所を開き、**Settings → Weather server → Other Server** に進んで入力します。\n\n**URL**\n{urls}\n`http://` や `https://` は付けません。観測所が同じネットワーク上で到達できるアドレスを使ってください。このために Home Assistant をインターネットへ公開する理由はありません。観測所が名前を解決できない場合は IP アドレスを入れてください。\n\n**Station ID** — 任意の名前。Home Assistant でのデバイス名になります。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分が適切です。\n\n**API type** — *WUnderground API*。\n\n**Upload** — 有効のままにします。\n\n**Save** を押し、戻ってから **Confirm & Exit** を押します。\n\n> ⚠️ **設定を観測所に書き込むのは Confirm & Exit です。** 保存だけでは何も変わりません。センサーはその 1 秒後に現れます。\n\n受信を待ち受けているエンドポイント：\n{endpoints}"
+        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +109,7 @@
         "step": {
           "confirm": {
             "title": "気象観測所を設定する",
-            "description": "デバイスとセンサーを作るのは気象観測所です。ここで追加するものはありません。\n\n観測所のアプリで観測所を開き、**Settings → Weather server → Other Server** に進んで入力します。\n\n**URL**\n{urls}\n`http://` や `https://` は付けません。観測所が同じネットワーク上で到達できるアドレスを使ってください。このために Home Assistant をインターネットへ公開する理由はありません。観測所が名前を解決できない場合は IP アドレスを入れてください。\n\n**Station ID** — 任意の名前。Home Assistant でのデバイス名になります。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分が適切です。\n\n**API type** — *WUnderground API*。\n\n**Upload** — 有効のままにします。\n\n**Save** を押し、戻ってから **Confirm & Exit** を押します。\n\n> ⚠️ **設定を観測所に書き込むのは Confirm & Exit です。** 保存だけでは何も変わりません。センサーはその 1 秒後に現れます。\n\n受信を待ち受けているエンドポイント：\n{endpoints}"
+            "description": "デバイスとセンサーを作るのは気象観測所です。ここで追加するものはありません。\n\n観測所のアプリで観測所を開き、**Settings → Weather server → Other Server** に進んで入力します。\n\n**URL**\n{urls}\n`http://` や `https://` は付けません。観測所が同じネットワーク上で到達できるアドレスを使ってください。このために Home Assistant をインターネットへ公開する理由はありません。観測所が名前を解決できない場合は IP アドレスを入れてください。\n\n**Station ID** — 任意の名前。Home Assistant でのデバイス名になります。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分が適切です。\n\n**API type** — *WSLink API*。\n\n**Upload** — 有効のままにします。\n\n**Save** を押し、戻ってから **Confirm & Exit** を押します。\n\n> ⚠️ **設定を観測所に書き込むのは Confirm & Exit です。** 保存だけでは何も変わりません。センサーはその 1 秒後に現れます。\n\n受信を待ち受けているエンドポイント：\n{endpoints}"
           },
           "received": {
             "title": "観測所からの送信を受け取りました",
@@ -103,7 +130,7 @@
     },
     "unknown_parameters": {
       "title": "ステーション {station} が破棄されている測定値を送信しています",
-      "description": "**{station}** からの **{count} 個のパラメーター** は認識できないため、送信のたびにその値は破棄されています:\n\n{parameters}\n\nよくある原因は、ステーションがプロトコルの運べる量を超えて報告していることです。Weather Underground には追加センサー用の枠が **4 つ** しかありません。お使いのステーションが *API type* として **WSLink** を提供している場合、そちらに切り替えると 7 チャンネルと、およそ 2 倍の測定値が利用できるようになります。\n\n原因がそれでない場合、これらのパラメーター名こそが不具合報告に必要なものです。[イシュートラッカー](https://github.com/MaxensF/personal_weather_station/issues) で報告していただければ、追加できます。\n\n無視してもかまいません。壊れているものはなく、これらの値が届かないというだけです。"
+      "description": "**{station}** からの **{count} 個のパラメーター** は認識できないため、送信のたびにその値は破棄されています:\n\n{parameters}\n\nよくある原因は、ステーションがプロトコルの運べる量を超えて報告していることです。Weather Underground には追加センサー用の枠が **4 つ** しかありません。お使いのステーションが *API type* として **WSLink** を提供している場合、そちらに切り替えると 7 チャンネルと、およそ 2 倍の測定値が利用できるようになります。\n\n原因がそれでない場合、これらのパラメーター名こそが不具合報告に必要なものです。[イシュートラッカー]({issue_tracker}) で報告していただければ、追加できます。\n\n無視してもかまいません。壊れているものはなく、これらの値が届かないというだけです。"
     }
   },
   "exceptions": {

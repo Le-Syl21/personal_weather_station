@@ -8,13 +8,40 @@
           "password": "Ključ postaje"
         }
       },
-      "instructions": {
-        "title": "Postavite svoju meteorološku postaju",
-        "description": "Vaša meteorološka postaja stvara uređaje i senzore — ovdje se nema što dodati.\n\nU aplikaciji postaje otvorite svoju postaju, zatim **Settings → Weather server → Other Server**, i ispunite:\n\n**URL**\n{urls}\nBez `http://` ili `https://`. Upotrijebite adresu do koje vaša postaja može doći na vašoj vlastitoj mreži — nema nikakvog razloga zbog toga izlagati Home Assistant internetu. Ako vaša postaja ne razrješava imena, upišite IP adresu.\n\n**Station ID** — što god želite. Postaje naziv uređaja u Home Assistantu.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuta je dobra vrijednost.\n\n**API type** — *WUnderground API*.\n\n**Upload** — ostavite uključeno.\n\nPritisnite **Save**, vratite se natrag pa pritisnite **Confirm & Exit**.\n\n> ⚠️ **Tek Confirm & Exit upisuje postavke u postaju.** Samo spremanje ne mijenja ništa. Vaši senzori pojavljuju se sekundu poslije.\n\nKrajnje točke koje slušaju su:\n{endpoints}"
+      "station": {
+        "title": "Step 1 of 5 — your station",
+        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+      },
+      "settings": {
+        "title": "Step 2 of 5 — weather service",
+        "description": "{image}\n\nChoose **Weather server**."
+      },
+      "server": {
+        "title": "Step 3 of 5 — other server",
+        "description": "{image}\n\nChoose **Other Server**."
+      },
+      "form": {
+        "title": "Step 4 of 5 — server settings",
+        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+      },
+      "confirm": {
+        "title": "Step 5 of 5 — confirm & exit",
+        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+      },
+      "received": {
+        "title": "Your station is talking to Home Assistant",
+        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+      },
+      "timeout": {
+        "title": "Nothing arrived yet",
+        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
       }
     },
     "abort": {
       "single_instance_allowed": "Već konfigurirano. Jedna jedina instanca poslužuje sve meteorološke postaje."
+    },
+    "progress": {
+      "waiting_for_station": "Waiting for your station's first upload…"
     }
   },
   "options": {
@@ -41,7 +68,7 @@
       },
       "instructions": {
         "title": "Usmjerite postaju prema Home Assistantu",
-        "description": "Vaša meteorološka postaja stvara uređaje i senzore — ovdje se nema što dodati.\n\nU aplikaciji postaje otvorite svoju postaju, zatim **Settings → Weather server → Other Server**, i ispunite:\n\n**URL**\n{urls}\nBez `http://` ili `https://`. Upotrijebite adresu do koje vaša postaja može doći na vašoj vlastitoj mreži — nema nikakvog razloga zbog toga izlagati Home Assistant internetu. Ako vaša postaja ne razrješava imena, upišite IP adresu.\n\n**Station ID** — što god želite. Postaje naziv uređaja u Home Assistantu.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuta je dobra vrijednost.\n\n**API type** — *WUnderground API*.\n\n**Upload** — ostavite uključeno.\n\nPritisnite **Save**, vratite se natrag pa pritisnite **Confirm & Exit**.\n\n> ⚠️ **Tek Confirm & Exit upisuje postavke u postaju.** Samo spremanje ne mijenja ništa. Vaši senzori pojavljuju se sekundu poslije.\n\nKrajnje točke koje slušaju su:\n{endpoints}"
+        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +109,7 @@
         "step": {
           "confirm": {
             "title": "Postavite svoju meteorološku postaju",
-            "description": "Vaša meteorološka postaja stvara uređaje i senzore — ovdje se nema što dodati.\n\nU aplikaciji postaje otvorite svoju postaju, zatim **Settings → Weather server → Other Server**, i ispunite:\n\n**URL**\n{urls}\nBez `http://` ili `https://`. Upotrijebite adresu do koje vaša postaja može doći na vašoj vlastitoj mreži — nema nikakvog razloga zbog toga izlagati Home Assistant internetu. Ako vaša postaja ne razrješava imena, upišite IP adresu.\n\n**Station ID** — što god želite. Postaje naziv uređaja u Home Assistantu.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuta je dobra vrijednost.\n\n**API type** — *WUnderground API*.\n\n**Upload** — ostavite uključeno.\n\nPritisnite **Save**, vratite se natrag pa pritisnite **Confirm & Exit**.\n\n> ⚠️ **Tek Confirm & Exit upisuje postavke u postaju.** Samo spremanje ne mijenja ništa. Vaši senzori pojavljuju se sekundu poslije.\n\nKrajnje točke koje slušaju su:\n{endpoints}"
+            "description": "Vaša meteorološka postaja stvara uređaje i senzore — ovdje se nema što dodati.\n\nU aplikaciji postaje otvorite svoju postaju, zatim **Settings → Weather server → Other Server**, i ispunite:\n\n**URL**\n{urls}\nBez `http://` ili `https://`. Upotrijebite adresu do koje vaša postaja može doći na vašoj vlastitoj mreži — nema nikakvog razloga zbog toga izlagati Home Assistant internetu. Ako vaša postaja ne razrješava imena, upišite IP adresu.\n\n**Station ID** — što god želite. Postaje naziv uređaja u Home Assistantu.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuta je dobra vrijednost.\n\n**API type** — *WSLink API*.\n\n**Upload** — ostavite uključeno.\n\nPritisnite **Save**, vratite se natrag pa pritisnite **Confirm & Exit**.\n\n> ⚠️ **Tek Confirm & Exit upisuje postavke u postaju.** Samo spremanje ne mijenja ništa. Vaši senzori pojavljuju se sekundu poslije.\n\nKrajnje točke koje slušaju su:\n{endpoints}"
           },
           "received": {
             "title": "Vaša postaja je prošla",
@@ -103,7 +130,7 @@
     },
     "unknown_parameters": {
       "title": "Postaja {station} šalje očitanja koja se odbacuju",
-      "description": "**{count} parametara** s postaje **{station}** nije prepoznato, pa se njihove vrijednosti odbacuju pri svakom slanju:\n\n{parameters}\n\nUobičajen uzrok je postaja koja javlja više nego što njezin protokol može prenijeti. Weather Underground ima samo **4 mjesta** za dodatne senzore; ako vaša postaja nudi **WSLink** kao *API type*, prelazak na njega otvara sedam kanala i otprilike dvostruko više očitanja.\n\nAko uzrok nije taj, ova su imena parametara upravo ono što treba prijavi greške: otvorite je na [pratitelju problema](https://github.com/MaxensF/personal_weather_station/issues) pa će ih se moći dodati.\n\nOvo možete i zanemariti — ništa nije pokvareno, ove određene vrijednosti jednostavno ne stižu."
+      "description": "**{count} parametara** s postaje **{station}** nije prepoznato, pa se njihove vrijednosti odbacuju pri svakom slanju:\n\n{parameters}\n\nUobičajen uzrok je postaja koja javlja više nego što njezin protokol može prenijeti. Weather Underground ima samo **4 mjesta** za dodatne senzore; ako vaša postaja nudi **WSLink** kao *API type*, prelazak na njega otvara sedam kanala i otprilike dvostruko više očitanja.\n\nAko uzrok nije taj, ova su imena parametara upravo ono što treba prijavi greške: otvorite je na [pratitelju problema]({issue_tracker}) pa će ih se moći dodati.\n\nOvo možete i zanemariti — ništa nije pokvareno, ove određene vrijednosti jednostavno ne stižu."
     }
   },
   "exceptions": {

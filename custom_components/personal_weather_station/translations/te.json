@@ -8,13 +8,40 @@
           "password": "కేంద్ర కీ"
         }
       },
-      "instructions": {
-        "title": "మీ వాతావరణ కేంద్రాన్ని సెటప్ చేయండి",
-        "description": "పరికరాలను, సెన్సార్లను సృష్టించేది మీ వాతావరణ కేంద్రమే — ఇక్కడ జోడించడానికి ఏమీ లేదు.\n\nకేంద్రం యాప్‌లో మీ కేంద్రాన్ని తెరిచి, **Settings → Weather server → Other Server** కు వెళ్లి పూరించండి:\n\n**URL**\n{urls}\n`http://` లేదా `https://` లేకుండా. మీ సొంత నెట్‌వర్క్‌లో మీ కేంద్రం చేరుకోగల చిరునామాను వాడండి — దీని కోసం Home Assistant ను ఇంటర్నెట్‌కు తెరవాల్సిన అవసరం ఏమాత్రం లేదు. మీ కేంద్రం పేర్లను పరిష్కరించలేకపోతే IP చిరునామా ఇవ్వండి.\n\n**Station ID** — మీకు నచ్చినది. ఇది Home Assistant లో పరికరం పేరు అవుతుంది.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 నిమిషం మంచి విలువ.\n\n**API type** — *WUnderground API*.\n\n**Upload** — ఆన్‌లోనే ఉంచండి.\n\n**Save** నొక్కి, వెనక్కి వెళ్లి, ఆ తర్వాత **Confirm & Exit** నొక్కండి.\n\n> ⚠️ **సెట్టింగ్‌లను కేంద్రంలో రాసేది Confirm & Exit మాత్రమే.** కేవలం సేవ్ చేయడం వల్ల ఏమీ మారదు. ఒక సెకను తర్వాత మీ సెన్సార్లు కనిపిస్తాయి.\n\nవింటున్న ఎండ్‌పాయింట్లు:\n{endpoints}"
+      "station": {
+        "title": "Step 1 of 5 — your station",
+        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+      },
+      "settings": {
+        "title": "Step 2 of 5 — weather service",
+        "description": "{image}\n\nChoose **Weather server**."
+      },
+      "server": {
+        "title": "Step 3 of 5 — other server",
+        "description": "{image}\n\nChoose **Other Server**."
+      },
+      "form": {
+        "title": "Step 4 of 5 — server settings",
+        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+      },
+      "confirm": {
+        "title": "Step 5 of 5 — confirm & exit",
+        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+      },
+      "received": {
+        "title": "Your station is talking to Home Assistant",
+        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+      },
+      "timeout": {
+        "title": "Nothing arrived yet",
+        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
       }
     },
     "abort": {
       "single_instance_allowed": "ఇప్పటికే కాన్ఫిగర్ చేయబడింది. ఒకే ఇన్‌స్టెన్స్ అన్ని వాతావరణ కేంద్రాలకు సేవలందిస్తుంది."
+    },
+    "progress": {
+      "waiting_for_station": "Waiting for your station's first upload…"
     }
   },
   "options": {
@@ -41,7 +68,7 @@
       },
       "instructions": {
         "title": "ఒక కేంద్రాన్ని Home Assistant వైపు మళ్లించండి",
-        "description": "పరికరాలను, సెన్సార్లను సృష్టించేది మీ వాతావరణ కేంద్రమే — ఇక్కడ జోడించడానికి ఏమీ లేదు.\n\nకేంద్రం యాప్‌లో మీ కేంద్రాన్ని తెరిచి, **Settings → Weather server → Other Server** కు వెళ్లి పూరించండి:\n\n**URL**\n{urls}\n`http://` లేదా `https://` లేకుండా. మీ సొంత నెట్‌వర్క్‌లో మీ కేంద్రం చేరుకోగల చిరునామాను వాడండి — దీని కోసం Home Assistant ను ఇంటర్నెట్‌కు తెరవాల్సిన అవసరం ఏమాత్రం లేదు. మీ కేంద్రం పేర్లను పరిష్కరించలేకపోతే IP చిరునామా ఇవ్వండి.\n\n**Station ID** — మీకు నచ్చినది. ఇది Home Assistant లో పరికరం పేరు అవుతుంది.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 నిమిషం మంచి విలువ.\n\n**API type** — *WUnderground API*.\n\n**Upload** — ఆన్‌లోనే ఉంచండి.\n\n**Save** నొక్కి, వెనక్కి వెళ్లి, ఆ తర్వాత **Confirm & Exit** నొక్కండి.\n\n> ⚠️ **సెట్టింగ్‌లను కేంద్రంలో రాసేది Confirm & Exit మాత్రమే.** కేవలం సేవ్ చేయడం వల్ల ఏమీ మారదు. ఒక సెకను తర్వాత మీ సెన్సార్లు కనిపిస్తాయి.\n\nవింటున్న ఎండ్‌పాయింట్లు:\n{endpoints}"
+        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +109,7 @@
         "step": {
           "confirm": {
             "title": "మీ వాతావరణ కేంద్రాన్ని సెటప్ చేయండి",
-            "description": "పరికరాలను, సెన్సార్లను సృష్టించేది మీ వాతావరణ కేంద్రమే — ఇక్కడ జోడించడానికి ఏమీ లేదు.\n\nకేంద్రం యాప్‌లో మీ కేంద్రాన్ని తెరిచి, **Settings → Weather server → Other Server** కు వెళ్లి పూరించండి:\n\n**URL**\n{urls}\n`http://` లేదా `https://` లేకుండా. మీ సొంత నెట్‌వర్క్‌లో మీ కేంద్రం చేరుకోగల చిరునామాను వాడండి — దీని కోసం Home Assistant ను ఇంటర్నెట్‌కు తెరవాల్సిన అవసరం ఏమాత్రం లేదు. మీ కేంద్రం పేర్లను పరిష్కరించలేకపోతే IP చిరునామా ఇవ్వండి.\n\n**Station ID** — మీకు నచ్చినది. ఇది Home Assistant లో పరికరం పేరు అవుతుంది.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 నిమిషం మంచి విలువ.\n\n**API type** — *WUnderground API*.\n\n**Upload** — ఆన్‌లోనే ఉంచండి.\n\n**Save** నొక్కి, వెనక్కి వెళ్లి, ఆ తర్వాత **Confirm & Exit** నొక్కండి.\n\n> ⚠️ **సెట్టింగ్‌లను కేంద్రంలో రాసేది Confirm & Exit మాత్రమే.** కేవలం సేవ్ చేయడం వల్ల ఏమీ మారదు. ఒక సెకను తర్వాత మీ సెన్సార్లు కనిపిస్తాయి.\n\nవింటున్న ఎండ్‌పాయింట్లు:\n{endpoints}"
+            "description": "పరికరాలను, సెన్సార్లను సృష్టించేది మీ వాతావరణ కేంద్రమే — ఇక్కడ జోడించడానికి ఏమీ లేదు.\n\nకేంద్రం యాప్‌లో మీ కేంద్రాన్ని తెరిచి, **Settings → Weather server → Other Server** కు వెళ్లి పూరించండి:\n\n**URL**\n{urls}\n`http://` లేదా `https://` లేకుండా. మీ సొంత నెట్‌వర్క్‌లో మీ కేంద్రం చేరుకోగల చిరునామాను వాడండి — దీని కోసం Home Assistant ను ఇంటర్నెట్‌కు తెరవాల్సిన అవసరం ఏమాత్రం లేదు. మీ కేంద్రం పేర్లను పరిష్కరించలేకపోతే IP చిరునామా ఇవ్వండి.\n\n**Station ID** — మీకు నచ్చినది. ఇది Home Assistant లో పరికరం పేరు అవుతుంది.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 నిమిషం మంచి విలువ.\n\n**API type** — *WSLink API*.\n\n**Upload** — ఆన్‌లోనే ఉంచండి.\n\n**Save** నొక్కి, వెనక్కి వెళ్లి, ఆ తర్వాత **Confirm & Exit** నొక్కండి.\n\n> ⚠️ **సెట్టింగ్‌లను కేంద్రంలో రాసేది Confirm & Exit మాత్రమే.** కేవలం సేవ్ చేయడం వల్ల ఏమీ మారదు. ఒక సెకను తర్వాత మీ సెన్సార్లు కనిపిస్తాయి.\n\nవింటున్న ఎండ్‌పాయింట్లు:\n{endpoints}"
           },
           "received": {
             "title": "మీ కేంద్రం చేరింది",
@@ -103,7 +130,7 @@
     },
     "unknown_parameters": {
       "title": "{station} స్టేషన్ విస్మరించబడుతున్న కొలతలను పంపుతోంది",
-      "description": "**{station}** నుండి వచ్చిన **{count} పరామితులు** గుర్తించబడటం లేదు, కాబట్టి ప్రతి అప్‌లోడ్‌లోనూ వాటి విలువలు విస్మరించబడుతున్నాయి:\n\n{parameters}\n\nసాధారణ కారణం ఏమిటంటే, స్టేషన్ తన ప్రోటోకాల్ మోయగలిగిన దానికంటే ఎక్కువ నివేదిస్తోంది. అదనపు సెన్సార్ల కోసం Weather Underground లో **4 స్థానాలు** మాత్రమే ఉన్నాయి; మీ స్టేషన్ *API type* గా **WSLink** ను ఇస్తే, దానికి మారడం ఏడు ఛానెళ్లను, దాదాపు రెట్టింపు కొలతలను అందిస్తుంది.\n\nకారణం అది కాకపోతే, ఒక బగ్ నివేదికకు కావలసినవి సరిగ్గా ఈ పరామితి పేర్లే: [ఇష్యూ ట్రాకర్‌లో](https://github.com/MaxensF/personal_weather_station/issues) ఒకటి తెరవండి, అప్పుడు వాటిని చేర్చవచ్చు.\n\nదీన్ని విస్మరించనూ వచ్చు — ఏదీ పాడవలేదు, కేవలం ఈ నిర్దిష్ట విలువలు రావడం లేదు అంతే."
+      "description": "**{station}** నుండి వచ్చిన **{count} పరామితులు** గుర్తించబడటం లేదు, కాబట్టి ప్రతి అప్‌లోడ్‌లోనూ వాటి విలువలు విస్మరించబడుతున్నాయి:\n\n{parameters}\n\nసాధారణ కారణం ఏమిటంటే, స్టేషన్ తన ప్రోటోకాల్ మోయగలిగిన దానికంటే ఎక్కువ నివేదిస్తోంది. అదనపు సెన్సార్ల కోసం Weather Underground లో **4 స్థానాలు** మాత్రమే ఉన్నాయి; మీ స్టేషన్ *API type* గా **WSLink** ను ఇస్తే, దానికి మారడం ఏడు ఛానెళ్లను, దాదాపు రెట్టింపు కొలతలను అందిస్తుంది.\n\nకారణం అది కాకపోతే, ఒక బగ్ నివేదికకు కావలసినవి సరిగ్గా ఈ పరామితి పేర్లే: [ఇష్యూ ట్రాకర్‌లో]({issue_tracker}) ఒకటి తెరవండి, అప్పుడు వాటిని చేర్చవచ్చు.\n\nదీన్ని విస్మరించనూ వచ్చు — ఏదీ పాడవలేదు, కేవలం ఈ నిర్దిష్ట విలువలు రావడం లేదు అంతే."
     }
   },
   "exceptions": {

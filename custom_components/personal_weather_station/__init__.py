@@ -16,6 +16,7 @@ from homeassistant.components.http import HomeAssistantView
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import dt as dt_util
@@ -26,12 +27,15 @@ from .const import (
     AUTH_PARAMS,
     CONF_DEBUG,
     CONF_WIND_OFFSETS,
+    DATA_ONBOARDING,
+    DATA_VIEWS_REGISTERED,
     DOMAIN,
     ENDPOINTS,
     ID_PARAMS,
     ISSUE_LEGACY_ENTITY_IDS,
     ISSUE_LEGACY_STATUS_SENSORS,
     ISSUE_NO_STATION_YET,
+    ISSUE_TRACKER_URL,
     ISSUE_UNKNOWN_PARAMETERS,
     KEY_LAST_UPDATE,
     KEY_WIND_DIR_RAW,
@@ -48,6 +52,11 @@ from .models import PwsRuntime
 from .normalizer import normalize_battery, parse_value
 
 _LOGGER = logging.getLogger(__name__)
+
+# There is no YAML configuration: everything is set up from the config entry.
+# Declaring it silences hassfest, which asks any integration defining async_setup
+# to say what it accepts.
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 REQUEST_COUNTER = itertools.count(1)
 
@@ -75,10 +84,34 @@ async def async_setup(hass: HomeAssistant, config):
         bool: True.
     """
 
-    for url in ENDPOINTS:
-        hass.http.register_view(PwsView(hass, url))
+    async_ensure_views(hass)
 
     return True
+
+
+@callback
+def async_ensure_views(hass):
+    """
+    Register the upload endpoints, once per Home Assistant run.
+
+    Also called from the setup wizard, which needs the endpoints live before any
+    config entry exists so it can wait for the station's first upload with the
+    user. Guarded because Home Assistant offers no way to unregister a view.
+
+    Args:
+        hass: Home Assistant instance.
+
+    Returns:
+        None
+    """
+
+    if hass.data.get(DATA_VIEWS_REGISTERED):
+        return
+
+    hass.data[DATA_VIEWS_REGISTERED] = True
+
+    for url in ENDPOINTS:
+        hass.http.register_view(PwsView(hass, url))
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
@@ -275,7 +308,9 @@ def _async_report_unknown_parameters(hass, device, unknown_keys):
             "station": device.device_id,
             "count": str(len(device.unknown_keys)),
             "parameters": ", ".join(f"`{key}`" for key in sorted(device.unknown_keys)),
+            "issue_tracker": ISSUE_TRACKER_URL,
         },
+        learn_more_url=ISSUE_TRACKER_URL,
     )
 
 
@@ -481,6 +516,74 @@ def _async_clear_rejections(hass, remote, device_id):
         ir.async_delete_issue(hass, DOMAIN, issue_id)
 
 
+@callback
+def _async_handle_without_entry(hass, request, request_id, remote):
+    """
+    Answer an upload that arrived before the integration is set up.
+
+    Normally that means the entry is unloaded and there is nothing to do. While
+    the setup wizard is waiting, though, this is the whole point: the station
+    has just been pointed at Home Assistant and its first upload is what the
+    user is waiting to see. The sighting is recorded for the flow, and the
+    station is answered 200 so it does not decide the server is broken.
+
+    Args:
+        hass: Home Assistant instance.
+        request: The incoming aiohttp request.
+        request_id: Counter value used in the logs.
+        remote: Source address, for the logs.
+
+    Returns:
+        web.Response
+    """
+
+    onboarding = hass.data.get(DATA_ONBOARDING)
+
+    if onboarding is None:
+        _LOGGER.debug(
+            "[#%d] Request from %s while the integration is not loaded",
+            request_id,
+            remote,
+        )
+        return web.json_response(
+            {"status": "error", "detail": "Integration not loaded"},
+            status=503,
+        )
+
+    params = request.rel_url.query
+    device_id = _get_param(params, ID_PARAMS)
+    expected = onboarding.get("key")
+
+    if expected:
+        offered = _get_param(params, AUTH_PARAMS) or ""
+
+        if not hmac.compare_digest(str(offered), str(expected)):
+            # Recorded rather than answered 401: the wizard can tell the user
+            # their station reached Home Assistant but the key does not match,
+            # which is far more useful than a silent timeout.
+            onboarding["key_mismatch"] = True
+
+            _LOGGER.warning(
+                "[#%d] A station at %s reached the wizard with a wrong key",
+                request_id,
+                remote,
+            )
+            return web.json_response(
+                {"status": "error", "detail": "Invalid password"}, status=401
+            )
+
+    onboarding["station"] = str(device_id) if device_id else remote
+
+    _LOGGER.info(
+        "[#%d] The setup wizard saw station '%s' at %s",
+        request_id,
+        onboarding["station"],
+        remote,
+    )
+
+    return web.json_response({"status": "ok", "detail": "Setup in progress"})
+
+
 class PwsView(HomeAssistantView):
     """HTTP endpoint receiving weather station updates."""
 
@@ -528,15 +631,7 @@ class PwsView(HomeAssistantView):
         runtime = hass.data.get(DOMAIN)
 
         if runtime is None:
-            _LOGGER.debug(
-                "[#%d] Request from %s while the integration is not loaded",
-                request_id,
-                remote,
-            )
-            return web.json_response(
-                {"status": "error", "detail": "Integration not loaded"},
-                status=503,
-            )
+            return _async_handle_without_entry(hass, request, request_id, remote)
 
         entry = runtime.entry
         debug = entry.options.get(CONF_DEBUG, False)

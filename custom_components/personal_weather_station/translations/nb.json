@@ -8,13 +8,40 @@
           "password": "Stasjonsnøkkel"
         }
       },
-      "instructions": {
-        "title": "Sett opp værstasjonen din",
-        "description": "Det er værstasjonen din som oppretter enhetene og sensorene — her er det ingenting å legge til.\n\nÅpne stasjonen din i stasjonens app, deretter **Settings → Weather server → Other Server**, og fyll ut:\n\n**URL**\n{urls}\nUten `http://` eller `https://`. Bruk en adresse stasjonen din kan nå på ditt eget nettverk — det er ingen grunn til å eksponere Home Assistant mot internett for dette. Kan ikke stasjonen din slå opp navn, bruk IP-adressen.\n\n**Station ID** — hva du vil. Det blir enhetsnavnet i Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minutt er en god verdi.\n\n**API type** — *WUnderground API*.\n\n**Upload** — la den stå på.\n\nTrykk **Save**, gå tilbake, og trykk deretter **Confirm & Exit**.\n\n> ⚠️ **Det er Confirm & Exit som skriver innstillingene til stasjonen.** Å lagre alene endrer ingenting. Sensorene dine dukker opp et sekund etterpå.\n\nEndepunktene som lytter er:\n{endpoints}"
+      "station": {
+        "title": "Step 1 of 5 — your station",
+        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+      },
+      "settings": {
+        "title": "Step 2 of 5 — weather service",
+        "description": "{image}\n\nChoose **Weather server**."
+      },
+      "server": {
+        "title": "Step 3 of 5 — other server",
+        "description": "{image}\n\nChoose **Other Server**."
+      },
+      "form": {
+        "title": "Step 4 of 5 — server settings",
+        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+      },
+      "confirm": {
+        "title": "Step 5 of 5 — confirm & exit",
+        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next here once you have, and Home Assistant will wait for the first upload with you."
+      },
+      "received": {
+        "title": "Your station is talking to Home Assistant",
+        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+      },
+      "timeout": {
+        "title": "Nothing arrived yet",
+        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
       }
     },
     "abort": {
       "single_instance_allowed": "Allerede konfigurert. Én enkelt instans betjener alle værstasjoner."
+    },
+    "progress": {
+      "waiting_for_station": "Waiting for your station's first upload…"
     }
   },
   "options": {
@@ -41,7 +68,7 @@
       },
       "instructions": {
         "title": "Pek en stasjon mot Home Assistant",
-        "description": "Det er værstasjonen din som oppretter enhetene og sensorene — her er det ingenting å legge til.\n\nÅpne stasjonen din i stasjonens app, deretter **Settings → Weather server → Other Server**, og fyll ut:\n\n**URL**\n{urls}\nUten `http://` eller `https://`. Bruk en adresse stasjonen din kan nå på ditt eget nettverk — det er ingen grunn til å eksponere Home Assistant mot internett for dette. Kan ikke stasjonen din slå opp navn, bruk IP-adressen.\n\n**Station ID** — hva du vil. Det blir enhetsnavnet i Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minutt er en god verdi.\n\n**API type** — *WUnderground API*.\n\n**Upload** — la den stå på.\n\nTrykk **Save**, gå tilbake, og trykk deretter **Confirm & Exit**.\n\n> ⚠️ **Det er Confirm & Exit som skriver innstillingene til stasjonen.** Å lagre alene endrer ingenting. Sensorene dine dukker opp et sekund etterpå.\n\nEndepunktene som lytter er:\n{endpoints}"
+        "description": "Point another station at Home Assistant from **Settings → Weather server → Other Server** in its app.\n\n{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save.\n\nThen **Confirm & Exit**, which is what actually writes the settings to the station.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +109,7 @@
         "step": {
           "confirm": {
             "title": "Sett opp værstasjonen din",
-            "description": "Det er værstasjonen din som oppretter enhetene og sensorene — her er det ingenting å legge til.\n\nÅpne stasjonen din i stasjonens app, deretter **Settings → Weather server → Other Server**, og fyll ut:\n\n**URL**\n{urls}\nUten `http://` eller `https://`. Bruk en adresse stasjonen din kan nå på ditt eget nettverk — det er ingen grunn til å eksponere Home Assistant mot internett for dette. Kan ikke stasjonen din slå opp navn, bruk IP-adressen.\n\n**Station ID** — hva du vil. Det blir enhetsnavnet i Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minutt er en god verdi.\n\n**API type** — *WUnderground API*.\n\n**Upload** — la den stå på.\n\nTrykk **Save**, gå tilbake, og trykk deretter **Confirm & Exit**.\n\n> ⚠️ **Det er Confirm & Exit som skriver innstillingene til stasjonen.** Å lagre alene endrer ingenting. Sensorene dine dukker opp et sekund etterpå.\n\nEndepunktene som lytter er:\n{endpoints}"
+            "description": "Det er værstasjonen din som oppretter enhetene og sensorene — her er det ingenting å legge til.\n\nÅpne stasjonen din i stasjonens app, deretter **Settings → Weather server → Other Server**, og fyll ut:\n\n**URL**\n{urls}\nUten `http://` eller `https://`. Bruk en adresse stasjonen din kan nå på ditt eget nettverk — det er ingen grunn til å eksponere Home Assistant mot internett for dette. Kan ikke stasjonen din slå opp navn, bruk IP-adressen.\n\n**Station ID** — hva du vil. Det blir enhetsnavnet i Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minutt er en god verdi.\n\n**API type** — *WSLink API*.\n\n**Upload** — la den stå på.\n\nTrykk **Save**, gå tilbake, og trykk deretter **Confirm & Exit**.\n\n> ⚠️ **Det er Confirm & Exit som skriver innstillingene til stasjonen.** Å lagre alene endrer ingenting. Sensorene dine dukker opp et sekund etterpå.\n\nEndepunktene som lytter er:\n{endpoints}"
           },
           "received": {
             "title": "Stasjonen din kom gjennom",
@@ -103,7 +130,7 @@
     },
     "unknown_parameters": {
       "title": "Stasjonen {station} sender målinger som blir forkastet",
-      "description": "**{count} parametere** fra **{station}** gjenkjennes ikke, så verdiene deres forkastes ved hver opplasting:\n\n{parameters}\n\nDen vanlige årsaken er en stasjon som rapporterer mer enn protokollen dens klarer å bære. Weather Underground har bare **4 plasser** til ekstra sensorer; hvis stasjonen din tilbyr **WSLink** som *API type*, gir et bytte dit sju kanaler og omtrent dobbelt så mange målinger.\n\nEr det ikke forklaringen, er nettopp disse parameternavnene det en feilrapport trenger: opprett en i [feilsporeren](https://github.com/MaxensF/personal_weather_station/issues), så kan de legges til.\n\nDu kan også overse dette — ingenting er ødelagt, akkurat disse verdiene kommer bare ikke fram."
+      "description": "**{count} parametere** fra **{station}** gjenkjennes ikke, så verdiene deres forkastes ved hver opplasting:\n\n{parameters}\n\nDen vanlige årsaken er en stasjon som rapporterer mer enn protokollen dens klarer å bære. Weather Underground har bare **4 plasser** til ekstra sensorer; hvis stasjonen din tilbyr **WSLink** som *API type*, gir et bytte dit sju kanaler og omtrent dobbelt så mange målinger.\n\nEr det ikke forklaringen, er nettopp disse parameternavnene det en feilrapport trenger: opprett en i [feilsporeren]({issue_tracker}), så kan de legges til.\n\nDu kan også overse dette — ingenting er ødelagt, akkurat disse verdiene kommer bare ikke fram."
     }
   },
   "exceptions": {

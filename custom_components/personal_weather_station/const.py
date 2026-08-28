@@ -51,6 +51,22 @@ DEFAULT_AVAILABILITY_TIMEOUT = 15
 # upload interval any of these stations offers is 8 seconds, so one request per
 # second leaves roughly eight times the headroom a healthy station needs. Past
 # that, a station is looping rather than reporting.
+# The setup wizard shows the screenshots of the station app. They are served
+# from a plain static route: the frontend's catch-all declines any first path
+# segment that is not a registered panel, so a top level path resolves.
+# hassfest rejects a literal URL inside strings.json and asks for a placeholder,
+# so the one link the repairs carry is supplied from here instead.
+ISSUE_TRACKER_URL = "https://github.com/MaxensF/personal_weather_station/issues"
+
+IMAGES_URL = "/personal_weather_station_images"
+DATA_IMAGES_REGISTERED = "personal_weather_station_images_registered"
+
+# Set while the wizard is waiting for a first upload. The endpoints answer
+# before any config entry exists in that window, so this is where a sighting is
+# recorded for the flow to pick up.
+DATA_ONBOARDING = "personal_weather_station_onboarding"
+DATA_VIEWS_REGISTERED = "personal_weather_station_views_registered"
+
 RATE_LIMIT_REQUESTS = 60
 RATE_LIMIT_WINDOW = 60
 

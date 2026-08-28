@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "תחנת מזג אוויר אישית",
+        "description": "הגדר כאן מפתח תחנה שתחנות מזג האוויר שלך חייבות לשדר כדי שהנתונים שלהן לא יידחו. אם תשאיר את השדה ריק, כל הבקשות יתקבלו.",
+        "data": {
+          "password": "מפתח התחנה"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "כבר מוגדר. מופע יחיד משרת את כל תחנות מזג האוויר."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "תחנת מזג אוויר אישית",
+        "description": "הגדר כאן מפתח תחנה שתחנות מזג האוויר שלך חייבות לשדר כדי שהנתונים שלהן לא יידחו. אם תשאיר את השדה ריק, כל הבקשות יתקבלו.",
+        "data": {
+          "password": "מפתח התחנה",
+          "availability_timeout": "סמן כלא זמין לאחר (דקות)",
+          "debug": "רשום כל בקשה נכנסת"
+        },
+        "data_description": {
+          "availability_timeout": "כמה זמן תחנה יכולה לשתוק לפני שהחיישנים שלה יסומנו כלא זמינים. 0 פירושו לעולם לא לסמן.",
+          "debug": "כותב את התוכן המלא של כל בקשה ליומן של Home Assistant. שימושי בזמן הגדרת תחנה, מטריד לאחר מכן."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "תחנת מזג האוויר נדחתה: מפתח תחנה שגוי",
+      "description": "תחנת מזג אוויר בכתובת {ip} ניסתה לשלוח נתונים בשם `{station_id}` מבלי לשדר את מפתח התחנה הצפוי.\n\nבדוק שהמפתח שהוגדר בתחנה או באפליקציית WSLink תואם לזה שהוגדר באינטגרציה זו. הודעה זו נעלמת מעצמה ברגע שבקשה מ-{ip} תתקבל."
+    },
+    "missing_device_id": {
+      "title": "תחנת מזג האוויר נדחתה: אין מזהה תחנה",
+      "description": "תחנת מזג אוויר בכתובת {ip} שלחה נתונים ללא מזהה תחנה.\n\nהגדר Sender ID באפליקציית WSLink, או פרמטר ID בהגדרות התחנה. הודעה זו נעלמת מעצמה ברגע שבקשה מ-{ip} תתקבל."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "התחנה {device} עדיין לא שידרה כיוון רוח, ולכן אין לפי מה לכייל. המתן לשידור הבא ונסה שוב."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "לחץ אוויר מוחלט"
+      },
+      "apiver": {
+        "name": "גרסת API"
+      },
+      "aqbc": {
+        "name": "פחמן שחור"
+      },
+      "aqco": {
+        "name": "פחמן חד-חמצני"
+      },
+      "aqcot": {
+        "name": "פחמן חד-חמצני בכמויות עקבות"
+      },
+      "aqec": {
+        "name": "פחמן יסודי"
+      },
+      "aqno": {
+        "name": "חנקן חד-חמצני"
+      },
+      "aqno2": {
+        "name": "NO2 X מחושב"
+      },
+      "aqno2t": {
+        "name": "חנקן דו-חמצני"
+      },
+      "aqno2y": {
+        "name": "NO2 Y מחושב"
+      },
+      "aqno3": {
+        "name": "יון NO3"
+      },
+      "aqnox": {
+        "name": "תחמוצות חנקן"
+      },
+      "aqnoy": {
+        "name": "סך החנקן הריאקטיבי"
+      },
+      "aqoc": {
+        "name": "פחמן אורגני"
+      },
+      "aqozone": {
+        "name": "אוזון"
+      },
+      "aqpm10": {
+        "name": "מסת PM10"
+      },
+      "aqpm2_5": {
+        "name": "מסת PM2.5"
+      },
+      "aqso2": {
+        "name": "גופרית דו-חמצנית"
+      },
+      "aqso2t": {
+        "name": "גופרית דו-חמצנית בכמויות עקבות"
+      },
+      "aqso4": {
+        "name": "יון SO4"
+      },
+      "aquv_aeth": {
+        "name": "אתלומטר ערוץ 2"
+      },
+      "baromin": {
+        "name": "לחץ"
+      },
+      "clouds": {
+        "name": "כיסוי עננים"
+      },
+      "dailyrainin": {
+        "name": "גשם יומי"
+      },
+      "dewptf": {
+        "name": "נקודת טל"
+      },
+      "humidity": {
+        "name": "לחות חיצונית"
+      },
+      "inbat": {
+        "name": "רמת הסוללה של הקונסולה"
+      },
+      "indoorhumidity": {
+        "name": "לחות פנימית"
+      },
+      "indoortempf": {
+        "name": "טמפרטורה פנימית"
+      },
+      "inhum": {
+        "name": "לחות פנימית"
+      },
+      "intem": {
+        "name": "טמפרטורה פנימית"
+      },
+      "last_update": {
+        "name": "קליטה אחרונה"
+      },
+      "leafwetness": {
+        "name": "רטיבות עלים"
+      },
+      "leafwetness2": {
+        "name": "CH2 רטיבות עלים"
+      },
+      "lowbatt": {
+        "name": "סוללה חלשה"
+      },
+      "monthlyrainin": {
+        "name": "גשם חודשי"
+      },
+      "rainin": {
+        "name": "גשם שעתי"
+      },
+      "rbar": {
+        "name": "לחץ אוויר יחסי"
+      },
+      "rtfreq": {
+        "name": "תדירות עדכון"
+      },
+      "soilmoisture": {
+        "name": "לחות הקרקע"
+      },
+      "soilmoisture2": {
+        "name": "CH2 לחות הקרקע"
+      },
+      "soilmoisture3": {
+        "name": "CH3 לחות הקרקע"
+      },
+      "soilmoisture4": {
+        "name": "CH4 לחות הקרקע"
+      },
+      "soiltemp2f": {
+        "name": "CH2 טמפרטורת הקרקע"
+      },
+      "soiltemp3f": {
+        "name": "CH3 טמפרטורת הקרקע"
+      },
+      "soiltemp4f": {
+        "name": "CH4 טמפרטורת הקרקע"
+      },
+      "soiltempf": {
+        "name": "טמפרטורת הקרקע"
+      },
+      "solarradiation": {
+        "name": "קרינה סולארית"
+      },
+      "t10bat": {
+        "name": "רמת הסוללה של חיישן CO2"
+      },
+      "t10cn": {
+        "name": "מצב החיבור של חיישן CO2"
+      },
+      "t10co2": {
+        "name": "ריכוז CO2"
+      },
+      "t11bat": {
+        "name": "רמת הסוללה של חיישן CO"
+      },
+      "t11cn": {
+        "name": "מצב החיבור של חיישן CO"
+      },
+      "t11co": {
+        "name": "ריכוז CO"
+      },
+      "t1bat": {
+        "name": "מצב הסוללה של החיישן החיצוני"
+      },
+      "t1chill": {
+        "name": "טמפרטורת צינת רוח"
+      },
+      "t1cn": {
+        "name": "מצב החיבור של החיישן החיצוני"
+      },
+      "t1dew": {
+        "name": "טמפרטורת נקודת הטל"
+      },
+      "t1feels": {
+        "name": "טמפרטורה מורגשת"
+      },
+      "t1heat": {
+        "name": "מדד החום"
+      },
+      "t1hum": {
+        "name": "לחות חיצונית"
+      },
+      "t1raindy": {
+        "name": "משקעים יומיים"
+      },
+      "t1rainhr": {
+        "name": "משקעים שעתיים"
+      },
+      "t1rainmth": {
+        "name": "משקעים חודשיים"
+      },
+      "t1rainra": {
+        "name": "עוצמת הגשם"
+      },
+      "t1rainwy": {
+        "name": "משקעים שבועיים"
+      },
+      "t1rainyr": {
+        "name": "משקעים שנתיים"
+      },
+      "t1solrad": {
+        "name": "עוצמת אור"
+      },
+      "t1tem": {
+        "name": "טמפרטורה חיצונית"
+      },
+      "t1uvi": {
+        "name": "מדד UV"
+      },
+      "t1wbgt": {
+        "name": "טמפרטורת WBGT"
+      },
+      "t1wdir": {
+        "name": "כיוון הרוח"
+      },
+      "t1wgust": {
+        "name": "משב רוח"
+      },
+      "t1ws": {
+        "name": "מהירות הרוח"
+      },
+      "t1ws10mav": {
+        "name": "מהירות הרוח ממוצע 10 דק'"
+      },
+      "t234c1bat": {
+        "name": "CH1 מצב הסוללה"
+      },
+      "t234c1cn": {
+        "name": "CH1 מצב החיבור"
+      },
+      "t234c1hum": {
+        "name": "CH1 לחות"
+      },
+      "t234c1tem": {
+        "name": "CH1 טמפרטורה"
+      },
+      "t234c1tp": {
+        "name": "CH1 סוג החיישן"
+      },
+      "t234c2bat": {
+        "name": "CH2 מצב הסוללה"
+      },
+      "t234c2cn": {
+        "name": "CH2 מצב החיבור"
+      },
+      "t234c2hum": {
+        "name": "CH2 לחות"
+      },
+      "t234c2tem": {
+        "name": "CH2 טמפרטורה"
+      },
+      "t234c2tp": {
+        "name": "CH2 סוג החיישן"
+      },
+      "t234c3bat": {
+        "name": "CH3 מצב הסוללה"
+      },
+      "t234c3cn": {
+        "name": "CH3 מצב החיבור"
+      },
+      "t234c3hum": {
+        "name": "CH3 לחות"
+      },
+      "t234c3tem": {
+        "name": "CH3 טמפרטורה"
+      },
+      "t234c3tp": {
+        "name": "CH3 סוג החיישן"
+      },
+      "t234c4bat": {
+        "name": "CH4 מצב הסוללה"
+      },
+      "t234c4cn": {
+        "name": "CH4 מצב החיבור"
+      },
+      "t234c4hum": {
+        "name": "CH4 לחות"
+      },
+      "t234c4tem": {
+        "name": "CH4 טמפרטורה"
+      },
+      "t234c4tp": {
+        "name": "CH4 סוג החיישן"
+      },
+      "t234c5bat": {
+        "name": "CH5 מצב הסוללה"
+      },
+      "t234c5cn": {
+        "name": "CH5 מצב החיבור"
+      },
+      "t234c5hum": {
+        "name": "CH5 לחות"
+      },
+      "t234c5tem": {
+        "name": "CH5 טמפרטורה"
+      },
+      "t234c5tp": {
+        "name": "CH5 סוג החיישן"
+      },
+      "t234c6bat": {
+        "name": "CH6 מצב הסוללה"
+      },
+      "t234c6cn": {
+        "name": "CH6 מצב החיבור"
+      },
+      "t234c6hum": {
+        "name": "CH6 לחות"
+      },
+      "t234c6tem": {
+        "name": "CH6 טמפרטורה"
+      },
+      "t234c6tp": {
+        "name": "CH6 סוג החיישן"
+      },
+      "t234c7bat": {
+        "name": "CH7 מצב הסוללה"
+      },
+      "t234c7cn": {
+        "name": "CH7 מצב החיבור"
+      },
+      "t234c7hum": {
+        "name": "CH7 לחות"
+      },
+      "t234c7tem": {
+        "name": "CH7 טמפרטורה"
+      },
+      "t234c7tp": {
+        "name": "CH7 סוג החיישן"
+      },
+      "t5ls1dtc": {
+        "name": "סך הברקים ביום אחד"
+      },
+      "t5ls1htc": {
+        "name": "סך הברקים בשעה אחת"
+      },
+      "t5ls30mtc": {
+        "name": "ברקים ב-30 הדקות האחרונות"
+      },
+      "t5ls5mtc": {
+        "name": "ברקים ב-5 הדקות האחרונות"
+      },
+      "t5lsbat": {
+        "name": "מצב הסוללה של חיישן הברקים"
+      },
+      "t5lscn": {
+        "name": "מצב החיבור של חיישן הברקים"
+      },
+      "t5lsf": {
+        "name": "ברקים בשעה האחרונה"
+      },
+      "t5lskm": {
+        "name": "מרחק הברק"
+      },
+      "t5lst": {
+        "name": "זמן הברק האחרון"
+      },
+      "t6c1bat": {
+        "name": "CH1 מצב הסוללה של חיישן הנזילה"
+      },
+      "t6c1cn": {
+        "name": "CH1 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c1wls": {
+        "name": "CH1 מצב נזילת מים"
+      },
+      "t6c2bat": {
+        "name": "CH2 מצב הסוללה של חיישן הנזילה"
+      },
+      "t6c2cn": {
+        "name": "CH2 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c2wls": {
+        "name": "CH2 מצב נזילת מים"
+      },
+      "t6c3bat": {
+        "name": "CH3 מצב הסוללה של חיישן הנזילה"
+      },
+      "t6c3cn": {
+        "name": "CH3 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c3wls": {
+        "name": "CH3 מצב נזילת מים"
+      },
+      "t6c4bat": {
+        "name": "CH4 מצב הסוללה של חיישן הנזילה"
+      },
+      "t6c4cn": {
+        "name": "CH4 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c4wls": {
+        "name": "CH4 מצב נזילת מים"
+      },
+      "t6c5bat": {
+        "name": "CH5 מצב הסוללה של חיישן הנזילה"
+      },
+      "t6c5cn": {
+        "name": "CH5 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c5wls": {
+        "name": "CH5 מצב נזילת מים"
+      },
+      "t6c6bat": {
+        "name": "CH6 מצב הסוללה של חיישן הנזילה"
+      },
+      "t6c6cn": {
+        "name": "CH6 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c6wls": {
+        "name": "CH6 מצב נזילת מים"
+      },
+      "t6c7bat": {
+        "name": "CH7 מצב הסוללה של חיישן הנזילה"
+      },
+      "t6c7cn": {
+        "name": "CH7 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c7wls": {
+        "name": "CH7 מצב נזילת מים"
+      },
+      "t8bat": {
+        "name": "רמת הסוללה של חיישן החלקיקים"
+      },
+      "t8cn": {
+        "name": "מצב החיבור של חיישן החלקיקים"
+      },
+      "t8pm10": {
+        "name": "ריכוז PM10"
+      },
+      "t8pm10ai": {
+        "name": "AQI של PM10"
+      },
+      "t8pm25": {
+        "name": "ריכוז PM2.5"
+      },
+      "t8pm25ai": {
+        "name": "AQI של PM2.5"
+      },
+      "t9bat": {
+        "name": "רמת הסוללה של חיישן HCHO/VOC"
+      },
+      "t9cn": {
+        "name": "מצב החיבור של חיישן HCHO/VOC"
+      },
+      "t9hcho": {
+        "name": "ריכוז HCHO"
+      },
+      "t9voclv": {
+        "name": "רמת VOC"
+      },
+      "tempf": {
+        "name": "טמפרטורה חיצונית"
+      },
+      "uv": {
+        "name": "מדד UV"
+      },
+      "visibility": {
+        "name": "ראות"
+      },
+      "weeklyrainin": {
+        "name": "גשם שבועי"
+      },
+      "wind_direction_raw": {
+        "name": "כיוון הרוח (גולמי)"
+      },
+      "windchillf": {
+        "name": "צינת רוח"
+      },
+      "winddir": {
+        "name": "כיוון הרוח"
+      },
+      "winddir_avg2m": {
+        "name": "כיוון הרוח ממוצע 2 דק'"
+      },
+      "windgustdir": {
+        "name": "כיוון המשב"
+      },
+      "windgustdir_10m": {
+        "name": "כיוון המשב ממוצע 10 דק'"
+      },
+      "windgustmph": {
+        "name": "משב רוח"
+      },
+      "windgustmph_10m": {
+        "name": "מהירות המשב ממוצע 10 דק'"
+      },
+      "windspdmph_avg2m": {
+        "name": "מהירות הרוח ממוצע 2 דק'"
+      },
+      "windspeedmph": {
+        "name": "מהירות הרוח"
+      },
+      "yearlyrainin": {
+        "name": "גשם שנתי"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "מצב החיבור של חיישן CO2"
+      },
+      "t11cn": {
+        "name": "מצב החיבור של חיישן CO"
+      },
+      "t1cn": {
+        "name": "מצב החיבור של החיישן החיצוני"
+      },
+      "t234c1cn": {
+        "name": "CH1 מצב החיבור"
+      },
+      "t234c2cn": {
+        "name": "CH2 מצב החיבור"
+      },
+      "t234c3cn": {
+        "name": "CH3 מצב החיבור"
+      },
+      "t234c4cn": {
+        "name": "CH4 מצב החיבור"
+      },
+      "t234c5cn": {
+        "name": "CH5 מצב החיבור"
+      },
+      "t234c6cn": {
+        "name": "CH6 מצב החיבור"
+      },
+      "t234c7cn": {
+        "name": "CH7 מצב החיבור"
+      },
+      "t5lscn": {
+        "name": "מצב החיבור של חיישן הברקים"
+      },
+      "t6c1cn": {
+        "name": "CH1 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c1wls": {
+        "name": "CH1 מצב נזילת מים"
+      },
+      "t6c2cn": {
+        "name": "CH2 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c2wls": {
+        "name": "CH2 מצב נזילת מים"
+      },
+      "t6c3cn": {
+        "name": "CH3 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c3wls": {
+        "name": "CH3 מצב נזילת מים"
+      },
+      "t6c4cn": {
+        "name": "CH4 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c4wls": {
+        "name": "CH4 מצב נזילת מים"
+      },
+      "t6c5cn": {
+        "name": "CH5 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c5wls": {
+        "name": "CH5 מצב נזילת מים"
+      },
+      "t6c6cn": {
+        "name": "CH6 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c6wls": {
+        "name": "CH6 מצב נזילת מים"
+      },
+      "t6c7cn": {
+        "name": "CH7 מצב החיבור של חיישן הנזילה"
+      },
+      "t6c7wls": {
+        "name": "CH7 מצב נזילת מים"
+      },
+      "t8cn": {
+        "name": "מצב החיבור של חיישן החלקיקים"
+      },
+      "t9cn": {
+        "name": "מצב החיבור של חיישן HCHO/VOC"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "היסט כיוון הרוח"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "אפס את ההיסט"
+      },
+      "set_north": {
+        "name": "קבע צפון לפי הערך הנוכחי"
+      }
+    }
+  }
+}

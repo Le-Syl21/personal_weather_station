@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ذاتی موسمی اسٹیشن",
+        "description": "یہاں ایک اسٹیشن کلید مقرر کریں جو آپ کے موسمی اسٹیشنوں کو بھیجنی ہوگی تاکہ ان کا ڈیٹا مسترد نہ ہو۔ اگر آپ یہ خانہ خالی چھوڑ دیں تو تمام درخواستیں قبول کی جائیں گی۔",
+        "data": {
+          "password": "اسٹیشن کلید"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "پہلے سے ترتیب دیا گیا ہے۔ ایک ہی مثال تمام موسمی اسٹیشنوں کو خدمت فراہم کرتی ہے۔"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ذاتی موسمی اسٹیشن",
+        "description": "یہاں ایک اسٹیشن کلید مقرر کریں جو آپ کے موسمی اسٹیشنوں کو بھیجنی ہوگی تاکہ ان کا ڈیٹا مسترد نہ ہو۔ اگر آپ یہ خانہ خالی چھوڑ دیں تو تمام درخواستیں قبول کی جائیں گی۔",
+        "data": {
+          "password": "اسٹیشن کلید",
+          "availability_timeout": "اتنے وقت بعد غیر دستیاب نشان زد کریں (منٹ)",
+          "debug": "ہر آنے والی درخواست کو لاگ کریں"
+        },
+        "data_description": {
+          "availability_timeout": "سینسر غیر دستیاب نشان زد ہونے سے پہلے اسٹیشن کتنی دیر خاموش رہ سکتا ہے۔ ۰ کا مطلب ہے کبھی نشان زد نہ کریں۔",
+          "debug": "ہر درخواست کا مکمل مواد Home Assistant کے لاگ میں لکھتا ہے۔ اسٹیشن ترتیب دیتے وقت مفید، بعد میں شور والا۔"
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "موسمی اسٹیشن مسترد: غلط اسٹیشن کلید",
+      "description": "{ip} پر موجود ایک موسمی اسٹیشن نے متوقع اسٹیشن کلید بھیجے بغیر `{station_id}` کے طور پر ڈیٹا بھیجنے کی کوشش کی۔\n\nجانچیں کہ اسٹیشن یا WSLink ایپ میں مقرر کردہ کلید اس انضمام میں مقرر کردہ کلید سے مطابقت رکھتی ہے۔ {ip} سے کوئی درخواست قبول ہوتے ہی یہ پیغام خود بخود غائب ہو جائے گا۔"
+    },
+    "missing_device_id": {
+      "title": "موسمی اسٹیشن مسترد: کوئی اسٹیشن شناخت کنندہ نہیں",
+      "description": "{ip} پر موجود ایک موسمی اسٹیشن نے اسٹیشن شناخت کنندہ کے بغیر ڈیٹا بھیجا۔\n\nWSLink ایپ میں ایک Sender ID، یا اسٹیشن کی ترتیب میں ایک ID پیرامیٹر مقرر کریں۔ {ip} سے کوئی درخواست قبول ہوتے ہی یہ پیغام خود بخود غائب ہو جائے گا۔"
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "اسٹیشن {device} نے ابھی تک ہوا کی کوئی سمت نہیں بھیجی، اس لیے انشانکن کے لیے کوئی بنیاد نہیں ہے۔ اگلی اپ لوڈ کا انتظار کریں اور دوبارہ کوشش کریں۔"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "مطلق ہوائی دباؤ"
+      },
+      "apiver": {
+        "name": "API ورژن"
+      },
+      "aqbc": {
+        "name": "سیاہ کاربن"
+      },
+      "aqco": {
+        "name": "کاربن مونو آکسائیڈ"
+      },
+      "aqcot": {
+        "name": "معمولی مقدار میں کاربن مونو آکسائیڈ"
+      },
+      "aqec": {
+        "name": "عنصری کاربن"
+      },
+      "aqno": {
+        "name": "نائٹرک آکسائیڈ"
+      },
+      "aqno2": {
+        "name": "NO2 X شمار شدہ"
+      },
+      "aqno2t": {
+        "name": "نائٹروجن ڈائی آکسائیڈ"
+      },
+      "aqno2y": {
+        "name": "NO2 Y شمار شدہ"
+      },
+      "aqno3": {
+        "name": "NO3 آئن"
+      },
+      "aqnox": {
+        "name": "نائٹروجن آکسائیڈز"
+      },
+      "aqnoy": {
+        "name": "کل تعاملی نائٹروجن"
+      },
+      "aqoc": {
+        "name": "نامیاتی کاربن"
+      },
+      "aqozone": {
+        "name": "اوزون"
+      },
+      "aqpm10": {
+        "name": "PM10 کمیت"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 کمیت"
+      },
+      "aqso2": {
+        "name": "سلفر ڈائی آکسائیڈ"
+      },
+      "aqso2t": {
+        "name": "معمولی مقدار میں سلفر ڈائی آکسائیڈ"
+      },
+      "aqso4": {
+        "name": "SO4 آئن"
+      },
+      "aquv_aeth": {
+        "name": "ایتھالو میٹر چینل ۲"
+      },
+      "baromin": {
+        "name": "دباؤ"
+      },
+      "clouds": {
+        "name": "بادلوں کا احاطہ"
+      },
+      "dailyrainin": {
+        "name": "روزانہ بارش"
+      },
+      "dewptf": {
+        "name": "نقطۂ شبنم"
+      },
+      "humidity": {
+        "name": "بیرونی نمی"
+      },
+      "inbat": {
+        "name": "کنسول کی بیٹری کی سطح"
+      },
+      "indoorhumidity": {
+        "name": "اندرونی نمی"
+      },
+      "indoortempf": {
+        "name": "اندرونی درجہ حرارت"
+      },
+      "inhum": {
+        "name": "اندرونی نمی"
+      },
+      "intem": {
+        "name": "اندرونی درجہ حرارت"
+      },
+      "last_update": {
+        "name": "آخری وصولی"
+      },
+      "leafwetness": {
+        "name": "پتوں کی نمی"
+      },
+      "leafwetness2": {
+        "name": "CH2 پتوں کی نمی"
+      },
+      "lowbatt": {
+        "name": "بیٹری کم"
+      },
+      "monthlyrainin": {
+        "name": "ماہانہ بارش"
+      },
+      "rainin": {
+        "name": "فی گھنٹہ بارش"
+      },
+      "rbar": {
+        "name": "نسبتی ہوائی دباؤ"
+      },
+      "rtfreq": {
+        "name": "تازہ کاری کی تعدد"
+      },
+      "soilmoisture": {
+        "name": "مٹی کی نمی"
+      },
+      "soilmoisture2": {
+        "name": "CH2 مٹی کی نمی"
+      },
+      "soilmoisture3": {
+        "name": "CH3 مٹی کی نمی"
+      },
+      "soilmoisture4": {
+        "name": "CH4 مٹی کی نمی"
+      },
+      "soiltemp2f": {
+        "name": "CH2 مٹی کا درجہ حرارت"
+      },
+      "soiltemp3f": {
+        "name": "CH3 مٹی کا درجہ حرارت"
+      },
+      "soiltemp4f": {
+        "name": "CH4 مٹی کا درجہ حرارت"
+      },
+      "soiltempf": {
+        "name": "مٹی کا درجہ حرارت"
+      },
+      "solarradiation": {
+        "name": "شمسی تابکاری"
+      },
+      "t10bat": {
+        "name": "CO2 سینسر کی بیٹری کی سطح"
+      },
+      "t10cn": {
+        "name": "CO2 سینسر کے کنکشن کی حالت"
+      },
+      "t10co2": {
+        "name": "CO2 ارتکاز"
+      },
+      "t11bat": {
+        "name": "CO سینسر کی بیٹری کی سطح"
+      },
+      "t11cn": {
+        "name": "CO سینسر کے کنکشن کی حالت"
+      },
+      "t11co": {
+        "name": "CO ارتکاز"
+      },
+      "t1bat": {
+        "name": "بیرونی سینسر کی بیٹری کی حالت"
+      },
+      "t1chill": {
+        "name": "ہوا کی ٹھنڈک کا درجہ حرارت"
+      },
+      "t1cn": {
+        "name": "بیرونی سینسر کے کنکشن کی حالت"
+      },
+      "t1dew": {
+        "name": "نقطۂ شبنم کا درجہ حرارت"
+      },
+      "t1feels": {
+        "name": "محسوس ہونے والا درجہ حرارت"
+      },
+      "t1heat": {
+        "name": "حرارت کا اشاریہ"
+      },
+      "t1hum": {
+        "name": "بیرونی نمی"
+      },
+      "t1raindy": {
+        "name": "روزانہ بارش کی مقدار"
+      },
+      "t1rainhr": {
+        "name": "فی گھنٹہ بارش کی مقدار"
+      },
+      "t1rainmth": {
+        "name": "ماہانہ بارش کی مقدار"
+      },
+      "t1rainra": {
+        "name": "بارش کی شدت"
+      },
+      "t1rainwy": {
+        "name": "ہفتہ وار بارش کی مقدار"
+      },
+      "t1rainyr": {
+        "name": "سالانہ بارش کی مقدار"
+      },
+      "t1solrad": {
+        "name": "روشنی کی شدت"
+      },
+      "t1tem": {
+        "name": "بیرونی درجہ حرارت"
+      },
+      "t1uvi": {
+        "name": "UV اشاریہ"
+      },
+      "t1wbgt": {
+        "name": "WBGT درجہ حرارت"
+      },
+      "t1wdir": {
+        "name": "ہوا کی سمت"
+      },
+      "t1wgust": {
+        "name": "جھونکا"
+      },
+      "t1ws": {
+        "name": "ہوا کی رفتار"
+      },
+      "t1ws10mav": {
+        "name": "ہوا کی رفتار ۱۰ منٹ اوسط"
+      },
+      "t234c1bat": {
+        "name": "CH1 بیٹری کی حالت"
+      },
+      "t234c1cn": {
+        "name": "CH1 کنکشن کی حالت"
+      },
+      "t234c1hum": {
+        "name": "CH1 نمی"
+      },
+      "t234c1tem": {
+        "name": "CH1 درجہ حرارت"
+      },
+      "t234c1tp": {
+        "name": "CH1 سینسر کی قسم"
+      },
+      "t234c2bat": {
+        "name": "CH2 بیٹری کی حالت"
+      },
+      "t234c2cn": {
+        "name": "CH2 کنکشن کی حالت"
+      },
+      "t234c2hum": {
+        "name": "CH2 نمی"
+      },
+      "t234c2tem": {
+        "name": "CH2 درجہ حرارت"
+      },
+      "t234c2tp": {
+        "name": "CH2 سینسر کی قسم"
+      },
+      "t234c3bat": {
+        "name": "CH3 بیٹری کی حالت"
+      },
+      "t234c3cn": {
+        "name": "CH3 کنکشن کی حالت"
+      },
+      "t234c3hum": {
+        "name": "CH3 نمی"
+      },
+      "t234c3tem": {
+        "name": "CH3 درجہ حرارت"
+      },
+      "t234c3tp": {
+        "name": "CH3 سینسر کی قسم"
+      },
+      "t234c4bat": {
+        "name": "CH4 بیٹری کی حالت"
+      },
+      "t234c4cn": {
+        "name": "CH4 کنکشن کی حالت"
+      },
+      "t234c4hum": {
+        "name": "CH4 نمی"
+      },
+      "t234c4tem": {
+        "name": "CH4 درجہ حرارت"
+      },
+      "t234c4tp": {
+        "name": "CH4 سینسر کی قسم"
+      },
+      "t234c5bat": {
+        "name": "CH5 بیٹری کی حالت"
+      },
+      "t234c5cn": {
+        "name": "CH5 کنکشن کی حالت"
+      },
+      "t234c5hum": {
+        "name": "CH5 نمی"
+      },
+      "t234c5tem": {
+        "name": "CH5 درجہ حرارت"
+      },
+      "t234c5tp": {
+        "name": "CH5 سینسر کی قسم"
+      },
+      "t234c6bat": {
+        "name": "CH6 بیٹری کی حالت"
+      },
+      "t234c6cn": {
+        "name": "CH6 کنکشن کی حالت"
+      },
+      "t234c6hum": {
+        "name": "CH6 نمی"
+      },
+      "t234c6tem": {
+        "name": "CH6 درجہ حرارت"
+      },
+      "t234c6tp": {
+        "name": "CH6 سینسر کی قسم"
+      },
+      "t234c7bat": {
+        "name": "CH7 بیٹری کی حالت"
+      },
+      "t234c7cn": {
+        "name": "CH7 کنکشن کی حالت"
+      },
+      "t234c7hum": {
+        "name": "CH7 نمی"
+      },
+      "t234c7tem": {
+        "name": "CH7 درجہ حرارت"
+      },
+      "t234c7tp": {
+        "name": "CH7 سینسر کی قسم"
+      },
+      "t5ls1dtc": {
+        "name": "۱ دن میں کل بجلیاں"
+      },
+      "t5ls1htc": {
+        "name": "۱ گھنٹے میں کل بجلیاں"
+      },
+      "t5ls30mtc": {
+        "name": "گزشتہ ۳۰ منٹ کی بجلیاں"
+      },
+      "t5ls5mtc": {
+        "name": "گزشتہ ۵ منٹ کی بجلیاں"
+      },
+      "t5lsbat": {
+        "name": "بجلی سینسر کی بیٹری کی حالت"
+      },
+      "t5lscn": {
+        "name": "بجلی سینسر کے کنکشن کی حالت"
+      },
+      "t5lsf": {
+        "name": "گزشتہ ایک گھنٹے کی بجلیاں"
+      },
+      "t5lskm": {
+        "name": "بجلی کا فاصلہ"
+      },
+      "t5lst": {
+        "name": "آخری آسمانی بجلی کا وقت"
+      },
+      "t6c1bat": {
+        "name": "CH1 رساؤ سینسر کی بیٹری کی حالت"
+      },
+      "t6c1cn": {
+        "name": "CH1 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c1wls": {
+        "name": "CH1 پانی کے رساؤ کی حالت"
+      },
+      "t6c2bat": {
+        "name": "CH2 رساؤ سینسر کی بیٹری کی حالت"
+      },
+      "t6c2cn": {
+        "name": "CH2 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c2wls": {
+        "name": "CH2 پانی کے رساؤ کی حالت"
+      },
+      "t6c3bat": {
+        "name": "CH3 رساؤ سینسر کی بیٹری کی حالت"
+      },
+      "t6c3cn": {
+        "name": "CH3 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c3wls": {
+        "name": "CH3 پانی کے رساؤ کی حالت"
+      },
+      "t6c4bat": {
+        "name": "CH4 رساؤ سینسر کی بیٹری کی حالت"
+      },
+      "t6c4cn": {
+        "name": "CH4 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c4wls": {
+        "name": "CH4 پانی کے رساؤ کی حالت"
+      },
+      "t6c5bat": {
+        "name": "CH5 رساؤ سینسر کی بیٹری کی حالت"
+      },
+      "t6c5cn": {
+        "name": "CH5 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c5wls": {
+        "name": "CH5 پانی کے رساؤ کی حالت"
+      },
+      "t6c6bat": {
+        "name": "CH6 رساؤ سینسر کی بیٹری کی حالت"
+      },
+      "t6c6cn": {
+        "name": "CH6 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c6wls": {
+        "name": "CH6 پانی کے رساؤ کی حالت"
+      },
+      "t6c7bat": {
+        "name": "CH7 رساؤ سینسر کی بیٹری کی حالت"
+      },
+      "t6c7cn": {
+        "name": "CH7 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c7wls": {
+        "name": "CH7 پانی کے رساؤ کی حالت"
+      },
+      "t8bat": {
+        "name": "ذرات سینسر کی بیٹری کی سطح"
+      },
+      "t8cn": {
+        "name": "ذرات سینسر کے کنکشن کی حالت"
+      },
+      "t8pm10": {
+        "name": "PM10 ارتکاز"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 ارتکاز"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/VOC سینسر کی بیٹری کی سطح"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC سینسر کے کنکشن کی حالت"
+      },
+      "t9hcho": {
+        "name": "HCHO ارتکاز"
+      },
+      "t9voclv": {
+        "name": "VOC سطح"
+      },
+      "tempf": {
+        "name": "بیرونی درجہ حرارت"
+      },
+      "uv": {
+        "name": "UV اشاریہ"
+      },
+      "visibility": {
+        "name": "دید"
+      },
+      "weeklyrainin": {
+        "name": "ہفتہ وار بارش"
+      },
+      "wind_direction_raw": {
+        "name": "ہوا کی سمت (خام)"
+      },
+      "windchillf": {
+        "name": "ہوا کی ٹھنڈک"
+      },
+      "winddir": {
+        "name": "ہوا کی سمت"
+      },
+      "winddir_avg2m": {
+        "name": "ہوا کی سمت ۲ منٹ اوسط"
+      },
+      "windgustdir": {
+        "name": "جھونکے کی سمت"
+      },
+      "windgustdir_10m": {
+        "name": "جھونکے کی سمت ۱۰ منٹ اوسط"
+      },
+      "windgustmph": {
+        "name": "جھونکا"
+      },
+      "windgustmph_10m": {
+        "name": "جھونکے کی رفتار ۱۰ منٹ اوسط"
+      },
+      "windspdmph_avg2m": {
+        "name": "ہوا کی رفتار ۲ منٹ اوسط"
+      },
+      "windspeedmph": {
+        "name": "ہوا کی رفتار"
+      },
+      "yearlyrainin": {
+        "name": "سالانہ بارش"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 سینسر کے کنکشن کی حالت"
+      },
+      "t11cn": {
+        "name": "CO سینسر کے کنکشن کی حالت"
+      },
+      "t1cn": {
+        "name": "بیرونی سینسر کے کنکشن کی حالت"
+      },
+      "t234c1cn": {
+        "name": "CH1 کنکشن کی حالت"
+      },
+      "t234c2cn": {
+        "name": "CH2 کنکشن کی حالت"
+      },
+      "t234c3cn": {
+        "name": "CH3 کنکشن کی حالت"
+      },
+      "t234c4cn": {
+        "name": "CH4 کنکشن کی حالت"
+      },
+      "t234c5cn": {
+        "name": "CH5 کنکشن کی حالت"
+      },
+      "t234c6cn": {
+        "name": "CH6 کنکشن کی حالت"
+      },
+      "t234c7cn": {
+        "name": "CH7 کنکشن کی حالت"
+      },
+      "t5lscn": {
+        "name": "بجلی سینسر کے کنکشن کی حالت"
+      },
+      "t6c1cn": {
+        "name": "CH1 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c1wls": {
+        "name": "CH1 پانی کے رساؤ کی حالت"
+      },
+      "t6c2cn": {
+        "name": "CH2 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c2wls": {
+        "name": "CH2 پانی کے رساؤ کی حالت"
+      },
+      "t6c3cn": {
+        "name": "CH3 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c3wls": {
+        "name": "CH3 پانی کے رساؤ کی حالت"
+      },
+      "t6c4cn": {
+        "name": "CH4 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c4wls": {
+        "name": "CH4 پانی کے رساؤ کی حالت"
+      },
+      "t6c5cn": {
+        "name": "CH5 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c5wls": {
+        "name": "CH5 پانی کے رساؤ کی حالت"
+      },
+      "t6c6cn": {
+        "name": "CH6 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c6wls": {
+        "name": "CH6 پانی کے رساؤ کی حالت"
+      },
+      "t6c7cn": {
+        "name": "CH7 رساؤ سینسر کے کنکشن کی حالت"
+      },
+      "t6c7wls": {
+        "name": "CH7 پانی کے رساؤ کی حالت"
+      },
+      "t8cn": {
+        "name": "ذرات سینسر کے کنکشن کی حالت"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC سینسر کے کنکشن کی حالت"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "ہوا کی سمت کا فرق"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "فرق ری سیٹ کریں"
+      },
+      "set_north": {
+        "name": "موجودہ قدر کو شمال مقرر کریں"
+      }
+    }
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Perséinlech Wiederstatioun",
+        "description": "Setzt hei e Statiounsschlëssel, deen Är Wiederstatiounen muss matschécken, fir datt hir Donnéeë net refuséiert ginn. Wann Dir d'Feld eidel loosst, ginn all Ufroe akzeptéiert.",
+        "data": {
+          "password": "Statiounsschlëssel"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Scho konfiguréiert. Eng eenzeg Instanz bedéngt all Wiederstatiounen."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Perséinlech Wiederstatioun",
+        "description": "Setzt hei e Statiounsschlëssel, deen Är Wiederstatiounen muss matschécken, fir datt hir Donnéeë net refuséiert ginn. Wann Dir d'Feld eidel loosst, ginn all Ufroe akzeptéiert.",
+        "data": {
+          "password": "Statiounsschlëssel",
+          "availability_timeout": "Als net verfügbar markéieren no (Minutten)",
+          "debug": "All erakommend Ufro protokolléieren"
+        },
+        "data_description": {
+          "availability_timeout": "Wéi laang eng Statioun stomm bleiwe kann, ier hir Sensore als net verfügbar markéiert ginn. 0 heescht ni markéieren.",
+          "debug": "Schreift de ganzen Inhalt vun all Ufro an de Home-Assistant-Protokoll. Nëtzlech beim Ariichte vun enger Statioun, stéierend duerno."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Wiederstatioun refuséiert: falsche Statiounsschlëssel",
+      "description": "Eng Wiederstatioun op {ip} huet probéiert, Donnéeën als `{station_id}` ze schécken, ouni de erwaarte Statiounsschlëssel matzeschécken.\n\nKontrolléiert, ob de Schlëssel an der Statioun oder an der WSLink-App mat deem iwwereneestëmmt, deen hei agestallt ass. Dës Meldung verschwënnt vu selwer, soubal eng Ufro vun {ip} akzeptéiert gëtt."
+    },
+    "missing_device_id": {
+      "title": "Wiederstatioun refuséiert: keng Statiounskennung",
+      "description": "Eng Wiederstatioun op {ip} huet Donnéeën ouni Statiounskennung geschéckt.\n\nSetzt an der WSLink-App eng Sender ID, oder en ID-Parameter an der Konfiguratioun vun der Statioun. Dës Meldung verschwënnt vu selwer, soubal eng Ufro vun {ip} akzeptéiert gëtt."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "D'Statioun {device} huet nach keng Wandrichtung geschéckt, dofir gëtt et näischt fir ze kalibréieren. Waart op den nächsten Upload a probéiert et nach eng Kéier."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Absoluten Loftdrock"
+      },
+      "apiver": {
+        "name": "API-Versioun"
+      },
+      "aqbc": {
+        "name": "Schwaarze Kuelestoff"
+      },
+      "aqco": {
+        "name": "Kuelemonoxid"
+      },
+      "aqcot": {
+        "name": "Kuelemonoxid a Spueren"
+      },
+      "aqec": {
+        "name": "Elementare Kuelestoff"
+      },
+      "aqno": {
+        "name": "Stéckstoffmonoxid"
+      },
+      "aqno2": {
+        "name": "NO2 X berechent"
+      },
+      "aqno2t": {
+        "name": "Stéckstoffdioxid"
+      },
+      "aqno2y": {
+        "name": "NO2 Y berechent"
+      },
+      "aqno3": {
+        "name": "NO3-Ion"
+      },
+      "aqnox": {
+        "name": "Stéckoxiden"
+      },
+      "aqnoy": {
+        "name": "Reaktive Gesamtstéckstoff"
+      },
+      "aqoc": {
+        "name": "Organesche Kuelestoff"
+      },
+      "aqozone": {
+        "name": "Ozon"
+      },
+      "aqpm10": {
+        "name": "PM10-Mass"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5-Mass"
+      },
+      "aqso2": {
+        "name": "Schwiewelsdioxid"
+      },
+      "aqso2t": {
+        "name": "Schwiewelsdioxid a Spueren"
+      },
+      "aqso4": {
+        "name": "SO4-Ion"
+      },
+      "aquv_aeth": {
+        "name": "Aethalometer Kanal 2"
+      },
+      "baromin": {
+        "name": "Drock"
+      },
+      "clouds": {
+        "name": "Bewölkung"
+      },
+      "dailyrainin": {
+        "name": "Deegleche Reen"
+      },
+      "dewptf": {
+        "name": "Taupunkt"
+      },
+      "humidity": {
+        "name": "Baussefiichtegkeet"
+      },
+      "inbat": {
+        "name": "Batterieniveau vun der Konsol"
+      },
+      "indoorhumidity": {
+        "name": "Bannefiichtegkeet"
+      },
+      "indoortempf": {
+        "name": "Bannentemperatur"
+      },
+      "inhum": {
+        "name": "Bannefiichtegkeet"
+      },
+      "intem": {
+        "name": "Bannentemperatur"
+      },
+      "last_update": {
+        "name": "Leschten Empfang"
+      },
+      "leafwetness": {
+        "name": "Blaatfiichtegkeet"
+      },
+      "leafwetness2": {
+        "name": "CH2 blaatfiichtegkeet"
+      },
+      "lowbatt": {
+        "name": "Schwaach Batterie"
+      },
+      "monthlyrainin": {
+        "name": "Monatleche Reen"
+      },
+      "rainin": {
+        "name": "Stënnleche Reen"
+      },
+      "rbar": {
+        "name": "Relativen Loftdrock"
+      },
+      "rtfreq": {
+        "name": "Aktualiséierungsfrequenz"
+      },
+      "soilmoisture": {
+        "name": "Buedemfiichtegkeet"
+      },
+      "soilmoisture2": {
+        "name": "CH2 buedemfiichtegkeet"
+      },
+      "soilmoisture3": {
+        "name": "CH3 buedemfiichtegkeet"
+      },
+      "soilmoisture4": {
+        "name": "CH4 buedemfiichtegkeet"
+      },
+      "soiltemp2f": {
+        "name": "CH2 buedemtemperatur"
+      },
+      "soiltemp3f": {
+        "name": "CH3 buedemtemperatur"
+      },
+      "soiltemp4f": {
+        "name": "CH4 buedemtemperatur"
+      },
+      "soiltempf": {
+        "name": "Buedemtemperatur"
+      },
+      "solarradiation": {
+        "name": "Sonnestralung"
+      },
+      "t10bat": {
+        "name": "Batterieniveau vum CO2-Sensor"
+      },
+      "t10cn": {
+        "name": "Verbindungszoustand vum CO2-Sensor"
+      },
+      "t10co2": {
+        "name": "CO2-Konzentratioun"
+      },
+      "t11bat": {
+        "name": "Batterieniveau vum CO-Sensor"
+      },
+      "t11cn": {
+        "name": "Verbindungszoustand vum CO-Sensor"
+      },
+      "t11co": {
+        "name": "CO-Konzentratioun"
+      },
+      "t1bat": {
+        "name": "Batteriezoustand vum Baussesensor"
+      },
+      "t1chill": {
+        "name": "Wandkillttemperatur"
+      },
+      "t1cn": {
+        "name": "Verbindungszoustand vum Baussesensor"
+      },
+      "t1dew": {
+        "name": "Taupunkttemperatur"
+      },
+      "t1feels": {
+        "name": "Gefillten Temperatur"
+      },
+      "t1heat": {
+        "name": "Hëtztindex"
+      },
+      "t1hum": {
+        "name": "Baussefiichtegkeet"
+      },
+      "t1raindy": {
+        "name": "Deeglech Nidderschlagsmengt"
+      },
+      "t1rainhr": {
+        "name": "Stënnlech Nidderschlagsmengt"
+      },
+      "t1rainmth": {
+        "name": "Monatlech Nidderschlagsmengt"
+      },
+      "t1rainra": {
+        "name": "Reenintensitéit"
+      },
+      "t1rainwy": {
+        "name": "Wëchentlech Nidderschlagsmengt"
+      },
+      "t1rainyr": {
+        "name": "Jäerlech Nidderschlagsmengt"
+      },
+      "t1solrad": {
+        "name": "Luuchtintensitéit"
+      },
+      "t1tem": {
+        "name": "Baussentemperatur"
+      },
+      "t1uvi": {
+        "name": "UV-Index"
+      },
+      "t1wbgt": {
+        "name": "WBGT-Temperatur"
+      },
+      "t1wdir": {
+        "name": "Wandrichtung"
+      },
+      "t1wgust": {
+        "name": "Wandstouss"
+      },
+      "t1ws": {
+        "name": "Wandgeschwindegkeet"
+      },
+      "t1ws10mav": {
+        "name": "Wandgeschwindegkeet 10 Min. Moyenne"
+      },
+      "t234c1bat": {
+        "name": "CH1 batteriezoustand"
+      },
+      "t234c1cn": {
+        "name": "CH1 verbindungszoustand"
+      },
+      "t234c1hum": {
+        "name": "CH1 fiichtegkeet"
+      },
+      "t234c1tem": {
+        "name": "CH1 temperatur"
+      },
+      "t234c1tp": {
+        "name": "CH1 sensortyp"
+      },
+      "t234c2bat": {
+        "name": "CH2 batteriezoustand"
+      },
+      "t234c2cn": {
+        "name": "CH2 verbindungszoustand"
+      },
+      "t234c2hum": {
+        "name": "CH2 fiichtegkeet"
+      },
+      "t234c2tem": {
+        "name": "CH2 temperatur"
+      },
+      "t234c2tp": {
+        "name": "CH2 sensortyp"
+      },
+      "t234c3bat": {
+        "name": "CH3 batteriezoustand"
+      },
+      "t234c3cn": {
+        "name": "CH3 verbindungszoustand"
+      },
+      "t234c3hum": {
+        "name": "CH3 fiichtegkeet"
+      },
+      "t234c3tem": {
+        "name": "CH3 temperatur"
+      },
+      "t234c3tp": {
+        "name": "CH3 sensortyp"
+      },
+      "t234c4bat": {
+        "name": "CH4 batteriezoustand"
+      },
+      "t234c4cn": {
+        "name": "CH4 verbindungszoustand"
+      },
+      "t234c4hum": {
+        "name": "CH4 fiichtegkeet"
+      },
+      "t234c4tem": {
+        "name": "CH4 temperatur"
+      },
+      "t234c4tp": {
+        "name": "CH4 sensortyp"
+      },
+      "t234c5bat": {
+        "name": "CH5 batteriezoustand"
+      },
+      "t234c5cn": {
+        "name": "CH5 verbindungszoustand"
+      },
+      "t234c5hum": {
+        "name": "CH5 fiichtegkeet"
+      },
+      "t234c5tem": {
+        "name": "CH5 temperatur"
+      },
+      "t234c5tp": {
+        "name": "CH5 sensortyp"
+      },
+      "t234c6bat": {
+        "name": "CH6 batteriezoustand"
+      },
+      "t234c6cn": {
+        "name": "CH6 verbindungszoustand"
+      },
+      "t234c6hum": {
+        "name": "CH6 fiichtegkeet"
+      },
+      "t234c6tem": {
+        "name": "CH6 temperatur"
+      },
+      "t234c6tp": {
+        "name": "CH6 sensortyp"
+      },
+      "t234c7bat": {
+        "name": "CH7 batteriezoustand"
+      },
+      "t234c7cn": {
+        "name": "CH7 verbindungszoustand"
+      },
+      "t234c7hum": {
+        "name": "CH7 fiichtegkeet"
+      },
+      "t234c7tem": {
+        "name": "CH7 temperatur"
+      },
+      "t234c7tp": {
+        "name": "CH7 sensortyp"
+      },
+      "t5ls1dtc": {
+        "name": "Blëtzer am Ganzen an 1 Dag"
+      },
+      "t5ls1htc": {
+        "name": "Blëtzer am Ganzen an 1 Stonn"
+      },
+      "t5ls30mtc": {
+        "name": "Blëtzer an de leschte 30 Minutten"
+      },
+      "t5ls5mtc": {
+        "name": "Blëtzer an de leschte 5 Minutten"
+      },
+      "t5lsbat": {
+        "name": "Batteriezoustand vum Blëtzsensor"
+      },
+      "t5lscn": {
+        "name": "Verbindungszoustand vum Blëtzsensor"
+      },
+      "t5lsf": {
+        "name": "Blëtzer an der leschter Stonn"
+      },
+      "t5lskm": {
+        "name": "Distanz vum Blëtz"
+      },
+      "t5lst": {
+        "name": "Zäit vum leschte Blëtz"
+      },
+      "t6c1bat": {
+        "name": "CH1 batteriezoustand vum Lecksensor"
+      },
+      "t6c1cn": {
+        "name": "CH1 verbindungszoustand vum Lecksensor"
+      },
+      "t6c1wls": {
+        "name": "CH1 zoustand vum Waasserleck"
+      },
+      "t6c2bat": {
+        "name": "CH2 batteriezoustand vum Lecksensor"
+      },
+      "t6c2cn": {
+        "name": "CH2 verbindungszoustand vum Lecksensor"
+      },
+      "t6c2wls": {
+        "name": "CH2 zoustand vum Waasserleck"
+      },
+      "t6c3bat": {
+        "name": "CH3 batteriezoustand vum Lecksensor"
+      },
+      "t6c3cn": {
+        "name": "CH3 verbindungszoustand vum Lecksensor"
+      },
+      "t6c3wls": {
+        "name": "CH3 zoustand vum Waasserleck"
+      },
+      "t6c4bat": {
+        "name": "CH4 batteriezoustand vum Lecksensor"
+      },
+      "t6c4cn": {
+        "name": "CH4 verbindungszoustand vum Lecksensor"
+      },
+      "t6c4wls": {
+        "name": "CH4 zoustand vum Waasserleck"
+      },
+      "t6c5bat": {
+        "name": "CH5 batteriezoustand vum Lecksensor"
+      },
+      "t6c5cn": {
+        "name": "CH5 verbindungszoustand vum Lecksensor"
+      },
+      "t6c5wls": {
+        "name": "CH5 zoustand vum Waasserleck"
+      },
+      "t6c6bat": {
+        "name": "CH6 batteriezoustand vum Lecksensor"
+      },
+      "t6c6cn": {
+        "name": "CH6 verbindungszoustand vum Lecksensor"
+      },
+      "t6c6wls": {
+        "name": "CH6 zoustand vum Waasserleck"
+      },
+      "t6c7bat": {
+        "name": "CH7 batteriezoustand vum Lecksensor"
+      },
+      "t6c7cn": {
+        "name": "CH7 verbindungszoustand vum Lecksensor"
+      },
+      "t6c7wls": {
+        "name": "CH7 zoustand vum Waasserleck"
+      },
+      "t8bat": {
+        "name": "Batterieniveau vum Feinstëbssensor"
+      },
+      "t8cn": {
+        "name": "Verbindungszoustand vum Feinstëbssensor"
+      },
+      "t8pm10": {
+        "name": "PM10-Konzentratioun"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5-Konzentratioun"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "Batterieniveau vum HCHO/VOC-Sensor"
+      },
+      "t9cn": {
+        "name": "Verbindungszoustand vum HCHO/VOC-Sensor"
+      },
+      "t9hcho": {
+        "name": "HCHO-Konzentratioun"
+      },
+      "t9voclv": {
+        "name": "VOC-Niveau"
+      },
+      "tempf": {
+        "name": "Baussentemperatur"
+      },
+      "uv": {
+        "name": "UV-Index"
+      },
+      "visibility": {
+        "name": "Siichtwäit"
+      },
+      "weeklyrainin": {
+        "name": "Wëchentleche Reen"
+      },
+      "wind_direction_raw": {
+        "name": "Wandrichtung (roh)"
+      },
+      "windchillf": {
+        "name": "Wandkillt"
+      },
+      "winddir": {
+        "name": "Wandrichtung"
+      },
+      "winddir_avg2m": {
+        "name": "Wandrichtung 2 Min. Moyenne"
+      },
+      "windgustdir": {
+        "name": "Richtung vum Stouss"
+      },
+      "windgustdir_10m": {
+        "name": "Richtung vum Stouss 10 Min. Moyenne"
+      },
+      "windgustmph": {
+        "name": "Wandstouss"
+      },
+      "windgustmph_10m": {
+        "name": "Stousgeschwindegkeet 10 Min. Moyenne"
+      },
+      "windspdmph_avg2m": {
+        "name": "Wandgeschwindegkeet 2 Min. Moyenne"
+      },
+      "windspeedmph": {
+        "name": "Wandgeschwindegkeet"
+      },
+      "yearlyrainin": {
+        "name": "Jäerleche Reen"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Verbindungszoustand vum CO2-Sensor"
+      },
+      "t11cn": {
+        "name": "Verbindungszoustand vum CO-Sensor"
+      },
+      "t1cn": {
+        "name": "Verbindungszoustand vum Baussesensor"
+      },
+      "t234c1cn": {
+        "name": "CH1 verbindungszoustand"
+      },
+      "t234c2cn": {
+        "name": "CH2 verbindungszoustand"
+      },
+      "t234c3cn": {
+        "name": "CH3 verbindungszoustand"
+      },
+      "t234c4cn": {
+        "name": "CH4 verbindungszoustand"
+      },
+      "t234c5cn": {
+        "name": "CH5 verbindungszoustand"
+      },
+      "t234c6cn": {
+        "name": "CH6 verbindungszoustand"
+      },
+      "t234c7cn": {
+        "name": "CH7 verbindungszoustand"
+      },
+      "t5lscn": {
+        "name": "Verbindungszoustand vum Blëtzsensor"
+      },
+      "t6c1cn": {
+        "name": "CH1 verbindungszoustand vum Lecksensor"
+      },
+      "t6c1wls": {
+        "name": "CH1 zoustand vum Waasserleck"
+      },
+      "t6c2cn": {
+        "name": "CH2 verbindungszoustand vum Lecksensor"
+      },
+      "t6c2wls": {
+        "name": "CH2 zoustand vum Waasserleck"
+      },
+      "t6c3cn": {
+        "name": "CH3 verbindungszoustand vum Lecksensor"
+      },
+      "t6c3wls": {
+        "name": "CH3 zoustand vum Waasserleck"
+      },
+      "t6c4cn": {
+        "name": "CH4 verbindungszoustand vum Lecksensor"
+      },
+      "t6c4wls": {
+        "name": "CH4 zoustand vum Waasserleck"
+      },
+      "t6c5cn": {
+        "name": "CH5 verbindungszoustand vum Lecksensor"
+      },
+      "t6c5wls": {
+        "name": "CH5 zoustand vum Waasserleck"
+      },
+      "t6c6cn": {
+        "name": "CH6 verbindungszoustand vum Lecksensor"
+      },
+      "t6c6wls": {
+        "name": "CH6 zoustand vum Waasserleck"
+      },
+      "t6c7cn": {
+        "name": "CH7 verbindungszoustand vum Lecksensor"
+      },
+      "t6c7wls": {
+        "name": "CH7 zoustand vum Waasserleck"
+      },
+      "t8cn": {
+        "name": "Verbindungszoustand vum Feinstëbssensor"
+      },
+      "t9cn": {
+        "name": "Verbindungszoustand vum HCHO/VOC-Sensor"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Verschibung vun der Wandrichtung"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Verschibung zrécksetzen"
+      },
+      "set_north": {
+        "name": "Norden op den aktuelle Wäert setzen"
+      }
+    }
+  }
+}

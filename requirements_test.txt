@@ -1,0 +1,2 @@
+# Pulls in Home Assistant itself plus the pytest fixtures custom components need.
+pytest-homeassistant-custom-component

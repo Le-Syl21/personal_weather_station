@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "สถานีตรวจอากาศส่วนตัว",
+        "description": "ตั้งค่ารหัสสถานีที่นี่ ซึ่งสถานีตรวจอากาศของคุณต้องส่งมาด้วยเพื่อไม่ให้ข้อมูลถูกปฏิเสธ หากเว้นว่างไว้ ระบบจะยอมรับทุกคำขอ",
+        "data": {
+          "password": "รหัสสถานี"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "ตั้งค่าไว้แล้ว อินสแตนซ์เดียวรองรับสถานีตรวจอากาศทั้งหมด"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "สถานีตรวจอากาศส่วนตัว",
+        "description": "ตั้งค่ารหัสสถานีที่นี่ ซึ่งสถานีตรวจอากาศของคุณต้องส่งมาด้วยเพื่อไม่ให้ข้อมูลถูกปฏิเสธ หากเว้นว่างไว้ ระบบจะยอมรับทุกคำขอ",
+        "data": {
+          "password": "รหัสสถานี",
+          "availability_timeout": "ทำเครื่องหมายว่าไม่พร้อมใช้งานหลังจาก (นาที)",
+          "debug": "บันทึกทุกคำขอที่เข้ามา"
+        },
+        "data_description": {
+          "availability_timeout": "สถานีสามารถเงียบได้นานเท่าใดก่อนที่เซ็นเซอร์จะถูกทำเครื่องหมายว่าไม่พร้อมใช้งาน ตั้งเป็น 0 เพื่อไม่ทำเครื่องหมายเลย",
+          "debug": "เขียนเนื้อหาทั้งหมดของทุกคำขอลงในบันทึกของ Home Assistant มีประโยชน์ขณะตั้งค่าสถานี แต่รบกวนหลังจากนั้น"
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "ปฏิเสธสถานีตรวจอากาศ: รหัสสถานีไม่ถูกต้อง",
+      "description": "สถานีตรวจอากาศที่ {ip} พยายามส่งข้อมูลในชื่อ `{station_id}` โดยไม่ได้ส่งรหัสสถานีที่คาดไว้\n\nตรวจสอบว่ารหัสที่ตั้งไว้ในสถานีหรือในแอป WSLink ตรงกับที่ตั้งไว้ในการผสานรวมนี้ ข้อความนี้จะหายไปเองทันทีที่คำขอจาก {ip} ได้รับการยอมรับ"
+    },
+    "missing_device_id": {
+      "title": "ปฏิเสธสถานีตรวจอากาศ: ไม่มีตัวระบุสถานี",
+      "description": "สถานีตรวจอากาศที่ {ip} ส่งข้อมูลโดยไม่มีตัวระบุสถานี\n\nตั้งค่า Sender ID ในแอป WSLink หรือพารามิเตอร์ ID ในการตั้งค่าสถานี ข้อความนี้จะหายไปเองทันทีที่คำขอจาก {ip} ได้รับการยอมรับ"
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "สถานี {device} ยังไม่ได้ส่งทิศทางลม จึงไม่มีค่าอ้างอิงสำหรับการปรับเทียบ กรุณารอการอัปโหลดครั้งถัดไปแล้วลองอีกครั้ง"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "ความกดอากาศสัมบูรณ์"
+      },
+      "apiver": {
+        "name": "เวอร์ชัน API"
+      },
+      "aqbc": {
+        "name": "คาร์บอนดำ"
+      },
+      "aqco": {
+        "name": "คาร์บอนมอนอกไซด์"
+      },
+      "aqcot": {
+        "name": "คาร์บอนมอนอกไซด์ระดับร่องรอย"
+      },
+      "aqec": {
+        "name": "คาร์บอนธาตุ"
+      },
+      "aqno": {
+        "name": "ไนตริกออกไซด์"
+      },
+      "aqno2": {
+        "name": "NO2 X คำนวณ"
+      },
+      "aqno2t": {
+        "name": "ไนโตรเจนไดออกไซด์"
+      },
+      "aqno2y": {
+        "name": "NO2 Y คำนวณ"
+      },
+      "aqno3": {
+        "name": "ไอออน NO3"
+      },
+      "aqnox": {
+        "name": "ไนโตรเจนออกไซด์"
+      },
+      "aqnoy": {
+        "name": "ไนโตรเจนไวปฏิกิริยารวม"
+      },
+      "aqoc": {
+        "name": "คาร์บอนอินทรีย์"
+      },
+      "aqozone": {
+        "name": "โอโซน"
+      },
+      "aqpm10": {
+        "name": "มวล PM10"
+      },
+      "aqpm2_5": {
+        "name": "มวล PM2.5"
+      },
+      "aqso2": {
+        "name": "ซัลเฟอร์ไดออกไซด์"
+      },
+      "aqso2t": {
+        "name": "ซัลเฟอร์ไดออกไซด์ระดับร่องรอย"
+      },
+      "aqso4": {
+        "name": "ไอออน SO4"
+      },
+      "aquv_aeth": {
+        "name": "เอทาโลมิเตอร์ ช่อง 2"
+      },
+      "baromin": {
+        "name": "ความกดอากาศ"
+      },
+      "clouds": {
+        "name": "เมฆปกคลุม"
+      },
+      "dailyrainin": {
+        "name": "ฝนรายวัน"
+      },
+      "dewptf": {
+        "name": "จุดน้ำค้าง"
+      },
+      "humidity": {
+        "name": "ความชื้นภายนอก"
+      },
+      "inbat": {
+        "name": "ระดับแบตเตอรี่คอนโซล"
+      },
+      "indoorhumidity": {
+        "name": "ความชื้นภายใน"
+      },
+      "indoortempf": {
+        "name": "อุณหภูมิภายใน"
+      },
+      "inhum": {
+        "name": "ความชื้นภายใน"
+      },
+      "intem": {
+        "name": "อุณหภูมิภายใน"
+      },
+      "last_update": {
+        "name": "การรับล่าสุด"
+      },
+      "leafwetness": {
+        "name": "ความเปียกของใบ"
+      },
+      "leafwetness2": {
+        "name": "CH2 ความเปียกของใบ"
+      },
+      "lowbatt": {
+        "name": "แบตเตอรี่ต่ำ"
+      },
+      "monthlyrainin": {
+        "name": "ฝนรายเดือน"
+      },
+      "rainin": {
+        "name": "ฝนรายชั่วโมง"
+      },
+      "rbar": {
+        "name": "ความกดอากาศสัมพัทธ์"
+      },
+      "rtfreq": {
+        "name": "ความถี่การอัปเดต"
+      },
+      "soilmoisture": {
+        "name": "ความชื้นในดิน"
+      },
+      "soilmoisture2": {
+        "name": "CH2 ความชื้นในดิน"
+      },
+      "soilmoisture3": {
+        "name": "CH3 ความชื้นในดิน"
+      },
+      "soilmoisture4": {
+        "name": "CH4 ความชื้นในดิน"
+      },
+      "soiltemp2f": {
+        "name": "CH2 อุณหภูมิดิน"
+      },
+      "soiltemp3f": {
+        "name": "CH3 อุณหภูมิดิน"
+      },
+      "soiltemp4f": {
+        "name": "CH4 อุณหภูมิดิน"
+      },
+      "soiltempf": {
+        "name": "อุณหภูมิดิน"
+      },
+      "solarradiation": {
+        "name": "รังสีดวงอาทิตย์"
+      },
+      "t10bat": {
+        "name": "ระดับแบตเตอรี่เซ็นเซอร์ CO2"
+      },
+      "t10cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ CO2"
+      },
+      "t10co2": {
+        "name": "ความเข้มข้น CO2"
+      },
+      "t11bat": {
+        "name": "ระดับแบตเตอรี่เซ็นเซอร์ CO"
+      },
+      "t11cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ CO"
+      },
+      "t11co": {
+        "name": "ความเข้มข้น CO"
+      },
+      "t1bat": {
+        "name": "สถานะแบตเตอรี่เซ็นเซอร์ภายนอก"
+      },
+      "t1chill": {
+        "name": "อุณหภูมิความเย็นจากลม"
+      },
+      "t1cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ภายนอก"
+      },
+      "t1dew": {
+        "name": "อุณหภูมิจุดน้ำค้าง"
+      },
+      "t1feels": {
+        "name": "อุณหภูมิที่รู้สึกได้"
+      },
+      "t1heat": {
+        "name": "ดัชนีความร้อน"
+      },
+      "t1hum": {
+        "name": "ความชื้นภายนอก"
+      },
+      "t1raindy": {
+        "name": "ปริมาณฝนรายวัน"
+      },
+      "t1rainhr": {
+        "name": "ปริมาณฝนรายชั่วโมง"
+      },
+      "t1rainmth": {
+        "name": "ปริมาณฝนรายเดือน"
+      },
+      "t1rainra": {
+        "name": "ความเข้มของฝน"
+      },
+      "t1rainwy": {
+        "name": "ปริมาณฝนรายสัปดาห์"
+      },
+      "t1rainyr": {
+        "name": "ปริมาณฝนรายปี"
+      },
+      "t1solrad": {
+        "name": "ความเข้มแสง"
+      },
+      "t1tem": {
+        "name": "อุณหภูมิภายนอก"
+      },
+      "t1uvi": {
+        "name": "ดัชนี UV"
+      },
+      "t1wbgt": {
+        "name": "อุณหภูมิ WBGT"
+      },
+      "t1wdir": {
+        "name": "ทิศทางลม"
+      },
+      "t1wgust": {
+        "name": "ลมกระโชก"
+      },
+      "t1ws": {
+        "name": "ความเร็วลม"
+      },
+      "t1ws10mav": {
+        "name": "ความเร็วลมเฉลี่ย 10 นาที"
+      },
+      "t234c1bat": {
+        "name": "CH1 สถานะแบตเตอรี่"
+      },
+      "t234c1cn": {
+        "name": "CH1 สถานะการเชื่อมต่อ"
+      },
+      "t234c1hum": {
+        "name": "CH1 ความชื้น"
+      },
+      "t234c1tem": {
+        "name": "CH1 อุณหภูมิ"
+      },
+      "t234c1tp": {
+        "name": "CH1 ชนิดเซ็นเซอร์"
+      },
+      "t234c2bat": {
+        "name": "CH2 สถานะแบตเตอรี่"
+      },
+      "t234c2cn": {
+        "name": "CH2 สถานะการเชื่อมต่อ"
+      },
+      "t234c2hum": {
+        "name": "CH2 ความชื้น"
+      },
+      "t234c2tem": {
+        "name": "CH2 อุณหภูมิ"
+      },
+      "t234c2tp": {
+        "name": "CH2 ชนิดเซ็นเซอร์"
+      },
+      "t234c3bat": {
+        "name": "CH3 สถานะแบตเตอรี่"
+      },
+      "t234c3cn": {
+        "name": "CH3 สถานะการเชื่อมต่อ"
+      },
+      "t234c3hum": {
+        "name": "CH3 ความชื้น"
+      },
+      "t234c3tem": {
+        "name": "CH3 อุณหภูมิ"
+      },
+      "t234c3tp": {
+        "name": "CH3 ชนิดเซ็นเซอร์"
+      },
+      "t234c4bat": {
+        "name": "CH4 สถานะแบตเตอรี่"
+      },
+      "t234c4cn": {
+        "name": "CH4 สถานะการเชื่อมต่อ"
+      },
+      "t234c4hum": {
+        "name": "CH4 ความชื้น"
+      },
+      "t234c4tem": {
+        "name": "CH4 อุณหภูมิ"
+      },
+      "t234c4tp": {
+        "name": "CH4 ชนิดเซ็นเซอร์"
+      },
+      "t234c5bat": {
+        "name": "CH5 สถานะแบตเตอรี่"
+      },
+      "t234c5cn": {
+        "name": "CH5 สถานะการเชื่อมต่อ"
+      },
+      "t234c5hum": {
+        "name": "CH5 ความชื้น"
+      },
+      "t234c5tem": {
+        "name": "CH5 อุณหภูมิ"
+      },
+      "t234c5tp": {
+        "name": "CH5 ชนิดเซ็นเซอร์"
+      },
+      "t234c6bat": {
+        "name": "CH6 สถานะแบตเตอรี่"
+      },
+      "t234c6cn": {
+        "name": "CH6 สถานะการเชื่อมต่อ"
+      },
+      "t234c6hum": {
+        "name": "CH6 ความชื้น"
+      },
+      "t234c6tem": {
+        "name": "CH6 อุณหภูมิ"
+      },
+      "t234c6tp": {
+        "name": "CH6 ชนิดเซ็นเซอร์"
+      },
+      "t234c7bat": {
+        "name": "CH7 สถานะแบตเตอรี่"
+      },
+      "t234c7cn": {
+        "name": "CH7 สถานะการเชื่อมต่อ"
+      },
+      "t234c7hum": {
+        "name": "CH7 ความชื้น"
+      },
+      "t234c7tem": {
+        "name": "CH7 อุณหภูมิ"
+      },
+      "t234c7tp": {
+        "name": "CH7 ชนิดเซ็นเซอร์"
+      },
+      "t5ls1dtc": {
+        "name": "ฟ้าผ่ารวมใน 1 วัน"
+      },
+      "t5ls1htc": {
+        "name": "ฟ้าผ่ารวมใน 1 ชั่วโมง"
+      },
+      "t5ls30mtc": {
+        "name": "ฟ้าผ่าใน 30 นาทีที่ผ่านมา"
+      },
+      "t5ls5mtc": {
+        "name": "ฟ้าผ่าใน 5 นาทีที่ผ่านมา"
+      },
+      "t5lsbat": {
+        "name": "สถานะแบตเตอรี่เซ็นเซอร์ฟ้าผ่า"
+      },
+      "t5lscn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ฟ้าผ่า"
+      },
+      "t5lsf": {
+        "name": "ฟ้าผ่าในชั่วโมงที่ผ่านมา"
+      },
+      "t5lskm": {
+        "name": "ระยะทางฟ้าผ่า"
+      },
+      "t5lst": {
+        "name": "เวลาฟ้าผ่าครั้งล่าสุด"
+      },
+      "t6c1bat": {
+        "name": "CH1 สถานะแบตเตอรี่เซ็นเซอร์การรั่ว"
+      },
+      "t6c1cn": {
+        "name": "CH1 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c1wls": {
+        "name": "CH1 สถานะการรั่วของน้ำ"
+      },
+      "t6c2bat": {
+        "name": "CH2 สถานะแบตเตอรี่เซ็นเซอร์การรั่ว"
+      },
+      "t6c2cn": {
+        "name": "CH2 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c2wls": {
+        "name": "CH2 สถานะการรั่วของน้ำ"
+      },
+      "t6c3bat": {
+        "name": "CH3 สถานะแบตเตอรี่เซ็นเซอร์การรั่ว"
+      },
+      "t6c3cn": {
+        "name": "CH3 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c3wls": {
+        "name": "CH3 สถานะการรั่วของน้ำ"
+      },
+      "t6c4bat": {
+        "name": "CH4 สถานะแบตเตอรี่เซ็นเซอร์การรั่ว"
+      },
+      "t6c4cn": {
+        "name": "CH4 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c4wls": {
+        "name": "CH4 สถานะการรั่วของน้ำ"
+      },
+      "t6c5bat": {
+        "name": "CH5 สถานะแบตเตอรี่เซ็นเซอร์การรั่ว"
+      },
+      "t6c5cn": {
+        "name": "CH5 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c5wls": {
+        "name": "CH5 สถานะการรั่วของน้ำ"
+      },
+      "t6c6bat": {
+        "name": "CH6 สถานะแบตเตอรี่เซ็นเซอร์การรั่ว"
+      },
+      "t6c6cn": {
+        "name": "CH6 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c6wls": {
+        "name": "CH6 สถานะการรั่วของน้ำ"
+      },
+      "t6c7bat": {
+        "name": "CH7 สถานะแบตเตอรี่เซ็นเซอร์การรั่ว"
+      },
+      "t6c7cn": {
+        "name": "CH7 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c7wls": {
+        "name": "CH7 สถานะการรั่วของน้ำ"
+      },
+      "t8bat": {
+        "name": "ระดับแบตเตอรี่เซ็นเซอร์ฝุ่น"
+      },
+      "t8cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ฝุ่น"
+      },
+      "t8pm10": {
+        "name": "ความเข้มข้น PM10"
+      },
+      "t8pm10ai": {
+        "name": "AQI PM10"
+      },
+      "t8pm25": {
+        "name": "ความเข้มข้น PM2.5"
+      },
+      "t8pm25ai": {
+        "name": "AQI PM2.5"
+      },
+      "t9bat": {
+        "name": "ระดับแบตเตอรี่เซ็นเซอร์ HCHO/VOC"
+      },
+      "t9cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ HCHO/VOC"
+      },
+      "t9hcho": {
+        "name": "ความเข้มข้น HCHO"
+      },
+      "t9voclv": {
+        "name": "ระดับ VOC"
+      },
+      "tempf": {
+        "name": "อุณหภูมิภายนอก"
+      },
+      "uv": {
+        "name": "ดัชนี UV"
+      },
+      "visibility": {
+        "name": "ทัศนวิสัย"
+      },
+      "weeklyrainin": {
+        "name": "ฝนรายสัปดาห์"
+      },
+      "wind_direction_raw": {
+        "name": "ทิศทางลม (ดิบ)"
+      },
+      "windchillf": {
+        "name": "ความเย็นจากลม"
+      },
+      "winddir": {
+        "name": "ทิศทางลม"
+      },
+      "winddir_avg2m": {
+        "name": "ทิศทางลมเฉลี่ย 2 นาที"
+      },
+      "windgustdir": {
+        "name": "ทิศทางลมกระโชก"
+      },
+      "windgustdir_10m": {
+        "name": "ทิศทางลมกระโชกเฉลี่ย 10 นาที"
+      },
+      "windgustmph": {
+        "name": "ลมกระโชก"
+      },
+      "windgustmph_10m": {
+        "name": "ความเร็วลมกระโชกเฉลี่ย 10 นาที"
+      },
+      "windspdmph_avg2m": {
+        "name": "ความเร็วลมเฉลี่ย 2 นาที"
+      },
+      "windspeedmph": {
+        "name": "ความเร็วลม"
+      },
+      "yearlyrainin": {
+        "name": "ฝนรายปี"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ CO2"
+      },
+      "t11cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ CO"
+      },
+      "t1cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ภายนอก"
+      },
+      "t234c1cn": {
+        "name": "CH1 สถานะการเชื่อมต่อ"
+      },
+      "t234c2cn": {
+        "name": "CH2 สถานะการเชื่อมต่อ"
+      },
+      "t234c3cn": {
+        "name": "CH3 สถานะการเชื่อมต่อ"
+      },
+      "t234c4cn": {
+        "name": "CH4 สถานะการเชื่อมต่อ"
+      },
+      "t234c5cn": {
+        "name": "CH5 สถานะการเชื่อมต่อ"
+      },
+      "t234c6cn": {
+        "name": "CH6 สถานะการเชื่อมต่อ"
+      },
+      "t234c7cn": {
+        "name": "CH7 สถานะการเชื่อมต่อ"
+      },
+      "t5lscn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ฟ้าผ่า"
+      },
+      "t6c1cn": {
+        "name": "CH1 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c1wls": {
+        "name": "CH1 สถานะการรั่วของน้ำ"
+      },
+      "t6c2cn": {
+        "name": "CH2 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c2wls": {
+        "name": "CH2 สถานะการรั่วของน้ำ"
+      },
+      "t6c3cn": {
+        "name": "CH3 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c3wls": {
+        "name": "CH3 สถานะการรั่วของน้ำ"
+      },
+      "t6c4cn": {
+        "name": "CH4 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c4wls": {
+        "name": "CH4 สถานะการรั่วของน้ำ"
+      },
+      "t6c5cn": {
+        "name": "CH5 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c5wls": {
+        "name": "CH5 สถานะการรั่วของน้ำ"
+      },
+      "t6c6cn": {
+        "name": "CH6 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c6wls": {
+        "name": "CH6 สถานะการรั่วของน้ำ"
+      },
+      "t6c7cn": {
+        "name": "CH7 สถานะการเชื่อมต่อเซ็นเซอร์การรั่ว"
+      },
+      "t6c7wls": {
+        "name": "CH7 สถานะการรั่วของน้ำ"
+      },
+      "t8cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ฝุ่น"
+      },
+      "t9cn": {
+        "name": "สถานะการเชื่อมต่อเซ็นเซอร์ HCHO/VOC"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "ค่าชดเชยทิศทางลม"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "รีเซ็ตค่าชดเชย"
+      },
+      "set_north": {
+        "name": "ตั้งค่าทิศเหนือจากค่าปัจจุบัน"
+      }
+    }
+  }
+}

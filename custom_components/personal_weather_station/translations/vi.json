@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Trạm thời tiết cá nhân",
+        "description": "Đặt tại đây một khóa trạm mà các trạm thời tiết của bạn phải gửi kèm để dữ liệu không bị từ chối. Nếu để trống, mọi yêu cầu đều được chấp nhận.",
+        "data": {
+          "password": "Khóa trạm"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Đã cấu hình. Một phiên bản duy nhất phục vụ tất cả các trạm thời tiết."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Trạm thời tiết cá nhân",
+        "description": "Đặt tại đây một khóa trạm mà các trạm thời tiết của bạn phải gửi kèm để dữ liệu không bị từ chối. Nếu để trống, mọi yêu cầu đều được chấp nhận.",
+        "data": {
+          "password": "Khóa trạm",
+          "availability_timeout": "Đánh dấu không khả dụng sau (phút)",
+          "debug": "Ghi nhật ký mọi yêu cầu đến"
+        },
+        "data_description": {
+          "availability_timeout": "Một trạm có thể im lặng bao lâu trước khi các cảm biến của nó bị đánh dấu là không khả dụng. Đặt 0 để không bao giờ đánh dấu.",
+          "debug": "Ghi toàn bộ nội dung của mỗi yêu cầu vào nhật ký Home Assistant. Hữu ích khi thiết lập một trạm, gây nhiễu sau đó."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Trạm thời tiết bị từ chối: sai khóa trạm",
+      "description": "Một trạm thời tiết tại {ip} đã cố gửi dữ liệu dưới tên `{station_id}` mà không gửi khóa trạm mong đợi.\n\nKiểm tra xem khóa được cấu hình trong trạm hoặc trong ứng dụng WSLink có khớp với khóa đặt trong tích hợp này không. Thông báo này sẽ tự biến mất ngay khi một yêu cầu từ {ip} được chấp nhận."
+    },
+    "missing_device_id": {
+      "title": "Trạm thời tiết bị từ chối: không có định danh trạm",
+      "description": "Một trạm thời tiết tại {ip} đã gửi dữ liệu mà không có định danh trạm.\n\nĐặt Sender ID trong ứng dụng WSLink, hoặc tham số ID trong cấu hình trạm. Thông báo này sẽ tự biến mất ngay khi một yêu cầu từ {ip} được chấp nhận."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "Trạm {device} chưa gửi hướng gió nào nên không có gì để hiệu chuẩn. Hãy đợi lần tải lên tiếp theo rồi thử lại."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Áp suất không khí tuyệt đối"
+      },
+      "apiver": {
+        "name": "Phiên bản API"
+      },
+      "aqbc": {
+        "name": "Cacbon đen"
+      },
+      "aqco": {
+        "name": "Cacbon monoxit"
+      },
+      "aqcot": {
+        "name": "Cacbon monoxit ở mức vết"
+      },
+      "aqec": {
+        "name": "Cacbon nguyên tố"
+      },
+      "aqno": {
+        "name": "Nitơ monoxit"
+      },
+      "aqno2": {
+        "name": "NO2 X tính toán"
+      },
+      "aqno2t": {
+        "name": "Nitơ dioxit"
+      },
+      "aqno2y": {
+        "name": "NO2 Y tính toán"
+      },
+      "aqno3": {
+        "name": "Ion NO3"
+      },
+      "aqnox": {
+        "name": "Các oxit nitơ"
+      },
+      "aqnoy": {
+        "name": "Tổng nitơ hoạt tính"
+      },
+      "aqoc": {
+        "name": "Cacbon hữu cơ"
+      },
+      "aqozone": {
+        "name": "Ozon"
+      },
+      "aqpm10": {
+        "name": "Khối lượng PM10"
+      },
+      "aqpm2_5": {
+        "name": "Khối lượng PM2.5"
+      },
+      "aqso2": {
+        "name": "Lưu huỳnh dioxit"
+      },
+      "aqso2t": {
+        "name": "Lưu huỳnh dioxit ở mức vết"
+      },
+      "aqso4": {
+        "name": "Ion SO4"
+      },
+      "aquv_aeth": {
+        "name": "Aethalometer kênh 2"
+      },
+      "baromin": {
+        "name": "Áp suất"
+      },
+      "clouds": {
+        "name": "Lượng mây"
+      },
+      "dailyrainin": {
+        "name": "Mưa theo ngày"
+      },
+      "dewptf": {
+        "name": "Điểm sương"
+      },
+      "humidity": {
+        "name": "Độ ẩm ngoài trời"
+      },
+      "inbat": {
+        "name": "Mức pin bảng điều khiển"
+      },
+      "indoorhumidity": {
+        "name": "Độ ẩm trong nhà"
+      },
+      "indoortempf": {
+        "name": "Nhiệt độ trong nhà"
+      },
+      "inhum": {
+        "name": "Độ ẩm trong nhà"
+      },
+      "intem": {
+        "name": "Nhiệt độ trong nhà"
+      },
+      "last_update": {
+        "name": "Lần nhận cuối"
+      },
+      "leafwetness": {
+        "name": "Độ ướt của lá"
+      },
+      "leafwetness2": {
+        "name": "CH2 độ ướt của lá"
+      },
+      "lowbatt": {
+        "name": "Pin yếu"
+      },
+      "monthlyrainin": {
+        "name": "Mưa theo tháng"
+      },
+      "rainin": {
+        "name": "Mưa theo giờ"
+      },
+      "rbar": {
+        "name": "Áp suất không khí tương đối"
+      },
+      "rtfreq": {
+        "name": "Tần suất cập nhật"
+      },
+      "soilmoisture": {
+        "name": "Độ ẩm đất"
+      },
+      "soilmoisture2": {
+        "name": "CH2 độ ẩm đất"
+      },
+      "soilmoisture3": {
+        "name": "CH3 độ ẩm đất"
+      },
+      "soilmoisture4": {
+        "name": "CH4 độ ẩm đất"
+      },
+      "soiltemp2f": {
+        "name": "CH2 nhiệt độ đất"
+      },
+      "soiltemp3f": {
+        "name": "CH3 nhiệt độ đất"
+      },
+      "soiltemp4f": {
+        "name": "CH4 nhiệt độ đất"
+      },
+      "soiltempf": {
+        "name": "Nhiệt độ đất"
+      },
+      "solarradiation": {
+        "name": "Bức xạ mặt trời"
+      },
+      "t10bat": {
+        "name": "Mức pin cảm biến CO2"
+      },
+      "t10cn": {
+        "name": "Trạng thái kết nối cảm biến CO2"
+      },
+      "t10co2": {
+        "name": "Nồng độ CO2"
+      },
+      "t11bat": {
+        "name": "Mức pin cảm biến CO"
+      },
+      "t11cn": {
+        "name": "Trạng thái kết nối cảm biến CO"
+      },
+      "t11co": {
+        "name": "Nồng độ CO"
+      },
+      "t1bat": {
+        "name": "Trạng thái pin cảm biến ngoài trời"
+      },
+      "t1chill": {
+        "name": "Nhiệt độ cảm giác lạnh do gió"
+      },
+      "t1cn": {
+        "name": "Trạng thái kết nối cảm biến ngoài trời"
+      },
+      "t1dew": {
+        "name": "Nhiệt độ điểm sương"
+      },
+      "t1feels": {
+        "name": "Nhiệt độ cảm nhận"
+      },
+      "t1heat": {
+        "name": "Chỉ số nhiệt"
+      },
+      "t1hum": {
+        "name": "Độ ẩm ngoài trời"
+      },
+      "t1raindy": {
+        "name": "Lượng mưa theo ngày"
+      },
+      "t1rainhr": {
+        "name": "Lượng mưa theo giờ"
+      },
+      "t1rainmth": {
+        "name": "Lượng mưa theo tháng"
+      },
+      "t1rainra": {
+        "name": "Cường độ mưa"
+      },
+      "t1rainwy": {
+        "name": "Lượng mưa theo tuần"
+      },
+      "t1rainyr": {
+        "name": "Lượng mưa theo năm"
+      },
+      "t1solrad": {
+        "name": "Cường độ ánh sáng"
+      },
+      "t1tem": {
+        "name": "Nhiệt độ ngoài trời"
+      },
+      "t1uvi": {
+        "name": "Chỉ số UV"
+      },
+      "t1wbgt": {
+        "name": "Nhiệt độ WBGT"
+      },
+      "t1wdir": {
+        "name": "Hướng gió"
+      },
+      "t1wgust": {
+        "name": "Gió giật"
+      },
+      "t1ws": {
+        "name": "Tốc độ gió"
+      },
+      "t1ws10mav": {
+        "name": "Tốc độ gió trung bình 10 phút"
+      },
+      "t234c1bat": {
+        "name": "CH1 trạng thái pin"
+      },
+      "t234c1cn": {
+        "name": "CH1 trạng thái kết nối"
+      },
+      "t234c1hum": {
+        "name": "CH1 độ ẩm"
+      },
+      "t234c1tem": {
+        "name": "CH1 nhiệt độ"
+      },
+      "t234c1tp": {
+        "name": "CH1 loại cảm biến"
+      },
+      "t234c2bat": {
+        "name": "CH2 trạng thái pin"
+      },
+      "t234c2cn": {
+        "name": "CH2 trạng thái kết nối"
+      },
+      "t234c2hum": {
+        "name": "CH2 độ ẩm"
+      },
+      "t234c2tem": {
+        "name": "CH2 nhiệt độ"
+      },
+      "t234c2tp": {
+        "name": "CH2 loại cảm biến"
+      },
+      "t234c3bat": {
+        "name": "CH3 trạng thái pin"
+      },
+      "t234c3cn": {
+        "name": "CH3 trạng thái kết nối"
+      },
+      "t234c3hum": {
+        "name": "CH3 độ ẩm"
+      },
+      "t234c3tem": {
+        "name": "CH3 nhiệt độ"
+      },
+      "t234c3tp": {
+        "name": "CH3 loại cảm biến"
+      },
+      "t234c4bat": {
+        "name": "CH4 trạng thái pin"
+      },
+      "t234c4cn": {
+        "name": "CH4 trạng thái kết nối"
+      },
+      "t234c4hum": {
+        "name": "CH4 độ ẩm"
+      },
+      "t234c4tem": {
+        "name": "CH4 nhiệt độ"
+      },
+      "t234c4tp": {
+        "name": "CH4 loại cảm biến"
+      },
+      "t234c5bat": {
+        "name": "CH5 trạng thái pin"
+      },
+      "t234c5cn": {
+        "name": "CH5 trạng thái kết nối"
+      },
+      "t234c5hum": {
+        "name": "CH5 độ ẩm"
+      },
+      "t234c5tem": {
+        "name": "CH5 nhiệt độ"
+      },
+      "t234c5tp": {
+        "name": "CH5 loại cảm biến"
+      },
+      "t234c6bat": {
+        "name": "CH6 trạng thái pin"
+      },
+      "t234c6cn": {
+        "name": "CH6 trạng thái kết nối"
+      },
+      "t234c6hum": {
+        "name": "CH6 độ ẩm"
+      },
+      "t234c6tem": {
+        "name": "CH6 nhiệt độ"
+      },
+      "t234c6tp": {
+        "name": "CH6 loại cảm biến"
+      },
+      "t234c7bat": {
+        "name": "CH7 trạng thái pin"
+      },
+      "t234c7cn": {
+        "name": "CH7 trạng thái kết nối"
+      },
+      "t234c7hum": {
+        "name": "CH7 độ ẩm"
+      },
+      "t234c7tem": {
+        "name": "CH7 nhiệt độ"
+      },
+      "t234c7tp": {
+        "name": "CH7 loại cảm biến"
+      },
+      "t5ls1dtc": {
+        "name": "Tổng số lần sét trong 1 ngày"
+      },
+      "t5ls1htc": {
+        "name": "Tổng số lần sét trong 1 giờ"
+      },
+      "t5ls30mtc": {
+        "name": "Số lần sét trong 30 phút qua"
+      },
+      "t5ls5mtc": {
+        "name": "Số lần sét trong 5 phút qua"
+      },
+      "t5lsbat": {
+        "name": "Trạng thái pin cảm biến sét"
+      },
+      "t5lscn": {
+        "name": "Trạng thái kết nối cảm biến sét"
+      },
+      "t5lsf": {
+        "name": "Số lần sét trong giờ qua"
+      },
+      "t5lskm": {
+        "name": "Khoảng cách sét"
+      },
+      "t5lst": {
+        "name": "Thời điểm sét đánh gần nhất"
+      },
+      "t6c1bat": {
+        "name": "CH1 trạng thái pin cảm biến rò rỉ"
+      },
+      "t6c1cn": {
+        "name": "CH1 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c1wls": {
+        "name": "CH1 trạng thái rò rỉ nước"
+      },
+      "t6c2bat": {
+        "name": "CH2 trạng thái pin cảm biến rò rỉ"
+      },
+      "t6c2cn": {
+        "name": "CH2 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c2wls": {
+        "name": "CH2 trạng thái rò rỉ nước"
+      },
+      "t6c3bat": {
+        "name": "CH3 trạng thái pin cảm biến rò rỉ"
+      },
+      "t6c3cn": {
+        "name": "CH3 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c3wls": {
+        "name": "CH3 trạng thái rò rỉ nước"
+      },
+      "t6c4bat": {
+        "name": "CH4 trạng thái pin cảm biến rò rỉ"
+      },
+      "t6c4cn": {
+        "name": "CH4 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c4wls": {
+        "name": "CH4 trạng thái rò rỉ nước"
+      },
+      "t6c5bat": {
+        "name": "CH5 trạng thái pin cảm biến rò rỉ"
+      },
+      "t6c5cn": {
+        "name": "CH5 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c5wls": {
+        "name": "CH5 trạng thái rò rỉ nước"
+      },
+      "t6c6bat": {
+        "name": "CH6 trạng thái pin cảm biến rò rỉ"
+      },
+      "t6c6cn": {
+        "name": "CH6 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c6wls": {
+        "name": "CH6 trạng thái rò rỉ nước"
+      },
+      "t6c7bat": {
+        "name": "CH7 trạng thái pin cảm biến rò rỉ"
+      },
+      "t6c7cn": {
+        "name": "CH7 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c7wls": {
+        "name": "CH7 trạng thái rò rỉ nước"
+      },
+      "t8bat": {
+        "name": "Mức pin cảm biến bụi"
+      },
+      "t8cn": {
+        "name": "Trạng thái kết nối cảm biến bụi"
+      },
+      "t8pm10": {
+        "name": "Nồng độ PM10"
+      },
+      "t8pm10ai": {
+        "name": "AQI PM10"
+      },
+      "t8pm25": {
+        "name": "Nồng độ PM2.5"
+      },
+      "t8pm25ai": {
+        "name": "AQI PM2.5"
+      },
+      "t9bat": {
+        "name": "Mức pin cảm biến HCHO/VOC"
+      },
+      "t9cn": {
+        "name": "Trạng thái kết nối cảm biến HCHO/VOC"
+      },
+      "t9hcho": {
+        "name": "Nồng độ HCHO"
+      },
+      "t9voclv": {
+        "name": "Mức VOC"
+      },
+      "tempf": {
+        "name": "Nhiệt độ ngoài trời"
+      },
+      "uv": {
+        "name": "Chỉ số UV"
+      },
+      "visibility": {
+        "name": "Tầm nhìn"
+      },
+      "weeklyrainin": {
+        "name": "Mưa theo tuần"
+      },
+      "wind_direction_raw": {
+        "name": "Hướng gió (thô)"
+      },
+      "windchillf": {
+        "name": "Cảm giác lạnh do gió"
+      },
+      "winddir": {
+        "name": "Hướng gió"
+      },
+      "winddir_avg2m": {
+        "name": "Hướng gió trung bình 2 phút"
+      },
+      "windgustdir": {
+        "name": "Hướng gió giật"
+      },
+      "windgustdir_10m": {
+        "name": "Hướng gió giật trung bình 10 phút"
+      },
+      "windgustmph": {
+        "name": "Gió giật"
+      },
+      "windgustmph_10m": {
+        "name": "Tốc độ gió giật trung bình 10 phút"
+      },
+      "windspdmph_avg2m": {
+        "name": "Tốc độ gió trung bình 2 phút"
+      },
+      "windspeedmph": {
+        "name": "Tốc độ gió"
+      },
+      "yearlyrainin": {
+        "name": "Mưa theo năm"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Trạng thái kết nối cảm biến CO2"
+      },
+      "t11cn": {
+        "name": "Trạng thái kết nối cảm biến CO"
+      },
+      "t1cn": {
+        "name": "Trạng thái kết nối cảm biến ngoài trời"
+      },
+      "t234c1cn": {
+        "name": "CH1 trạng thái kết nối"
+      },
+      "t234c2cn": {
+        "name": "CH2 trạng thái kết nối"
+      },
+      "t234c3cn": {
+        "name": "CH3 trạng thái kết nối"
+      },
+      "t234c4cn": {
+        "name": "CH4 trạng thái kết nối"
+      },
+      "t234c5cn": {
+        "name": "CH5 trạng thái kết nối"
+      },
+      "t234c6cn": {
+        "name": "CH6 trạng thái kết nối"
+      },
+      "t234c7cn": {
+        "name": "CH7 trạng thái kết nối"
+      },
+      "t5lscn": {
+        "name": "Trạng thái kết nối cảm biến sét"
+      },
+      "t6c1cn": {
+        "name": "CH1 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c1wls": {
+        "name": "CH1 trạng thái rò rỉ nước"
+      },
+      "t6c2cn": {
+        "name": "CH2 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c2wls": {
+        "name": "CH2 trạng thái rò rỉ nước"
+      },
+      "t6c3cn": {
+        "name": "CH3 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c3wls": {
+        "name": "CH3 trạng thái rò rỉ nước"
+      },
+      "t6c4cn": {
+        "name": "CH4 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c4wls": {
+        "name": "CH4 trạng thái rò rỉ nước"
+      },
+      "t6c5cn": {
+        "name": "CH5 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c5wls": {
+        "name": "CH5 trạng thái rò rỉ nước"
+      },
+      "t6c6cn": {
+        "name": "CH6 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c6wls": {
+        "name": "CH6 trạng thái rò rỉ nước"
+      },
+      "t6c7cn": {
+        "name": "CH7 trạng thái kết nối cảm biến rò rỉ"
+      },
+      "t6c7wls": {
+        "name": "CH7 trạng thái rò rỉ nước"
+      },
+      "t8cn": {
+        "name": "Trạng thái kết nối cảm biến bụi"
+      },
+      "t9cn": {
+        "name": "Trạng thái kết nối cảm biến HCHO/VOC"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Độ lệch hướng gió"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Đặt lại độ lệch"
+      },
+      "set_north": {
+        "name": "Đặt hướng bắc theo giá trị hiện tại"
+      }
+    }
+  }
+}

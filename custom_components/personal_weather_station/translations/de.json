@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Persönliche Wetterstation",
+        "description": "Legen Sie hier einen Stationsschlüssel fest, den Ihre Wetterstationen übertragen müssen, damit ihre Daten nicht abgewiesen werden. Wenn Sie das Feld leer lassen, werden alle Anfragen akzeptiert.",
+        "data": {
+          "password": "Stationsschlüssel"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Bereits konfiguriert. Eine einzige Instanz bedient alle Wetterstationen."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Persönliche Wetterstation",
+        "description": "Legen Sie hier einen Stationsschlüssel fest, den Ihre Wetterstationen übertragen müssen, damit ihre Daten nicht abgewiesen werden. Wenn Sie das Feld leer lassen, werden alle Anfragen akzeptiert.",
+        "data": {
+          "password": "Stationsschlüssel",
+          "availability_timeout": "Als nicht verfügbar markieren nach (Minuten)",
+          "debug": "Jede eingehende Anfrage protokollieren"
+        },
+        "data_description": {
+          "availability_timeout": "Wie lange eine Station stumm bleiben darf, bevor ihre Sensoren als nicht verfügbar markiert werden. 0 bedeutet, dass sie nie markiert werden.",
+          "debug": "Schreibt den vollständigen Inhalt jeder Anfrage in das Home-Assistant-Protokoll. Nützlich beim Einrichten einer Station, danach störend."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Wetterstation abgewiesen: falscher Stationsschlüssel",
+      "description": "Eine Wetterstation unter {ip} hat versucht, Daten als `{station_id}` zu senden, ohne den erwarteten Stationsschlüssel zu übertragen.\n\nPrüfen Sie, ob der in der Station oder in der WSLink-App konfigurierte Stationsschlüssel mit dem hier festgelegten übereinstimmt. Diese Meldung verschwindet von selbst, sobald eine Anfrage von {ip} akzeptiert wird."
+    },
+    "missing_device_id": {
+      "title": "Wetterstation abgewiesen: keine Stationskennung",
+      "description": "Eine Wetterstation unter {ip} hat Daten ohne Stationskennung gesendet.\n\nLegen Sie in der WSLink-App eine Sender-ID fest oder einen ID-Parameter in der Stationskonfiguration. Diese Meldung verschwindet von selbst, sobald eine Anfrage von {ip} akzeptiert wird."
+    },
+    "legacy_entity_ids": {
+      "title": "Entitäts-IDs enthalten den Stationsnamen doppelt",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Entitäts-IDs kürzen",
+            "description": "Bis Version 1.0.8 hat diese Integration Entitäts-IDs gebildet, die den Stationsnamen zweimal enthalten, etwa `{example_old}`. Neue Stationen tun das nicht mehr.\n\n**{count} Entitäten** können umbenannt werden, zum Beispiel zu `{example_new}`.\n\nVerlauf und Langzeitstatistiken folgen der Umbenennung automatisch. **Automationen, Skripte, Szenen und Dashboards nicht** — alles, was auf die alten IDs verweist, müssen Sie selbst anpassen.\n\nWenn Sie sie lieber so lassen möchten, ignorieren Sie diese Reparatur."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Verbindungs- und Leckstatus sind noch Zahlen",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "In Binärsensoren umwandeln",
+            "description": "Verbindungs- und Wasserleckstatus werden als 1 oder 0 übertragen. Bis Version 1.0.8 wurden sie als numerische Sensoren dargestellt, etwa `{example}`, die sich mit den Standard-Leckkarten und -Warnungen von Home Assistant nicht verwenden lassen. Neue Stationen erhalten jetzt Binärsensoren mit **Feucht / Trocken** und **Verbunden / Getrennt**.\n\n**{count} Entitäten** können umgewandelt werden. Batteriestände sind nicht betroffen: Sie bleiben Prozentwerte, mit denen die Warnungen bei schwacher Batterie funktionieren.\n\nEin Plattformwechsel ist keine Umbenennung: Die alten Entitäten werden entfernt und als `binary_sensor` neu angelegt. **Ihr aufgezeichneter Verlauf geht verloren** — diese Werte haben keine Langzeitstatistiken, betroffen ist nur der Rohverlauf — und **Automationen, Skripte, Szenen und Dashboards, die darauf verweisen, müssen angepasst werden**. Die neuen Entitäten erscheinen bei der nächsten Übertragung der Station.\n\nWenn Sie sie lieber so lassen möchten, ignorieren Sie diese Reparatur."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "Die Station {device} hat noch keine Windrichtung übermittelt, es gibt also nichts, worauf kalibriert werden könnte. Warten Sie auf die nächste Übertragung und versuchen Sie es erneut."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Absoluter Luftdruck"
+      },
+      "apiver": {
+        "name": "API-Version"
+      },
+      "aqbc": {
+        "name": "Schwarzer Kohlenstoff"
+      },
+      "aqco": {
+        "name": "Kohlenmonoxid"
+      },
+      "aqcot": {
+        "name": "Kohlenmonoxid in Spuren"
+      },
+      "aqec": {
+        "name": "Elementarer Kohlenstoff"
+      },
+      "aqno": {
+        "name": "Stickstoffmonoxid"
+      },
+      "aqno2": {
+        "name": "NO2 X berechnet"
+      },
+      "aqno2t": {
+        "name": "Stickstoffdioxid"
+      },
+      "aqno2y": {
+        "name": "NO2 Y berechnet"
+      },
+      "aqno3": {
+        "name": "NO3-Ion"
+      },
+      "aqnox": {
+        "name": "Stickoxide"
+      },
+      "aqnoy": {
+        "name": "Reaktiver Gesamtstickstoff"
+      },
+      "aqoc": {
+        "name": "Organischer Kohlenstoff"
+      },
+      "aqozone": {
+        "name": "Ozon"
+      },
+      "aqpm10": {
+        "name": "PM10-Masse"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5-Masse"
+      },
+      "aqso2": {
+        "name": "Schwefeldioxid"
+      },
+      "aqso2t": {
+        "name": "Schwefeldioxid in Spuren"
+      },
+      "aqso4": {
+        "name": "SO4-Ion"
+      },
+      "aquv_aeth": {
+        "name": "Aethalometer Kanal 2"
+      },
+      "baromin": {
+        "name": "Luftdruck"
+      },
+      "clouds": {
+        "name": "Bewölkung"
+      },
+      "dailyrainin": {
+        "name": "Täglicher Regen"
+      },
+      "dewptf": {
+        "name": "Taupunkt"
+      },
+      "humidity": {
+        "name": "Außenluftfeuchtigkeit"
+      },
+      "inbat": {
+        "name": "Batteriestand der Konsole"
+      },
+      "indoorhumidity": {
+        "name": "Innenluftfeuchtigkeit"
+      },
+      "indoortempf": {
+        "name": "Innentemperatur"
+      },
+      "inhum": {
+        "name": "Innenluftfeuchtigkeit"
+      },
+      "intem": {
+        "name": "Innentemperatur"
+      },
+      "last_update": {
+        "name": "Letzter Empfang"
+      },
+      "leafwetness": {
+        "name": "Blattnässe"
+      },
+      "leafwetness2": {
+        "name": "CH2 blattnässe"
+      },
+      "lowbatt": {
+        "name": "Batterie schwach"
+      },
+      "monthlyrainin": {
+        "name": "Monatlicher Regen"
+      },
+      "rainin": {
+        "name": "Stündlicher Regen"
+      },
+      "rbar": {
+        "name": "Relativer Luftdruck"
+      },
+      "rtfreq": {
+        "name": "Aktualisierungsintervall"
+      },
+      "soilmoisture": {
+        "name": "Bodenfeuchte"
+      },
+      "soilmoisture2": {
+        "name": "CH2 bodenfeuchte"
+      },
+      "soilmoisture3": {
+        "name": "CH3 bodenfeuchte"
+      },
+      "soilmoisture4": {
+        "name": "CH4 bodenfeuchte"
+      },
+      "soiltemp2f": {
+        "name": "CH2 bodentemperatur"
+      },
+      "soiltemp3f": {
+        "name": "CH3 bodentemperatur"
+      },
+      "soiltemp4f": {
+        "name": "CH4 bodentemperatur"
+      },
+      "soiltempf": {
+        "name": "Bodentemperatur"
+      },
+      "solarradiation": {
+        "name": "Sonneneinstrahlung"
+      },
+      "t10bat": {
+        "name": "Batteriestand des CO2-Sensors"
+      },
+      "t10cn": {
+        "name": "Verbindungsstatus des CO2-Sensors"
+      },
+      "t10co2": {
+        "name": "CO2-Konzentration"
+      },
+      "t11bat": {
+        "name": "Batteriestand des CO-Sensors"
+      },
+      "t11cn": {
+        "name": "Verbindungsstatus des CO-Sensors"
+      },
+      "t11co": {
+        "name": "CO-Konzentration"
+      },
+      "t1bat": {
+        "name": "Batteriestatus des Außensensors"
+      },
+      "t1chill": {
+        "name": "Windchill-Temperatur"
+      },
+      "t1cn": {
+        "name": "Verbindungsstatus des Außensensors"
+      },
+      "t1dew": {
+        "name": "Taupunkttemperatur"
+      },
+      "t1feels": {
+        "name": "Gefühlte Temperatur"
+      },
+      "t1heat": {
+        "name": "Hitzeindex"
+      },
+      "t1hum": {
+        "name": "Außenluftfeuchtigkeit"
+      },
+      "t1raindy": {
+        "name": "Tägliche Niederschlagsmenge"
+      },
+      "t1rainhr": {
+        "name": "Stündliche Niederschlagsmenge"
+      },
+      "t1rainmth": {
+        "name": "Monatliche Niederschlagsmenge"
+      },
+      "t1rainra": {
+        "name": "Regenrate"
+      },
+      "t1rainwy": {
+        "name": "Wöchentliche Niederschlagsmenge"
+      },
+      "t1rainyr": {
+        "name": "Jährliche Niederschlagsmenge"
+      },
+      "t1solrad": {
+        "name": "Lichtstärke"
+      },
+      "t1tem": {
+        "name": "Außentemperatur"
+      },
+      "t1uvi": {
+        "name": "UV-Index"
+      },
+      "t1wbgt": {
+        "name": "WBGT-Temperatur"
+      },
+      "t1wdir": {
+        "name": "Windrichtung"
+      },
+      "t1wgust": {
+        "name": "Windböe"
+      },
+      "t1ws": {
+        "name": "Windgeschwindigkeit"
+      },
+      "t1ws10mav": {
+        "name": "Windgeschwindigkeit 10 Min. Mittel"
+      },
+      "t234c1bat": {
+        "name": "CH1 batteriestatus"
+      },
+      "t234c1cn": {
+        "name": "CH1 verbindungsstatus"
+      },
+      "t234c1hum": {
+        "name": "CH1 luftfeuchtigkeit"
+      },
+      "t234c1tem": {
+        "name": "CH1 temperatur"
+      },
+      "t234c1tp": {
+        "name": "CH1 sensortyp"
+      },
+      "t234c2bat": {
+        "name": "CH2 batteriestatus"
+      },
+      "t234c2cn": {
+        "name": "CH2 verbindungsstatus"
+      },
+      "t234c2hum": {
+        "name": "CH2 luftfeuchtigkeit"
+      },
+      "t234c2tem": {
+        "name": "CH2 temperatur"
+      },
+      "t234c2tp": {
+        "name": "CH2 sensortyp"
+      },
+      "t234c3bat": {
+        "name": "CH3 batteriestatus"
+      },
+      "t234c3cn": {
+        "name": "CH3 verbindungsstatus"
+      },
+      "t234c3hum": {
+        "name": "CH3 luftfeuchtigkeit"
+      },
+      "t234c3tem": {
+        "name": "CH3 temperatur"
+      },
+      "t234c3tp": {
+        "name": "CH3 sensortyp"
+      },
+      "t234c4bat": {
+        "name": "CH4 batteriestatus"
+      },
+      "t234c4cn": {
+        "name": "CH4 verbindungsstatus"
+      },
+      "t234c4hum": {
+        "name": "CH4 luftfeuchtigkeit"
+      },
+      "t234c4tem": {
+        "name": "CH4 temperatur"
+      },
+      "t234c4tp": {
+        "name": "CH4 sensortyp"
+      },
+      "t234c5bat": {
+        "name": "CH5 batteriestatus"
+      },
+      "t234c5cn": {
+        "name": "CH5 verbindungsstatus"
+      },
+      "t234c5hum": {
+        "name": "CH5 luftfeuchtigkeit"
+      },
+      "t234c5tem": {
+        "name": "CH5 temperatur"
+      },
+      "t234c5tp": {
+        "name": "CH5 sensortyp"
+      },
+      "t234c6bat": {
+        "name": "CH6 batteriestatus"
+      },
+      "t234c6cn": {
+        "name": "CH6 verbindungsstatus"
+      },
+      "t234c6hum": {
+        "name": "CH6 luftfeuchtigkeit"
+      },
+      "t234c6tem": {
+        "name": "CH6 temperatur"
+      },
+      "t234c6tp": {
+        "name": "CH6 sensortyp"
+      },
+      "t234c7bat": {
+        "name": "CH7 batteriestatus"
+      },
+      "t234c7cn": {
+        "name": "CH7 verbindungsstatus"
+      },
+      "t234c7hum": {
+        "name": "CH7 luftfeuchtigkeit"
+      },
+      "t234c7tem": {
+        "name": "CH7 temperatur"
+      },
+      "t234c7tp": {
+        "name": "CH7 sensortyp"
+      },
+      "t5ls1dtc": {
+        "name": "Blitze gesamt an 1 Tag"
+      },
+      "t5ls1htc": {
+        "name": "Blitze gesamt in 1 Stunde"
+      },
+      "t5ls30mtc": {
+        "name": "Blitze in den letzten 30 Minuten"
+      },
+      "t5ls5mtc": {
+        "name": "Blitze in den letzten 5 Minuten"
+      },
+      "t5lsbat": {
+        "name": "Batteriestatus des Blitzsensors"
+      },
+      "t5lscn": {
+        "name": "Verbindungsstatus des Blitzsensors"
+      },
+      "t5lsf": {
+        "name": "Blitze in der letzten Stunde"
+      },
+      "t5lskm": {
+        "name": "Blitzentfernung"
+      },
+      "t5lst": {
+        "name": "Zeit des letzten Blitzeinschlags"
+      },
+      "t6c1bat": {
+        "name": "CH1 batteriestatus des Wassermelders"
+      },
+      "t6c1cn": {
+        "name": "CH1 verbindungsstatus des Wassermelders"
+      },
+      "t6c1wls": {
+        "name": "CH1 wasserleckstatus"
+      },
+      "t6c2bat": {
+        "name": "CH2 batteriestatus des Wassermelders"
+      },
+      "t6c2cn": {
+        "name": "CH2 verbindungsstatus des Wassermelders"
+      },
+      "t6c2wls": {
+        "name": "CH2 wasserleckstatus"
+      },
+      "t6c3bat": {
+        "name": "CH3 batteriestatus des Wassermelders"
+      },
+      "t6c3cn": {
+        "name": "CH3 verbindungsstatus des Wassermelders"
+      },
+      "t6c3wls": {
+        "name": "CH3 wasserleckstatus"
+      },
+      "t6c4bat": {
+        "name": "CH4 batteriestatus des Wassermelders"
+      },
+      "t6c4cn": {
+        "name": "CH4 verbindungsstatus des Wassermelders"
+      },
+      "t6c4wls": {
+        "name": "CH4 wasserleckstatus"
+      },
+      "t6c5bat": {
+        "name": "CH5 batteriestatus des Wassermelders"
+      },
+      "t6c5cn": {
+        "name": "CH5 verbindungsstatus des Wassermelders"
+      },
+      "t6c5wls": {
+        "name": "CH5 wasserleckstatus"
+      },
+      "t6c6bat": {
+        "name": "CH6 batteriestatus des Wassermelders"
+      },
+      "t6c6cn": {
+        "name": "CH6 verbindungsstatus des Wassermelders"
+      },
+      "t6c6wls": {
+        "name": "CH6 wasserleckstatus"
+      },
+      "t6c7bat": {
+        "name": "CH7 batteriestatus des Wassermelders"
+      },
+      "t6c7cn": {
+        "name": "CH7 verbindungsstatus des Wassermelders"
+      },
+      "t6c7wls": {
+        "name": "CH7 wasserleckstatus"
+      },
+      "t8bat": {
+        "name": "Batteriestand des Feinstaubsensors"
+      },
+      "t8cn": {
+        "name": "Verbindungsstatus des Feinstaubsensors"
+      },
+      "t8pm10": {
+        "name": "PM10-Konzentration"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5-Konzentration"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "Batteriestand des HCHO/VOC-Sensors"
+      },
+      "t9cn": {
+        "name": "Verbindungsstatus des HCHO/VOC-Sensors"
+      },
+      "t9hcho": {
+        "name": "HCHO-Konzentration"
+      },
+      "t9voclv": {
+        "name": "VOC-Stufe"
+      },
+      "tempf": {
+        "name": "Außentemperatur"
+      },
+      "uv": {
+        "name": "UV-Index"
+      },
+      "visibility": {
+        "name": "Sichtweite"
+      },
+      "weeklyrainin": {
+        "name": "Wöchentlicher Regen"
+      },
+      "wind_direction_raw": {
+        "name": "Windrichtung (roh)"
+      },
+      "windchillf": {
+        "name": "Windchill"
+      },
+      "winddir": {
+        "name": "Windrichtung"
+      },
+      "winddir_avg2m": {
+        "name": "Windrichtung 2 Min. Mittel"
+      },
+      "windgustdir": {
+        "name": "Böenrichtung"
+      },
+      "windgustdir_10m": {
+        "name": "Böenrichtung 10 Min. Mittel"
+      },
+      "windgustmph": {
+        "name": "Windböe"
+      },
+      "windgustmph_10m": {
+        "name": "Böengeschwindigkeit 10 Min. Mittel"
+      },
+      "windspdmph_avg2m": {
+        "name": "Windgeschwindigkeit 2 Min. Mittel"
+      },
+      "windspeedmph": {
+        "name": "Windgeschwindigkeit"
+      },
+      "yearlyrainin": {
+        "name": "Jährlicher Regen"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Verbindungsstatus des CO2-Sensors"
+      },
+      "t11cn": {
+        "name": "Verbindungsstatus des CO-Sensors"
+      },
+      "t1cn": {
+        "name": "Verbindungsstatus des Außensensors"
+      },
+      "t234c1cn": {
+        "name": "CH1 verbindungsstatus"
+      },
+      "t234c2cn": {
+        "name": "CH2 verbindungsstatus"
+      },
+      "t234c3cn": {
+        "name": "CH3 verbindungsstatus"
+      },
+      "t234c4cn": {
+        "name": "CH4 verbindungsstatus"
+      },
+      "t234c5cn": {
+        "name": "CH5 verbindungsstatus"
+      },
+      "t234c6cn": {
+        "name": "CH6 verbindungsstatus"
+      },
+      "t234c7cn": {
+        "name": "CH7 verbindungsstatus"
+      },
+      "t5lscn": {
+        "name": "Verbindungsstatus des Blitzsensors"
+      },
+      "t6c1cn": {
+        "name": "CH1 verbindungsstatus des Wassermelders"
+      },
+      "t6c1wls": {
+        "name": "CH1 wasserleckstatus"
+      },
+      "t6c2cn": {
+        "name": "CH2 verbindungsstatus des Wassermelders"
+      },
+      "t6c2wls": {
+        "name": "CH2 wasserleckstatus"
+      },
+      "t6c3cn": {
+        "name": "CH3 verbindungsstatus des Wassermelders"
+      },
+      "t6c3wls": {
+        "name": "CH3 wasserleckstatus"
+      },
+      "t6c4cn": {
+        "name": "CH4 verbindungsstatus des Wassermelders"
+      },
+      "t6c4wls": {
+        "name": "CH4 wasserleckstatus"
+      },
+      "t6c5cn": {
+        "name": "CH5 verbindungsstatus des Wassermelders"
+      },
+      "t6c5wls": {
+        "name": "CH5 wasserleckstatus"
+      },
+      "t6c6cn": {
+        "name": "CH6 verbindungsstatus des Wassermelders"
+      },
+      "t6c6wls": {
+        "name": "CH6 wasserleckstatus"
+      },
+      "t6c7cn": {
+        "name": "CH7 verbindungsstatus des Wassermelders"
+      },
+      "t6c7wls": {
+        "name": "CH7 wasserleckstatus"
+      },
+      "t8cn": {
+        "name": "Verbindungsstatus des Feinstaubsensors"
+      },
+      "t9cn": {
+        "name": "Verbindungsstatus des HCHO/VOC-Sensors"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Windrichtungs-Offset"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Offset zurücksetzen"
+      },
+      "set_north": {
+        "name": "Norden auf aktuellen Wert setzen"
+      }
+    }
+  }
+}

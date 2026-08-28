@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "개인 기상 관측소",
+        "description": "기상 관측소의 데이터가 거부되지 않도록 관측소가 전송해야 하는 스테이션 키를 여기에 설정하세요. 비워 두면 모든 요청이 수락됩니다.",
+        "data": {
+          "password": "스테이션 키"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "이미 구성되었습니다. 하나의 인스턴스가 모든 기상 관측소를 처리합니다."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "개인 기상 관측소",
+        "description": "기상 관측소의 데이터가 거부되지 않도록 관측소가 전송해야 하는 스테이션 키를 여기에 설정하세요. 비워 두면 모든 요청이 수락됩니다.",
+        "data": {
+          "password": "스테이션 키",
+          "availability_timeout": "사용할 수 없음으로 표시하기까지 (분)",
+          "debug": "수신되는 모든 요청 기록"
+        },
+        "data_description": {
+          "availability_timeout": "센서가 사용할 수 없음으로 표시되기까지 관측소가 무응답 상태로 있을 수 있는 시간입니다. 0이면 표시하지 않습니다.",
+          "debug": "각 요청의 전체 내용을 Home Assistant 로그에 기록합니다. 관측소를 설정할 때는 유용하지만 이후에는 번거롭습니다."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "기상 관측소 거부됨: 잘못된 스테이션 키",
+      "description": "{ip}의 기상 관측소가 예상되는 스테이션 키를 전송하지 않고 `{station_id}`(으)로 데이터를 보내려고 했습니다.\n\n관측소나 WSLink 앱에 설정된 키가 이 통합에 설정된 키와 일치하는지 확인하세요. 이 메시지는 {ip}에서 온 요청이 수락되는 즉시 자동으로 사라집니다."
+    },
+    "missing_device_id": {
+      "title": "기상 관측소 거부됨: 스테이션 식별자 없음",
+      "description": "{ip}의 기상 관측소가 스테이션 식별자 없이 데이터를 보냈습니다.\n\nWSLink 앱에서 Sender ID를, 또는 관측소 설정에서 ID 매개변수를 지정하세요. 이 메시지는 {ip}에서 온 요청이 수락되는 즉시 자동으로 사라집니다."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "{device} 관측소가 아직 풍향을 전송하지 않아 보정할 기준이 없습니다. 다음 전송을 기다린 후 다시 시도하세요."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "절대 기압"
+      },
+      "apiver": {
+        "name": "API 버전"
+      },
+      "aqbc": {
+        "name": "블랙 카본"
+      },
+      "aqco": {
+        "name": "일산화탄소"
+      },
+      "aqcot": {
+        "name": "미량 일산화탄소"
+      },
+      "aqec": {
+        "name": "원소 탄소"
+      },
+      "aqno": {
+        "name": "일산화질소"
+      },
+      "aqno2": {
+        "name": "NO2 X 계산값"
+      },
+      "aqno2t": {
+        "name": "이산화질소"
+      },
+      "aqno2y": {
+        "name": "NO2 Y 계산값"
+      },
+      "aqno3": {
+        "name": "NO3 이온"
+      },
+      "aqnox": {
+        "name": "질소산화물"
+      },
+      "aqnoy": {
+        "name": "총 반응성 질소"
+      },
+      "aqoc": {
+        "name": "유기 탄소"
+      },
+      "aqozone": {
+        "name": "오존"
+      },
+      "aqpm10": {
+        "name": "PM10 질량"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 질량"
+      },
+      "aqso2": {
+        "name": "이산화황"
+      },
+      "aqso2t": {
+        "name": "미량 이산화황"
+      },
+      "aqso4": {
+        "name": "SO4 이온"
+      },
+      "aquv_aeth": {
+        "name": "에탈로미터 채널 2"
+      },
+      "baromin": {
+        "name": "기압"
+      },
+      "clouds": {
+        "name": "운량"
+      },
+      "dailyrainin": {
+        "name": "일 강우"
+      },
+      "dewptf": {
+        "name": "이슬점"
+      },
+      "humidity": {
+        "name": "실외 습도"
+      },
+      "inbat": {
+        "name": "콘솔 배터리 잔량"
+      },
+      "indoorhumidity": {
+        "name": "실내 습도"
+      },
+      "indoortempf": {
+        "name": "실내 온도"
+      },
+      "inhum": {
+        "name": "실내 습도"
+      },
+      "intem": {
+        "name": "실내 온도"
+      },
+      "last_update": {
+        "name": "마지막 수신"
+      },
+      "leafwetness": {
+        "name": "잎 습윤도"
+      },
+      "leafwetness2": {
+        "name": "CH2 잎 습윤도"
+      },
+      "lowbatt": {
+        "name": "배터리 부족"
+      },
+      "monthlyrainin": {
+        "name": "월간 강우"
+      },
+      "rainin": {
+        "name": "시간 강우"
+      },
+      "rbar": {
+        "name": "상대 기압"
+      },
+      "rtfreq": {
+        "name": "업데이트 주기"
+      },
+      "soilmoisture": {
+        "name": "토양 수분"
+      },
+      "soilmoisture2": {
+        "name": "CH2 토양 수분"
+      },
+      "soilmoisture3": {
+        "name": "CH3 토양 수분"
+      },
+      "soilmoisture4": {
+        "name": "CH4 토양 수분"
+      },
+      "soiltemp2f": {
+        "name": "CH2 토양 온도"
+      },
+      "soiltemp3f": {
+        "name": "CH3 토양 온도"
+      },
+      "soiltemp4f": {
+        "name": "CH4 토양 온도"
+      },
+      "soiltempf": {
+        "name": "토양 온도"
+      },
+      "solarradiation": {
+        "name": "일사량"
+      },
+      "t10bat": {
+        "name": "CO2 센서 배터리 잔량"
+      },
+      "t10cn": {
+        "name": "CO2 센서 연결 상태"
+      },
+      "t10co2": {
+        "name": "CO2 농도"
+      },
+      "t11bat": {
+        "name": "CO 센서 배터리 잔량"
+      },
+      "t11cn": {
+        "name": "CO 센서 연결 상태"
+      },
+      "t11co": {
+        "name": "CO 농도"
+      },
+      "t1bat": {
+        "name": "실외 센서 배터리 상태"
+      },
+      "t1chill": {
+        "name": "체감 냉각 온도"
+      },
+      "t1cn": {
+        "name": "실외 센서 연결 상태"
+      },
+      "t1dew": {
+        "name": "이슬점 온도"
+      },
+      "t1feels": {
+        "name": "체감 온도"
+      },
+      "t1heat": {
+        "name": "열지수"
+      },
+      "t1hum": {
+        "name": "실외 습도"
+      },
+      "t1raindy": {
+        "name": "일 강수량"
+      },
+      "t1rainhr": {
+        "name": "시간 강수량"
+      },
+      "t1rainmth": {
+        "name": "월간 강수량"
+      },
+      "t1rainra": {
+        "name": "강우 강도"
+      },
+      "t1rainwy": {
+        "name": "주간 강수량"
+      },
+      "t1rainyr": {
+        "name": "연간 강수량"
+      },
+      "t1solrad": {
+        "name": "광도"
+      },
+      "t1tem": {
+        "name": "실외 온도"
+      },
+      "t1uvi": {
+        "name": "자외선 지수"
+      },
+      "t1wbgt": {
+        "name": "WBGT 온도"
+      },
+      "t1wdir": {
+        "name": "풍향"
+      },
+      "t1wgust": {
+        "name": "돌풍"
+      },
+      "t1ws": {
+        "name": "풍속"
+      },
+      "t1ws10mav": {
+        "name": "풍속 10분 평균"
+      },
+      "t234c1bat": {
+        "name": "CH1 배터리 상태"
+      },
+      "t234c1cn": {
+        "name": "CH1 연결 상태"
+      },
+      "t234c1hum": {
+        "name": "CH1 습도"
+      },
+      "t234c1tem": {
+        "name": "CH1 온도"
+      },
+      "t234c1tp": {
+        "name": "CH1 센서 유형"
+      },
+      "t234c2bat": {
+        "name": "CH2 배터리 상태"
+      },
+      "t234c2cn": {
+        "name": "CH2 연결 상태"
+      },
+      "t234c2hum": {
+        "name": "CH2 습도"
+      },
+      "t234c2tem": {
+        "name": "CH2 온도"
+      },
+      "t234c2tp": {
+        "name": "CH2 센서 유형"
+      },
+      "t234c3bat": {
+        "name": "CH3 배터리 상태"
+      },
+      "t234c3cn": {
+        "name": "CH3 연결 상태"
+      },
+      "t234c3hum": {
+        "name": "CH3 습도"
+      },
+      "t234c3tem": {
+        "name": "CH3 온도"
+      },
+      "t234c3tp": {
+        "name": "CH3 센서 유형"
+      },
+      "t234c4bat": {
+        "name": "CH4 배터리 상태"
+      },
+      "t234c4cn": {
+        "name": "CH4 연결 상태"
+      },
+      "t234c4hum": {
+        "name": "CH4 습도"
+      },
+      "t234c4tem": {
+        "name": "CH4 온도"
+      },
+      "t234c4tp": {
+        "name": "CH4 센서 유형"
+      },
+      "t234c5bat": {
+        "name": "CH5 배터리 상태"
+      },
+      "t234c5cn": {
+        "name": "CH5 연결 상태"
+      },
+      "t234c5hum": {
+        "name": "CH5 습도"
+      },
+      "t234c5tem": {
+        "name": "CH5 온도"
+      },
+      "t234c5tp": {
+        "name": "CH5 센서 유형"
+      },
+      "t234c6bat": {
+        "name": "CH6 배터리 상태"
+      },
+      "t234c6cn": {
+        "name": "CH6 연결 상태"
+      },
+      "t234c6hum": {
+        "name": "CH6 습도"
+      },
+      "t234c6tem": {
+        "name": "CH6 온도"
+      },
+      "t234c6tp": {
+        "name": "CH6 센서 유형"
+      },
+      "t234c7bat": {
+        "name": "CH7 배터리 상태"
+      },
+      "t234c7cn": {
+        "name": "CH7 연결 상태"
+      },
+      "t234c7hum": {
+        "name": "CH7 습도"
+      },
+      "t234c7tem": {
+        "name": "CH7 온도"
+      },
+      "t234c7tp": {
+        "name": "CH7 센서 유형"
+      },
+      "t5ls1dtc": {
+        "name": "1일 낙뢰 합계"
+      },
+      "t5ls1htc": {
+        "name": "1시간 낙뢰 합계"
+      },
+      "t5ls30mtc": {
+        "name": "최근 30분 낙뢰"
+      },
+      "t5ls5mtc": {
+        "name": "최근 5분 낙뢰"
+      },
+      "t5lsbat": {
+        "name": "낙뢰 센서 배터리 상태"
+      },
+      "t5lscn": {
+        "name": "낙뢰 센서 연결 상태"
+      },
+      "t5lsf": {
+        "name": "최근 1시간 낙뢰"
+      },
+      "t5lskm": {
+        "name": "낙뢰 거리"
+      },
+      "t5lst": {
+        "name": "마지막 낙뢰 시각"
+      },
+      "t6c1bat": {
+        "name": "CH1 누수 센서 배터리 상태"
+      },
+      "t6c1cn": {
+        "name": "CH1 누수 센서 연결 상태"
+      },
+      "t6c1wls": {
+        "name": "CH1 누수 상태"
+      },
+      "t6c2bat": {
+        "name": "CH2 누수 센서 배터리 상태"
+      },
+      "t6c2cn": {
+        "name": "CH2 누수 센서 연결 상태"
+      },
+      "t6c2wls": {
+        "name": "CH2 누수 상태"
+      },
+      "t6c3bat": {
+        "name": "CH3 누수 센서 배터리 상태"
+      },
+      "t6c3cn": {
+        "name": "CH3 누수 센서 연결 상태"
+      },
+      "t6c3wls": {
+        "name": "CH3 누수 상태"
+      },
+      "t6c4bat": {
+        "name": "CH4 누수 센서 배터리 상태"
+      },
+      "t6c4cn": {
+        "name": "CH4 누수 센서 연결 상태"
+      },
+      "t6c4wls": {
+        "name": "CH4 누수 상태"
+      },
+      "t6c5bat": {
+        "name": "CH5 누수 센서 배터리 상태"
+      },
+      "t6c5cn": {
+        "name": "CH5 누수 센서 연결 상태"
+      },
+      "t6c5wls": {
+        "name": "CH5 누수 상태"
+      },
+      "t6c6bat": {
+        "name": "CH6 누수 센서 배터리 상태"
+      },
+      "t6c6cn": {
+        "name": "CH6 누수 센서 연결 상태"
+      },
+      "t6c6wls": {
+        "name": "CH6 누수 상태"
+      },
+      "t6c7bat": {
+        "name": "CH7 누수 센서 배터리 상태"
+      },
+      "t6c7cn": {
+        "name": "CH7 누수 센서 연결 상태"
+      },
+      "t6c7wls": {
+        "name": "CH7 누수 상태"
+      },
+      "t8bat": {
+        "name": "입자 센서 배터리 잔량"
+      },
+      "t8cn": {
+        "name": "입자 센서 연결 상태"
+      },
+      "t8pm10": {
+        "name": "PM10 농도"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 농도"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/VOC 센서 배터리 잔량"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC 센서 연결 상태"
+      },
+      "t9hcho": {
+        "name": "HCHO 농도"
+      },
+      "t9voclv": {
+        "name": "VOC 수준"
+      },
+      "tempf": {
+        "name": "실외 온도"
+      },
+      "uv": {
+        "name": "자외선 지수"
+      },
+      "visibility": {
+        "name": "시정"
+      },
+      "weeklyrainin": {
+        "name": "주간 강우"
+      },
+      "wind_direction_raw": {
+        "name": "풍향 (원시값)"
+      },
+      "windchillf": {
+        "name": "체감 냉각"
+      },
+      "winddir": {
+        "name": "풍향"
+      },
+      "winddir_avg2m": {
+        "name": "풍향 2분 평균"
+      },
+      "windgustdir": {
+        "name": "돌풍 방향"
+      },
+      "windgustdir_10m": {
+        "name": "돌풍 방향 10분 평균"
+      },
+      "windgustmph": {
+        "name": "돌풍"
+      },
+      "windgustmph_10m": {
+        "name": "돌풍 속도 10분 평균"
+      },
+      "windspdmph_avg2m": {
+        "name": "풍속 2분 평균"
+      },
+      "windspeedmph": {
+        "name": "풍속"
+      },
+      "yearlyrainin": {
+        "name": "연간 강우"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 센서 연결 상태"
+      },
+      "t11cn": {
+        "name": "CO 센서 연결 상태"
+      },
+      "t1cn": {
+        "name": "실외 센서 연결 상태"
+      },
+      "t234c1cn": {
+        "name": "CH1 연결 상태"
+      },
+      "t234c2cn": {
+        "name": "CH2 연결 상태"
+      },
+      "t234c3cn": {
+        "name": "CH3 연결 상태"
+      },
+      "t234c4cn": {
+        "name": "CH4 연결 상태"
+      },
+      "t234c5cn": {
+        "name": "CH5 연결 상태"
+      },
+      "t234c6cn": {
+        "name": "CH6 연결 상태"
+      },
+      "t234c7cn": {
+        "name": "CH7 연결 상태"
+      },
+      "t5lscn": {
+        "name": "낙뢰 센서 연결 상태"
+      },
+      "t6c1cn": {
+        "name": "CH1 누수 센서 연결 상태"
+      },
+      "t6c1wls": {
+        "name": "CH1 누수 상태"
+      },
+      "t6c2cn": {
+        "name": "CH2 누수 센서 연결 상태"
+      },
+      "t6c2wls": {
+        "name": "CH2 누수 상태"
+      },
+      "t6c3cn": {
+        "name": "CH3 누수 센서 연결 상태"
+      },
+      "t6c3wls": {
+        "name": "CH3 누수 상태"
+      },
+      "t6c4cn": {
+        "name": "CH4 누수 센서 연결 상태"
+      },
+      "t6c4wls": {
+        "name": "CH4 누수 상태"
+      },
+      "t6c5cn": {
+        "name": "CH5 누수 센서 연결 상태"
+      },
+      "t6c5wls": {
+        "name": "CH5 누수 상태"
+      },
+      "t6c6cn": {
+        "name": "CH6 누수 센서 연결 상태"
+      },
+      "t6c6wls": {
+        "name": "CH6 누수 상태"
+      },
+      "t6c7cn": {
+        "name": "CH7 누수 센서 연결 상태"
+      },
+      "t6c7wls": {
+        "name": "CH7 누수 상태"
+      },
+      "t8cn": {
+        "name": "입자 센서 연결 상태"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC 센서 연결 상태"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "풍향 오프셋"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "오프셋 초기화"
+      },
+      "set_north": {
+        "name": "현재 값을 북쪽으로 설정"
+      }
+    }
+  }
+}

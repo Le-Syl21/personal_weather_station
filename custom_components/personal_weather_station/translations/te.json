@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "వ్యక్తిగత వాతావరణ కేంద్రం",
+        "description": "మీ వాతావరణ కేంద్రాల డేటా తిరస్కరించబడకుండా ఉండేందుకు అవి పంపవలసిన కేంద్ర కీని ఇక్కడ సెట్ చేయండి. ఫీల్డ్‌ను ఖాళీగా ఉంచితే, అన్ని అభ్యర్థనలూ ఆమోదించబడతాయి.",
+        "data": {
+          "password": "కేంద్ర కీ"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "ఇప్పటికే కాన్ఫిగర్ చేయబడింది. ఒకే ఇన్‌స్టెన్స్ అన్ని వాతావరణ కేంద్రాలకు సేవలందిస్తుంది."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "వ్యక్తిగత వాతావరణ కేంద్రం",
+        "description": "మీ వాతావరణ కేంద్రాల డేటా తిరస్కరించబడకుండా ఉండేందుకు అవి పంపవలసిన కేంద్ర కీని ఇక్కడ సెట్ చేయండి. ఫీల్డ్‌ను ఖాళీగా ఉంచితే, అన్ని అభ్యర్థనలూ ఆమోదించబడతాయి.",
+        "data": {
+          "password": "కేంద్ర కీ",
+          "availability_timeout": "ఇంత సమయం తర్వాత అందుబాటులో లేదని గుర్తించు (నిమిషాలు)",
+          "debug": "వచ్చే ప్రతి అభ్యర్థనను లాగ్ చేయి"
+        },
+        "data_description": {
+          "availability_timeout": "సెన్సార్లు అందుబాటులో లేవని గుర్తించబడక ముందు ఒక కేంద్రం ఎంతసేపు నిశ్శబ్దంగా ఉండవచ్చు. 0 అంటే ఎప్పుడూ గుర్తించవద్దు.",
+          "debug": "ప్రతి అభ్యర్థన పూర్తి విషయాన్ని Home Assistant లాగ్‌లో రాస్తుంది. కేంద్రాన్ని సెటప్ చేసేటప్పుడు ఉపయోగకరం, ఆ తర్వాత ఇబ్బందికరం."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "వాతావరణ కేంద్రం తిరస్కరించబడింది: తప్పు కేంద్ర కీ",
+      "description": "{ip} వద్ద ఉన్న వాతావరణ కేంద్రం ఆశించిన కేంద్ర కీని పంపకుండా `{station_id}` గా డేటా పంపడానికి ప్రయత్నించింది.\n\nకేంద్రంలో లేదా WSLink యాప్‌లో సెట్ చేసిన కీ ఈ ఇంటిగ్రేషన్‌లో సెట్ చేసిన దానితో సరిపోతుందో లేదో తనిఖీ చేయండి. {ip} నుండి ఒక అభ్యర్థన ఆమోదించబడిన వెంటనే ఈ సందేశం దానంతట అదే అదృశ్యమవుతుంది."
+    },
+    "missing_device_id": {
+      "title": "వాతావరణ కేంద్రం తిరస్కరించబడింది: కేంద్ర గుర్తింపు లేదు",
+      "description": "{ip} వద్ద ఉన్న వాతావరణ కేంద్రం కేంద్ర గుర్తింపు లేకుండా డేటా పంపింది.\n\nWSLink యాప్‌లో ఒక Sender ID, లేదా కేంద్ర కాన్ఫిగరేషన్‌లో ఒక ID పరామితిని సెట్ చేయండి. {ip} నుండి ఒక అభ్యర్థన ఆమోదించబడిన వెంటనే ఈ సందేశం దానంతట అదే అదృశ్యమవుతుంది."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "{device} కేంద్రం ఇంకా గాలి దిశను పంపలేదు, కాబట్టి క్రమాంకనం చేయడానికి ఏమీ లేదు. తదుపరి అప్‌లోడ్ కోసం వేచి ఉండి మళ్లీ ప్రయత్నించండి."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "సంపూర్ణ గాలి పీడనం"
+      },
+      "apiver": {
+        "name": "API వెర్షన్"
+      },
+      "aqbc": {
+        "name": "నల్ల కార్బన్"
+      },
+      "aqco": {
+        "name": "కార్బన్ మోనాక్సైడ్"
+      },
+      "aqcot": {
+        "name": "స్వల్ప మోతాదులో కార్బన్ మోనాక్సైడ్"
+      },
+      "aqec": {
+        "name": "మౌలిక కార్బన్"
+      },
+      "aqno": {
+        "name": "నైట్రిక్ ఆక్సైడ్"
+      },
+      "aqno2": {
+        "name": "NO2 X గణించబడింది"
+      },
+      "aqno2t": {
+        "name": "నైట్రోజన్ డయాక్సైడ్"
+      },
+      "aqno2y": {
+        "name": "NO2 Y గణించబడింది"
+      },
+      "aqno3": {
+        "name": "NO3 అయాన్"
+      },
+      "aqnox": {
+        "name": "నైట్రోజన్ ఆక్సైడ్లు"
+      },
+      "aqnoy": {
+        "name": "మొత్తం చర్యాశీల నైట్రోజన్"
+      },
+      "aqoc": {
+        "name": "సేంద్రియ కార్బన్"
+      },
+      "aqozone": {
+        "name": "ఓజోన్"
+      },
+      "aqpm10": {
+        "name": "PM10 ద్రవ్యరాశి"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 ద్రవ్యరాశి"
+      },
+      "aqso2": {
+        "name": "సల్ఫర్ డయాక్సైడ్"
+      },
+      "aqso2t": {
+        "name": "స్వల్ప మోతాదులో సల్ఫర్ డయాక్సైడ్"
+      },
+      "aqso4": {
+        "name": "SO4 అయాన్"
+      },
+      "aquv_aeth": {
+        "name": "ఎథలోమీటర్ ఛానెల్ 2"
+      },
+      "baromin": {
+        "name": "పీడనం"
+      },
+      "clouds": {
+        "name": "మేఘావృతం"
+      },
+      "dailyrainin": {
+        "name": "రోజువారీ వర్షం"
+      },
+      "dewptf": {
+        "name": "మంచు బిందువు"
+      },
+      "humidity": {
+        "name": "బయటి తేమ"
+      },
+      "inbat": {
+        "name": "కన్సోల్ బ్యాటరీ స్థాయి"
+      },
+      "indoorhumidity": {
+        "name": "లోపలి తేమ"
+      },
+      "indoortempf": {
+        "name": "లోపలి ఉష్ణోగ్రత"
+      },
+      "inhum": {
+        "name": "లోపలి తేమ"
+      },
+      "intem": {
+        "name": "లోపలి ఉష్ణోగ్రత"
+      },
+      "last_update": {
+        "name": "చివరి స్వీకరణ"
+      },
+      "leafwetness": {
+        "name": "ఆకు తడి"
+      },
+      "leafwetness2": {
+        "name": "CH2 ఆకు తడి"
+      },
+      "lowbatt": {
+        "name": "బ్యాటరీ తక్కువ"
+      },
+      "monthlyrainin": {
+        "name": "నెలవారీ వర్షం"
+      },
+      "rainin": {
+        "name": "గంటవారీ వర్షం"
+      },
+      "rbar": {
+        "name": "సాపేక్ష గాలి పీడనం"
+      },
+      "rtfreq": {
+        "name": "నవీకరణ తరచుదనం"
+      },
+      "soilmoisture": {
+        "name": "నేల తేమ"
+      },
+      "soilmoisture2": {
+        "name": "CH2 నేల తేమ"
+      },
+      "soilmoisture3": {
+        "name": "CH3 నేల తేమ"
+      },
+      "soilmoisture4": {
+        "name": "CH4 నేల తేమ"
+      },
+      "soiltemp2f": {
+        "name": "CH2 నేల ఉష్ణోగ్రత"
+      },
+      "soiltemp3f": {
+        "name": "CH3 నేల ఉష్ణోగ్రత"
+      },
+      "soiltemp4f": {
+        "name": "CH4 నేల ఉష్ణోగ్రత"
+      },
+      "soiltempf": {
+        "name": "నేల ఉష్ణోగ్రత"
+      },
+      "solarradiation": {
+        "name": "సౌర వికిరణం"
+      },
+      "t10bat": {
+        "name": "CO2 సెన్సార్ బ్యాటరీ స్థాయి"
+      },
+      "t10cn": {
+        "name": "CO2 సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t10co2": {
+        "name": "CO2 సాంద్రత"
+      },
+      "t11bat": {
+        "name": "CO సెన్సార్ బ్యాటరీ స్థాయి"
+      },
+      "t11cn": {
+        "name": "CO సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t11co": {
+        "name": "CO సాంద్రత"
+      },
+      "t1bat": {
+        "name": "బయటి సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t1chill": {
+        "name": "గాలి చల్లదనం ఉష్ణోగ్రత"
+      },
+      "t1cn": {
+        "name": "బయటి సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t1dew": {
+        "name": "మంచు బిందువు ఉష్ణోగ్రత"
+      },
+      "t1feels": {
+        "name": "అనుభూతి ఉష్ణోగ్రత"
+      },
+      "t1heat": {
+        "name": "ఉష్ణ సూచిక"
+      },
+      "t1hum": {
+        "name": "బయటి తేమ"
+      },
+      "t1raindy": {
+        "name": "రోజువారీ వర్షపాతం"
+      },
+      "t1rainhr": {
+        "name": "గంటవారీ వర్షపాతం"
+      },
+      "t1rainmth": {
+        "name": "నెలవారీ వర్షపాతం"
+      },
+      "t1rainra": {
+        "name": "వర్ష తీవ్రత"
+      },
+      "t1rainwy": {
+        "name": "వారపు వర్షపాతం"
+      },
+      "t1rainyr": {
+        "name": "వార్షిక వర్షపాతం"
+      },
+      "t1solrad": {
+        "name": "కాంతి తీవ్రత"
+      },
+      "t1tem": {
+        "name": "బయటి ఉష్ణోగ్రత"
+      },
+      "t1uvi": {
+        "name": "UV సూచిక"
+      },
+      "t1wbgt": {
+        "name": "WBGT ఉష్ణోగ్రత"
+      },
+      "t1wdir": {
+        "name": "గాలి దిశ"
+      },
+      "t1wgust": {
+        "name": "గాలి విసురు"
+      },
+      "t1ws": {
+        "name": "గాలి వేగం"
+      },
+      "t1ws10mav": {
+        "name": "గాలి వేగం 10 నిమిషాల సగటు"
+      },
+      "t234c1bat": {
+        "name": "CH1 బ్యాటరీ స్థితి"
+      },
+      "t234c1cn": {
+        "name": "CH1 కనెక్షన్ స్థితి"
+      },
+      "t234c1hum": {
+        "name": "CH1 తేమ"
+      },
+      "t234c1tem": {
+        "name": "CH1 ఉష్ణోగ్రత"
+      },
+      "t234c1tp": {
+        "name": "CH1 సెన్సార్ రకం"
+      },
+      "t234c2bat": {
+        "name": "CH2 బ్యాటరీ స్థితి"
+      },
+      "t234c2cn": {
+        "name": "CH2 కనెక్షన్ స్థితి"
+      },
+      "t234c2hum": {
+        "name": "CH2 తేమ"
+      },
+      "t234c2tem": {
+        "name": "CH2 ఉష్ణోగ్రత"
+      },
+      "t234c2tp": {
+        "name": "CH2 సెన్సార్ రకం"
+      },
+      "t234c3bat": {
+        "name": "CH3 బ్యాటరీ స్థితి"
+      },
+      "t234c3cn": {
+        "name": "CH3 కనెక్షన్ స్థితి"
+      },
+      "t234c3hum": {
+        "name": "CH3 తేమ"
+      },
+      "t234c3tem": {
+        "name": "CH3 ఉష్ణోగ్రత"
+      },
+      "t234c3tp": {
+        "name": "CH3 సెన్సార్ రకం"
+      },
+      "t234c4bat": {
+        "name": "CH4 బ్యాటరీ స్థితి"
+      },
+      "t234c4cn": {
+        "name": "CH4 కనెక్షన్ స్థితి"
+      },
+      "t234c4hum": {
+        "name": "CH4 తేమ"
+      },
+      "t234c4tem": {
+        "name": "CH4 ఉష్ణోగ్రత"
+      },
+      "t234c4tp": {
+        "name": "CH4 సెన్సార్ రకం"
+      },
+      "t234c5bat": {
+        "name": "CH5 బ్యాటరీ స్థితి"
+      },
+      "t234c5cn": {
+        "name": "CH5 కనెక్షన్ స్థితి"
+      },
+      "t234c5hum": {
+        "name": "CH5 తేమ"
+      },
+      "t234c5tem": {
+        "name": "CH5 ఉష్ణోగ్రత"
+      },
+      "t234c5tp": {
+        "name": "CH5 సెన్సార్ రకం"
+      },
+      "t234c6bat": {
+        "name": "CH6 బ్యాటరీ స్థితి"
+      },
+      "t234c6cn": {
+        "name": "CH6 కనెక్షన్ స్థితి"
+      },
+      "t234c6hum": {
+        "name": "CH6 తేమ"
+      },
+      "t234c6tem": {
+        "name": "CH6 ఉష్ణోగ్రత"
+      },
+      "t234c6tp": {
+        "name": "CH6 సెన్సార్ రకం"
+      },
+      "t234c7bat": {
+        "name": "CH7 బ్యాటరీ స్థితి"
+      },
+      "t234c7cn": {
+        "name": "CH7 కనెక్షన్ స్థితి"
+      },
+      "t234c7hum": {
+        "name": "CH7 తేమ"
+      },
+      "t234c7tem": {
+        "name": "CH7 ఉష్ణోగ్రత"
+      },
+      "t234c7tp": {
+        "name": "CH7 సెన్సార్ రకం"
+      },
+      "t5ls1dtc": {
+        "name": "1 రోజులో మొత్తం పిడుగులు"
+      },
+      "t5ls1htc": {
+        "name": "1 గంటలో మొత్తం పిడుగులు"
+      },
+      "t5ls30mtc": {
+        "name": "గత 30 నిమిషాల్లో పిడుగులు"
+      },
+      "t5ls5mtc": {
+        "name": "గత 5 నిమిషాల్లో పిడుగులు"
+      },
+      "t5lsbat": {
+        "name": "పిడుగు సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t5lscn": {
+        "name": "పిడుగు సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t5lsf": {
+        "name": "గత గంటలో పిడుగులు"
+      },
+      "t5lskm": {
+        "name": "పిడుగు దూరం"
+      },
+      "t5lst": {
+        "name": "చివరి పిడుగు సమయం"
+      },
+      "t6c1bat": {
+        "name": "CH1 లీక్ సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t6c1cn": {
+        "name": "CH1 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c1wls": {
+        "name": "CH1 నీటి లీక్ స్థితి"
+      },
+      "t6c2bat": {
+        "name": "CH2 లీక్ సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t6c2cn": {
+        "name": "CH2 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c2wls": {
+        "name": "CH2 నీటి లీక్ స్థితి"
+      },
+      "t6c3bat": {
+        "name": "CH3 లీక్ సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t6c3cn": {
+        "name": "CH3 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c3wls": {
+        "name": "CH3 నీటి లీక్ స్థితి"
+      },
+      "t6c4bat": {
+        "name": "CH4 లీక్ సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t6c4cn": {
+        "name": "CH4 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c4wls": {
+        "name": "CH4 నీటి లీక్ స్థితి"
+      },
+      "t6c5bat": {
+        "name": "CH5 లీక్ సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t6c5cn": {
+        "name": "CH5 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c5wls": {
+        "name": "CH5 నీటి లీక్ స్థితి"
+      },
+      "t6c6bat": {
+        "name": "CH6 లీక్ సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t6c6cn": {
+        "name": "CH6 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c6wls": {
+        "name": "CH6 నీటి లీక్ స్థితి"
+      },
+      "t6c7bat": {
+        "name": "CH7 లీక్ సెన్సార్ బ్యాటరీ స్థితి"
+      },
+      "t6c7cn": {
+        "name": "CH7 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c7wls": {
+        "name": "CH7 నీటి లీక్ స్థితి"
+      },
+      "t8bat": {
+        "name": "కణ సెన్సార్ బ్యాటరీ స్థాయి"
+      },
+      "t8cn": {
+        "name": "కణ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t8pm10": {
+        "name": "PM10 సాంద్రత"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 సాంద్రత"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/VOC సెన్సార్ బ్యాటరీ స్థాయి"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t9hcho": {
+        "name": "HCHO సాంద్రత"
+      },
+      "t9voclv": {
+        "name": "VOC స్థాయి"
+      },
+      "tempf": {
+        "name": "బయటి ఉష్ణోగ్రత"
+      },
+      "uv": {
+        "name": "UV సూచిక"
+      },
+      "visibility": {
+        "name": "దృశ్యమానత"
+      },
+      "weeklyrainin": {
+        "name": "వారపు వర్షం"
+      },
+      "wind_direction_raw": {
+        "name": "గాలి దిశ (ముడి)"
+      },
+      "windchillf": {
+        "name": "గాలి చల్లదనం"
+      },
+      "winddir": {
+        "name": "గాలి దిశ"
+      },
+      "winddir_avg2m": {
+        "name": "గాలి దిశ 2 నిమిషాల సగటు"
+      },
+      "windgustdir": {
+        "name": "విసురు దిశ"
+      },
+      "windgustdir_10m": {
+        "name": "విసురు దిశ 10 నిమిషాల సగటు"
+      },
+      "windgustmph": {
+        "name": "గాలి విసురు"
+      },
+      "windgustmph_10m": {
+        "name": "విసురు వేగం 10 నిమిషాల సగటు"
+      },
+      "windspdmph_avg2m": {
+        "name": "గాలి వేగం 2 నిమిషాల సగటు"
+      },
+      "windspeedmph": {
+        "name": "గాలి వేగం"
+      },
+      "yearlyrainin": {
+        "name": "వార్షిక వర్షం"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t11cn": {
+        "name": "CO సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t1cn": {
+        "name": "బయటి సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t234c1cn": {
+        "name": "CH1 కనెక్షన్ స్థితి"
+      },
+      "t234c2cn": {
+        "name": "CH2 కనెక్షన్ స్థితి"
+      },
+      "t234c3cn": {
+        "name": "CH3 కనెక్షన్ స్థితి"
+      },
+      "t234c4cn": {
+        "name": "CH4 కనెక్షన్ స్థితి"
+      },
+      "t234c5cn": {
+        "name": "CH5 కనెక్షన్ స్థితి"
+      },
+      "t234c6cn": {
+        "name": "CH6 కనెక్షన్ స్థితి"
+      },
+      "t234c7cn": {
+        "name": "CH7 కనెక్షన్ స్థితి"
+      },
+      "t5lscn": {
+        "name": "పిడుగు సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c1cn": {
+        "name": "CH1 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c1wls": {
+        "name": "CH1 నీటి లీక్ స్థితి"
+      },
+      "t6c2cn": {
+        "name": "CH2 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c2wls": {
+        "name": "CH2 నీటి లీక్ స్థితి"
+      },
+      "t6c3cn": {
+        "name": "CH3 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c3wls": {
+        "name": "CH3 నీటి లీక్ స్థితి"
+      },
+      "t6c4cn": {
+        "name": "CH4 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c4wls": {
+        "name": "CH4 నీటి లీక్ స్థితి"
+      },
+      "t6c5cn": {
+        "name": "CH5 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c5wls": {
+        "name": "CH5 నీటి లీక్ స్థితి"
+      },
+      "t6c6cn": {
+        "name": "CH6 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c6wls": {
+        "name": "CH6 నీటి లీక్ స్థితి"
+      },
+      "t6c7cn": {
+        "name": "CH7 లీక్ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t6c7wls": {
+        "name": "CH7 నీటి లీక్ స్థితి"
+      },
+      "t8cn": {
+        "name": "కణ సెన్సార్ కనెక్షన్ స్థితి"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC సెన్సార్ కనెక్షన్ స్థితి"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "గాలి దిశ ఆఫ్‌సెట్"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "ఆఫ్‌సెట్ రీసెట్ చేయి"
+      },
+      "set_north": {
+        "name": "ప్రస్తుత విలువను ఉత్తరంగా సెట్ చేయి"
+      }
+    }
+  }
+}

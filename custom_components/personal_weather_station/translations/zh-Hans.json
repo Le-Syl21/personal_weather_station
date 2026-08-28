@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "个人气象站",
+        "description": "在此设置一个气象站密钥，您的气象站必须发送该密钥，其数据才不会被拒绝。若留空，则接受所有请求。",
+        "data": {
+          "password": "气象站密钥"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "已配置。单个实例即可服务所有气象站。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "个人气象站",
+        "description": "在此设置一个气象站密钥，您的气象站必须发送该密钥，其数据才不会被拒绝。若留空，则接受所有请求。",
+        "data": {
+          "password": "气象站密钥",
+          "availability_timeout": "多长时间后标记为不可用（分钟）",
+          "debug": "记录每个收到的请求"
+        },
+        "data_description": {
+          "availability_timeout": "气象站可以保持静默多久，之后其传感器会被标记为不可用。设为 0 则永不标记。",
+          "debug": "将每个请求的完整内容写入 Home Assistant 日志。设置气象站时很有用，之后会很嘈杂。"
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "气象站被拒绝：气象站密钥错误",
+      "description": "位于 {ip} 的气象站尝试以 `{station_id}` 的身份发送数据，但未发送预期的气象站密钥。\n\n请检查气象站或 WSLink 应用中配置的密钥是否与本集成中设置的一致。一旦来自 {ip} 的请求被接受，此消息会自动消失。"
+    },
+    "missing_device_id": {
+      "title": "气象站被拒绝：缺少气象站标识",
+      "description": "位于 {ip} 的气象站发送数据时未附带气象站标识。\n\n请在 WSLink 应用中设置 Sender ID，或在气象站配置中设置 ID 参数。一旦来自 {ip} 的请求被接受，此消息会自动消失。"
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "气象站 {device} 尚未上报风向，因此没有可校准的基准。请等待下次上传后重试。"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "绝对气压"
+      },
+      "apiver": {
+        "name": "API 版本"
+      },
+      "aqbc": {
+        "name": "黑碳"
+      },
+      "aqco": {
+        "name": "一氧化碳"
+      },
+      "aqcot": {
+        "name": "痕量一氧化碳"
+      },
+      "aqec": {
+        "name": "元素碳"
+      },
+      "aqno": {
+        "name": "一氧化氮"
+      },
+      "aqno2": {
+        "name": "NO2 X 计算值"
+      },
+      "aqno2t": {
+        "name": "二氧化氮"
+      },
+      "aqno2y": {
+        "name": "NO2 Y 计算值"
+      },
+      "aqno3": {
+        "name": "NO3 离子"
+      },
+      "aqnox": {
+        "name": "氮氧化物"
+      },
+      "aqnoy": {
+        "name": "总活性氮"
+      },
+      "aqoc": {
+        "name": "有机碳"
+      },
+      "aqozone": {
+        "name": "臭氧"
+      },
+      "aqpm10": {
+        "name": "PM10 质量"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 质量"
+      },
+      "aqso2": {
+        "name": "二氧化硫"
+      },
+      "aqso2t": {
+        "name": "痕量二氧化硫"
+      },
+      "aqso4": {
+        "name": "SO4 离子"
+      },
+      "aquv_aeth": {
+        "name": "黑碳仪通道 2"
+      },
+      "baromin": {
+        "name": "气压"
+      },
+      "clouds": {
+        "name": "云量"
+      },
+      "dailyrainin": {
+        "name": "日雨量"
+      },
+      "dewptf": {
+        "name": "露点"
+      },
+      "humidity": {
+        "name": "室外湿度"
+      },
+      "inbat": {
+        "name": "主机电池电量"
+      },
+      "indoorhumidity": {
+        "name": "室内湿度"
+      },
+      "indoortempf": {
+        "name": "室内温度"
+      },
+      "inhum": {
+        "name": "室内湿度"
+      },
+      "intem": {
+        "name": "室内温度"
+      },
+      "last_update": {
+        "name": "最后接收"
+      },
+      "leafwetness": {
+        "name": "叶面湿度"
+      },
+      "leafwetness2": {
+        "name": "CH2 叶面湿度"
+      },
+      "lowbatt": {
+        "name": "电量不足"
+      },
+      "monthlyrainin": {
+        "name": "月雨量"
+      },
+      "rainin": {
+        "name": "小时雨量"
+      },
+      "rbar": {
+        "name": "相对气压"
+      },
+      "rtfreq": {
+        "name": "更新频率"
+      },
+      "soilmoisture": {
+        "name": "土壤湿度"
+      },
+      "soilmoisture2": {
+        "name": "CH2 土壤湿度"
+      },
+      "soilmoisture3": {
+        "name": "CH3 土壤湿度"
+      },
+      "soilmoisture4": {
+        "name": "CH4 土壤湿度"
+      },
+      "soiltemp2f": {
+        "name": "CH2 土壤温度"
+      },
+      "soiltemp3f": {
+        "name": "CH3 土壤温度"
+      },
+      "soiltemp4f": {
+        "name": "CH4 土壤温度"
+      },
+      "soiltempf": {
+        "name": "土壤温度"
+      },
+      "solarradiation": {
+        "name": "太阳辐射"
+      },
+      "t10bat": {
+        "name": "CO2 传感器电池电量"
+      },
+      "t10cn": {
+        "name": "CO2 传感器连接状态"
+      },
+      "t10co2": {
+        "name": "CO2 浓度"
+      },
+      "t11bat": {
+        "name": "CO 传感器电池电量"
+      },
+      "t11cn": {
+        "name": "CO 传感器连接状态"
+      },
+      "t11co": {
+        "name": "CO 浓度"
+      },
+      "t1bat": {
+        "name": "室外传感器电池状态"
+      },
+      "t1chill": {
+        "name": "风寒温度"
+      },
+      "t1cn": {
+        "name": "室外传感器连接状态"
+      },
+      "t1dew": {
+        "name": "露点温度"
+      },
+      "t1feels": {
+        "name": "体感温度"
+      },
+      "t1heat": {
+        "name": "热指数"
+      },
+      "t1hum": {
+        "name": "室外湿度"
+      },
+      "t1raindy": {
+        "name": "日降水量"
+      },
+      "t1rainhr": {
+        "name": "小时降水量"
+      },
+      "t1rainmth": {
+        "name": "月降水量"
+      },
+      "t1rainra": {
+        "name": "降雨强度"
+      },
+      "t1rainwy": {
+        "name": "周降水量"
+      },
+      "t1rainyr": {
+        "name": "年降水量"
+      },
+      "t1solrad": {
+        "name": "光照强度"
+      },
+      "t1tem": {
+        "name": "室外温度"
+      },
+      "t1uvi": {
+        "name": "紫外线指数"
+      },
+      "t1wbgt": {
+        "name": "WBGT 温度"
+      },
+      "t1wdir": {
+        "name": "风向"
+      },
+      "t1wgust": {
+        "name": "阵风"
+      },
+      "t1ws": {
+        "name": "风速"
+      },
+      "t1ws10mav": {
+        "name": "风速 10 分钟平均"
+      },
+      "t234c1bat": {
+        "name": "CH1 电池状态"
+      },
+      "t234c1cn": {
+        "name": "CH1 连接状态"
+      },
+      "t234c1hum": {
+        "name": "CH1 湿度"
+      },
+      "t234c1tem": {
+        "name": "CH1 温度"
+      },
+      "t234c1tp": {
+        "name": "CH1 传感器类型"
+      },
+      "t234c2bat": {
+        "name": "CH2 电池状态"
+      },
+      "t234c2cn": {
+        "name": "CH2 连接状态"
+      },
+      "t234c2hum": {
+        "name": "CH2 湿度"
+      },
+      "t234c2tem": {
+        "name": "CH2 温度"
+      },
+      "t234c2tp": {
+        "name": "CH2 传感器类型"
+      },
+      "t234c3bat": {
+        "name": "CH3 电池状态"
+      },
+      "t234c3cn": {
+        "name": "CH3 连接状态"
+      },
+      "t234c3hum": {
+        "name": "CH3 湿度"
+      },
+      "t234c3tem": {
+        "name": "CH3 温度"
+      },
+      "t234c3tp": {
+        "name": "CH3 传感器类型"
+      },
+      "t234c4bat": {
+        "name": "CH4 电池状态"
+      },
+      "t234c4cn": {
+        "name": "CH4 连接状态"
+      },
+      "t234c4hum": {
+        "name": "CH4 湿度"
+      },
+      "t234c4tem": {
+        "name": "CH4 温度"
+      },
+      "t234c4tp": {
+        "name": "CH4 传感器类型"
+      },
+      "t234c5bat": {
+        "name": "CH5 电池状态"
+      },
+      "t234c5cn": {
+        "name": "CH5 连接状态"
+      },
+      "t234c5hum": {
+        "name": "CH5 湿度"
+      },
+      "t234c5tem": {
+        "name": "CH5 温度"
+      },
+      "t234c5tp": {
+        "name": "CH5 传感器类型"
+      },
+      "t234c6bat": {
+        "name": "CH6 电池状态"
+      },
+      "t234c6cn": {
+        "name": "CH6 连接状态"
+      },
+      "t234c6hum": {
+        "name": "CH6 湿度"
+      },
+      "t234c6tem": {
+        "name": "CH6 温度"
+      },
+      "t234c6tp": {
+        "name": "CH6 传感器类型"
+      },
+      "t234c7bat": {
+        "name": "CH7 电池状态"
+      },
+      "t234c7cn": {
+        "name": "CH7 连接状态"
+      },
+      "t234c7hum": {
+        "name": "CH7 湿度"
+      },
+      "t234c7tem": {
+        "name": "CH7 温度"
+      },
+      "t234c7tp": {
+        "name": "CH7 传感器类型"
+      },
+      "t5ls1dtc": {
+        "name": "1 天雷击总数"
+      },
+      "t5ls1htc": {
+        "name": "1 小时雷击总数"
+      },
+      "t5ls30mtc": {
+        "name": "最近 30 分钟雷击"
+      },
+      "t5ls5mtc": {
+        "name": "最近 5 分钟雷击"
+      },
+      "t5lsbat": {
+        "name": "雷电传感器电池状态"
+      },
+      "t5lscn": {
+        "name": "雷电传感器连接状态"
+      },
+      "t5lsf": {
+        "name": "最近 1 小时雷击"
+      },
+      "t5lskm": {
+        "name": "雷击距离"
+      },
+      "t5lst": {
+        "name": "上次雷击时间"
+      },
+      "t6c1bat": {
+        "name": "CH1 漏水传感器电池状态"
+      },
+      "t6c1cn": {
+        "name": "CH1 漏水传感器连接状态"
+      },
+      "t6c1wls": {
+        "name": "CH1 漏水状态"
+      },
+      "t6c2bat": {
+        "name": "CH2 漏水传感器电池状态"
+      },
+      "t6c2cn": {
+        "name": "CH2 漏水传感器连接状态"
+      },
+      "t6c2wls": {
+        "name": "CH2 漏水状态"
+      },
+      "t6c3bat": {
+        "name": "CH3 漏水传感器电池状态"
+      },
+      "t6c3cn": {
+        "name": "CH3 漏水传感器连接状态"
+      },
+      "t6c3wls": {
+        "name": "CH3 漏水状态"
+      },
+      "t6c4bat": {
+        "name": "CH4 漏水传感器电池状态"
+      },
+      "t6c4cn": {
+        "name": "CH4 漏水传感器连接状态"
+      },
+      "t6c4wls": {
+        "name": "CH4 漏水状态"
+      },
+      "t6c5bat": {
+        "name": "CH5 漏水传感器电池状态"
+      },
+      "t6c5cn": {
+        "name": "CH5 漏水传感器连接状态"
+      },
+      "t6c5wls": {
+        "name": "CH5 漏水状态"
+      },
+      "t6c6bat": {
+        "name": "CH6 漏水传感器电池状态"
+      },
+      "t6c6cn": {
+        "name": "CH6 漏水传感器连接状态"
+      },
+      "t6c6wls": {
+        "name": "CH6 漏水状态"
+      },
+      "t6c7bat": {
+        "name": "CH7 漏水传感器电池状态"
+      },
+      "t6c7cn": {
+        "name": "CH7 漏水传感器连接状态"
+      },
+      "t6c7wls": {
+        "name": "CH7 漏水状态"
+      },
+      "t8bat": {
+        "name": "颗粒物传感器电池电量"
+      },
+      "t8cn": {
+        "name": "颗粒物传感器连接状态"
+      },
+      "t8pm10": {
+        "name": "PM10 浓度"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 浓度"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/VOC 传感器电池电量"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC 传感器连接状态"
+      },
+      "t9hcho": {
+        "name": "HCHO 浓度"
+      },
+      "t9voclv": {
+        "name": "VOC 等级"
+      },
+      "tempf": {
+        "name": "室外温度"
+      },
+      "uv": {
+        "name": "紫外线指数"
+      },
+      "visibility": {
+        "name": "能见度"
+      },
+      "weeklyrainin": {
+        "name": "周雨量"
+      },
+      "wind_direction_raw": {
+        "name": "风向（原始值）"
+      },
+      "windchillf": {
+        "name": "风寒指数"
+      },
+      "winddir": {
+        "name": "风向"
+      },
+      "winddir_avg2m": {
+        "name": "风向 2 分钟平均"
+      },
+      "windgustdir": {
+        "name": "阵风风向"
+      },
+      "windgustdir_10m": {
+        "name": "阵风风向 10 分钟平均"
+      },
+      "windgustmph": {
+        "name": "阵风"
+      },
+      "windgustmph_10m": {
+        "name": "阵风风速 10 分钟平均"
+      },
+      "windspdmph_avg2m": {
+        "name": "风速 2 分钟平均"
+      },
+      "windspeedmph": {
+        "name": "风速"
+      },
+      "yearlyrainin": {
+        "name": "年雨量"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 传感器连接状态"
+      },
+      "t11cn": {
+        "name": "CO 传感器连接状态"
+      },
+      "t1cn": {
+        "name": "室外传感器连接状态"
+      },
+      "t234c1cn": {
+        "name": "CH1 连接状态"
+      },
+      "t234c2cn": {
+        "name": "CH2 连接状态"
+      },
+      "t234c3cn": {
+        "name": "CH3 连接状态"
+      },
+      "t234c4cn": {
+        "name": "CH4 连接状态"
+      },
+      "t234c5cn": {
+        "name": "CH5 连接状态"
+      },
+      "t234c6cn": {
+        "name": "CH6 连接状态"
+      },
+      "t234c7cn": {
+        "name": "CH7 连接状态"
+      },
+      "t5lscn": {
+        "name": "雷电传感器连接状态"
+      },
+      "t6c1cn": {
+        "name": "CH1 漏水传感器连接状态"
+      },
+      "t6c1wls": {
+        "name": "CH1 漏水状态"
+      },
+      "t6c2cn": {
+        "name": "CH2 漏水传感器连接状态"
+      },
+      "t6c2wls": {
+        "name": "CH2 漏水状态"
+      },
+      "t6c3cn": {
+        "name": "CH3 漏水传感器连接状态"
+      },
+      "t6c3wls": {
+        "name": "CH3 漏水状态"
+      },
+      "t6c4cn": {
+        "name": "CH4 漏水传感器连接状态"
+      },
+      "t6c4wls": {
+        "name": "CH4 漏水状态"
+      },
+      "t6c5cn": {
+        "name": "CH5 漏水传感器连接状态"
+      },
+      "t6c5wls": {
+        "name": "CH5 漏水状态"
+      },
+      "t6c6cn": {
+        "name": "CH6 漏水传感器连接状态"
+      },
+      "t6c6wls": {
+        "name": "CH6 漏水状态"
+      },
+      "t6c7cn": {
+        "name": "CH7 漏水传感器连接状态"
+      },
+      "t6c7wls": {
+        "name": "CH7 漏水状态"
+      },
+      "t8cn": {
+        "name": "颗粒物传感器连接状态"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC 传感器连接状态"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "风向偏移"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "重置偏移"
+      },
+      "set_north": {
+        "name": "将当前值设为正北"
+      }
+    }
+  }
+}

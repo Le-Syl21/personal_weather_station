@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "محطة طقس شخصية",
+        "description": "عيّن هنا مفتاح محطة يجب أن ترسله محطات الطقس لديك حتى لا تُرفض بياناتها. إذا تركت الحقل فارغًا، فسيتم قبول جميع الطلبات.",
+        "data": {
+          "password": "مفتاح المحطة"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "تم الإعداد بالفعل. نسخة واحدة تخدم جميع محطات الطقس."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "محطة طقس شخصية",
+        "description": "عيّن هنا مفتاح محطة يجب أن ترسله محطات الطقس لديك حتى لا تُرفض بياناتها. إذا تركت الحقل فارغًا، فسيتم قبول جميع الطلبات.",
+        "data": {
+          "password": "مفتاح المحطة",
+          "availability_timeout": "وضع علامة غير متاح بعد (دقائق)",
+          "debug": "تسجيل كل طلب وارد"
+        },
+        "data_description": {
+          "availability_timeout": "المدة التي يمكن أن تظل فيها المحطة صامتة قبل وضع علامة غير متاح على مستشعراتها. القيمة 0 تعني عدم وضع العلامة أبدًا.",
+          "debug": "يكتب المحتوى الكامل لكل طلب في سجل Home Assistant. مفيد أثناء إعداد محطة، ومزعج بعد ذلك."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "تم رفض محطة الطقس: مفتاح محطة خاطئ",
+      "description": "حاولت محطة طقس على العنوان {ip} إرسال بيانات باسم `{station_id}` دون إرسال مفتاح المحطة المتوقع.\n\nتحقق من أن المفتاح المضبوط في المحطة أو في تطبيق WSLink يطابق المفتاح المحدد في هذا التكامل. تختفي هذه الرسالة تلقائيًا بمجرد قبول طلب وارد من {ip}."
+    },
+    "missing_device_id": {
+      "title": "تم رفض محطة الطقس: لا يوجد معرّف للمحطة",
+      "description": "أرسلت محطة طقس على العنوان {ip} بيانات دون معرّف للمحطة.\n\nعيّن Sender ID في تطبيق WSLink، أو معامل ID في إعدادات المحطة. تختفي هذه الرسالة تلقائيًا بمجرد قبول طلب وارد من {ip}."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "لم ترسل المحطة {device} أي اتجاه للرياح بعد، لذا لا يوجد ما يمكن المعايرة عليه. انتظر الإرسال التالي ثم حاول مرة أخرى."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "الضغط الجوي المطلق"
+      },
+      "apiver": {
+        "name": "إصدار API"
+      },
+      "aqbc": {
+        "name": "الكربون الأسود"
+      },
+      "aqco": {
+        "name": "أول أكسيد الكربون"
+      },
+      "aqcot": {
+        "name": "أول أكسيد الكربون بكميات ضئيلة"
+      },
+      "aqec": {
+        "name": "الكربون العنصري"
+      },
+      "aqno": {
+        "name": "أحادي أكسيد النيتروجين"
+      },
+      "aqno2": {
+        "name": "NO2 X محسوب"
+      },
+      "aqno2t": {
+        "name": "ثاني أكسيد النيتروجين"
+      },
+      "aqno2y": {
+        "name": "NO2 Y محسوب"
+      },
+      "aqno3": {
+        "name": "أيون NO3"
+      },
+      "aqnox": {
+        "name": "أكاسيد النيتروجين"
+      },
+      "aqnoy": {
+        "name": "إجمالي النيتروجين التفاعلي"
+      },
+      "aqoc": {
+        "name": "الكربون العضوي"
+      },
+      "aqozone": {
+        "name": "الأوزون"
+      },
+      "aqpm10": {
+        "name": "كتلة PM10"
+      },
+      "aqpm2_5": {
+        "name": "كتلة PM2.5"
+      },
+      "aqso2": {
+        "name": "ثاني أكسيد الكبريت"
+      },
+      "aqso2t": {
+        "name": "ثاني أكسيد الكبريت بكميات ضئيلة"
+      },
+      "aqso4": {
+        "name": "أيون SO4"
+      },
+      "aquv_aeth": {
+        "name": "الأثالوميتر القناة 2"
+      },
+      "baromin": {
+        "name": "الضغط"
+      },
+      "clouds": {
+        "name": "الغطاء السحابي"
+      },
+      "dailyrainin": {
+        "name": "المطر اليومي"
+      },
+      "dewptf": {
+        "name": "نقطة الندى"
+      },
+      "humidity": {
+        "name": "الرطوبة الخارجية"
+      },
+      "inbat": {
+        "name": "مستوى بطارية وحدة التحكم"
+      },
+      "indoorhumidity": {
+        "name": "الرطوبة الداخلية"
+      },
+      "indoortempf": {
+        "name": "درجة الحرارة الداخلية"
+      },
+      "inhum": {
+        "name": "الرطوبة الداخلية"
+      },
+      "intem": {
+        "name": "درجة الحرارة الداخلية"
+      },
+      "last_update": {
+        "name": "آخر استقبال"
+      },
+      "leafwetness": {
+        "name": "بلل الأوراق"
+      },
+      "leafwetness2": {
+        "name": "CH2 بلل الأوراق"
+      },
+      "lowbatt": {
+        "name": "بطارية منخفضة"
+      },
+      "monthlyrainin": {
+        "name": "المطر الشهري"
+      },
+      "rainin": {
+        "name": "المطر بالساعة"
+      },
+      "rbar": {
+        "name": "الضغط الجوي النسبي"
+      },
+      "rtfreq": {
+        "name": "تواتر التحديث"
+      },
+      "soilmoisture": {
+        "name": "رطوبة التربة"
+      },
+      "soilmoisture2": {
+        "name": "CH2 رطوبة التربة"
+      },
+      "soilmoisture3": {
+        "name": "CH3 رطوبة التربة"
+      },
+      "soilmoisture4": {
+        "name": "CH4 رطوبة التربة"
+      },
+      "soiltemp2f": {
+        "name": "CH2 درجة حرارة التربة"
+      },
+      "soiltemp3f": {
+        "name": "CH3 درجة حرارة التربة"
+      },
+      "soiltemp4f": {
+        "name": "CH4 درجة حرارة التربة"
+      },
+      "soiltempf": {
+        "name": "درجة حرارة التربة"
+      },
+      "solarradiation": {
+        "name": "الإشعاع الشمسي"
+      },
+      "t10bat": {
+        "name": "مستوى بطارية مستشعر CO2"
+      },
+      "t10cn": {
+        "name": "حالة اتصال مستشعر CO2"
+      },
+      "t10co2": {
+        "name": "تركيز CO2"
+      },
+      "t11bat": {
+        "name": "مستوى بطارية مستشعر CO"
+      },
+      "t11cn": {
+        "name": "حالة اتصال مستشعر CO"
+      },
+      "t11co": {
+        "name": "تركيز CO"
+      },
+      "t1bat": {
+        "name": "حالة بطارية المستشعر الخارجي"
+      },
+      "t1chill": {
+        "name": "درجة حرارة برودة الرياح"
+      },
+      "t1cn": {
+        "name": "حالة اتصال المستشعر الخارجي"
+      },
+      "t1dew": {
+        "name": "درجة حرارة نقطة الندى"
+      },
+      "t1feels": {
+        "name": "درجة الحرارة المحسوسة"
+      },
+      "t1heat": {
+        "name": "مؤشر الحرارة"
+      },
+      "t1hum": {
+        "name": "الرطوبة الخارجية"
+      },
+      "t1raindy": {
+        "name": "هطول الأمطار اليومي"
+      },
+      "t1rainhr": {
+        "name": "هطول الأمطار بالساعة"
+      },
+      "t1rainmth": {
+        "name": "هطول الأمطار الشهري"
+      },
+      "t1rainra": {
+        "name": "شدة المطر"
+      },
+      "t1rainwy": {
+        "name": "هطول الأمطار الأسبوعي"
+      },
+      "t1rainyr": {
+        "name": "هطول الأمطار السنوي"
+      },
+      "t1solrad": {
+        "name": "شدة الإضاءة"
+      },
+      "t1tem": {
+        "name": "درجة الحرارة الخارجية"
+      },
+      "t1uvi": {
+        "name": "مؤشر الأشعة فوق البنفسجية"
+      },
+      "t1wbgt": {
+        "name": "درجة حرارة WBGT"
+      },
+      "t1wdir": {
+        "name": "اتجاه الرياح"
+      },
+      "t1wgust": {
+        "name": "هبة رياح"
+      },
+      "t1ws": {
+        "name": "سرعة الرياح"
+      },
+      "t1ws10mav": {
+        "name": "سرعة الرياح متوسط 10 دقائق"
+      },
+      "t234c1bat": {
+        "name": "CH1 حالة البطارية"
+      },
+      "t234c1cn": {
+        "name": "CH1 حالة الاتصال"
+      },
+      "t234c1hum": {
+        "name": "CH1 الرطوبة"
+      },
+      "t234c1tem": {
+        "name": "CH1 درجة الحرارة"
+      },
+      "t234c1tp": {
+        "name": "CH1 نوع المستشعر"
+      },
+      "t234c2bat": {
+        "name": "CH2 حالة البطارية"
+      },
+      "t234c2cn": {
+        "name": "CH2 حالة الاتصال"
+      },
+      "t234c2hum": {
+        "name": "CH2 الرطوبة"
+      },
+      "t234c2tem": {
+        "name": "CH2 درجة الحرارة"
+      },
+      "t234c2tp": {
+        "name": "CH2 نوع المستشعر"
+      },
+      "t234c3bat": {
+        "name": "CH3 حالة البطارية"
+      },
+      "t234c3cn": {
+        "name": "CH3 حالة الاتصال"
+      },
+      "t234c3hum": {
+        "name": "CH3 الرطوبة"
+      },
+      "t234c3tem": {
+        "name": "CH3 درجة الحرارة"
+      },
+      "t234c3tp": {
+        "name": "CH3 نوع المستشعر"
+      },
+      "t234c4bat": {
+        "name": "CH4 حالة البطارية"
+      },
+      "t234c4cn": {
+        "name": "CH4 حالة الاتصال"
+      },
+      "t234c4hum": {
+        "name": "CH4 الرطوبة"
+      },
+      "t234c4tem": {
+        "name": "CH4 درجة الحرارة"
+      },
+      "t234c4tp": {
+        "name": "CH4 نوع المستشعر"
+      },
+      "t234c5bat": {
+        "name": "CH5 حالة البطارية"
+      },
+      "t234c5cn": {
+        "name": "CH5 حالة الاتصال"
+      },
+      "t234c5hum": {
+        "name": "CH5 الرطوبة"
+      },
+      "t234c5tem": {
+        "name": "CH5 درجة الحرارة"
+      },
+      "t234c5tp": {
+        "name": "CH5 نوع المستشعر"
+      },
+      "t234c6bat": {
+        "name": "CH6 حالة البطارية"
+      },
+      "t234c6cn": {
+        "name": "CH6 حالة الاتصال"
+      },
+      "t234c6hum": {
+        "name": "CH6 الرطوبة"
+      },
+      "t234c6tem": {
+        "name": "CH6 درجة الحرارة"
+      },
+      "t234c6tp": {
+        "name": "CH6 نوع المستشعر"
+      },
+      "t234c7bat": {
+        "name": "CH7 حالة البطارية"
+      },
+      "t234c7cn": {
+        "name": "CH7 حالة الاتصال"
+      },
+      "t234c7hum": {
+        "name": "CH7 الرطوبة"
+      },
+      "t234c7tem": {
+        "name": "CH7 درجة الحرارة"
+      },
+      "t234c7tp": {
+        "name": "CH7 نوع المستشعر"
+      },
+      "t5ls1dtc": {
+        "name": "إجمالي الصواعق في يوم واحد"
+      },
+      "t5ls1htc": {
+        "name": "إجمالي الصواعق في ساعة واحدة"
+      },
+      "t5ls30mtc": {
+        "name": "الصواعق في آخر 30 دقيقة"
+      },
+      "t5ls5mtc": {
+        "name": "الصواعق في آخر 5 دقائق"
+      },
+      "t5lsbat": {
+        "name": "حالة بطارية مستشعر الصواعق"
+      },
+      "t5lscn": {
+        "name": "حالة اتصال مستشعر الصواعق"
+      },
+      "t5lsf": {
+        "name": "الصواعق في الساعة الأخيرة"
+      },
+      "t5lskm": {
+        "name": "مسافة الصاعقة"
+      },
+      "t5lst": {
+        "name": "وقت آخر صاعقة"
+      },
+      "t6c1bat": {
+        "name": "CH1 حالة بطارية مستشعر التسرب"
+      },
+      "t6c1cn": {
+        "name": "CH1 حالة اتصال مستشعر التسرب"
+      },
+      "t6c1wls": {
+        "name": "CH1 حالة تسرب المياه"
+      },
+      "t6c2bat": {
+        "name": "CH2 حالة بطارية مستشعر التسرب"
+      },
+      "t6c2cn": {
+        "name": "CH2 حالة اتصال مستشعر التسرب"
+      },
+      "t6c2wls": {
+        "name": "CH2 حالة تسرب المياه"
+      },
+      "t6c3bat": {
+        "name": "CH3 حالة بطارية مستشعر التسرب"
+      },
+      "t6c3cn": {
+        "name": "CH3 حالة اتصال مستشعر التسرب"
+      },
+      "t6c3wls": {
+        "name": "CH3 حالة تسرب المياه"
+      },
+      "t6c4bat": {
+        "name": "CH4 حالة بطارية مستشعر التسرب"
+      },
+      "t6c4cn": {
+        "name": "CH4 حالة اتصال مستشعر التسرب"
+      },
+      "t6c4wls": {
+        "name": "CH4 حالة تسرب المياه"
+      },
+      "t6c5bat": {
+        "name": "CH5 حالة بطارية مستشعر التسرب"
+      },
+      "t6c5cn": {
+        "name": "CH5 حالة اتصال مستشعر التسرب"
+      },
+      "t6c5wls": {
+        "name": "CH5 حالة تسرب المياه"
+      },
+      "t6c6bat": {
+        "name": "CH6 حالة بطارية مستشعر التسرب"
+      },
+      "t6c6cn": {
+        "name": "CH6 حالة اتصال مستشعر التسرب"
+      },
+      "t6c6wls": {
+        "name": "CH6 حالة تسرب المياه"
+      },
+      "t6c7bat": {
+        "name": "CH7 حالة بطارية مستشعر التسرب"
+      },
+      "t6c7cn": {
+        "name": "CH7 حالة اتصال مستشعر التسرب"
+      },
+      "t6c7wls": {
+        "name": "CH7 حالة تسرب المياه"
+      },
+      "t8bat": {
+        "name": "مستوى بطارية مستشعر الجسيمات"
+      },
+      "t8cn": {
+        "name": "حالة اتصال مستشعر الجسيمات"
+      },
+      "t8pm10": {
+        "name": "تركيز PM10"
+      },
+      "t8pm10ai": {
+        "name": "مؤشر جودة الهواء PM10"
+      },
+      "t8pm25": {
+        "name": "تركيز PM2.5"
+      },
+      "t8pm25ai": {
+        "name": "مؤشر جودة الهواء PM2.5"
+      },
+      "t9bat": {
+        "name": "مستوى بطارية مستشعر HCHO/VOC"
+      },
+      "t9cn": {
+        "name": "حالة اتصال مستشعر HCHO/VOC"
+      },
+      "t9hcho": {
+        "name": "تركيز HCHO"
+      },
+      "t9voclv": {
+        "name": "مستوى المركبات العضوية المتطايرة"
+      },
+      "tempf": {
+        "name": "درجة الحرارة الخارجية"
+      },
+      "uv": {
+        "name": "مؤشر الأشعة فوق البنفسجية"
+      },
+      "visibility": {
+        "name": "مدى الرؤية"
+      },
+      "weeklyrainin": {
+        "name": "المطر الأسبوعي"
+      },
+      "wind_direction_raw": {
+        "name": "اتجاه الرياح (خام)"
+      },
+      "windchillf": {
+        "name": "برودة الرياح"
+      },
+      "winddir": {
+        "name": "اتجاه الرياح"
+      },
+      "winddir_avg2m": {
+        "name": "اتجاه الرياح متوسط دقيقتين"
+      },
+      "windgustdir": {
+        "name": "اتجاه الهبة"
+      },
+      "windgustdir_10m": {
+        "name": "اتجاه الهبة متوسط 10 دقائق"
+      },
+      "windgustmph": {
+        "name": "هبة رياح"
+      },
+      "windgustmph_10m": {
+        "name": "سرعة الهبة متوسط 10 دقائق"
+      },
+      "windspdmph_avg2m": {
+        "name": "سرعة الرياح متوسط دقيقتين"
+      },
+      "windspeedmph": {
+        "name": "سرعة الرياح"
+      },
+      "yearlyrainin": {
+        "name": "المطر السنوي"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "حالة اتصال مستشعر CO2"
+      },
+      "t11cn": {
+        "name": "حالة اتصال مستشعر CO"
+      },
+      "t1cn": {
+        "name": "حالة اتصال المستشعر الخارجي"
+      },
+      "t234c1cn": {
+        "name": "CH1 حالة الاتصال"
+      },
+      "t234c2cn": {
+        "name": "CH2 حالة الاتصال"
+      },
+      "t234c3cn": {
+        "name": "CH3 حالة الاتصال"
+      },
+      "t234c4cn": {
+        "name": "CH4 حالة الاتصال"
+      },
+      "t234c5cn": {
+        "name": "CH5 حالة الاتصال"
+      },
+      "t234c6cn": {
+        "name": "CH6 حالة الاتصال"
+      },
+      "t234c7cn": {
+        "name": "CH7 حالة الاتصال"
+      },
+      "t5lscn": {
+        "name": "حالة اتصال مستشعر الصواعق"
+      },
+      "t6c1cn": {
+        "name": "CH1 حالة اتصال مستشعر التسرب"
+      },
+      "t6c1wls": {
+        "name": "CH1 حالة تسرب المياه"
+      },
+      "t6c2cn": {
+        "name": "CH2 حالة اتصال مستشعر التسرب"
+      },
+      "t6c2wls": {
+        "name": "CH2 حالة تسرب المياه"
+      },
+      "t6c3cn": {
+        "name": "CH3 حالة اتصال مستشعر التسرب"
+      },
+      "t6c3wls": {
+        "name": "CH3 حالة تسرب المياه"
+      },
+      "t6c4cn": {
+        "name": "CH4 حالة اتصال مستشعر التسرب"
+      },
+      "t6c4wls": {
+        "name": "CH4 حالة تسرب المياه"
+      },
+      "t6c5cn": {
+        "name": "CH5 حالة اتصال مستشعر التسرب"
+      },
+      "t6c5wls": {
+        "name": "CH5 حالة تسرب المياه"
+      },
+      "t6c6cn": {
+        "name": "CH6 حالة اتصال مستشعر التسرب"
+      },
+      "t6c6wls": {
+        "name": "CH6 حالة تسرب المياه"
+      },
+      "t6c7cn": {
+        "name": "CH7 حالة اتصال مستشعر التسرب"
+      },
+      "t6c7wls": {
+        "name": "CH7 حالة تسرب المياه"
+      },
+      "t8cn": {
+        "name": "حالة اتصال مستشعر الجسيمات"
+      },
+      "t9cn": {
+        "name": "حالة اتصال مستشعر HCHO/VOC"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "إزاحة اتجاه الرياح"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "إعادة تعيين الإزاحة"
+      },
+      "set_north": {
+        "name": "تعيين الشمال حسب القيمة الحالية"
+      }
+    }
+  }
+}

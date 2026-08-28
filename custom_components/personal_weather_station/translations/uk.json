@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Особиста метеостанція",
+        "description": "Задайте тут ключ станції, який ваші метеостанції мають передавати, щоб їхні дані не відхилялися. Якщо залишити поле порожнім, прийматимуться всі запити.",
+        "data": {
+          "password": "Ключ станції"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Уже налаштовано. Один екземпляр обслуговує всі метеостанції."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Особиста метеостанція",
+        "description": "Задайте тут ключ станції, який ваші метеостанції мають передавати, щоб їхні дані не відхилялися. Якщо залишити поле порожнім, прийматимуться всі запити.",
+        "data": {
+          "password": "Ключ станції",
+          "availability_timeout": "Позначати як недоступне через (хвилин)",
+          "debug": "Записувати кожен вхідний запит"
+        },
+        "data_description": {
+          "availability_timeout": "Як довго станція може мовчати, перш ніж її датчики буде позначено як недоступні. 0 — ніколи не позначати.",
+          "debug": "Записує повний вміст кожного запиту в журнал Home Assistant. Корисно під час налаштування станції, згодом заважає."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Метеостанцію відхилено: неправильний ключ станції",
+      "description": "Метеостанція за адресою {ip} спробувала надіслати дані як `{station_id}`, не передавши очікуваний ключ станції.\n\nПеревірте, чи ключ, заданий у станції або в застосунку WSLink, збігається із зазначеним у цій інтеграції. Це повідомлення зникне саме, щойно запит з {ip} буде прийнято."
+    },
+    "missing_device_id": {
+      "title": "Метеостанцію відхилено: немає ідентифікатора станції",
+      "description": "Метеостанція за адресою {ip} надіслала дані без ідентифікатора станції.\n\nЗадайте Sender ID у застосунку WSLink або параметр ID у налаштуваннях станції. Це повідомлення зникне саме, щойно запит з {ip} буде прийнято."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "Станція {device} ще не передала напрямок вітру, тож немає за чим калібрувати. Дочекайтеся наступного надсилання і спробуйте знову."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Абсолютний атмосферний тиск"
+      },
+      "apiver": {
+        "name": "Версія API"
+      },
+      "aqbc": {
+        "name": "Чорний вуглець"
+      },
+      "aqco": {
+        "name": "Оксид вуглецю"
+      },
+      "aqcot": {
+        "name": "Оксид вуглецю у слідових кількостях"
+      },
+      "aqec": {
+        "name": "Елементарний вуглець"
+      },
+      "aqno": {
+        "name": "Оксид азоту"
+      },
+      "aqno2": {
+        "name": "NO2 X розрахований"
+      },
+      "aqno2t": {
+        "name": "Діоксид азоту"
+      },
+      "aqno2y": {
+        "name": "NO2 Y розрахований"
+      },
+      "aqno3": {
+        "name": "Іон NO3"
+      },
+      "aqnox": {
+        "name": "Оксиди азоту"
+      },
+      "aqnoy": {
+        "name": "Загальний реакційноздатний азот"
+      },
+      "aqoc": {
+        "name": "Органічний вуглець"
+      },
+      "aqozone": {
+        "name": "Озон"
+      },
+      "aqpm10": {
+        "name": "Маса PM10"
+      },
+      "aqpm2_5": {
+        "name": "Маса PM2.5"
+      },
+      "aqso2": {
+        "name": "Діоксид сірки"
+      },
+      "aqso2t": {
+        "name": "Діоксид сірки у слідових кількостях"
+      },
+      "aqso4": {
+        "name": "Іон SO4"
+      },
+      "aquv_aeth": {
+        "name": "Аеталометр, канал 2"
+      },
+      "baromin": {
+        "name": "Тиск"
+      },
+      "clouds": {
+        "name": "Хмарність"
+      },
+      "dailyrainin": {
+        "name": "Опади за добу"
+      },
+      "dewptf": {
+        "name": "Точка роси"
+      },
+      "humidity": {
+        "name": "Вологість надворі"
+      },
+      "inbat": {
+        "name": "Рівень заряду консолі"
+      },
+      "indoorhumidity": {
+        "name": "Вологість у приміщенні"
+      },
+      "indoortempf": {
+        "name": "Температура в приміщенні"
+      },
+      "inhum": {
+        "name": "Вологість у приміщенні"
+      },
+      "intem": {
+        "name": "Температура в приміщенні"
+      },
+      "last_update": {
+        "name": "Останнє отримання"
+      },
+      "leafwetness": {
+        "name": "Вологість листя"
+      },
+      "leafwetness2": {
+        "name": "CH2 вологість листя"
+      },
+      "lowbatt": {
+        "name": "Низький заряд батареї"
+      },
+      "monthlyrainin": {
+        "name": "Опади за місяць"
+      },
+      "rainin": {
+        "name": "Опади за годину"
+      },
+      "rbar": {
+        "name": "Відносний атмосферний тиск"
+      },
+      "rtfreq": {
+        "name": "Частота оновлення"
+      },
+      "soilmoisture": {
+        "name": "Вологість ґрунту"
+      },
+      "soilmoisture2": {
+        "name": "CH2 вологість ґрунту"
+      },
+      "soilmoisture3": {
+        "name": "CH3 вологість ґрунту"
+      },
+      "soilmoisture4": {
+        "name": "CH4 вологість ґрунту"
+      },
+      "soiltemp2f": {
+        "name": "CH2 температура ґрунту"
+      },
+      "soiltemp3f": {
+        "name": "CH3 температура ґрунту"
+      },
+      "soiltemp4f": {
+        "name": "CH4 температура ґрунту"
+      },
+      "soiltempf": {
+        "name": "Температура ґрунту"
+      },
+      "solarradiation": {
+        "name": "Сонячна радіація"
+      },
+      "t10bat": {
+        "name": "Рівень заряду датчика CO2"
+      },
+      "t10cn": {
+        "name": "Стан зʼєднання датчика CO2"
+      },
+      "t10co2": {
+        "name": "Концентрація CO2"
+      },
+      "t11bat": {
+        "name": "Рівень заряду датчика CO"
+      },
+      "t11cn": {
+        "name": "Стан зʼєднання датчика CO"
+      },
+      "t11co": {
+        "name": "Концентрація CO"
+      },
+      "t1bat": {
+        "name": "Стан батареї зовнішнього датчика"
+      },
+      "t1chill": {
+        "name": "Температура вітрохолодового індексу"
+      },
+      "t1cn": {
+        "name": "Стан зʼєднання зовнішнього датчика"
+      },
+      "t1dew": {
+        "name": "Температура точки роси"
+      },
+      "t1feels": {
+        "name": "Відчутна температура"
+      },
+      "t1heat": {
+        "name": "Індекс спеки"
+      },
+      "t1hum": {
+        "name": "Вологість надворі"
+      },
+      "t1raindy": {
+        "name": "Добова сума опадів"
+      },
+      "t1rainhr": {
+        "name": "Годинна сума опадів"
+      },
+      "t1rainmth": {
+        "name": "Місячна сума опадів"
+      },
+      "t1rainra": {
+        "name": "Інтенсивність дощу"
+      },
+      "t1rainwy": {
+        "name": "Тижнева сума опадів"
+      },
+      "t1rainyr": {
+        "name": "Річна сума опадів"
+      },
+      "t1solrad": {
+        "name": "Освітленість"
+      },
+      "t1tem": {
+        "name": "Температура надворі"
+      },
+      "t1uvi": {
+        "name": "УФ-індекс"
+      },
+      "t1wbgt": {
+        "name": "Температура WBGT"
+      },
+      "t1wdir": {
+        "name": "Напрямок вітру"
+      },
+      "t1wgust": {
+        "name": "Порив вітру"
+      },
+      "t1ws": {
+        "name": "Швидкість вітру"
+      },
+      "t1ws10mav": {
+        "name": "Швидкість вітру, середня за 10 хв"
+      },
+      "t234c1bat": {
+        "name": "CH1 стан батареї"
+      },
+      "t234c1cn": {
+        "name": "CH1 стан зʼєднання"
+      },
+      "t234c1hum": {
+        "name": "CH1 вологість"
+      },
+      "t234c1tem": {
+        "name": "CH1 температура"
+      },
+      "t234c1tp": {
+        "name": "CH1 тип датчика"
+      },
+      "t234c2bat": {
+        "name": "CH2 стан батареї"
+      },
+      "t234c2cn": {
+        "name": "CH2 стан зʼєднання"
+      },
+      "t234c2hum": {
+        "name": "CH2 вологість"
+      },
+      "t234c2tem": {
+        "name": "CH2 температура"
+      },
+      "t234c2tp": {
+        "name": "CH2 тип датчика"
+      },
+      "t234c3bat": {
+        "name": "CH3 стан батареї"
+      },
+      "t234c3cn": {
+        "name": "CH3 стан зʼєднання"
+      },
+      "t234c3hum": {
+        "name": "CH3 вологість"
+      },
+      "t234c3tem": {
+        "name": "CH3 температура"
+      },
+      "t234c3tp": {
+        "name": "CH3 тип датчика"
+      },
+      "t234c4bat": {
+        "name": "CH4 стан батареї"
+      },
+      "t234c4cn": {
+        "name": "CH4 стан зʼєднання"
+      },
+      "t234c4hum": {
+        "name": "CH4 вологість"
+      },
+      "t234c4tem": {
+        "name": "CH4 температура"
+      },
+      "t234c4tp": {
+        "name": "CH4 тип датчика"
+      },
+      "t234c5bat": {
+        "name": "CH5 стан батареї"
+      },
+      "t234c5cn": {
+        "name": "CH5 стан зʼєднання"
+      },
+      "t234c5hum": {
+        "name": "CH5 вологість"
+      },
+      "t234c5tem": {
+        "name": "CH5 температура"
+      },
+      "t234c5tp": {
+        "name": "CH5 тип датчика"
+      },
+      "t234c6bat": {
+        "name": "CH6 стан батареї"
+      },
+      "t234c6cn": {
+        "name": "CH6 стан зʼєднання"
+      },
+      "t234c6hum": {
+        "name": "CH6 вологість"
+      },
+      "t234c6tem": {
+        "name": "CH6 температура"
+      },
+      "t234c6tp": {
+        "name": "CH6 тип датчика"
+      },
+      "t234c7bat": {
+        "name": "CH7 стан батареї"
+      },
+      "t234c7cn": {
+        "name": "CH7 стан зʼєднання"
+      },
+      "t234c7hum": {
+        "name": "CH7 вологість"
+      },
+      "t234c7tem": {
+        "name": "CH7 температура"
+      },
+      "t234c7tp": {
+        "name": "CH7 тип датчика"
+      },
+      "t5ls1dtc": {
+        "name": "Блискавки загалом за 1 добу"
+      },
+      "t5ls1htc": {
+        "name": "Блискавки загалом за 1 годину"
+      },
+      "t5ls30mtc": {
+        "name": "Блискавки за останні 30 хвилин"
+      },
+      "t5ls5mtc": {
+        "name": "Блискавки за останні 5 хвилин"
+      },
+      "t5lsbat": {
+        "name": "Стан батареї датчика блискавок"
+      },
+      "t5lscn": {
+        "name": "Стан зʼєднання датчика блискавок"
+      },
+      "t5lsf": {
+        "name": "Блискавки за останню годину"
+      },
+      "t5lskm": {
+        "name": "Відстань до блискавки"
+      },
+      "t5lst": {
+        "name": "Час останньої блискавки"
+      },
+      "t6c1bat": {
+        "name": "CH1 стан батареї датчика протікання"
+      },
+      "t6c1cn": {
+        "name": "CH1 стан зʼєднання датчика протікання"
+      },
+      "t6c1wls": {
+        "name": "CH1 стан протікання води"
+      },
+      "t6c2bat": {
+        "name": "CH2 стан батареї датчика протікання"
+      },
+      "t6c2cn": {
+        "name": "CH2 стан зʼєднання датчика протікання"
+      },
+      "t6c2wls": {
+        "name": "CH2 стан протікання води"
+      },
+      "t6c3bat": {
+        "name": "CH3 стан батареї датчика протікання"
+      },
+      "t6c3cn": {
+        "name": "CH3 стан зʼєднання датчика протікання"
+      },
+      "t6c3wls": {
+        "name": "CH3 стан протікання води"
+      },
+      "t6c4bat": {
+        "name": "CH4 стан батареї датчика протікання"
+      },
+      "t6c4cn": {
+        "name": "CH4 стан зʼєднання датчика протікання"
+      },
+      "t6c4wls": {
+        "name": "CH4 стан протікання води"
+      },
+      "t6c5bat": {
+        "name": "CH5 стан батареї датчика протікання"
+      },
+      "t6c5cn": {
+        "name": "CH5 стан зʼєднання датчика протікання"
+      },
+      "t6c5wls": {
+        "name": "CH5 стан протікання води"
+      },
+      "t6c6bat": {
+        "name": "CH6 стан батареї датчика протікання"
+      },
+      "t6c6cn": {
+        "name": "CH6 стан зʼєднання датчика протікання"
+      },
+      "t6c6wls": {
+        "name": "CH6 стан протікання води"
+      },
+      "t6c7bat": {
+        "name": "CH7 стан батареї датчика протікання"
+      },
+      "t6c7cn": {
+        "name": "CH7 стан зʼєднання датчика протікання"
+      },
+      "t6c7wls": {
+        "name": "CH7 стан протікання води"
+      },
+      "t8bat": {
+        "name": "Рівень заряду датчика часток"
+      },
+      "t8cn": {
+        "name": "Стан зʼєднання датчика часток"
+      },
+      "t8pm10": {
+        "name": "Концентрація PM10"
+      },
+      "t8pm10ai": {
+        "name": "AQI PM10"
+      },
+      "t8pm25": {
+        "name": "Концентрація PM2.5"
+      },
+      "t8pm25ai": {
+        "name": "AQI PM2.5"
+      },
+      "t9bat": {
+        "name": "Рівень заряду датчика HCHO/ЛОС"
+      },
+      "t9cn": {
+        "name": "Стан зʼєднання датчика HCHO/ЛОС"
+      },
+      "t9hcho": {
+        "name": "Концентрація HCHO"
+      },
+      "t9voclv": {
+        "name": "Рівень ЛОС"
+      },
+      "tempf": {
+        "name": "Температура надворі"
+      },
+      "uv": {
+        "name": "УФ-індекс"
+      },
+      "visibility": {
+        "name": "Видимість"
+      },
+      "weeklyrainin": {
+        "name": "Опади за тиждень"
+      },
+      "wind_direction_raw": {
+        "name": "Напрямок вітру (вихідний)"
+      },
+      "windchillf": {
+        "name": "Вітрохолодовий індекс"
+      },
+      "winddir": {
+        "name": "Напрямок вітру"
+      },
+      "winddir_avg2m": {
+        "name": "Напрямок вітру, середній за 2 хв"
+      },
+      "windgustdir": {
+        "name": "Напрямок пориву"
+      },
+      "windgustdir_10m": {
+        "name": "Напрямок пориву, середній за 10 хв"
+      },
+      "windgustmph": {
+        "name": "Порив вітру"
+      },
+      "windgustmph_10m": {
+        "name": "Швидкість пориву, середня за 10 хв"
+      },
+      "windspdmph_avg2m": {
+        "name": "Швидкість вітру, середня за 2 хв"
+      },
+      "windspeedmph": {
+        "name": "Швидкість вітру"
+      },
+      "yearlyrainin": {
+        "name": "Опади за рік"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Стан зʼєднання датчика CO2"
+      },
+      "t11cn": {
+        "name": "Стан зʼєднання датчика CO"
+      },
+      "t1cn": {
+        "name": "Стан зʼєднання зовнішнього датчика"
+      },
+      "t234c1cn": {
+        "name": "CH1 стан зʼєднання"
+      },
+      "t234c2cn": {
+        "name": "CH2 стан зʼєднання"
+      },
+      "t234c3cn": {
+        "name": "CH3 стан зʼєднання"
+      },
+      "t234c4cn": {
+        "name": "CH4 стан зʼєднання"
+      },
+      "t234c5cn": {
+        "name": "CH5 стан зʼєднання"
+      },
+      "t234c6cn": {
+        "name": "CH6 стан зʼєднання"
+      },
+      "t234c7cn": {
+        "name": "CH7 стан зʼєднання"
+      },
+      "t5lscn": {
+        "name": "Стан зʼєднання датчика блискавок"
+      },
+      "t6c1cn": {
+        "name": "CH1 стан зʼєднання датчика протікання"
+      },
+      "t6c1wls": {
+        "name": "CH1 стан протікання води"
+      },
+      "t6c2cn": {
+        "name": "CH2 стан зʼєднання датчика протікання"
+      },
+      "t6c2wls": {
+        "name": "CH2 стан протікання води"
+      },
+      "t6c3cn": {
+        "name": "CH3 стан зʼєднання датчика протікання"
+      },
+      "t6c3wls": {
+        "name": "CH3 стан протікання води"
+      },
+      "t6c4cn": {
+        "name": "CH4 стан зʼєднання датчика протікання"
+      },
+      "t6c4wls": {
+        "name": "CH4 стан протікання води"
+      },
+      "t6c5cn": {
+        "name": "CH5 стан зʼєднання датчика протікання"
+      },
+      "t6c5wls": {
+        "name": "CH5 стан протікання води"
+      },
+      "t6c6cn": {
+        "name": "CH6 стан зʼєднання датчика протікання"
+      },
+      "t6c6wls": {
+        "name": "CH6 стан протікання води"
+      },
+      "t6c7cn": {
+        "name": "CH7 стан зʼєднання датчика протікання"
+      },
+      "t6c7wls": {
+        "name": "CH7 стан протікання води"
+      },
+      "t8cn": {
+        "name": "Стан зʼєднання датчика часток"
+      },
+      "t9cn": {
+        "name": "Стан зʼєднання датчика HCHO/ЛОС"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Зміщення напрямку вітру"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Скинути зміщення"
+      },
+      "set_north": {
+        "name": "Задати північ за поточним значенням"
+      }
+    }
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "व्यक्तिगत मौसम स्टेशन",
+        "description": "यहाँ एक स्टेशन कुंजी सेट करें जिसे आपके मौसम स्टेशनों को भेजना होगा ताकि उनका डेटा अस्वीकार न हो। यदि आप यह फ़ील्ड खाली छोड़ते हैं, तो सभी अनुरोध स्वीकार किए जाएंगे।",
+        "data": {
+          "password": "स्टेशन कुंजी"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "पहले से कॉन्फ़िगर किया गया है। एक ही इंस्टेंस सभी मौसम स्टेशनों को सेवा देता है।"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "व्यक्तिगत मौसम स्टेशन",
+        "description": "यहाँ एक स्टेशन कुंजी सेट करें जिसे आपके मौसम स्टेशनों को भेजना होगा ताकि उनका डेटा अस्वीकार न हो। यदि आप यह फ़ील्ड खाली छोड़ते हैं, तो सभी अनुरोध स्वीकार किए जाएंगे।",
+        "data": {
+          "password": "स्टेशन कुंजी",
+          "availability_timeout": "इतने समय बाद अनुपलब्ध चिह्नित करें (मिनट)",
+          "debug": "प्रत्येक आने वाले अनुरोध को लॉग करें"
+        },
+        "data_description": {
+          "availability_timeout": "सेंसर अनुपलब्ध चिह्नित होने से पहले स्टेशन कितनी देर चुप रह सकता है। 0 का अर्थ है कभी चिह्नित न करें।",
+          "debug": "प्रत्येक अनुरोध की पूरी सामग्री Home Assistant लॉग में लिखता है। स्टेशन सेट करते समय उपयोगी, उसके बाद शोरगुल भरा।"
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "मौसम स्टेशन अस्वीकृत: गलत स्टेशन कुंजी",
+      "description": "{ip} पर स्थित एक मौसम स्टेशन ने अपेक्षित स्टेशन कुंजी भेजे बिना `{station_id}` के रूप में डेटा भेजने का प्रयास किया।\n\nजाँचें कि स्टेशन या WSLink ऐप में कॉन्फ़िगर की गई कुंजी इस इंटीग्रेशन में सेट की गई कुंजी से मेल खाती है। {ip} से आने वाला कोई अनुरोध स्वीकार होते ही यह संदेश अपने आप गायब हो जाएगा।"
+    },
+    "missing_device_id": {
+      "title": "मौसम स्टेशन अस्वीकृत: कोई स्टेशन पहचानकर्ता नहीं",
+      "description": "{ip} पर स्थित एक मौसम स्टेशन ने स्टेशन पहचानकर्ता के बिना डेटा भेजा।\n\nWSLink ऐप में Sender ID, या स्टेशन कॉन्फ़िगरेशन में ID पैरामीटर सेट करें। {ip} से आने वाला कोई अनुरोध स्वीकार होते ही यह संदेश अपने आप गायब हो जाएगा।"
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "स्टेशन {device} ने अभी तक हवा की दिशा नहीं भेजी है, इसलिए अंशांकन के लिए कोई आधार नहीं है। अगले अपलोड की प्रतीक्षा करें और फिर से प्रयास करें।"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "निरपेक्ष वायुदाब"
+      },
+      "apiver": {
+        "name": "API संस्करण"
+      },
+      "aqbc": {
+        "name": "ब्लैक कार्बन"
+      },
+      "aqco": {
+        "name": "कार्बन मोनोऑक्साइड"
+      },
+      "aqcot": {
+        "name": "अल्प मात्रा में कार्बन मोनोऑक्साइड"
+      },
+      "aqec": {
+        "name": "तात्विक कार्बन"
+      },
+      "aqno": {
+        "name": "नाइट्रिक ऑक्साइड"
+      },
+      "aqno2": {
+        "name": "NO2 X परिकलित"
+      },
+      "aqno2t": {
+        "name": "नाइट्रोजन डाइऑक्साइड"
+      },
+      "aqno2y": {
+        "name": "NO2 Y परिकलित"
+      },
+      "aqno3": {
+        "name": "NO3 आयन"
+      },
+      "aqnox": {
+        "name": "नाइट्रोजन ऑक्साइड"
+      },
+      "aqnoy": {
+        "name": "कुल अभिक्रियाशील नाइट्रोजन"
+      },
+      "aqoc": {
+        "name": "कार्बनिक कार्बन"
+      },
+      "aqozone": {
+        "name": "ओज़ोन"
+      },
+      "aqpm10": {
+        "name": "PM10 द्रव्यमान"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 द्रव्यमान"
+      },
+      "aqso2": {
+        "name": "सल्फर डाइऑक्साइड"
+      },
+      "aqso2t": {
+        "name": "अल्प मात्रा में सल्फर डाइऑक्साइड"
+      },
+      "aqso4": {
+        "name": "SO4 आयन"
+      },
+      "aquv_aeth": {
+        "name": "एथेलोमीटर चैनल 2"
+      },
+      "baromin": {
+        "name": "दाब"
+      },
+      "clouds": {
+        "name": "बादल आवरण"
+      },
+      "dailyrainin": {
+        "name": "दैनिक वर्षा"
+      },
+      "dewptf": {
+        "name": "ओसांक"
+      },
+      "humidity": {
+        "name": "बाहरी आर्द्रता"
+      },
+      "inbat": {
+        "name": "कंसोल बैटरी स्तर"
+      },
+      "indoorhumidity": {
+        "name": "आंतरिक आर्द्रता"
+      },
+      "indoortempf": {
+        "name": "आंतरिक तापमान"
+      },
+      "inhum": {
+        "name": "आंतरिक आर्द्रता"
+      },
+      "intem": {
+        "name": "आंतरिक तापमान"
+      },
+      "last_update": {
+        "name": "अंतिम प्राप्ति"
+      },
+      "leafwetness": {
+        "name": "पत्ती नमी"
+      },
+      "leafwetness2": {
+        "name": "CH2 पत्ती नमी"
+      },
+      "lowbatt": {
+        "name": "बैटरी कम"
+      },
+      "monthlyrainin": {
+        "name": "मासिक वर्षा"
+      },
+      "rainin": {
+        "name": "प्रति घंटा वर्षा"
+      },
+      "rbar": {
+        "name": "सापेक्ष वायुदाब"
+      },
+      "rtfreq": {
+        "name": "अद्यतन आवृत्ति"
+      },
+      "soilmoisture": {
+        "name": "मृदा नमी"
+      },
+      "soilmoisture2": {
+        "name": "CH2 मृदा नमी"
+      },
+      "soilmoisture3": {
+        "name": "CH3 मृदा नमी"
+      },
+      "soilmoisture4": {
+        "name": "CH4 मृदा नमी"
+      },
+      "soiltemp2f": {
+        "name": "CH2 मृदा तापमान"
+      },
+      "soiltemp3f": {
+        "name": "CH3 मृदा तापमान"
+      },
+      "soiltemp4f": {
+        "name": "CH4 मृदा तापमान"
+      },
+      "soiltempf": {
+        "name": "मृदा तापमान"
+      },
+      "solarradiation": {
+        "name": "सौर विकिरण"
+      },
+      "t10bat": {
+        "name": "CO2 सेंसर बैटरी स्तर"
+      },
+      "t10cn": {
+        "name": "CO2 सेंसर की कनेक्शन स्थिति"
+      },
+      "t10co2": {
+        "name": "CO2 सांद्रता"
+      },
+      "t11bat": {
+        "name": "CO सेंसर बैटरी स्तर"
+      },
+      "t11cn": {
+        "name": "CO सेंसर की कनेक्शन स्थिति"
+      },
+      "t11co": {
+        "name": "CO सांद्रता"
+      },
+      "t1bat": {
+        "name": "बाहरी सेंसर की बैटरी स्थिति"
+      },
+      "t1chill": {
+        "name": "पवन शीतलन तापमान"
+      },
+      "t1cn": {
+        "name": "बाहरी सेंसर की कनेक्शन स्थिति"
+      },
+      "t1dew": {
+        "name": "ओसांक तापमान"
+      },
+      "t1feels": {
+        "name": "अनुभव किया गया तापमान"
+      },
+      "t1heat": {
+        "name": "ताप सूचकांक"
+      },
+      "t1hum": {
+        "name": "बाहरी आर्द्रता"
+      },
+      "t1raindy": {
+        "name": "दैनिक वर्षा मात्रा"
+      },
+      "t1rainhr": {
+        "name": "प्रति घंटा वर्षा मात्रा"
+      },
+      "t1rainmth": {
+        "name": "मासिक वर्षा मात्रा"
+      },
+      "t1rainra": {
+        "name": "वर्षा दर"
+      },
+      "t1rainwy": {
+        "name": "साप्ताहिक वर्षा मात्रा"
+      },
+      "t1rainyr": {
+        "name": "वार्षिक वर्षा मात्रा"
+      },
+      "t1solrad": {
+        "name": "प्रकाश तीव्रता"
+      },
+      "t1tem": {
+        "name": "बाहरी तापमान"
+      },
+      "t1uvi": {
+        "name": "UV सूचकांक"
+      },
+      "t1wbgt": {
+        "name": "WBGT तापमान"
+      },
+      "t1wdir": {
+        "name": "हवा की दिशा"
+      },
+      "t1wgust": {
+        "name": "झोंका"
+      },
+      "t1ws": {
+        "name": "हवा की गति"
+      },
+      "t1ws10mav": {
+        "name": "हवा की गति 10 मिनट औसत"
+      },
+      "t234c1bat": {
+        "name": "CH1 बैटरी स्थिति"
+      },
+      "t234c1cn": {
+        "name": "CH1 कनेक्शन स्थिति"
+      },
+      "t234c1hum": {
+        "name": "CH1 आर्द्रता"
+      },
+      "t234c1tem": {
+        "name": "CH1 तापमान"
+      },
+      "t234c1tp": {
+        "name": "CH1 सेंसर प्रकार"
+      },
+      "t234c2bat": {
+        "name": "CH2 बैटरी स्थिति"
+      },
+      "t234c2cn": {
+        "name": "CH2 कनेक्शन स्थिति"
+      },
+      "t234c2hum": {
+        "name": "CH2 आर्द्रता"
+      },
+      "t234c2tem": {
+        "name": "CH2 तापमान"
+      },
+      "t234c2tp": {
+        "name": "CH2 सेंसर प्रकार"
+      },
+      "t234c3bat": {
+        "name": "CH3 बैटरी स्थिति"
+      },
+      "t234c3cn": {
+        "name": "CH3 कनेक्शन स्थिति"
+      },
+      "t234c3hum": {
+        "name": "CH3 आर्द्रता"
+      },
+      "t234c3tem": {
+        "name": "CH3 तापमान"
+      },
+      "t234c3tp": {
+        "name": "CH3 सेंसर प्रकार"
+      },
+      "t234c4bat": {
+        "name": "CH4 बैटरी स्थिति"
+      },
+      "t234c4cn": {
+        "name": "CH4 कनेक्शन स्थिति"
+      },
+      "t234c4hum": {
+        "name": "CH4 आर्द्रता"
+      },
+      "t234c4tem": {
+        "name": "CH4 तापमान"
+      },
+      "t234c4tp": {
+        "name": "CH4 सेंसर प्रकार"
+      },
+      "t234c5bat": {
+        "name": "CH5 बैटरी स्थिति"
+      },
+      "t234c5cn": {
+        "name": "CH5 कनेक्शन स्थिति"
+      },
+      "t234c5hum": {
+        "name": "CH5 आर्द्रता"
+      },
+      "t234c5tem": {
+        "name": "CH5 तापमान"
+      },
+      "t234c5tp": {
+        "name": "CH5 सेंसर प्रकार"
+      },
+      "t234c6bat": {
+        "name": "CH6 बैटरी स्थिति"
+      },
+      "t234c6cn": {
+        "name": "CH6 कनेक्शन स्थिति"
+      },
+      "t234c6hum": {
+        "name": "CH6 आर्द्रता"
+      },
+      "t234c6tem": {
+        "name": "CH6 तापमान"
+      },
+      "t234c6tp": {
+        "name": "CH6 सेंसर प्रकार"
+      },
+      "t234c7bat": {
+        "name": "CH7 बैटरी स्थिति"
+      },
+      "t234c7cn": {
+        "name": "CH7 कनेक्शन स्थिति"
+      },
+      "t234c7hum": {
+        "name": "CH7 आर्द्रता"
+      },
+      "t234c7tem": {
+        "name": "CH7 तापमान"
+      },
+      "t234c7tp": {
+        "name": "CH7 सेंसर प्रकार"
+      },
+      "t5ls1dtc": {
+        "name": "1 दिन में कुल बिजली"
+      },
+      "t5ls1htc": {
+        "name": "1 घंटे में कुल बिजली"
+      },
+      "t5ls30mtc": {
+        "name": "पिछले 30 मिनट में बिजली"
+      },
+      "t5ls5mtc": {
+        "name": "पिछले 5 मिनट में बिजली"
+      },
+      "t5lsbat": {
+        "name": "बिजली सेंसर की बैटरी स्थिति"
+      },
+      "t5lscn": {
+        "name": "बिजली सेंसर की कनेक्शन स्थिति"
+      },
+      "t5lsf": {
+        "name": "पिछले एक घंटे में बिजली"
+      },
+      "t5lskm": {
+        "name": "बिजली की दूरी"
+      },
+      "t5lst": {
+        "name": "अंतिम बिजली गिरने का समय"
+      },
+      "t6c1bat": {
+        "name": "CH1 रिसाव सेंसर की बैटरी स्थिति"
+      },
+      "t6c1cn": {
+        "name": "CH1 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c1wls": {
+        "name": "CH1 जल रिसाव स्थिति"
+      },
+      "t6c2bat": {
+        "name": "CH2 रिसाव सेंसर की बैटरी स्थिति"
+      },
+      "t6c2cn": {
+        "name": "CH2 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c2wls": {
+        "name": "CH2 जल रिसाव स्थिति"
+      },
+      "t6c3bat": {
+        "name": "CH3 रिसाव सेंसर की बैटरी स्थिति"
+      },
+      "t6c3cn": {
+        "name": "CH3 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c3wls": {
+        "name": "CH3 जल रिसाव स्थिति"
+      },
+      "t6c4bat": {
+        "name": "CH4 रिसाव सेंसर की बैटरी स्थिति"
+      },
+      "t6c4cn": {
+        "name": "CH4 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c4wls": {
+        "name": "CH4 जल रिसाव स्थिति"
+      },
+      "t6c5bat": {
+        "name": "CH5 रिसाव सेंसर की बैटरी स्थिति"
+      },
+      "t6c5cn": {
+        "name": "CH5 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c5wls": {
+        "name": "CH5 जल रिसाव स्थिति"
+      },
+      "t6c6bat": {
+        "name": "CH6 रिसाव सेंसर की बैटरी स्थिति"
+      },
+      "t6c6cn": {
+        "name": "CH6 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c6wls": {
+        "name": "CH6 जल रिसाव स्थिति"
+      },
+      "t6c7bat": {
+        "name": "CH7 रिसाव सेंसर की बैटरी स्थिति"
+      },
+      "t6c7cn": {
+        "name": "CH7 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c7wls": {
+        "name": "CH7 जल रिसाव स्थिति"
+      },
+      "t8bat": {
+        "name": "कण सेंसर बैटरी स्तर"
+      },
+      "t8cn": {
+        "name": "कण सेंसर की कनेक्शन स्थिति"
+      },
+      "t8pm10": {
+        "name": "PM10 सांद्रता"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 सांद्रता"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/VOC सेंसर बैटरी स्तर"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC सेंसर की कनेक्शन स्थिति"
+      },
+      "t9hcho": {
+        "name": "HCHO सांद्रता"
+      },
+      "t9voclv": {
+        "name": "VOC स्तर"
+      },
+      "tempf": {
+        "name": "बाहरी तापमान"
+      },
+      "uv": {
+        "name": "UV सूचकांक"
+      },
+      "visibility": {
+        "name": "दृश्यता"
+      },
+      "weeklyrainin": {
+        "name": "साप्ताहिक वर्षा"
+      },
+      "wind_direction_raw": {
+        "name": "हवा की दिशा (कच्ची)"
+      },
+      "windchillf": {
+        "name": "पवन शीतलन"
+      },
+      "winddir": {
+        "name": "हवा की दिशा"
+      },
+      "winddir_avg2m": {
+        "name": "हवा की दिशा 2 मिनट औसत"
+      },
+      "windgustdir": {
+        "name": "झोंके की दिशा"
+      },
+      "windgustdir_10m": {
+        "name": "झोंके की दिशा 10 मिनट औसत"
+      },
+      "windgustmph": {
+        "name": "झोंका"
+      },
+      "windgustmph_10m": {
+        "name": "झोंके की गति 10 मिनट औसत"
+      },
+      "windspdmph_avg2m": {
+        "name": "हवा की गति 2 मिनट औसत"
+      },
+      "windspeedmph": {
+        "name": "हवा की गति"
+      },
+      "yearlyrainin": {
+        "name": "वार्षिक वर्षा"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 सेंसर की कनेक्शन स्थिति"
+      },
+      "t11cn": {
+        "name": "CO सेंसर की कनेक्शन स्थिति"
+      },
+      "t1cn": {
+        "name": "बाहरी सेंसर की कनेक्शन स्थिति"
+      },
+      "t234c1cn": {
+        "name": "CH1 कनेक्शन स्थिति"
+      },
+      "t234c2cn": {
+        "name": "CH2 कनेक्शन स्थिति"
+      },
+      "t234c3cn": {
+        "name": "CH3 कनेक्शन स्थिति"
+      },
+      "t234c4cn": {
+        "name": "CH4 कनेक्शन स्थिति"
+      },
+      "t234c5cn": {
+        "name": "CH5 कनेक्शन स्थिति"
+      },
+      "t234c6cn": {
+        "name": "CH6 कनेक्शन स्थिति"
+      },
+      "t234c7cn": {
+        "name": "CH7 कनेक्शन स्थिति"
+      },
+      "t5lscn": {
+        "name": "बिजली सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c1cn": {
+        "name": "CH1 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c1wls": {
+        "name": "CH1 जल रिसाव स्थिति"
+      },
+      "t6c2cn": {
+        "name": "CH2 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c2wls": {
+        "name": "CH2 जल रिसाव स्थिति"
+      },
+      "t6c3cn": {
+        "name": "CH3 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c3wls": {
+        "name": "CH3 जल रिसाव स्थिति"
+      },
+      "t6c4cn": {
+        "name": "CH4 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c4wls": {
+        "name": "CH4 जल रिसाव स्थिति"
+      },
+      "t6c5cn": {
+        "name": "CH5 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c5wls": {
+        "name": "CH5 जल रिसाव स्थिति"
+      },
+      "t6c6cn": {
+        "name": "CH6 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c6wls": {
+        "name": "CH6 जल रिसाव स्थिति"
+      },
+      "t6c7cn": {
+        "name": "CH7 रिसाव सेंसर की कनेक्शन स्थिति"
+      },
+      "t6c7wls": {
+        "name": "CH7 जल रिसाव स्थिति"
+      },
+      "t8cn": {
+        "name": "कण सेंसर की कनेक्शन स्थिति"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC सेंसर की कनेक्शन स्थिति"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "हवा की दिशा ऑफसेट"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "ऑफसेट रीसेट करें"
+      },
+      "set_north": {
+        "name": "वर्तमान मान को उत्तर बनाएं"
+      }
+    }
+  }
+}

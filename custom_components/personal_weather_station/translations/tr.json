@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Kişisel hava istasyonu",
+        "description": "Hava istasyonlarınızın verilerinin reddedilmemesi için göndermesi gereken istasyon anahtarını buraya girin. Alanı boş bırakırsanız tüm istekler kabul edilir.",
+        "data": {
+          "password": "İstasyon anahtarı"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Zaten yapılandırıldı. Tek bir örnek tüm hava istasyonlarına hizmet eder."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Kişisel hava istasyonu",
+        "description": "Hava istasyonlarınızın verilerinin reddedilmemesi için göndermesi gereken istasyon anahtarını buraya girin. Alanı boş bırakırsanız tüm istekler kabul edilir.",
+        "data": {
+          "password": "İstasyon anahtarı",
+          "availability_timeout": "Şu süre sonra kullanılamaz olarak işaretle (dakika)",
+          "debug": "Gelen her isteği günlüğe kaydet"
+        },
+        "data_description": {
+          "availability_timeout": "Bir istasyonun sensörleri kullanılamaz olarak işaretlenmeden önce ne kadar sessiz kalabileceği. 0 hiçbir zaman işaretleme anlamına gelir.",
+          "debug": "Her isteğin tüm içeriğini Home Assistant günlüğüne yazar. Bir istasyonu kurarken yararlı, sonrasında gürültülü."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Hava istasyonu reddedildi: yanlış istasyon anahtarı",
+      "description": "{ip} adresindeki bir hava istasyonu, beklenen istasyon anahtarını göndermeden `{station_id}` olarak veri göndermeye çalıştı.\n\nİstasyonda veya WSLink uygulamasında ayarlanan anahtarın bu entegrasyondakiyle eşleştiğini kontrol edin. Bu mesaj, {ip} adresinden gelen bir istek kabul edilir edilmez kendiliğinden kaybolur."
+    },
+    "missing_device_id": {
+      "title": "Hava istasyonu reddedildi: istasyon tanımlayıcısı yok",
+      "description": "{ip} adresindeki bir hava istasyonu, istasyon tanımlayıcısı olmadan veri gönderdi.\n\nWSLink uygulamasında bir Sender ID veya istasyon yapılandırmasında bir ID parametresi ayarlayın. Bu mesaj, {ip} adresinden gelen bir istek kabul edilir edilmez kendiliğinden kaybolur."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "{device} istasyonu henüz bir rüzgâr yönü göndermedi, bu yüzden kalibre edilecek bir şey yok. Bir sonraki gönderimi bekleyip tekrar deneyin."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Mutlak hava basıncı"
+      },
+      "apiver": {
+        "name": "API sürümü"
+      },
+      "aqbc": {
+        "name": "Siyah karbon"
+      },
+      "aqco": {
+        "name": "Karbon monoksit"
+      },
+      "aqcot": {
+        "name": "Eser miktarda karbon monoksit"
+      },
+      "aqec": {
+        "name": "Elementer karbon"
+      },
+      "aqno": {
+        "name": "Azot monoksit"
+      },
+      "aqno2": {
+        "name": "NO2 X hesaplanan"
+      },
+      "aqno2t": {
+        "name": "Azot dioksit"
+      },
+      "aqno2y": {
+        "name": "NO2 Y hesaplanan"
+      },
+      "aqno3": {
+        "name": "NO3 iyonu"
+      },
+      "aqnox": {
+        "name": "Azot oksitler"
+      },
+      "aqnoy": {
+        "name": "Toplam reaktif azot"
+      },
+      "aqoc": {
+        "name": "Organik karbon"
+      },
+      "aqozone": {
+        "name": "Ozon"
+      },
+      "aqpm10": {
+        "name": "PM10 kütlesi"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 kütlesi"
+      },
+      "aqso2": {
+        "name": "Kükürt dioksit"
+      },
+      "aqso2t": {
+        "name": "Eser miktarda kükürt dioksit"
+      },
+      "aqso4": {
+        "name": "SO4 iyonu"
+      },
+      "aquv_aeth": {
+        "name": "Etalometre kanal 2"
+      },
+      "baromin": {
+        "name": "Basınç"
+      },
+      "clouds": {
+        "name": "Bulut örtüsü"
+      },
+      "dailyrainin": {
+        "name": "Günlük yağmur"
+      },
+      "dewptf": {
+        "name": "Çiy noktası"
+      },
+      "humidity": {
+        "name": "Dış nem"
+      },
+      "inbat": {
+        "name": "Konsol pil seviyesi"
+      },
+      "indoorhumidity": {
+        "name": "İç nem"
+      },
+      "indoortempf": {
+        "name": "İç sıcaklık"
+      },
+      "inhum": {
+        "name": "İç nem"
+      },
+      "intem": {
+        "name": "İç sıcaklık"
+      },
+      "last_update": {
+        "name": "Son alım"
+      },
+      "leafwetness": {
+        "name": "Yaprak ıslaklığı"
+      },
+      "leafwetness2": {
+        "name": "CH2 yaprak ıslaklığı"
+      },
+      "lowbatt": {
+        "name": "Düşük pil"
+      },
+      "monthlyrainin": {
+        "name": "Aylık yağmur"
+      },
+      "rainin": {
+        "name": "Saatlik yağmur"
+      },
+      "rbar": {
+        "name": "Bağıl hava basıncı"
+      },
+      "rtfreq": {
+        "name": "Güncelleme sıklığı"
+      },
+      "soilmoisture": {
+        "name": "Toprak nemi"
+      },
+      "soilmoisture2": {
+        "name": "CH2 toprak nemi"
+      },
+      "soilmoisture3": {
+        "name": "CH3 toprak nemi"
+      },
+      "soilmoisture4": {
+        "name": "CH4 toprak nemi"
+      },
+      "soiltemp2f": {
+        "name": "CH2 toprak sıcaklığı"
+      },
+      "soiltemp3f": {
+        "name": "CH3 toprak sıcaklığı"
+      },
+      "soiltemp4f": {
+        "name": "CH4 toprak sıcaklığı"
+      },
+      "soiltempf": {
+        "name": "Toprak sıcaklığı"
+      },
+      "solarradiation": {
+        "name": "Güneş ışınımı"
+      },
+      "t10bat": {
+        "name": "CO2 sensörü pil seviyesi"
+      },
+      "t10cn": {
+        "name": "CO2 sensörü bağlantı durumu"
+      },
+      "t10co2": {
+        "name": "CO2 yoğunluğu"
+      },
+      "t11bat": {
+        "name": "CO sensörü pil seviyesi"
+      },
+      "t11cn": {
+        "name": "CO sensörü bağlantı durumu"
+      },
+      "t11co": {
+        "name": "CO yoğunluğu"
+      },
+      "t1bat": {
+        "name": "Dış sensör pil durumu"
+      },
+      "t1chill": {
+        "name": "Rüzgâr soğutma sıcaklığı"
+      },
+      "t1cn": {
+        "name": "Dış sensör bağlantı durumu"
+      },
+      "t1dew": {
+        "name": "Çiy noktası sıcaklığı"
+      },
+      "t1feels": {
+        "name": "Hissedilen sıcaklık"
+      },
+      "t1heat": {
+        "name": "Sıcaklık indeksi"
+      },
+      "t1hum": {
+        "name": "Dış nem"
+      },
+      "t1raindy": {
+        "name": "Günlük yağış"
+      },
+      "t1rainhr": {
+        "name": "Saatlik yağış"
+      },
+      "t1rainmth": {
+        "name": "Aylık yağış"
+      },
+      "t1rainra": {
+        "name": "Yağmur şiddeti"
+      },
+      "t1rainwy": {
+        "name": "Haftalık yağış"
+      },
+      "t1rainyr": {
+        "name": "Yıllık yağış"
+      },
+      "t1solrad": {
+        "name": "Işık şiddeti"
+      },
+      "t1tem": {
+        "name": "Dış sıcaklık"
+      },
+      "t1uvi": {
+        "name": "UV indeksi"
+      },
+      "t1wbgt": {
+        "name": "WBGT sıcaklığı"
+      },
+      "t1wdir": {
+        "name": "Rüzgâr yönü"
+      },
+      "t1wgust": {
+        "name": "Rüzgâr hamlesi"
+      },
+      "t1ws": {
+        "name": "Rüzgâr hızı"
+      },
+      "t1ws10mav": {
+        "name": "Rüzgâr hızı 10 dk ort."
+      },
+      "t234c1bat": {
+        "name": "CH1 pil durumu"
+      },
+      "t234c1cn": {
+        "name": "CH1 bağlantı durumu"
+      },
+      "t234c1hum": {
+        "name": "CH1 nem"
+      },
+      "t234c1tem": {
+        "name": "CH1 sıcaklık"
+      },
+      "t234c1tp": {
+        "name": "CH1 sensör tipi"
+      },
+      "t234c2bat": {
+        "name": "CH2 pil durumu"
+      },
+      "t234c2cn": {
+        "name": "CH2 bağlantı durumu"
+      },
+      "t234c2hum": {
+        "name": "CH2 nem"
+      },
+      "t234c2tem": {
+        "name": "CH2 sıcaklık"
+      },
+      "t234c2tp": {
+        "name": "CH2 sensör tipi"
+      },
+      "t234c3bat": {
+        "name": "CH3 pil durumu"
+      },
+      "t234c3cn": {
+        "name": "CH3 bağlantı durumu"
+      },
+      "t234c3hum": {
+        "name": "CH3 nem"
+      },
+      "t234c3tem": {
+        "name": "CH3 sıcaklık"
+      },
+      "t234c3tp": {
+        "name": "CH3 sensör tipi"
+      },
+      "t234c4bat": {
+        "name": "CH4 pil durumu"
+      },
+      "t234c4cn": {
+        "name": "CH4 bağlantı durumu"
+      },
+      "t234c4hum": {
+        "name": "CH4 nem"
+      },
+      "t234c4tem": {
+        "name": "CH4 sıcaklık"
+      },
+      "t234c4tp": {
+        "name": "CH4 sensör tipi"
+      },
+      "t234c5bat": {
+        "name": "CH5 pil durumu"
+      },
+      "t234c5cn": {
+        "name": "CH5 bağlantı durumu"
+      },
+      "t234c5hum": {
+        "name": "CH5 nem"
+      },
+      "t234c5tem": {
+        "name": "CH5 sıcaklık"
+      },
+      "t234c5tp": {
+        "name": "CH5 sensör tipi"
+      },
+      "t234c6bat": {
+        "name": "CH6 pil durumu"
+      },
+      "t234c6cn": {
+        "name": "CH6 bağlantı durumu"
+      },
+      "t234c6hum": {
+        "name": "CH6 nem"
+      },
+      "t234c6tem": {
+        "name": "CH6 sıcaklık"
+      },
+      "t234c6tp": {
+        "name": "CH6 sensör tipi"
+      },
+      "t234c7bat": {
+        "name": "CH7 pil durumu"
+      },
+      "t234c7cn": {
+        "name": "CH7 bağlantı durumu"
+      },
+      "t234c7hum": {
+        "name": "CH7 nem"
+      },
+      "t234c7tem": {
+        "name": "CH7 sıcaklık"
+      },
+      "t234c7tp": {
+        "name": "CH7 sensör tipi"
+      },
+      "t5ls1dtc": {
+        "name": "1 günde toplam yıldırım"
+      },
+      "t5ls1htc": {
+        "name": "1 saatte toplam yıldırım"
+      },
+      "t5ls30mtc": {
+        "name": "Son 30 dakikadaki yıldırımlar"
+      },
+      "t5ls5mtc": {
+        "name": "Son 5 dakikadaki yıldırımlar"
+      },
+      "t5lsbat": {
+        "name": "Yıldırım sensörü pil durumu"
+      },
+      "t5lscn": {
+        "name": "Yıldırım sensörü bağlantı durumu"
+      },
+      "t5lsf": {
+        "name": "Son bir saatteki yıldırımlar"
+      },
+      "t5lskm": {
+        "name": "Yıldırım mesafesi"
+      },
+      "t5lst": {
+        "name": "Son yıldırım zamanı"
+      },
+      "t6c1bat": {
+        "name": "CH1 kaçak sensörü pil durumu"
+      },
+      "t6c1cn": {
+        "name": "CH1 kaçak sensörü bağlantı durumu"
+      },
+      "t6c1wls": {
+        "name": "CH1 su kaçağı durumu"
+      },
+      "t6c2bat": {
+        "name": "CH2 kaçak sensörü pil durumu"
+      },
+      "t6c2cn": {
+        "name": "CH2 kaçak sensörü bağlantı durumu"
+      },
+      "t6c2wls": {
+        "name": "CH2 su kaçağı durumu"
+      },
+      "t6c3bat": {
+        "name": "CH3 kaçak sensörü pil durumu"
+      },
+      "t6c3cn": {
+        "name": "CH3 kaçak sensörü bağlantı durumu"
+      },
+      "t6c3wls": {
+        "name": "CH3 su kaçağı durumu"
+      },
+      "t6c4bat": {
+        "name": "CH4 kaçak sensörü pil durumu"
+      },
+      "t6c4cn": {
+        "name": "CH4 kaçak sensörü bağlantı durumu"
+      },
+      "t6c4wls": {
+        "name": "CH4 su kaçağı durumu"
+      },
+      "t6c5bat": {
+        "name": "CH5 kaçak sensörü pil durumu"
+      },
+      "t6c5cn": {
+        "name": "CH5 kaçak sensörü bağlantı durumu"
+      },
+      "t6c5wls": {
+        "name": "CH5 su kaçağı durumu"
+      },
+      "t6c6bat": {
+        "name": "CH6 kaçak sensörü pil durumu"
+      },
+      "t6c6cn": {
+        "name": "CH6 kaçak sensörü bağlantı durumu"
+      },
+      "t6c6wls": {
+        "name": "CH6 su kaçağı durumu"
+      },
+      "t6c7bat": {
+        "name": "CH7 kaçak sensörü pil durumu"
+      },
+      "t6c7cn": {
+        "name": "CH7 kaçak sensörü bağlantı durumu"
+      },
+      "t6c7wls": {
+        "name": "CH7 su kaçağı durumu"
+      },
+      "t8bat": {
+        "name": "Partikül sensörü pil seviyesi"
+      },
+      "t8cn": {
+        "name": "Partikül sensörü bağlantı durumu"
+      },
+      "t8pm10": {
+        "name": "PM10 yoğunluğu"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 yoğunluğu"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/UOB sensörü pil seviyesi"
+      },
+      "t9cn": {
+        "name": "HCHO/UOB sensörü bağlantı durumu"
+      },
+      "t9hcho": {
+        "name": "HCHO yoğunluğu"
+      },
+      "t9voclv": {
+        "name": "UOB seviyesi"
+      },
+      "tempf": {
+        "name": "Dış sıcaklık"
+      },
+      "uv": {
+        "name": "UV indeksi"
+      },
+      "visibility": {
+        "name": "Görüş mesafesi"
+      },
+      "weeklyrainin": {
+        "name": "Haftalık yağmur"
+      },
+      "wind_direction_raw": {
+        "name": "Rüzgâr yönü (ham)"
+      },
+      "windchillf": {
+        "name": "Rüzgâr soğutması"
+      },
+      "winddir": {
+        "name": "Rüzgâr yönü"
+      },
+      "winddir_avg2m": {
+        "name": "Rüzgâr yönü 2 dk ort."
+      },
+      "windgustdir": {
+        "name": "Hamle yönü"
+      },
+      "windgustdir_10m": {
+        "name": "Hamle yönü 10 dk ort."
+      },
+      "windgustmph": {
+        "name": "Rüzgâr hamlesi"
+      },
+      "windgustmph_10m": {
+        "name": "Hamle hızı 10 dk ort."
+      },
+      "windspdmph_avg2m": {
+        "name": "Rüzgâr hızı 2 dk ort."
+      },
+      "windspeedmph": {
+        "name": "Rüzgâr hızı"
+      },
+      "yearlyrainin": {
+        "name": "Yıllık yağmur"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 sensörü bağlantı durumu"
+      },
+      "t11cn": {
+        "name": "CO sensörü bağlantı durumu"
+      },
+      "t1cn": {
+        "name": "Dış sensör bağlantı durumu"
+      },
+      "t234c1cn": {
+        "name": "CH1 bağlantı durumu"
+      },
+      "t234c2cn": {
+        "name": "CH2 bağlantı durumu"
+      },
+      "t234c3cn": {
+        "name": "CH3 bağlantı durumu"
+      },
+      "t234c4cn": {
+        "name": "CH4 bağlantı durumu"
+      },
+      "t234c5cn": {
+        "name": "CH5 bağlantı durumu"
+      },
+      "t234c6cn": {
+        "name": "CH6 bağlantı durumu"
+      },
+      "t234c7cn": {
+        "name": "CH7 bağlantı durumu"
+      },
+      "t5lscn": {
+        "name": "Yıldırım sensörü bağlantı durumu"
+      },
+      "t6c1cn": {
+        "name": "CH1 kaçak sensörü bağlantı durumu"
+      },
+      "t6c1wls": {
+        "name": "CH1 su kaçağı durumu"
+      },
+      "t6c2cn": {
+        "name": "CH2 kaçak sensörü bağlantı durumu"
+      },
+      "t6c2wls": {
+        "name": "CH2 su kaçağı durumu"
+      },
+      "t6c3cn": {
+        "name": "CH3 kaçak sensörü bağlantı durumu"
+      },
+      "t6c3wls": {
+        "name": "CH3 su kaçağı durumu"
+      },
+      "t6c4cn": {
+        "name": "CH4 kaçak sensörü bağlantı durumu"
+      },
+      "t6c4wls": {
+        "name": "CH4 su kaçağı durumu"
+      },
+      "t6c5cn": {
+        "name": "CH5 kaçak sensörü bağlantı durumu"
+      },
+      "t6c5wls": {
+        "name": "CH5 su kaçağı durumu"
+      },
+      "t6c6cn": {
+        "name": "CH6 kaçak sensörü bağlantı durumu"
+      },
+      "t6c6wls": {
+        "name": "CH6 su kaçağı durumu"
+      },
+      "t6c7cn": {
+        "name": "CH7 kaçak sensörü bağlantı durumu"
+      },
+      "t6c7wls": {
+        "name": "CH7 su kaçağı durumu"
+      },
+      "t8cn": {
+        "name": "Partikül sensörü bağlantı durumu"
+      },
+      "t9cn": {
+        "name": "HCHO/UOB sensörü bağlantı durumu"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Rüzgâr yönü sapması"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Sapmayı sıfırla"
+      },
+      "set_north": {
+        "name": "Kuzeyi mevcut değere ayarla"
+      }
+    }
+  }
+}

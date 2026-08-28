@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "პირადი ამინდის სადგური",
+        "description": "აქ მიუთითეთ სადგურის გასაღები, რომელიც თქვენმა ამინდის სადგურებმა უნდა გადმოსცენ, რათა მათი მონაცემები არ იქნას უარყოფილი. თუ ველს ცარიელს დატოვებთ, ყველა მოთხოვნა მიიღება.",
+        "data": {
+          "password": "სადგურის გასაღები"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "უკვე კონფიგურირებულია. ერთი ეგზემპლარი ემსახურება ყველა ამინდის სადგურს."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "პირადი ამინდის სადგური",
+        "description": "აქ მიუთითეთ სადგურის გასაღები, რომელიც თქვენმა ამინდის სადგურებმა უნდა გადმოსცენ, რათა მათი მონაცემები არ იქნას უარყოფილი. თუ ველს ცარიელს დატოვებთ, ყველა მოთხოვნა მიიღება.",
+        "data": {
+          "password": "სადგურის გასაღები",
+          "availability_timeout": "მიუწვდომლად მონიშვნა ამის შემდეგ (წუთი)",
+          "debug": "ყოველი შემომავალი მოთხოვნის ჩაწერა"
+        },
+        "data_description": {
+          "availability_timeout": "რამდენ ხანს შეიძლება იდუმლოს სადგური, სანამ მისი სენსორები მიუწვდომლად მოინიშნება. 0 ნიშნავს არასოდეს მონიშვნას.",
+          "debug": "წერს ყოველი მოთხოვნის სრულ შიგთავსს Home Assistant-ის ჟურნალში. სასარგებლოა სადგურის დაყენებისას, შემდეგ კი ხმაურიანი."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "ამინდის სადგური უარყოფილია: არასწორი სადგურის გასაღები",
+      "description": "{ip}-ზე მდებარე ამინდის სადგურმა სცადა მონაცემების გაგზავნა `{station_id}`-ის სახელით მოსალოდნელი სადგურის გასაღების გადმოცემის გარეშე.\n\nშეამოწმეთ, ემთხვევა თუ არა სადგურში ან WSLink აპში მითითებული გასაღები ამ ინტეგრაციაში დაყენებულს. ეს შეტყობინება თავისით გაქრება, როგორც კი {ip}-დან მოთხოვნა მიიღება."
+    },
+    "missing_device_id": {
+      "title": "ამინდის სადგური უარყოფილია: სადგურის იდენტიფიკატორის გარეშე",
+      "description": "{ip}-ზე მდებარე ამინდის სადგურმა გაგზავნა მონაცემები სადგურის იდენტიფიკატორის გარეშე.\n\nმიუთითეთ Sender ID WSLink აპში, ან ID პარამეტრი სადგურის კონფიგურაციაში. ეს შეტყობინება თავისით გაქრება, როგორც კი {ip}-დან მოთხოვნა მიიღება."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "სადგურმა {device} ჯერ არ გადმოსცა ქარის მიმართულება, ამიტომ დასაკალიბრებელი არაფერია. დაელოდეთ შემდეგ გადაცემას და სცადეთ ხელახლა."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "აბსოლუტური ატმოსფერული წნევა"
+      },
+      "apiver": {
+        "name": "API ვერსია"
+      },
+      "aqbc": {
+        "name": "შავი ნახშირბადი"
+      },
+      "aqco": {
+        "name": "ნახშირბადის მონოქსიდი"
+      },
+      "aqcot": {
+        "name": "ნახშირბადის მონოქსიდი კვალის დონეზე"
+      },
+      "aqec": {
+        "name": "ელემენტარული ნახშირბადი"
+      },
+      "aqno": {
+        "name": "აზოტის მონოქსიდი"
+      },
+      "aqno2": {
+        "name": "NO2 X გამოთვლილი"
+      },
+      "aqno2t": {
+        "name": "აზოტის დიოქსიდი"
+      },
+      "aqno2y": {
+        "name": "NO2 Y გამოთვლილი"
+      },
+      "aqno3": {
+        "name": "NO3 იონი"
+      },
+      "aqnox": {
+        "name": "აზოტის ოქსიდები"
+      },
+      "aqnoy": {
+        "name": "ჯამური რეაქციული აზოტი"
+      },
+      "aqoc": {
+        "name": "ორგანული ნახშირბადი"
+      },
+      "aqozone": {
+        "name": "ოზონი"
+      },
+      "aqpm10": {
+        "name": "PM10 მასა"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 მასა"
+      },
+      "aqso2": {
+        "name": "გოგირდის დიოქსიდი"
+      },
+      "aqso2t": {
+        "name": "გოგირდის დიოქსიდი კვალის დონეზე"
+      },
+      "aqso4": {
+        "name": "SO4 იონი"
+      },
+      "aquv_aeth": {
+        "name": "ეთალომეტრი არხი 2"
+      },
+      "baromin": {
+        "name": "წნევა"
+      },
+      "clouds": {
+        "name": "ღრუბლიანობა"
+      },
+      "dailyrainin": {
+        "name": "დღიური წვიმა"
+      },
+      "dewptf": {
+        "name": "ნამის წერტილი"
+      },
+      "humidity": {
+        "name": "გარე ტენიანობა"
+      },
+      "inbat": {
+        "name": "კონსოლის ბატარეის დონე"
+      },
+      "indoorhumidity": {
+        "name": "შიდა ტენიანობა"
+      },
+      "indoortempf": {
+        "name": "შიდა ტემპერატურა"
+      },
+      "inhum": {
+        "name": "შიდა ტენიანობა"
+      },
+      "intem": {
+        "name": "შიდა ტემპერატურა"
+      },
+      "last_update": {
+        "name": "ბოლო მიღება"
+      },
+      "leafwetness": {
+        "name": "ფოთლის სინოტივე"
+      },
+      "leafwetness2": {
+        "name": "CH2 ფოთლის სინოტივე"
+      },
+      "lowbatt": {
+        "name": "დაბალი ბატარეა"
+      },
+      "monthlyrainin": {
+        "name": "თვიური წვიმა"
+      },
+      "rainin": {
+        "name": "საათობრივი წვიმა"
+      },
+      "rbar": {
+        "name": "ფარდობითი ატმოსფერული წნევა"
+      },
+      "rtfreq": {
+        "name": "განახლების სიხშირე"
+      },
+      "soilmoisture": {
+        "name": "ნიადაგის ტენიანობა"
+      },
+      "soilmoisture2": {
+        "name": "CH2 ნიადაგის ტენიანობა"
+      },
+      "soilmoisture3": {
+        "name": "CH3 ნიადაგის ტენიანობა"
+      },
+      "soilmoisture4": {
+        "name": "CH4 ნიადაგის ტენიანობა"
+      },
+      "soiltemp2f": {
+        "name": "CH2 ნიადაგის ტემპერატურა"
+      },
+      "soiltemp3f": {
+        "name": "CH3 ნიადაგის ტემპერატურა"
+      },
+      "soiltemp4f": {
+        "name": "CH4 ნიადაგის ტემპერატურა"
+      },
+      "soiltempf": {
+        "name": "ნიადაგის ტემპერატურა"
+      },
+      "solarradiation": {
+        "name": "მზის რადიაცია"
+      },
+      "t10bat": {
+        "name": "CO2 სენსორის ბატარეის დონე"
+      },
+      "t10cn": {
+        "name": "CO2 სენსორის კავშირის მდგომარეობა"
+      },
+      "t10co2": {
+        "name": "CO2 კონცენტრაცია"
+      },
+      "t11bat": {
+        "name": "CO სენსორის ბატარეის დონე"
+      },
+      "t11cn": {
+        "name": "CO სენსორის კავშირის მდგომარეობა"
+      },
+      "t11co": {
+        "name": "CO კონცენტრაცია"
+      },
+      "t1bat": {
+        "name": "გარე სენსორის ბატარეის მდგომარეობა"
+      },
+      "t1chill": {
+        "name": "ქარისმიერი გაციების ტემპერატურა"
+      },
+      "t1cn": {
+        "name": "გარე სენსორის კავშირის მდგომარეობა"
+      },
+      "t1dew": {
+        "name": "ნამის წერტილის ტემპერატურა"
+      },
+      "t1feels": {
+        "name": "შეგრძნებადი ტემპერატურა"
+      },
+      "t1heat": {
+        "name": "სიცხის ინდექსი"
+      },
+      "t1hum": {
+        "name": "გარე ტენიანობა"
+      },
+      "t1raindy": {
+        "name": "დღიური ნალექი"
+      },
+      "t1rainhr": {
+        "name": "საათობრივი ნალექი"
+      },
+      "t1rainmth": {
+        "name": "თვიური ნალექი"
+      },
+      "t1rainra": {
+        "name": "წვიმის ინტენსივობა"
+      },
+      "t1rainwy": {
+        "name": "კვირეული ნალექი"
+      },
+      "t1rainyr": {
+        "name": "წლიური ნალექი"
+      },
+      "t1solrad": {
+        "name": "სინათლის ინტენსივობა"
+      },
+      "t1tem": {
+        "name": "გარე ტემპერატურა"
+      },
+      "t1uvi": {
+        "name": "UV ინდექსი"
+      },
+      "t1wbgt": {
+        "name": "WBGT ტემპერატურა"
+      },
+      "t1wdir": {
+        "name": "ქარის მიმართულება"
+      },
+      "t1wgust": {
+        "name": "ქარის აქოშინება"
+      },
+      "t1ws": {
+        "name": "ქარის სიჩქარე"
+      },
+      "t1ws10mav": {
+        "name": "ქარის სიჩქარე 10 წთ საშ."
+      },
+      "t234c1bat": {
+        "name": "CH1 ბატარეის მდგომარეობა"
+      },
+      "t234c1cn": {
+        "name": "CH1 კავშირის მდგომარეობა"
+      },
+      "t234c1hum": {
+        "name": "CH1 ტენიანობა"
+      },
+      "t234c1tem": {
+        "name": "CH1 ტემპერატურა"
+      },
+      "t234c1tp": {
+        "name": "CH1 სენსორის ტიპი"
+      },
+      "t234c2bat": {
+        "name": "CH2 ბატარეის მდგომარეობა"
+      },
+      "t234c2cn": {
+        "name": "CH2 კავშირის მდგომარეობა"
+      },
+      "t234c2hum": {
+        "name": "CH2 ტენიანობა"
+      },
+      "t234c2tem": {
+        "name": "CH2 ტემპერატურა"
+      },
+      "t234c2tp": {
+        "name": "CH2 სენსორის ტიპი"
+      },
+      "t234c3bat": {
+        "name": "CH3 ბატარეის მდგომარეობა"
+      },
+      "t234c3cn": {
+        "name": "CH3 კავშირის მდგომარეობა"
+      },
+      "t234c3hum": {
+        "name": "CH3 ტენიანობა"
+      },
+      "t234c3tem": {
+        "name": "CH3 ტემპერატურა"
+      },
+      "t234c3tp": {
+        "name": "CH3 სენსორის ტიპი"
+      },
+      "t234c4bat": {
+        "name": "CH4 ბატარეის მდგომარეობა"
+      },
+      "t234c4cn": {
+        "name": "CH4 კავშირის მდგომარეობა"
+      },
+      "t234c4hum": {
+        "name": "CH4 ტენიანობა"
+      },
+      "t234c4tem": {
+        "name": "CH4 ტემპერატურა"
+      },
+      "t234c4tp": {
+        "name": "CH4 სენსორის ტიპი"
+      },
+      "t234c5bat": {
+        "name": "CH5 ბატარეის მდგომარეობა"
+      },
+      "t234c5cn": {
+        "name": "CH5 კავშირის მდგომარეობა"
+      },
+      "t234c5hum": {
+        "name": "CH5 ტენიანობა"
+      },
+      "t234c5tem": {
+        "name": "CH5 ტემპერატურა"
+      },
+      "t234c5tp": {
+        "name": "CH5 სენსორის ტიპი"
+      },
+      "t234c6bat": {
+        "name": "CH6 ბატარეის მდგომარეობა"
+      },
+      "t234c6cn": {
+        "name": "CH6 კავშირის მდგომარეობა"
+      },
+      "t234c6hum": {
+        "name": "CH6 ტენიანობა"
+      },
+      "t234c6tem": {
+        "name": "CH6 ტემპერატურა"
+      },
+      "t234c6tp": {
+        "name": "CH6 სენსორის ტიპი"
+      },
+      "t234c7bat": {
+        "name": "CH7 ბატარეის მდგომარეობა"
+      },
+      "t234c7cn": {
+        "name": "CH7 კავშირის მდგომარეობა"
+      },
+      "t234c7hum": {
+        "name": "CH7 ტენიანობა"
+      },
+      "t234c7tem": {
+        "name": "CH7 ტემპერატურა"
+      },
+      "t234c7tp": {
+        "name": "CH7 სენსორის ტიპი"
+      },
+      "t5ls1dtc": {
+        "name": "ელვები სულ 1 დღეში"
+      },
+      "t5ls1htc": {
+        "name": "ელვები სულ 1 საათში"
+      },
+      "t5ls30mtc": {
+        "name": "ელვები ბოლო 30 წუთში"
+      },
+      "t5ls5mtc": {
+        "name": "ელვები ბოლო 5 წუთში"
+      },
+      "t5lsbat": {
+        "name": "ელვის სენსორის ბატარეის მდგომარეობა"
+      },
+      "t5lscn": {
+        "name": "ელვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t5lsf": {
+        "name": "ელვები ბოლო საათში"
+      },
+      "t5lskm": {
+        "name": "ელვის მანძილი"
+      },
+      "t5lst": {
+        "name": "ბოლო ელვის დრო"
+      },
+      "t6c1bat": {
+        "name": "CH1 გაჟონვის სენსორის ბატარეის მდგომარეობა"
+      },
+      "t6c1cn": {
+        "name": "CH1 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c1wls": {
+        "name": "CH1 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c2bat": {
+        "name": "CH2 გაჟონვის სენსორის ბატარეის მდგომარეობა"
+      },
+      "t6c2cn": {
+        "name": "CH2 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c2wls": {
+        "name": "CH2 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c3bat": {
+        "name": "CH3 გაჟონვის სენსორის ბატარეის მდგომარეობა"
+      },
+      "t6c3cn": {
+        "name": "CH3 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c3wls": {
+        "name": "CH3 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c4bat": {
+        "name": "CH4 გაჟონვის სენსორის ბატარეის მდგომარეობა"
+      },
+      "t6c4cn": {
+        "name": "CH4 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c4wls": {
+        "name": "CH4 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c5bat": {
+        "name": "CH5 გაჟონვის სენსორის ბატარეის მდგომარეობა"
+      },
+      "t6c5cn": {
+        "name": "CH5 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c5wls": {
+        "name": "CH5 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c6bat": {
+        "name": "CH6 გაჟონვის სენსორის ბატარეის მდგომარეობა"
+      },
+      "t6c6cn": {
+        "name": "CH6 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c6wls": {
+        "name": "CH6 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c7bat": {
+        "name": "CH7 გაჟონვის სენსორის ბატარეის მდგომარეობა"
+      },
+      "t6c7cn": {
+        "name": "CH7 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c7wls": {
+        "name": "CH7 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t8bat": {
+        "name": "ნაწილაკების სენსორის ბატარეის დონე"
+      },
+      "t8cn": {
+        "name": "ნაწილაკების სენსორის კავშირის მდგომარეობა"
+      },
+      "t8pm10": {
+        "name": "PM10 კონცენტრაცია"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 კონცენტრაცია"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/VOC სენსორის ბატარეის დონე"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC სენსორის კავშირის მდგომარეობა"
+      },
+      "t9hcho": {
+        "name": "HCHO კონცენტრაცია"
+      },
+      "t9voclv": {
+        "name": "VOC დონე"
+      },
+      "tempf": {
+        "name": "გარე ტემპერატურა"
+      },
+      "uv": {
+        "name": "UV ინდექსი"
+      },
+      "visibility": {
+        "name": "ხილვადობა"
+      },
+      "weeklyrainin": {
+        "name": "კვირეული წვიმა"
+      },
+      "wind_direction_raw": {
+        "name": "ქარის მიმართულება (დაუმუშავებელი)"
+      },
+      "windchillf": {
+        "name": "ქარისმიერი გაციება"
+      },
+      "winddir": {
+        "name": "ქარის მიმართულება"
+      },
+      "winddir_avg2m": {
+        "name": "ქარის მიმართულება 2 წთ საშ."
+      },
+      "windgustdir": {
+        "name": "აქოშინების მიმართულება"
+      },
+      "windgustdir_10m": {
+        "name": "აქოშინების მიმართულება 10 წთ საშ."
+      },
+      "windgustmph": {
+        "name": "ქარის აქოშინება"
+      },
+      "windgustmph_10m": {
+        "name": "აქოშინების სიჩქარე 10 წთ საშ."
+      },
+      "windspdmph_avg2m": {
+        "name": "ქარის სიჩქარე 2 წთ საშ."
+      },
+      "windspeedmph": {
+        "name": "ქარის სიჩქარე"
+      },
+      "yearlyrainin": {
+        "name": "წლიური წვიმა"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 სენსორის კავშირის მდგომარეობა"
+      },
+      "t11cn": {
+        "name": "CO სენსორის კავშირის მდგომარეობა"
+      },
+      "t1cn": {
+        "name": "გარე სენსორის კავშირის მდგომარეობა"
+      },
+      "t234c1cn": {
+        "name": "CH1 კავშირის მდგომარეობა"
+      },
+      "t234c2cn": {
+        "name": "CH2 კავშირის მდგომარეობა"
+      },
+      "t234c3cn": {
+        "name": "CH3 კავშირის მდგომარეობა"
+      },
+      "t234c4cn": {
+        "name": "CH4 კავშირის მდგომარეობა"
+      },
+      "t234c5cn": {
+        "name": "CH5 კავშირის მდგომარეობა"
+      },
+      "t234c6cn": {
+        "name": "CH6 კავშირის მდგომარეობა"
+      },
+      "t234c7cn": {
+        "name": "CH7 კავშირის მდგომარეობა"
+      },
+      "t5lscn": {
+        "name": "ელვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c1cn": {
+        "name": "CH1 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c1wls": {
+        "name": "CH1 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c2cn": {
+        "name": "CH2 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c2wls": {
+        "name": "CH2 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c3cn": {
+        "name": "CH3 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c3wls": {
+        "name": "CH3 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c4cn": {
+        "name": "CH4 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c4wls": {
+        "name": "CH4 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c5cn": {
+        "name": "CH5 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c5wls": {
+        "name": "CH5 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c6cn": {
+        "name": "CH6 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c6wls": {
+        "name": "CH6 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t6c7cn": {
+        "name": "CH7 გაჟონვის სენსორის კავშირის მდგომარეობა"
+      },
+      "t6c7wls": {
+        "name": "CH7 წყლის გაჟონვის მდგომარეობა"
+      },
+      "t8cn": {
+        "name": "ნაწილაკების სენსორის კავშირის მდგომარეობა"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC სენსორის კავშირის მდგომარეობა"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "ქარის მიმართულების წანაცვლება"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "წანაცვლების განულება"
+      },
+      "set_north": {
+        "name": "ჩრდილოეთის დაყენება მიმდინარე მნიშვნელობით"
+      }
+    }
+  }
+}

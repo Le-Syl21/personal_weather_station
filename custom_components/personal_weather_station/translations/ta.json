@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "தனிப்பட்ட வானிலை நிலையம்",
+        "description": "உங்கள் வானிலை நிலையங்களின் தரவு நிராகரிக்கப்படாமல் இருக்க அவை அனுப்ப வேண்டிய நிலைய விசையை இங்கே அமைக்கவும். புலத்தை காலியாக விட்டால், அனைத்து கோரிக்கைகளும் ஏற்கப்படும்.",
+        "data": {
+          "password": "நிலைய விசை"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "ஏற்கனவே கட்டமைக்கப்பட்டுள்ளது. ஒரே நிகழ்வு அனைத்து வானிலை நிலையங்களுக்கும் சேவை செய்கிறது."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "தனிப்பட்ட வானிலை நிலையம்",
+        "description": "உங்கள் வானிலை நிலையங்களின் தரவு நிராகரிக்கப்படாமல் இருக்க அவை அனுப்ப வேண்டிய நிலைய விசையை இங்கே அமைக்கவும். புலத்தை காலியாக விட்டால், அனைத்து கோரிக்கைகளும் ஏற்கப்படும்.",
+        "data": {
+          "password": "நிலைய விசை",
+          "availability_timeout": "இவ்வளவு நேரத்திற்குப் பிறகு கிடைக்கவில்லை எனக் குறி (நிமிடங்கள்)",
+          "debug": "வரும் ஒவ்வொரு கோரிக்கையையும் பதிவு செய்"
+        },
+        "data_description": {
+          "availability_timeout": "உணரிகள் கிடைக்கவில்லை எனக் குறிக்கப்படுவதற்கு முன் ஒரு நிலையம் எவ்வளவு நேரம் அமைதியாக இருக்கலாம். 0 என்றால் ஒருபோதும் குறிக்க வேண்டாம்.",
+          "debug": "ஒவ்வொரு கோரிக்கையின் முழு உள்ளடக்கத்தையும் Home Assistant பதிவேட்டில் எழுதுகிறது. ஒரு நிலையத்தை அமைக்கும்போது பயனுள்ளது, பிறகு தொந்தரவானது."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "வானிலை நிலையம் நிராகரிக்கப்பட்டது: தவறான நிலைய விசை",
+      "description": "{ip} இல் உள்ள ஒரு வானிலை நிலையம் எதிர்பார்க்கப்பட்ட நிலைய விசையை அனுப்பாமல் `{station_id}` எனத் தரவை அனுப்ப முயன்றது.\n\nநிலையத்திலோ WSLink பயன்பாட்டிலோ அமைக்கப்பட்ட விசை இந்த ஒருங்கிணைப்பில் அமைக்கப்பட்டதுடன் பொருந்துகிறதா எனச் சரிபார்க்கவும். {ip} இலிருந்து ஒரு கோரிக்கை ஏற்கப்பட்டவுடன் இந்தச் செய்தி தானாகவே மறையும்."
+    },
+    "missing_device_id": {
+      "title": "வானிலை நிலையம் நிராகரிக்கப்பட்டது: நிலைய அடையாளங்காட்டி இல்லை",
+      "description": "{ip} இல் உள்ள ஒரு வானிலை நிலையம் நிலைய அடையாளங்காட்டி இல்லாமல் தரவை அனுப்பியது.\n\nWSLink பயன்பாட்டில் ஒரு Sender ID, அல்லது நிலைய கட்டமைப்பில் ஒரு ID அளவுருவை அமைக்கவும். {ip} இலிருந்து ஒரு கோரிக்கை ஏற்கப்பட்டவுடன் இந்தச் செய்தி தானாகவே மறையும்."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "{device} நிலையம் இதுவரை காற்றின் திசையை அனுப்பவில்லை, எனவே அளவீடு செய்ய எதுவும் இல்லை. அடுத்த பதிவேற்றத்திற்குக் காத்திருந்து மீண்டும் முயலவும்."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "முழுமையான காற்றழுத்தம்"
+      },
+      "apiver": {
+        "name": "API பதிப்பு"
+      },
+      "aqbc": {
+        "name": "கருப்புக் கார்பன்"
+      },
+      "aqco": {
+        "name": "கார்பன் மோனாக்சைடு"
+      },
+      "aqcot": {
+        "name": "சுவடு அளவில் கார்பன் மோனாக்சைடு"
+      },
+      "aqec": {
+        "name": "தனிமக் கார்பன்"
+      },
+      "aqno": {
+        "name": "நைட்ரிக் ஆக்சைடு"
+      },
+      "aqno2": {
+        "name": "NO2 X கணக்கிடப்பட்டது"
+      },
+      "aqno2t": {
+        "name": "நைட்ரஜன் டை ஆக்சைடு"
+      },
+      "aqno2y": {
+        "name": "NO2 Y கணக்கிடப்பட்டது"
+      },
+      "aqno3": {
+        "name": "NO3 அயனி"
+      },
+      "aqnox": {
+        "name": "நைட்ரஜன் ஆக்சைடுகள்"
+      },
+      "aqnoy": {
+        "name": "மொத்த வினைபுரியும் நைட்ரஜன்"
+      },
+      "aqoc": {
+        "name": "கரிமக் கார்பன்"
+      },
+      "aqozone": {
+        "name": "ஓசோன்"
+      },
+      "aqpm10": {
+        "name": "PM10 நிறை"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 நிறை"
+      },
+      "aqso2": {
+        "name": "கந்தக டை ஆக்சைடு"
+      },
+      "aqso2t": {
+        "name": "சுவடு அளவில் கந்தக டை ஆக்சைடு"
+      },
+      "aqso4": {
+        "name": "SO4 அயனி"
+      },
+      "aquv_aeth": {
+        "name": "எத்தலோமீட்டர் சேனல் 2"
+      },
+      "baromin": {
+        "name": "அழுத்தம்"
+      },
+      "clouds": {
+        "name": "மேக மூட்டம்"
+      },
+      "dailyrainin": {
+        "name": "தினசரி மழை"
+      },
+      "dewptf": {
+        "name": "பனிப்புள்ளி"
+      },
+      "humidity": {
+        "name": "வெளிப்புற ஈரப்பதம்"
+      },
+      "inbat": {
+        "name": "கன்சோல் பேட்டரி அளவு"
+      },
+      "indoorhumidity": {
+        "name": "உட்புற ஈரப்பதம்"
+      },
+      "indoortempf": {
+        "name": "உட்புற வெப்பநிலை"
+      },
+      "inhum": {
+        "name": "உட்புற ஈரப்பதம்"
+      },
+      "intem": {
+        "name": "உட்புற வெப்பநிலை"
+      },
+      "last_update": {
+        "name": "கடைசி பெறுதல்"
+      },
+      "leafwetness": {
+        "name": "இலை ஈரம்"
+      },
+      "leafwetness2": {
+        "name": "CH2 இலை ஈரம்"
+      },
+      "lowbatt": {
+        "name": "பேட்டரி குறைவு"
+      },
+      "monthlyrainin": {
+        "name": "மாதாந்திர மழை"
+      },
+      "rainin": {
+        "name": "மணிநேர மழை"
+      },
+      "rbar": {
+        "name": "சார்பு காற்றழுத்தம்"
+      },
+      "rtfreq": {
+        "name": "புதுப்பிப்பு அதிர்வெண்"
+      },
+      "soilmoisture": {
+        "name": "மண் ஈரப்பதம்"
+      },
+      "soilmoisture2": {
+        "name": "CH2 மண் ஈரப்பதம்"
+      },
+      "soilmoisture3": {
+        "name": "CH3 மண் ஈரப்பதம்"
+      },
+      "soilmoisture4": {
+        "name": "CH4 மண் ஈரப்பதம்"
+      },
+      "soiltemp2f": {
+        "name": "CH2 மண் வெப்பநிலை"
+      },
+      "soiltemp3f": {
+        "name": "CH3 மண் வெப்பநிலை"
+      },
+      "soiltemp4f": {
+        "name": "CH4 மண் வெப்பநிலை"
+      },
+      "soiltempf": {
+        "name": "மண் வெப்பநிலை"
+      },
+      "solarradiation": {
+        "name": "சூரிய கதிர்வீச்சு"
+      },
+      "t10bat": {
+        "name": "CO2 உணரியின் பேட்டரி அளவு"
+      },
+      "t10cn": {
+        "name": "CO2 உணரியின் இணைப்பு நிலை"
+      },
+      "t10co2": {
+        "name": "CO2 செறிவு"
+      },
+      "t11bat": {
+        "name": "CO உணரியின் பேட்டரி அளவு"
+      },
+      "t11cn": {
+        "name": "CO உணரியின் இணைப்பு நிலை"
+      },
+      "t11co": {
+        "name": "CO செறிவு"
+      },
+      "t1bat": {
+        "name": "வெளிப்புற உணரியின் பேட்டரி நிலை"
+      },
+      "t1chill": {
+        "name": "காற்றுக் குளிர்ச்சி வெப்பநிலை"
+      },
+      "t1cn": {
+        "name": "வெளிப்புற உணரியின் இணைப்பு நிலை"
+      },
+      "t1dew": {
+        "name": "பனிப்புள்ளி வெப்பநிலை"
+      },
+      "t1feels": {
+        "name": "உணரப்படும் வெப்பநிலை"
+      },
+      "t1heat": {
+        "name": "வெப்பக் குறியீடு"
+      },
+      "t1hum": {
+        "name": "வெளிப்புற ஈரப்பதம்"
+      },
+      "t1raindy": {
+        "name": "தினசரி மழையளவு"
+      },
+      "t1rainhr": {
+        "name": "மணிநேர மழையளவு"
+      },
+      "t1rainmth": {
+        "name": "மாதாந்திர மழையளவு"
+      },
+      "t1rainra": {
+        "name": "மழை வீதம்"
+      },
+      "t1rainwy": {
+        "name": "வாராந்திர மழையளவு"
+      },
+      "t1rainyr": {
+        "name": "ஆண்டு மழையளவு"
+      },
+      "t1solrad": {
+        "name": "ஒளி செறிவு"
+      },
+      "t1tem": {
+        "name": "வெளிப்புற வெப்பநிலை"
+      },
+      "t1uvi": {
+        "name": "UV குறியீடு"
+      },
+      "t1wbgt": {
+        "name": "WBGT வெப்பநிலை"
+      },
+      "t1wdir": {
+        "name": "காற்றின் திசை"
+      },
+      "t1wgust": {
+        "name": "பலத்த காற்று"
+      },
+      "t1ws": {
+        "name": "காற்றின் வேகம்"
+      },
+      "t1ws10mav": {
+        "name": "காற்றின் வேகம் 10 நிமிட சராசரி"
+      },
+      "t234c1bat": {
+        "name": "CH1 பேட்டரி நிலை"
+      },
+      "t234c1cn": {
+        "name": "CH1 இணைப்பு நிலை"
+      },
+      "t234c1hum": {
+        "name": "CH1 ஈரப்பதம்"
+      },
+      "t234c1tem": {
+        "name": "CH1 வெப்பநிலை"
+      },
+      "t234c1tp": {
+        "name": "CH1 உணரி வகை"
+      },
+      "t234c2bat": {
+        "name": "CH2 பேட்டரி நிலை"
+      },
+      "t234c2cn": {
+        "name": "CH2 இணைப்பு நிலை"
+      },
+      "t234c2hum": {
+        "name": "CH2 ஈரப்பதம்"
+      },
+      "t234c2tem": {
+        "name": "CH2 வெப்பநிலை"
+      },
+      "t234c2tp": {
+        "name": "CH2 உணரி வகை"
+      },
+      "t234c3bat": {
+        "name": "CH3 பேட்டரி நிலை"
+      },
+      "t234c3cn": {
+        "name": "CH3 இணைப்பு நிலை"
+      },
+      "t234c3hum": {
+        "name": "CH3 ஈரப்பதம்"
+      },
+      "t234c3tem": {
+        "name": "CH3 வெப்பநிலை"
+      },
+      "t234c3tp": {
+        "name": "CH3 உணரி வகை"
+      },
+      "t234c4bat": {
+        "name": "CH4 பேட்டரி நிலை"
+      },
+      "t234c4cn": {
+        "name": "CH4 இணைப்பு நிலை"
+      },
+      "t234c4hum": {
+        "name": "CH4 ஈரப்பதம்"
+      },
+      "t234c4tem": {
+        "name": "CH4 வெப்பநிலை"
+      },
+      "t234c4tp": {
+        "name": "CH4 உணரி வகை"
+      },
+      "t234c5bat": {
+        "name": "CH5 பேட்டரி நிலை"
+      },
+      "t234c5cn": {
+        "name": "CH5 இணைப்பு நிலை"
+      },
+      "t234c5hum": {
+        "name": "CH5 ஈரப்பதம்"
+      },
+      "t234c5tem": {
+        "name": "CH5 வெப்பநிலை"
+      },
+      "t234c5tp": {
+        "name": "CH5 உணரி வகை"
+      },
+      "t234c6bat": {
+        "name": "CH6 பேட்டரி நிலை"
+      },
+      "t234c6cn": {
+        "name": "CH6 இணைப்பு நிலை"
+      },
+      "t234c6hum": {
+        "name": "CH6 ஈரப்பதம்"
+      },
+      "t234c6tem": {
+        "name": "CH6 வெப்பநிலை"
+      },
+      "t234c6tp": {
+        "name": "CH6 உணரி வகை"
+      },
+      "t234c7bat": {
+        "name": "CH7 பேட்டரி நிலை"
+      },
+      "t234c7cn": {
+        "name": "CH7 இணைப்பு நிலை"
+      },
+      "t234c7hum": {
+        "name": "CH7 ஈரப்பதம்"
+      },
+      "t234c7tem": {
+        "name": "CH7 வெப்பநிலை"
+      },
+      "t234c7tp": {
+        "name": "CH7 உணரி வகை"
+      },
+      "t5ls1dtc": {
+        "name": "1 நாளில் மொத்த மின்னல்கள்"
+      },
+      "t5ls1htc": {
+        "name": "1 மணி நேரத்தில் மொத்த மின்னல்கள்"
+      },
+      "t5ls30mtc": {
+        "name": "கடந்த 30 நிமிட மின்னல்கள்"
+      },
+      "t5ls5mtc": {
+        "name": "கடந்த 5 நிமிட மின்னல்கள்"
+      },
+      "t5lsbat": {
+        "name": "மின்னல் உணரியின் பேட்டரி நிலை"
+      },
+      "t5lscn": {
+        "name": "மின்னல் உணரியின் இணைப்பு நிலை"
+      },
+      "t5lsf": {
+        "name": "கடந்த ஒரு மணி நேர மின்னல்கள்"
+      },
+      "t5lskm": {
+        "name": "மின்னல் தொலைவு"
+      },
+      "t5lst": {
+        "name": "கடைசி மின்னல் நேரம்"
+      },
+      "t6c1bat": {
+        "name": "CH1 கசிவு உணரியின் பேட்டரி நிலை"
+      },
+      "t6c1cn": {
+        "name": "CH1 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c1wls": {
+        "name": "CH1 நீர் கசிவு நிலை"
+      },
+      "t6c2bat": {
+        "name": "CH2 கசிவு உணரியின் பேட்டரி நிலை"
+      },
+      "t6c2cn": {
+        "name": "CH2 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c2wls": {
+        "name": "CH2 நீர் கசிவு நிலை"
+      },
+      "t6c3bat": {
+        "name": "CH3 கசிவு உணரியின் பேட்டரி நிலை"
+      },
+      "t6c3cn": {
+        "name": "CH3 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c3wls": {
+        "name": "CH3 நீர் கசிவு நிலை"
+      },
+      "t6c4bat": {
+        "name": "CH4 கசிவு உணரியின் பேட்டரி நிலை"
+      },
+      "t6c4cn": {
+        "name": "CH4 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c4wls": {
+        "name": "CH4 நீர் கசிவு நிலை"
+      },
+      "t6c5bat": {
+        "name": "CH5 கசிவு உணரியின் பேட்டரி நிலை"
+      },
+      "t6c5cn": {
+        "name": "CH5 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c5wls": {
+        "name": "CH5 நீர் கசிவு நிலை"
+      },
+      "t6c6bat": {
+        "name": "CH6 கசிவு உணரியின் பேட்டரி நிலை"
+      },
+      "t6c6cn": {
+        "name": "CH6 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c6wls": {
+        "name": "CH6 நீர் கசிவு நிலை"
+      },
+      "t6c7bat": {
+        "name": "CH7 கசிவு உணரியின் பேட்டரி நிலை"
+      },
+      "t6c7cn": {
+        "name": "CH7 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c7wls": {
+        "name": "CH7 நீர் கசிவு நிலை"
+      },
+      "t8bat": {
+        "name": "துகள் உணரியின் பேட்டரி அளவு"
+      },
+      "t8cn": {
+        "name": "துகள் உணரியின் இணைப்பு நிலை"
+      },
+      "t8pm10": {
+        "name": "PM10 செறிவு"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 செறிவு"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/VOC உணரியின் பேட்டரி அளவு"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC உணரியின் இணைப்பு நிலை"
+      },
+      "t9hcho": {
+        "name": "HCHO செறிவு"
+      },
+      "t9voclv": {
+        "name": "VOC நிலை"
+      },
+      "tempf": {
+        "name": "வெளிப்புற வெப்பநிலை"
+      },
+      "uv": {
+        "name": "UV குறியீடு"
+      },
+      "visibility": {
+        "name": "தெரிவுநிலை"
+      },
+      "weeklyrainin": {
+        "name": "வாராந்திர மழை"
+      },
+      "wind_direction_raw": {
+        "name": "காற்றின் திசை (மூல)"
+      },
+      "windchillf": {
+        "name": "காற்றுக் குளிர்ச்சி"
+      },
+      "winddir": {
+        "name": "காற்றின் திசை"
+      },
+      "winddir_avg2m": {
+        "name": "காற்றின் திசை 2 நிமிட சராசரி"
+      },
+      "windgustdir": {
+        "name": "பலத்த காற்றின் திசை"
+      },
+      "windgustdir_10m": {
+        "name": "பலத்த காற்றின் திசை 10 நிமிட சராசரி"
+      },
+      "windgustmph": {
+        "name": "பலத்த காற்று"
+      },
+      "windgustmph_10m": {
+        "name": "பலத்த காற்றின் வேகம் 10 நிமிட சராசரி"
+      },
+      "windspdmph_avg2m": {
+        "name": "காற்றின் வேகம் 2 நிமிட சராசரி"
+      },
+      "windspeedmph": {
+        "name": "காற்றின் வேகம்"
+      },
+      "yearlyrainin": {
+        "name": "ஆண்டு மழை"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 உணரியின் இணைப்பு நிலை"
+      },
+      "t11cn": {
+        "name": "CO உணரியின் இணைப்பு நிலை"
+      },
+      "t1cn": {
+        "name": "வெளிப்புற உணரியின் இணைப்பு நிலை"
+      },
+      "t234c1cn": {
+        "name": "CH1 இணைப்பு நிலை"
+      },
+      "t234c2cn": {
+        "name": "CH2 இணைப்பு நிலை"
+      },
+      "t234c3cn": {
+        "name": "CH3 இணைப்பு நிலை"
+      },
+      "t234c4cn": {
+        "name": "CH4 இணைப்பு நிலை"
+      },
+      "t234c5cn": {
+        "name": "CH5 இணைப்பு நிலை"
+      },
+      "t234c6cn": {
+        "name": "CH6 இணைப்பு நிலை"
+      },
+      "t234c7cn": {
+        "name": "CH7 இணைப்பு நிலை"
+      },
+      "t5lscn": {
+        "name": "மின்னல் உணரியின் இணைப்பு நிலை"
+      },
+      "t6c1cn": {
+        "name": "CH1 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c1wls": {
+        "name": "CH1 நீர் கசிவு நிலை"
+      },
+      "t6c2cn": {
+        "name": "CH2 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c2wls": {
+        "name": "CH2 நீர் கசிவு நிலை"
+      },
+      "t6c3cn": {
+        "name": "CH3 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c3wls": {
+        "name": "CH3 நீர் கசிவு நிலை"
+      },
+      "t6c4cn": {
+        "name": "CH4 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c4wls": {
+        "name": "CH4 நீர் கசிவு நிலை"
+      },
+      "t6c5cn": {
+        "name": "CH5 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c5wls": {
+        "name": "CH5 நீர் கசிவு நிலை"
+      },
+      "t6c6cn": {
+        "name": "CH6 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c6wls": {
+        "name": "CH6 நீர் கசிவு நிலை"
+      },
+      "t6c7cn": {
+        "name": "CH7 கசிவு உணரியின் இணைப்பு நிலை"
+      },
+      "t6c7wls": {
+        "name": "CH7 நீர் கசிவு நிலை"
+      },
+      "t8cn": {
+        "name": "துகள் உணரியின் இணைப்பு நிலை"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC உணரியின் இணைப்பு நிலை"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "காற்றின் திசை ஈடுசெய்தல்"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "ஈடுசெய்தலை மீட்டமை"
+      },
+      "set_north": {
+        "name": "தற்போதைய மதிப்பை வடக்காக அமை"
+      }
+    }
+  }
+}

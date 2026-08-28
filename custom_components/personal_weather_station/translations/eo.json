@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Persona veterstacio",
+        "description": "Agordu ĉi tie stacian ŝlosilon, kiun viaj veterstacioj devas sendi por ke iliaj datumoj ne estu malakceptitaj. Se vi lasas la kampon malplena, ĉiuj petoj estos akceptitaj.",
+        "data": {
+          "password": "Stacia ŝlosilo"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Jam agordita. Unu sola instanco servas ĉiujn veterstaciojn."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Persona veterstacio",
+        "description": "Agordu ĉi tie stacian ŝlosilon, kiun viaj veterstacioj devas sendi por ke iliaj datumoj ne estu malakceptitaj. Se vi lasas la kampon malplena, ĉiuj petoj estos akceptitaj.",
+        "data": {
+          "password": "Stacia ŝlosilo",
+          "availability_timeout": "Marki kiel nedisponebla post (minutoj)",
+          "debug": "Protokoli ĉiun envenantan peton"
+        },
+        "data_description": {
+          "availability_timeout": "Kiom longe stacio rajtas silenti antaŭ ol ĝiaj sensiloj estas markitaj kiel nedisponeblaj. 0 signifas neniam marki ilin.",
+          "debug": "Skribas la tutan enhavon de ĉiu peto en la protokolon de Home Assistant. Utila dum agordado de stacio, ĝena poste."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Veterstacio malakceptita: malĝusta stacia ŝlosilo",
+      "description": "Veterstacio ĉe {ip} provis sendi datumojn kiel `{station_id}` sen sendi la atendatan stacian ŝlosilon.\n\nKontrolu ĉu la ŝlosilo agordita en la stacio aŭ en la aplikaĵo WSLink kongruas kun tiu agordita en ĉi tiu integriĝo. Ĉi tiu mesaĝo malaperos per si mem tuj kiam peto de {ip} estos akceptita."
+    },
+    "missing_device_id": {
+      "title": "Veterstacio malakceptita: neniu stacia identigilo",
+      "description": "Veterstacio ĉe {ip} sendis datumojn sen stacia identigilo.\n\nAgordu Sender ID en la aplikaĵo WSLink, aŭ ID-parametron en la agordo de la stacio. Ĉi tiu mesaĝo malaperos per si mem tuj kiam peto de {ip} estos akceptita."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "La stacio {device} ankoraŭ ne sendis ventan direkton, do estas nenio laŭ kio kalibri. Atendu la sekvan alŝuton kaj reprovu."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Absoluta aerpremo"
+      },
+      "apiver": {
+        "name": "API-versio"
+      },
+      "aqbc": {
+        "name": "Nigra karbono"
+      },
+      "aqco": {
+        "name": "Karbona monoksido"
+      },
+      "aqcot": {
+        "name": "Karbona monoksido je spurnivelo"
+      },
+      "aqec": {
+        "name": "Elementa karbono"
+      },
+      "aqno": {
+        "name": "Nitrogena monoksido"
+      },
+      "aqno2": {
+        "name": "NO2 X kalkulita"
+      },
+      "aqno2t": {
+        "name": "Nitrogena dioksido"
+      },
+      "aqno2y": {
+        "name": "NO2 Y kalkulita"
+      },
+      "aqno3": {
+        "name": "NO3-jono"
+      },
+      "aqnox": {
+        "name": "Nitrogenaj oksidoj"
+      },
+      "aqnoy": {
+        "name": "Tuta reakcia nitrogeno"
+      },
+      "aqoc": {
+        "name": "Organika karbono"
+      },
+      "aqozone": {
+        "name": "Ozono"
+      },
+      "aqpm10": {
+        "name": "PM10-maso"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5-maso"
+      },
+      "aqso2": {
+        "name": "Sulfura dioksido"
+      },
+      "aqso2t": {
+        "name": "Sulfura dioksido je spurnivelo"
+      },
+      "aqso4": {
+        "name": "SO4-jono"
+      },
+      "aquv_aeth": {
+        "name": "Etalometro kanalo 2"
+      },
+      "baromin": {
+        "name": "Premo"
+      },
+      "clouds": {
+        "name": "Nuba kovro"
+      },
+      "dailyrainin": {
+        "name": "Taga pluvo"
+      },
+      "dewptf": {
+        "name": "Rospunkto"
+      },
+      "humidity": {
+        "name": "Ekstera humideco"
+      },
+      "inbat": {
+        "name": "Bateria nivelo de konzolo"
+      },
+      "indoorhumidity": {
+        "name": "Interna humideco"
+      },
+      "indoortempf": {
+        "name": "Interna temperaturo"
+      },
+      "inhum": {
+        "name": "Interna humideco"
+      },
+      "intem": {
+        "name": "Interna temperaturo"
+      },
+      "last_update": {
+        "name": "Lasta ricevo"
+      },
+      "leafwetness": {
+        "name": "Folia malsekeco"
+      },
+      "leafwetness2": {
+        "name": "CH2 folia malsekeco"
+      },
+      "lowbatt": {
+        "name": "Malalta baterio"
+      },
+      "monthlyrainin": {
+        "name": "Monata pluvo"
+      },
+      "rainin": {
+        "name": "Hora pluvo"
+      },
+      "rbar": {
+        "name": "Relativa aerpremo"
+      },
+      "rtfreq": {
+        "name": "Ĝisdatiga ofteco"
+      },
+      "soilmoisture": {
+        "name": "Grunda humideco"
+      },
+      "soilmoisture2": {
+        "name": "CH2 grunda humideco"
+      },
+      "soilmoisture3": {
+        "name": "CH3 grunda humideco"
+      },
+      "soilmoisture4": {
+        "name": "CH4 grunda humideco"
+      },
+      "soiltemp2f": {
+        "name": "CH2 grunda temperaturo"
+      },
+      "soiltemp3f": {
+        "name": "CH3 grunda temperaturo"
+      },
+      "soiltemp4f": {
+        "name": "CH4 grunda temperaturo"
+      },
+      "soiltempf": {
+        "name": "Grunda temperaturo"
+      },
+      "solarradiation": {
+        "name": "Suna radiado"
+      },
+      "t10bat": {
+        "name": "Bateria nivelo de CO2-sensilo"
+      },
+      "t10cn": {
+        "name": "Konekta stato de CO2-sensilo"
+      },
+      "t10co2": {
+        "name": "CO2-koncentriteco"
+      },
+      "t11bat": {
+        "name": "Bateria nivelo de CO-sensilo"
+      },
+      "t11cn": {
+        "name": "Konekta stato de CO-sensilo"
+      },
+      "t11co": {
+        "name": "CO-koncentriteco"
+      },
+      "t1bat": {
+        "name": "Bateria stato de ekstera sensilo"
+      },
+      "t1chill": {
+        "name": "Temperaturo de venta malvarmigo"
+      },
+      "t1cn": {
+        "name": "Konekta stato de ekstera sensilo"
+      },
+      "t1dew": {
+        "name": "Temperaturo de rospunkto"
+      },
+      "t1feels": {
+        "name": "Sentata temperaturo"
+      },
+      "t1heat": {
+        "name": "Varmoindekso"
+      },
+      "t1hum": {
+        "name": "Ekstera humideco"
+      },
+      "t1raindy": {
+        "name": "Taga pluvokvanto"
+      },
+      "t1rainhr": {
+        "name": "Hora pluvokvanto"
+      },
+      "t1rainmth": {
+        "name": "Monata pluvokvanto"
+      },
+      "t1rainra": {
+        "name": "Pluva intenseco"
+      },
+      "t1rainwy": {
+        "name": "Semajna pluvokvanto"
+      },
+      "t1rainyr": {
+        "name": "Jara pluvokvanto"
+      },
+      "t1solrad": {
+        "name": "Luma intenseco"
+      },
+      "t1tem": {
+        "name": "Ekstera temperaturo"
+      },
+      "t1uvi": {
+        "name": "UV-indekso"
+      },
+      "t1wbgt": {
+        "name": "WBGT-temperaturo"
+      },
+      "t1wdir": {
+        "name": "Venta direkto"
+      },
+      "t1wgust": {
+        "name": "Ventpuŝo"
+      },
+      "t1ws": {
+        "name": "Venta rapido"
+      },
+      "t1ws10mav": {
+        "name": "Venta rapido meze 10 min"
+      },
+      "t234c1bat": {
+        "name": "CH1 bateria stato"
+      },
+      "t234c1cn": {
+        "name": "CH1 konekta stato"
+      },
+      "t234c1hum": {
+        "name": "CH1 humideco"
+      },
+      "t234c1tem": {
+        "name": "CH1 temperaturo"
+      },
+      "t234c1tp": {
+        "name": "CH1 sensila tipo"
+      },
+      "t234c2bat": {
+        "name": "CH2 bateria stato"
+      },
+      "t234c2cn": {
+        "name": "CH2 konekta stato"
+      },
+      "t234c2hum": {
+        "name": "CH2 humideco"
+      },
+      "t234c2tem": {
+        "name": "CH2 temperaturo"
+      },
+      "t234c2tp": {
+        "name": "CH2 sensila tipo"
+      },
+      "t234c3bat": {
+        "name": "CH3 bateria stato"
+      },
+      "t234c3cn": {
+        "name": "CH3 konekta stato"
+      },
+      "t234c3hum": {
+        "name": "CH3 humideco"
+      },
+      "t234c3tem": {
+        "name": "CH3 temperaturo"
+      },
+      "t234c3tp": {
+        "name": "CH3 sensila tipo"
+      },
+      "t234c4bat": {
+        "name": "CH4 bateria stato"
+      },
+      "t234c4cn": {
+        "name": "CH4 konekta stato"
+      },
+      "t234c4hum": {
+        "name": "CH4 humideco"
+      },
+      "t234c4tem": {
+        "name": "CH4 temperaturo"
+      },
+      "t234c4tp": {
+        "name": "CH4 sensila tipo"
+      },
+      "t234c5bat": {
+        "name": "CH5 bateria stato"
+      },
+      "t234c5cn": {
+        "name": "CH5 konekta stato"
+      },
+      "t234c5hum": {
+        "name": "CH5 humideco"
+      },
+      "t234c5tem": {
+        "name": "CH5 temperaturo"
+      },
+      "t234c5tp": {
+        "name": "CH5 sensila tipo"
+      },
+      "t234c6bat": {
+        "name": "CH6 bateria stato"
+      },
+      "t234c6cn": {
+        "name": "CH6 konekta stato"
+      },
+      "t234c6hum": {
+        "name": "CH6 humideco"
+      },
+      "t234c6tem": {
+        "name": "CH6 temperaturo"
+      },
+      "t234c6tp": {
+        "name": "CH6 sensila tipo"
+      },
+      "t234c7bat": {
+        "name": "CH7 bateria stato"
+      },
+      "t234c7cn": {
+        "name": "CH7 konekta stato"
+      },
+      "t234c7hum": {
+        "name": "CH7 humideco"
+      },
+      "t234c7tem": {
+        "name": "CH7 temperaturo"
+      },
+      "t234c7tp": {
+        "name": "CH7 sensila tipo"
+      },
+      "t5ls1dtc": {
+        "name": "Fulmoj entute en 1 tago"
+      },
+      "t5ls1htc": {
+        "name": "Fulmoj entute en 1 horo"
+      },
+      "t5ls30mtc": {
+        "name": "Fulmoj en la lastaj 30 minutoj"
+      },
+      "t5ls5mtc": {
+        "name": "Fulmoj en la lastaj 5 minutoj"
+      },
+      "t5lsbat": {
+        "name": "Bateria stato de fulmosensilo"
+      },
+      "t5lscn": {
+        "name": "Konekta stato de fulmosensilo"
+      },
+      "t5lsf": {
+        "name": "Fulmoj en la lasta horo"
+      },
+      "t5lskm": {
+        "name": "Distanco de fulmo"
+      },
+      "t5lst": {
+        "name": "Tempo de lasta fulmo"
+      },
+      "t6c1bat": {
+        "name": "CH1 bateria stato de likosensilo"
+      },
+      "t6c1cn": {
+        "name": "CH1 konekta stato de likosensilo"
+      },
+      "t6c1wls": {
+        "name": "CH1 stato de akvolikado"
+      },
+      "t6c2bat": {
+        "name": "CH2 bateria stato de likosensilo"
+      },
+      "t6c2cn": {
+        "name": "CH2 konekta stato de likosensilo"
+      },
+      "t6c2wls": {
+        "name": "CH2 stato de akvolikado"
+      },
+      "t6c3bat": {
+        "name": "CH3 bateria stato de likosensilo"
+      },
+      "t6c3cn": {
+        "name": "CH3 konekta stato de likosensilo"
+      },
+      "t6c3wls": {
+        "name": "CH3 stato de akvolikado"
+      },
+      "t6c4bat": {
+        "name": "CH4 bateria stato de likosensilo"
+      },
+      "t6c4cn": {
+        "name": "CH4 konekta stato de likosensilo"
+      },
+      "t6c4wls": {
+        "name": "CH4 stato de akvolikado"
+      },
+      "t6c5bat": {
+        "name": "CH5 bateria stato de likosensilo"
+      },
+      "t6c5cn": {
+        "name": "CH5 konekta stato de likosensilo"
+      },
+      "t6c5wls": {
+        "name": "CH5 stato de akvolikado"
+      },
+      "t6c6bat": {
+        "name": "CH6 bateria stato de likosensilo"
+      },
+      "t6c6cn": {
+        "name": "CH6 konekta stato de likosensilo"
+      },
+      "t6c6wls": {
+        "name": "CH6 stato de akvolikado"
+      },
+      "t6c7bat": {
+        "name": "CH7 bateria stato de likosensilo"
+      },
+      "t6c7cn": {
+        "name": "CH7 konekta stato de likosensilo"
+      },
+      "t6c7wls": {
+        "name": "CH7 stato de akvolikado"
+      },
+      "t8bat": {
+        "name": "Bateria nivelo de partikla sensilo"
+      },
+      "t8cn": {
+        "name": "Konekta stato de partikla sensilo"
+      },
+      "t8pm10": {
+        "name": "PM10-koncentriteco"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5-koncentriteco"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "Bateria nivelo de HCHO/VOC-sensilo"
+      },
+      "t9cn": {
+        "name": "Konekta stato de HCHO/VOC-sensilo"
+      },
+      "t9hcho": {
+        "name": "HCHO-koncentriteco"
+      },
+      "t9voclv": {
+        "name": "VOC-nivelo"
+      },
+      "tempf": {
+        "name": "Ekstera temperaturo"
+      },
+      "uv": {
+        "name": "UV-indekso"
+      },
+      "visibility": {
+        "name": "Videbleco"
+      },
+      "weeklyrainin": {
+        "name": "Semajna pluvo"
+      },
+      "wind_direction_raw": {
+        "name": "Venta direkto (kruda)"
+      },
+      "windchillf": {
+        "name": "Venta malvarmigo"
+      },
+      "winddir": {
+        "name": "Venta direkto"
+      },
+      "winddir_avg2m": {
+        "name": "Venta direkto meze 2 min"
+      },
+      "windgustdir": {
+        "name": "Direkto de ventpuŝo"
+      },
+      "windgustdir_10m": {
+        "name": "Direkto de ventpuŝo meze 10 min"
+      },
+      "windgustmph": {
+        "name": "Ventpuŝo"
+      },
+      "windgustmph_10m": {
+        "name": "Rapido de ventpuŝo meze 10 min"
+      },
+      "windspdmph_avg2m": {
+        "name": "Venta rapido meze 2 min"
+      },
+      "windspeedmph": {
+        "name": "Venta rapido"
+      },
+      "yearlyrainin": {
+        "name": "Jara pluvo"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Konekta stato de CO2-sensilo"
+      },
+      "t11cn": {
+        "name": "Konekta stato de CO-sensilo"
+      },
+      "t1cn": {
+        "name": "Konekta stato de ekstera sensilo"
+      },
+      "t234c1cn": {
+        "name": "CH1 konekta stato"
+      },
+      "t234c2cn": {
+        "name": "CH2 konekta stato"
+      },
+      "t234c3cn": {
+        "name": "CH3 konekta stato"
+      },
+      "t234c4cn": {
+        "name": "CH4 konekta stato"
+      },
+      "t234c5cn": {
+        "name": "CH5 konekta stato"
+      },
+      "t234c6cn": {
+        "name": "CH6 konekta stato"
+      },
+      "t234c7cn": {
+        "name": "CH7 konekta stato"
+      },
+      "t5lscn": {
+        "name": "Konekta stato de fulmosensilo"
+      },
+      "t6c1cn": {
+        "name": "CH1 konekta stato de likosensilo"
+      },
+      "t6c1wls": {
+        "name": "CH1 stato de akvolikado"
+      },
+      "t6c2cn": {
+        "name": "CH2 konekta stato de likosensilo"
+      },
+      "t6c2wls": {
+        "name": "CH2 stato de akvolikado"
+      },
+      "t6c3cn": {
+        "name": "CH3 konekta stato de likosensilo"
+      },
+      "t6c3wls": {
+        "name": "CH3 stato de akvolikado"
+      },
+      "t6c4cn": {
+        "name": "CH4 konekta stato de likosensilo"
+      },
+      "t6c4wls": {
+        "name": "CH4 stato de akvolikado"
+      },
+      "t6c5cn": {
+        "name": "CH5 konekta stato de likosensilo"
+      },
+      "t6c5wls": {
+        "name": "CH5 stato de akvolikado"
+      },
+      "t6c6cn": {
+        "name": "CH6 konekta stato de likosensilo"
+      },
+      "t6c6wls": {
+        "name": "CH6 stato de akvolikado"
+      },
+      "t6c7cn": {
+        "name": "CH7 konekta stato de likosensilo"
+      },
+      "t6c7wls": {
+        "name": "CH7 stato de akvolikado"
+      },
+      "t8cn": {
+        "name": "Konekta stato de partikla sensilo"
+      },
+      "t9cn": {
+        "name": "Konekta stato de HCHO/VOC-sensilo"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Deŝovo de venta direkto"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Restarigi la deŝovon"
+      },
+      "set_north": {
+        "name": "Agordi nordon laŭ nuna valoro"
+      }
+    }
+  }
+}

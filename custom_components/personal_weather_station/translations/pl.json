@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Osobista stacja pogodowa",
+        "description": "Ustaw tutaj klucz stacji, który Twoje stacje pogodowe muszą przesyłać, aby ich dane nie były odrzucane. Jeśli pozostawisz pole puste, wszystkie żądania będą akceptowane.",
+        "data": {
+          "password": "Klucz stacji"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Już skonfigurowano. Jedna instancja obsługuje wszystkie stacje pogodowe."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Osobista stacja pogodowa",
+        "description": "Ustaw tutaj klucz stacji, który Twoje stacje pogodowe muszą przesyłać, aby ich dane nie były odrzucane. Jeśli pozostawisz pole puste, wszystkie żądania będą akceptowane.",
+        "data": {
+          "password": "Klucz stacji",
+          "availability_timeout": "Oznacz jako niedostępne po (minutach)",
+          "debug": "Rejestruj każde przychodzące żądanie"
+        },
+        "data_description": {
+          "availability_timeout": "Jak długo stacja może milczeć, zanim jej czujniki zostaną oznaczone jako niedostępne. 0 oznacza, że nigdy nie będą oznaczane.",
+          "debug": "Zapisuje pełną treść każdego żądania w dzienniku Home Assistant. Przydatne podczas konfigurowania stacji, uciążliwe później."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Stacja pogodowa odrzucona: nieprawidłowy klucz stacji",
+      "description": "Stacja pogodowa pod adresem {ip} próbowała wysłać dane jako `{station_id}`, nie przesyłając oczekiwanego klucza stacji.\n\nSprawdź, czy klucz skonfigurowany w stacji lub w aplikacji WSLink zgadza się z ustawionym w tej integracji. Ten komunikat zniknie sam, gdy tylko żądanie z {ip} zostanie zaakceptowane."
+    },
+    "missing_device_id": {
+      "title": "Stacja pogodowa odrzucona: brak identyfikatora stacji",
+      "description": "Stacja pogodowa pod adresem {ip} wysłała dane bez identyfikatora stacji.\n\nUstaw Sender ID w aplikacji WSLink lub parametr ID w konfiguracji stacji. Ten komunikat zniknie sam, gdy tylko żądanie z {ip} zostanie zaakceptowane."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "Stacja {device} nie przesłała jeszcze kierunku wiatru, więc nie ma do czego kalibrować. Poczekaj na następną wysyłkę i spróbuj ponownie."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Ciśnienie absolutne"
+      },
+      "apiver": {
+        "name": "Wersja API"
+      },
+      "aqbc": {
+        "name": "Sadza"
+      },
+      "aqco": {
+        "name": "Tlenek węgla"
+      },
+      "aqcot": {
+        "name": "Tlenek węgla w ilościach śladowych"
+      },
+      "aqec": {
+        "name": "Węgiel elementarny"
+      },
+      "aqno": {
+        "name": "Tlenek azotu"
+      },
+      "aqno2": {
+        "name": "NO2 X obliczone"
+      },
+      "aqno2t": {
+        "name": "Dwutlenek azotu"
+      },
+      "aqno2y": {
+        "name": "NO2 Y obliczone"
+      },
+      "aqno3": {
+        "name": "Jon NO3"
+      },
+      "aqnox": {
+        "name": "Tlenki azotu"
+      },
+      "aqnoy": {
+        "name": "Całkowity azot reaktywny"
+      },
+      "aqoc": {
+        "name": "Węgiel organiczny"
+      },
+      "aqozone": {
+        "name": "Ozon"
+      },
+      "aqpm10": {
+        "name": "Masa PM10"
+      },
+      "aqpm2_5": {
+        "name": "Masa PM2.5"
+      },
+      "aqso2": {
+        "name": "Dwutlenek siarki"
+      },
+      "aqso2t": {
+        "name": "Dwutlenek siarki w ilościach śladowych"
+      },
+      "aqso4": {
+        "name": "Jon SO4"
+      },
+      "aquv_aeth": {
+        "name": "Aethalometr kanał 2"
+      },
+      "baromin": {
+        "name": "Ciśnienie"
+      },
+      "clouds": {
+        "name": "Zachmurzenie"
+      },
+      "dailyrainin": {
+        "name": "Opad dobowy"
+      },
+      "dewptf": {
+        "name": "Punkt rosy"
+      },
+      "humidity": {
+        "name": "Wilgotność zewnętrzna"
+      },
+      "inbat": {
+        "name": "Poziom baterii konsoli"
+      },
+      "indoorhumidity": {
+        "name": "Wilgotność wewnętrzna"
+      },
+      "indoortempf": {
+        "name": "Temperatura wewnętrzna"
+      },
+      "inhum": {
+        "name": "Wilgotność wewnętrzna"
+      },
+      "intem": {
+        "name": "Temperatura wewnętrzna"
+      },
+      "last_update": {
+        "name": "Ostatni odbiór"
+      },
+      "leafwetness": {
+        "name": "Zwilżenie liści"
+      },
+      "leafwetness2": {
+        "name": "CH2 zwilżenie liści"
+      },
+      "lowbatt": {
+        "name": "Niski poziom baterii"
+      },
+      "monthlyrainin": {
+        "name": "Opad miesięczny"
+      },
+      "rainin": {
+        "name": "Opad godzinowy"
+      },
+      "rbar": {
+        "name": "Ciśnienie względne"
+      },
+      "rtfreq": {
+        "name": "Częstotliwość aktualizacji"
+      },
+      "soilmoisture": {
+        "name": "Wilgotność gleby"
+      },
+      "soilmoisture2": {
+        "name": "CH2 wilgotność gleby"
+      },
+      "soilmoisture3": {
+        "name": "CH3 wilgotność gleby"
+      },
+      "soilmoisture4": {
+        "name": "CH4 wilgotność gleby"
+      },
+      "soiltemp2f": {
+        "name": "CH2 temperatura gleby"
+      },
+      "soiltemp3f": {
+        "name": "CH3 temperatura gleby"
+      },
+      "soiltemp4f": {
+        "name": "CH4 temperatura gleby"
+      },
+      "soiltempf": {
+        "name": "Temperatura gleby"
+      },
+      "solarradiation": {
+        "name": "Promieniowanie słoneczne"
+      },
+      "t10bat": {
+        "name": "Poziom baterii czujnika CO2"
+      },
+      "t10cn": {
+        "name": "Stan połączenia czujnika CO2"
+      },
+      "t10co2": {
+        "name": "Stężenie CO2"
+      },
+      "t11bat": {
+        "name": "Poziom baterii czujnika CO"
+      },
+      "t11cn": {
+        "name": "Stan połączenia czujnika CO"
+      },
+      "t11co": {
+        "name": "Stężenie CO"
+      },
+      "t1bat": {
+        "name": "Stan baterii czujnika zewnętrznego"
+      },
+      "t1chill": {
+        "name": "Temperatura chłodzenia wiatrem"
+      },
+      "t1cn": {
+        "name": "Stan połączenia czujnika zewnętrznego"
+      },
+      "t1dew": {
+        "name": "Temperatura punktu rosy"
+      },
+      "t1feels": {
+        "name": "Temperatura odczuwalna"
+      },
+      "t1heat": {
+        "name": "Indeks ciepła"
+      },
+      "t1hum": {
+        "name": "Wilgotność zewnętrzna"
+      },
+      "t1raindy": {
+        "name": "Suma opadu dobowa"
+      },
+      "t1rainhr": {
+        "name": "Suma opadu godzinowa"
+      },
+      "t1rainmth": {
+        "name": "Suma opadu miesięczna"
+      },
+      "t1rainra": {
+        "name": "Natężenie opadu"
+      },
+      "t1rainwy": {
+        "name": "Suma opadu tygodniowa"
+      },
+      "t1rainyr": {
+        "name": "Suma opadu roczna"
+      },
+      "t1solrad": {
+        "name": "Natężenie światła"
+      },
+      "t1tem": {
+        "name": "Temperatura zewnętrzna"
+      },
+      "t1uvi": {
+        "name": "Indeks UV"
+      },
+      "t1wbgt": {
+        "name": "Temperatura WBGT"
+      },
+      "t1wdir": {
+        "name": "Kierunek wiatru"
+      },
+      "t1wgust": {
+        "name": "Poryw wiatru"
+      },
+      "t1ws": {
+        "name": "Prędkość wiatru"
+      },
+      "t1ws10mav": {
+        "name": "Prędkość wiatru śr. 10 min"
+      },
+      "t234c1bat": {
+        "name": "CH1 stan baterii"
+      },
+      "t234c1cn": {
+        "name": "CH1 stan połączenia"
+      },
+      "t234c1hum": {
+        "name": "CH1 wilgotność"
+      },
+      "t234c1tem": {
+        "name": "CH1 temperatura"
+      },
+      "t234c1tp": {
+        "name": "CH1 typ czujnika"
+      },
+      "t234c2bat": {
+        "name": "CH2 stan baterii"
+      },
+      "t234c2cn": {
+        "name": "CH2 stan połączenia"
+      },
+      "t234c2hum": {
+        "name": "CH2 wilgotność"
+      },
+      "t234c2tem": {
+        "name": "CH2 temperatura"
+      },
+      "t234c2tp": {
+        "name": "CH2 typ czujnika"
+      },
+      "t234c3bat": {
+        "name": "CH3 stan baterii"
+      },
+      "t234c3cn": {
+        "name": "CH3 stan połączenia"
+      },
+      "t234c3hum": {
+        "name": "CH3 wilgotność"
+      },
+      "t234c3tem": {
+        "name": "CH3 temperatura"
+      },
+      "t234c3tp": {
+        "name": "CH3 typ czujnika"
+      },
+      "t234c4bat": {
+        "name": "CH4 stan baterii"
+      },
+      "t234c4cn": {
+        "name": "CH4 stan połączenia"
+      },
+      "t234c4hum": {
+        "name": "CH4 wilgotność"
+      },
+      "t234c4tem": {
+        "name": "CH4 temperatura"
+      },
+      "t234c4tp": {
+        "name": "CH4 typ czujnika"
+      },
+      "t234c5bat": {
+        "name": "CH5 stan baterii"
+      },
+      "t234c5cn": {
+        "name": "CH5 stan połączenia"
+      },
+      "t234c5hum": {
+        "name": "CH5 wilgotność"
+      },
+      "t234c5tem": {
+        "name": "CH5 temperatura"
+      },
+      "t234c5tp": {
+        "name": "CH5 typ czujnika"
+      },
+      "t234c6bat": {
+        "name": "CH6 stan baterii"
+      },
+      "t234c6cn": {
+        "name": "CH6 stan połączenia"
+      },
+      "t234c6hum": {
+        "name": "CH6 wilgotność"
+      },
+      "t234c6tem": {
+        "name": "CH6 temperatura"
+      },
+      "t234c6tp": {
+        "name": "CH6 typ czujnika"
+      },
+      "t234c7bat": {
+        "name": "CH7 stan baterii"
+      },
+      "t234c7cn": {
+        "name": "CH7 stan połączenia"
+      },
+      "t234c7hum": {
+        "name": "CH7 wilgotność"
+      },
+      "t234c7tem": {
+        "name": "CH7 temperatura"
+      },
+      "t234c7tp": {
+        "name": "CH7 typ czujnika"
+      },
+      "t5ls1dtc": {
+        "name": "Wyładowania łącznie w 1 dniu"
+      },
+      "t5ls1htc": {
+        "name": "Wyładowania łącznie w 1 godzinie"
+      },
+      "t5ls30mtc": {
+        "name": "Wyładowania w ostatnich 30 minutach"
+      },
+      "t5ls5mtc": {
+        "name": "Wyładowania w ostatnich 5 minutach"
+      },
+      "t5lsbat": {
+        "name": "Stan baterii czujnika burzowego"
+      },
+      "t5lscn": {
+        "name": "Stan połączenia czujnika burzowego"
+      },
+      "t5lsf": {
+        "name": "Wyładowania w ostatniej godzinie"
+      },
+      "t5lskm": {
+        "name": "Odległość wyładowania"
+      },
+      "t5lst": {
+        "name": "Czas ostatniego wyładowania"
+      },
+      "t6c1bat": {
+        "name": "CH1 stan baterii czujnika wycieku"
+      },
+      "t6c1cn": {
+        "name": "CH1 stan połączenia czujnika wycieku"
+      },
+      "t6c1wls": {
+        "name": "CH1 stan wycieku wody"
+      },
+      "t6c2bat": {
+        "name": "CH2 stan baterii czujnika wycieku"
+      },
+      "t6c2cn": {
+        "name": "CH2 stan połączenia czujnika wycieku"
+      },
+      "t6c2wls": {
+        "name": "CH2 stan wycieku wody"
+      },
+      "t6c3bat": {
+        "name": "CH3 stan baterii czujnika wycieku"
+      },
+      "t6c3cn": {
+        "name": "CH3 stan połączenia czujnika wycieku"
+      },
+      "t6c3wls": {
+        "name": "CH3 stan wycieku wody"
+      },
+      "t6c4bat": {
+        "name": "CH4 stan baterii czujnika wycieku"
+      },
+      "t6c4cn": {
+        "name": "CH4 stan połączenia czujnika wycieku"
+      },
+      "t6c4wls": {
+        "name": "CH4 stan wycieku wody"
+      },
+      "t6c5bat": {
+        "name": "CH5 stan baterii czujnika wycieku"
+      },
+      "t6c5cn": {
+        "name": "CH5 stan połączenia czujnika wycieku"
+      },
+      "t6c5wls": {
+        "name": "CH5 stan wycieku wody"
+      },
+      "t6c6bat": {
+        "name": "CH6 stan baterii czujnika wycieku"
+      },
+      "t6c6cn": {
+        "name": "CH6 stan połączenia czujnika wycieku"
+      },
+      "t6c6wls": {
+        "name": "CH6 stan wycieku wody"
+      },
+      "t6c7bat": {
+        "name": "CH7 stan baterii czujnika wycieku"
+      },
+      "t6c7cn": {
+        "name": "CH7 stan połączenia czujnika wycieku"
+      },
+      "t6c7wls": {
+        "name": "CH7 stan wycieku wody"
+      },
+      "t8bat": {
+        "name": "Poziom baterii czujnika pyłu"
+      },
+      "t8cn": {
+        "name": "Stan połączenia czujnika pyłu"
+      },
+      "t8pm10": {
+        "name": "Stężenie PM10"
+      },
+      "t8pm10ai": {
+        "name": "AQI PM10"
+      },
+      "t8pm25": {
+        "name": "Stężenie PM2.5"
+      },
+      "t8pm25ai": {
+        "name": "AQI PM2.5"
+      },
+      "t9bat": {
+        "name": "Poziom baterii czujnika HCHO/LZO"
+      },
+      "t9cn": {
+        "name": "Stan połączenia czujnika HCHO/LZO"
+      },
+      "t9hcho": {
+        "name": "Stężenie HCHO"
+      },
+      "t9voclv": {
+        "name": "Poziom LZO"
+      },
+      "tempf": {
+        "name": "Temperatura zewnętrzna"
+      },
+      "uv": {
+        "name": "Indeks UV"
+      },
+      "visibility": {
+        "name": "Widzialność"
+      },
+      "weeklyrainin": {
+        "name": "Opad tygodniowy"
+      },
+      "wind_direction_raw": {
+        "name": "Kierunek wiatru (surowy)"
+      },
+      "windchillf": {
+        "name": "Temperatura odczuwalna przy wietrze"
+      },
+      "winddir": {
+        "name": "Kierunek wiatru"
+      },
+      "winddir_avg2m": {
+        "name": "Kierunek wiatru śr. 2 min"
+      },
+      "windgustdir": {
+        "name": "Kierunek porywu"
+      },
+      "windgustdir_10m": {
+        "name": "Kierunek porywu śr. 10 min"
+      },
+      "windgustmph": {
+        "name": "Poryw wiatru"
+      },
+      "windgustmph_10m": {
+        "name": "Prędkość porywu śr. 10 min"
+      },
+      "windspdmph_avg2m": {
+        "name": "Prędkość wiatru śr. 2 min"
+      },
+      "windspeedmph": {
+        "name": "Prędkość wiatru"
+      },
+      "yearlyrainin": {
+        "name": "Opad roczny"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Stan połączenia czujnika CO2"
+      },
+      "t11cn": {
+        "name": "Stan połączenia czujnika CO"
+      },
+      "t1cn": {
+        "name": "Stan połączenia czujnika zewnętrznego"
+      },
+      "t234c1cn": {
+        "name": "CH1 stan połączenia"
+      },
+      "t234c2cn": {
+        "name": "CH2 stan połączenia"
+      },
+      "t234c3cn": {
+        "name": "CH3 stan połączenia"
+      },
+      "t234c4cn": {
+        "name": "CH4 stan połączenia"
+      },
+      "t234c5cn": {
+        "name": "CH5 stan połączenia"
+      },
+      "t234c6cn": {
+        "name": "CH6 stan połączenia"
+      },
+      "t234c7cn": {
+        "name": "CH7 stan połączenia"
+      },
+      "t5lscn": {
+        "name": "Stan połączenia czujnika burzowego"
+      },
+      "t6c1cn": {
+        "name": "CH1 stan połączenia czujnika wycieku"
+      },
+      "t6c1wls": {
+        "name": "CH1 stan wycieku wody"
+      },
+      "t6c2cn": {
+        "name": "CH2 stan połączenia czujnika wycieku"
+      },
+      "t6c2wls": {
+        "name": "CH2 stan wycieku wody"
+      },
+      "t6c3cn": {
+        "name": "CH3 stan połączenia czujnika wycieku"
+      },
+      "t6c3wls": {
+        "name": "CH3 stan wycieku wody"
+      },
+      "t6c4cn": {
+        "name": "CH4 stan połączenia czujnika wycieku"
+      },
+      "t6c4wls": {
+        "name": "CH4 stan wycieku wody"
+      },
+      "t6c5cn": {
+        "name": "CH5 stan połączenia czujnika wycieku"
+      },
+      "t6c5wls": {
+        "name": "CH5 stan wycieku wody"
+      },
+      "t6c6cn": {
+        "name": "CH6 stan połączenia czujnika wycieku"
+      },
+      "t6c6wls": {
+        "name": "CH6 stan wycieku wody"
+      },
+      "t6c7cn": {
+        "name": "CH7 stan połączenia czujnika wycieku"
+      },
+      "t6c7wls": {
+        "name": "CH7 stan wycieku wody"
+      },
+      "t8cn": {
+        "name": "Stan połączenia czujnika pyłu"
+      },
+      "t9cn": {
+        "name": "Stan połączenia czujnika HCHO/LZO"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Przesunięcie kierunku wiatru"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Wyzeruj przesunięcie"
+      },
+      "set_north": {
+        "name": "Ustaw północ na bieżącą wartość"
+      }
+    }
+  }
+}

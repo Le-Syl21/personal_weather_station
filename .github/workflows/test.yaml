@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install test dependencies
+        run: pip install -r requirements_test.txt
+
+      - name: Run the test suite
+        run: pytest tests/ -v
+
+      - name: Check that the translations are complete
+        run: python scripts/build_translations.py check
+
+      - name: Check that strings.json is up to date with SENSOR_LIST
+        run: |
+          python scripts/build_translations.py strings
+          git diff --exit-code custom_components/personal_weather_station/strings.json \
+            custom_components/personal_weather_station/translations/en.json

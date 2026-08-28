@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Личная метеостанция",
+        "description": "Задайте здесь ключ станции, который ваши метеостанции должны передавать, чтобы их данные не отклонялись. Если оставить поле пустым, будут приниматься все запросы.",
+        "data": {
+          "password": "Ключ станции"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Уже настроено. Один экземпляр обслуживает все метеостанции."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Личная метеостанция",
+        "description": "Задайте здесь ключ станции, который ваши метеостанции должны передавать, чтобы их данные не отклонялись. Если оставить поле пустым, будут приниматься все запросы.",
+        "data": {
+          "password": "Ключ станции",
+          "availability_timeout": "Отмечать как недоступное через (минут)",
+          "debug": "Записывать каждый входящий запрос"
+        },
+        "data_description": {
+          "availability_timeout": "Как долго станция может молчать, прежде чем её датчики будут отмечены как недоступные. 0 — не отмечать никогда.",
+          "debug": "Записывает полное содержимое каждого запроса в журнал Home Assistant. Полезно при настройке станции, шумно после."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Метеостанция отклонена: неверный ключ станции",
+      "description": "Метеостанция по адресу {ip} попыталась отправить данные как `{station_id}`, не передав ожидаемый ключ станции.\n\nПроверьте, что ключ, заданный в станции или в приложении WSLink, совпадает с указанным в этой интеграции. Это сообщение исчезнет само, как только запрос с {ip} будет принят."
+    },
+    "missing_device_id": {
+      "title": "Метеостанция отклонена: нет идентификатора станции",
+      "description": "Метеостанция по адресу {ip} отправила данные без идентификатора станции.\n\nЗадайте Sender ID в приложении WSLink или параметр ID в настройках станции. Это сообщение исчезнет само, как только запрос с {ip} будет принят."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "Станция {device} ещё не передала направление ветра, поэтому не по чему калибровать. Дождитесь следующей отправки и повторите попытку."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Абсолютное атмосферное давление"
+      },
+      "apiver": {
+        "name": "Версия API"
+      },
+      "aqbc": {
+        "name": "Чёрный углерод"
+      },
+      "aqco": {
+        "name": "Оксид углерода"
+      },
+      "aqcot": {
+        "name": "Оксид углерода в следовых количествах"
+      },
+      "aqec": {
+        "name": "Элементарный углерод"
+      },
+      "aqno": {
+        "name": "Оксид азота"
+      },
+      "aqno2": {
+        "name": "NO2 X расчётный"
+      },
+      "aqno2t": {
+        "name": "Диоксид азота"
+      },
+      "aqno2y": {
+        "name": "NO2 Y расчётный"
+      },
+      "aqno3": {
+        "name": "Ион NO3"
+      },
+      "aqnox": {
+        "name": "Оксиды азота"
+      },
+      "aqnoy": {
+        "name": "Общий реакционноспособный азот"
+      },
+      "aqoc": {
+        "name": "Органический углерод"
+      },
+      "aqozone": {
+        "name": "Озон"
+      },
+      "aqpm10": {
+        "name": "Масса PM10"
+      },
+      "aqpm2_5": {
+        "name": "Масса PM2.5"
+      },
+      "aqso2": {
+        "name": "Диоксид серы"
+      },
+      "aqso2t": {
+        "name": "Диоксид серы в следовых количествах"
+      },
+      "aqso4": {
+        "name": "Ион SO4"
+      },
+      "aquv_aeth": {
+        "name": "Аэталометр, канал 2"
+      },
+      "baromin": {
+        "name": "Давление"
+      },
+      "clouds": {
+        "name": "Облачность"
+      },
+      "dailyrainin": {
+        "name": "Осадки за сутки"
+      },
+      "dewptf": {
+        "name": "Точка росы"
+      },
+      "humidity": {
+        "name": "Влажность снаружи"
+      },
+      "inbat": {
+        "name": "Уровень заряда консоли"
+      },
+      "indoorhumidity": {
+        "name": "Влажность в помещении"
+      },
+      "indoortempf": {
+        "name": "Температура в помещении"
+      },
+      "inhum": {
+        "name": "Влажность в помещении"
+      },
+      "intem": {
+        "name": "Температура в помещении"
+      },
+      "last_update": {
+        "name": "Последний приём"
+      },
+      "leafwetness": {
+        "name": "Влажность листьев"
+      },
+      "leafwetness2": {
+        "name": "CH2 влажность листьев"
+      },
+      "lowbatt": {
+        "name": "Низкий заряд батареи"
+      },
+      "monthlyrainin": {
+        "name": "Осадки за месяц"
+      },
+      "rainin": {
+        "name": "Осадки за час"
+      },
+      "rbar": {
+        "name": "Относительное атмосферное давление"
+      },
+      "rtfreq": {
+        "name": "Частота обновления"
+      },
+      "soilmoisture": {
+        "name": "Влажность почвы"
+      },
+      "soilmoisture2": {
+        "name": "CH2 влажность почвы"
+      },
+      "soilmoisture3": {
+        "name": "CH3 влажность почвы"
+      },
+      "soilmoisture4": {
+        "name": "CH4 влажность почвы"
+      },
+      "soiltemp2f": {
+        "name": "CH2 температура почвы"
+      },
+      "soiltemp3f": {
+        "name": "CH3 температура почвы"
+      },
+      "soiltemp4f": {
+        "name": "CH4 температура почвы"
+      },
+      "soiltempf": {
+        "name": "Температура почвы"
+      },
+      "solarradiation": {
+        "name": "Солнечная радиация"
+      },
+      "t10bat": {
+        "name": "Уровень заряда датчика CO2"
+      },
+      "t10cn": {
+        "name": "Состояние связи датчика CO2"
+      },
+      "t10co2": {
+        "name": "Концентрация CO2"
+      },
+      "t11bat": {
+        "name": "Уровень заряда датчика CO"
+      },
+      "t11cn": {
+        "name": "Состояние связи датчика CO"
+      },
+      "t11co": {
+        "name": "Концентрация CO"
+      },
+      "t1bat": {
+        "name": "Состояние батареи наружного датчика"
+      },
+      "t1chill": {
+        "name": "Температура ветрохолодового индекса"
+      },
+      "t1cn": {
+        "name": "Состояние связи наружного датчика"
+      },
+      "t1dew": {
+        "name": "Температура точки росы"
+      },
+      "t1feels": {
+        "name": "Ощущаемая температура"
+      },
+      "t1heat": {
+        "name": "Индекс жары"
+      },
+      "t1hum": {
+        "name": "Влажность снаружи"
+      },
+      "t1raindy": {
+        "name": "Суточная сумма осадков"
+      },
+      "t1rainhr": {
+        "name": "Часовая сумма осадков"
+      },
+      "t1rainmth": {
+        "name": "Месячная сумма осадков"
+      },
+      "t1rainra": {
+        "name": "Интенсивность дождя"
+      },
+      "t1rainwy": {
+        "name": "Недельная сумма осадков"
+      },
+      "t1rainyr": {
+        "name": "Годовая сумма осадков"
+      },
+      "t1solrad": {
+        "name": "Освещённость"
+      },
+      "t1tem": {
+        "name": "Температура снаружи"
+      },
+      "t1uvi": {
+        "name": "УФ-индекс"
+      },
+      "t1wbgt": {
+        "name": "Температура WBGT"
+      },
+      "t1wdir": {
+        "name": "Направление ветра"
+      },
+      "t1wgust": {
+        "name": "Порыв ветра"
+      },
+      "t1ws": {
+        "name": "Скорость ветра"
+      },
+      "t1ws10mav": {
+        "name": "Скорость ветра, средняя за 10 мин"
+      },
+      "t234c1bat": {
+        "name": "CH1 состояние батареи"
+      },
+      "t234c1cn": {
+        "name": "CH1 состояние связи"
+      },
+      "t234c1hum": {
+        "name": "CH1 влажность"
+      },
+      "t234c1tem": {
+        "name": "CH1 температура"
+      },
+      "t234c1tp": {
+        "name": "CH1 тип датчика"
+      },
+      "t234c2bat": {
+        "name": "CH2 состояние батареи"
+      },
+      "t234c2cn": {
+        "name": "CH2 состояние связи"
+      },
+      "t234c2hum": {
+        "name": "CH2 влажность"
+      },
+      "t234c2tem": {
+        "name": "CH2 температура"
+      },
+      "t234c2tp": {
+        "name": "CH2 тип датчика"
+      },
+      "t234c3bat": {
+        "name": "CH3 состояние батареи"
+      },
+      "t234c3cn": {
+        "name": "CH3 состояние связи"
+      },
+      "t234c3hum": {
+        "name": "CH3 влажность"
+      },
+      "t234c3tem": {
+        "name": "CH3 температура"
+      },
+      "t234c3tp": {
+        "name": "CH3 тип датчика"
+      },
+      "t234c4bat": {
+        "name": "CH4 состояние батареи"
+      },
+      "t234c4cn": {
+        "name": "CH4 состояние связи"
+      },
+      "t234c4hum": {
+        "name": "CH4 влажность"
+      },
+      "t234c4tem": {
+        "name": "CH4 температура"
+      },
+      "t234c4tp": {
+        "name": "CH4 тип датчика"
+      },
+      "t234c5bat": {
+        "name": "CH5 состояние батареи"
+      },
+      "t234c5cn": {
+        "name": "CH5 состояние связи"
+      },
+      "t234c5hum": {
+        "name": "CH5 влажность"
+      },
+      "t234c5tem": {
+        "name": "CH5 температура"
+      },
+      "t234c5tp": {
+        "name": "CH5 тип датчика"
+      },
+      "t234c6bat": {
+        "name": "CH6 состояние батареи"
+      },
+      "t234c6cn": {
+        "name": "CH6 состояние связи"
+      },
+      "t234c6hum": {
+        "name": "CH6 влажность"
+      },
+      "t234c6tem": {
+        "name": "CH6 температура"
+      },
+      "t234c6tp": {
+        "name": "CH6 тип датчика"
+      },
+      "t234c7bat": {
+        "name": "CH7 состояние батареи"
+      },
+      "t234c7cn": {
+        "name": "CH7 состояние связи"
+      },
+      "t234c7hum": {
+        "name": "CH7 влажность"
+      },
+      "t234c7tem": {
+        "name": "CH7 температура"
+      },
+      "t234c7tp": {
+        "name": "CH7 тип датчика"
+      },
+      "t5ls1dtc": {
+        "name": "Молнии всего за 1 сутки"
+      },
+      "t5ls1htc": {
+        "name": "Молнии всего за 1 час"
+      },
+      "t5ls30mtc": {
+        "name": "Молнии за последние 30 минут"
+      },
+      "t5ls5mtc": {
+        "name": "Молнии за последние 5 минут"
+      },
+      "t5lsbat": {
+        "name": "Состояние батареи датчика молний"
+      },
+      "t5lscn": {
+        "name": "Состояние связи датчика молний"
+      },
+      "t5lsf": {
+        "name": "Молнии за последний час"
+      },
+      "t5lskm": {
+        "name": "Расстояние до молнии"
+      },
+      "t5lst": {
+        "name": "Время последней молнии"
+      },
+      "t6c1bat": {
+        "name": "CH1 состояние батареи датчика протечки"
+      },
+      "t6c1cn": {
+        "name": "CH1 состояние связи датчика протечки"
+      },
+      "t6c1wls": {
+        "name": "CH1 состояние протечки воды"
+      },
+      "t6c2bat": {
+        "name": "CH2 состояние батареи датчика протечки"
+      },
+      "t6c2cn": {
+        "name": "CH2 состояние связи датчика протечки"
+      },
+      "t6c2wls": {
+        "name": "CH2 состояние протечки воды"
+      },
+      "t6c3bat": {
+        "name": "CH3 состояние батареи датчика протечки"
+      },
+      "t6c3cn": {
+        "name": "CH3 состояние связи датчика протечки"
+      },
+      "t6c3wls": {
+        "name": "CH3 состояние протечки воды"
+      },
+      "t6c4bat": {
+        "name": "CH4 состояние батареи датчика протечки"
+      },
+      "t6c4cn": {
+        "name": "CH4 состояние связи датчика протечки"
+      },
+      "t6c4wls": {
+        "name": "CH4 состояние протечки воды"
+      },
+      "t6c5bat": {
+        "name": "CH5 состояние батареи датчика протечки"
+      },
+      "t6c5cn": {
+        "name": "CH5 состояние связи датчика протечки"
+      },
+      "t6c5wls": {
+        "name": "CH5 состояние протечки воды"
+      },
+      "t6c6bat": {
+        "name": "CH6 состояние батареи датчика протечки"
+      },
+      "t6c6cn": {
+        "name": "CH6 состояние связи датчика протечки"
+      },
+      "t6c6wls": {
+        "name": "CH6 состояние протечки воды"
+      },
+      "t6c7bat": {
+        "name": "CH7 состояние батареи датчика протечки"
+      },
+      "t6c7cn": {
+        "name": "CH7 состояние связи датчика протечки"
+      },
+      "t6c7wls": {
+        "name": "CH7 состояние протечки воды"
+      },
+      "t8bat": {
+        "name": "Уровень заряда датчика частиц"
+      },
+      "t8cn": {
+        "name": "Состояние связи датчика частиц"
+      },
+      "t8pm10": {
+        "name": "Концентрация PM10"
+      },
+      "t8pm10ai": {
+        "name": "AQI PM10"
+      },
+      "t8pm25": {
+        "name": "Концентрация PM2.5"
+      },
+      "t8pm25ai": {
+        "name": "AQI PM2.5"
+      },
+      "t9bat": {
+        "name": "Уровень заряда датчика HCHO/ЛОС"
+      },
+      "t9cn": {
+        "name": "Состояние связи датчика HCHO/ЛОС"
+      },
+      "t9hcho": {
+        "name": "Концентрация HCHO"
+      },
+      "t9voclv": {
+        "name": "Уровень ЛОС"
+      },
+      "tempf": {
+        "name": "Температура снаружи"
+      },
+      "uv": {
+        "name": "УФ-индекс"
+      },
+      "visibility": {
+        "name": "Видимость"
+      },
+      "weeklyrainin": {
+        "name": "Осадки за неделю"
+      },
+      "wind_direction_raw": {
+        "name": "Направление ветра (исходное)"
+      },
+      "windchillf": {
+        "name": "Ветрохолодовой индекс"
+      },
+      "winddir": {
+        "name": "Направление ветра"
+      },
+      "winddir_avg2m": {
+        "name": "Направление ветра, среднее за 2 мин"
+      },
+      "windgustdir": {
+        "name": "Направление порыва"
+      },
+      "windgustdir_10m": {
+        "name": "Направление порыва, среднее за 10 мин"
+      },
+      "windgustmph": {
+        "name": "Порыв ветра"
+      },
+      "windgustmph_10m": {
+        "name": "Скорость порыва, средняя за 10 мин"
+      },
+      "windspdmph_avg2m": {
+        "name": "Скорость ветра, средняя за 2 мин"
+      },
+      "windspeedmph": {
+        "name": "Скорость ветра"
+      },
+      "yearlyrainin": {
+        "name": "Осадки за год"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Состояние связи датчика CO2"
+      },
+      "t11cn": {
+        "name": "Состояние связи датчика CO"
+      },
+      "t1cn": {
+        "name": "Состояние связи наружного датчика"
+      },
+      "t234c1cn": {
+        "name": "CH1 состояние связи"
+      },
+      "t234c2cn": {
+        "name": "CH2 состояние связи"
+      },
+      "t234c3cn": {
+        "name": "CH3 состояние связи"
+      },
+      "t234c4cn": {
+        "name": "CH4 состояние связи"
+      },
+      "t234c5cn": {
+        "name": "CH5 состояние связи"
+      },
+      "t234c6cn": {
+        "name": "CH6 состояние связи"
+      },
+      "t234c7cn": {
+        "name": "CH7 состояние связи"
+      },
+      "t5lscn": {
+        "name": "Состояние связи датчика молний"
+      },
+      "t6c1cn": {
+        "name": "CH1 состояние связи датчика протечки"
+      },
+      "t6c1wls": {
+        "name": "CH1 состояние протечки воды"
+      },
+      "t6c2cn": {
+        "name": "CH2 состояние связи датчика протечки"
+      },
+      "t6c2wls": {
+        "name": "CH2 состояние протечки воды"
+      },
+      "t6c3cn": {
+        "name": "CH3 состояние связи датчика протечки"
+      },
+      "t6c3wls": {
+        "name": "CH3 состояние протечки воды"
+      },
+      "t6c4cn": {
+        "name": "CH4 состояние связи датчика протечки"
+      },
+      "t6c4wls": {
+        "name": "CH4 состояние протечки воды"
+      },
+      "t6c5cn": {
+        "name": "CH5 состояние связи датчика протечки"
+      },
+      "t6c5wls": {
+        "name": "CH5 состояние протечки воды"
+      },
+      "t6c6cn": {
+        "name": "CH6 состояние связи датчика протечки"
+      },
+      "t6c6wls": {
+        "name": "CH6 состояние протечки воды"
+      },
+      "t6c7cn": {
+        "name": "CH7 состояние связи датчика протечки"
+      },
+      "t6c7wls": {
+        "name": "CH7 состояние протечки воды"
+      },
+      "t8cn": {
+        "name": "Состояние связи датчика частиц"
+      },
+      "t9cn": {
+        "name": "Состояние связи датчика HCHO/ЛОС"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Смещение направления ветра"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Сбросить смещение"
+      },
+      "set_north": {
+        "name": "Задать север по текущему значению"
+      }
+    }
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "ব্যক্তিগত আবহাওয়া কেন্দ্র",
+        "description": "এখানে একটি স্টেশন কী নির্ধারণ করুন যা আপনার আবহাওয়া কেন্দ্রগুলিকে পাঠাতে হবে যাতে তাদের তথ্য প্রত্যাখ্যাত না হয়। ঘরটি খালি রাখলে সব অনুরোধ গ্রহণ করা হবে।",
+        "data": {
+          "password": "স্টেশন কী"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "ইতিমধ্যে কনফিগার করা হয়েছে। একটি মাত্র ইনস্ট্যান্স সব আবহাওয়া কেন্দ্রকে সেবা দেয়।"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ব্যক্তিগত আবহাওয়া কেন্দ্র",
+        "description": "এখানে একটি স্টেশন কী নির্ধারণ করুন যা আপনার আবহাওয়া কেন্দ্রগুলিকে পাঠাতে হবে যাতে তাদের তথ্য প্রত্যাখ্যাত না হয়। ঘরটি খালি রাখলে সব অনুরোধ গ্রহণ করা হবে।",
+        "data": {
+          "password": "স্টেশন কী",
+          "availability_timeout": "এত সময় পর অনুপলব্ধ হিসেবে চিহ্নিত করুন (মিনিট)",
+          "debug": "প্রতিটি আগত অনুরোধ লগ করুন"
+        },
+        "data_description": {
+          "availability_timeout": "সেন্সরগুলি অনুপলব্ধ হিসেবে চিহ্নিত হওয়ার আগে একটি কেন্দ্র কতক্ষণ নীরব থাকতে পারে। ০ মানে কখনও চিহ্নিত করা হবে না।",
+          "debug": "প্রতিটি অনুরোধের সম্পূর্ণ বিষয়বস্তু Home Assistant লগে লেখে। একটি কেন্দ্র সেট আপ করার সময় উপযোগী, পরে বিরক্তিকর।"
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "আবহাওয়া কেন্দ্র প্রত্যাখ্যাত: ভুল স্টেশন কী",
+      "description": "{ip} ঠিকানার একটি আবহাওয়া কেন্দ্র প্রত্যাশিত স্টেশন কী না পাঠিয়ে `{station_id}` হিসেবে তথ্য পাঠানোর চেষ্টা করেছে।\n\nকেন্দ্রে বা WSLink অ্যাপে নির্ধারিত কী এই ইন্টিগ্রেশনে নির্ধারিত কী-এর সাথে মেলে কিনা পরীক্ষা করুন। {ip} থেকে একটি অনুরোধ গৃহীত হওয়ামাত্র এই বার্তাটি নিজে থেকেই চলে যাবে।"
+    },
+    "missing_device_id": {
+      "title": "আবহাওয়া কেন্দ্র প্রত্যাখ্যাত: কোনো স্টেশন শনাক্তকারী নেই",
+      "description": "{ip} ঠিকানার একটি আবহাওয়া কেন্দ্র স্টেশন শনাক্তকারী ছাড়াই তথ্য পাঠিয়েছে।\n\nWSLink অ্যাপে একটি Sender ID, অথবা কেন্দ্রের কনফিগারেশনে একটি ID প্যারামিটার নির্ধারণ করুন। {ip} থেকে একটি অনুরোধ গৃহীত হওয়ামাত্র এই বার্তাটি নিজে থেকেই চলে যাবে।"
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "{device} কেন্দ্রটি এখনও বাতাসের দিক পাঠায়নি, তাই ক্যালিব্রেট করার মতো কিছু নেই। পরবর্তী আপলোডের জন্য অপেক্ষা করে আবার চেষ্টা করুন।"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "পরম বায়ুচাপ"
+      },
+      "apiver": {
+        "name": "API সংস্করণ"
+      },
+      "aqbc": {
+        "name": "কালো কার্বন"
+      },
+      "aqco": {
+        "name": "কার্বন মনোক্সাইড"
+      },
+      "aqcot": {
+        "name": "স্বল্প মাত্রার কার্বন মনোক্সাইড"
+      },
+      "aqec": {
+        "name": "মৌলিক কার্বন"
+      },
+      "aqno": {
+        "name": "নাইট্রিক অক্সাইড"
+      },
+      "aqno2": {
+        "name": "NO2 X গণনাকৃত"
+      },
+      "aqno2t": {
+        "name": "নাইট্রোজেন ডাই-অক্সাইড"
+      },
+      "aqno2y": {
+        "name": "NO2 Y গণনাকৃত"
+      },
+      "aqno3": {
+        "name": "NO3 আয়ন"
+      },
+      "aqnox": {
+        "name": "নাইট্রোজেন অক্সাইড"
+      },
+      "aqnoy": {
+        "name": "মোট বিক্রিয়াশীল নাইট্রোজেন"
+      },
+      "aqoc": {
+        "name": "জৈব কার্বন"
+      },
+      "aqozone": {
+        "name": "ওজোন"
+      },
+      "aqpm10": {
+        "name": "PM10 ভর"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5 ভর"
+      },
+      "aqso2": {
+        "name": "সালফার ডাই-অক্সাইড"
+      },
+      "aqso2t": {
+        "name": "স্বল্প মাত্রার সালফার ডাই-অক্সাইড"
+      },
+      "aqso4": {
+        "name": "SO4 আয়ন"
+      },
+      "aquv_aeth": {
+        "name": "এথালোমিটার চ্যানেল ২"
+      },
+      "baromin": {
+        "name": "চাপ"
+      },
+      "clouds": {
+        "name": "মেঘের আচ্ছাদন"
+      },
+      "dailyrainin": {
+        "name": "দৈনিক বৃষ্টি"
+      },
+      "dewptf": {
+        "name": "শিশিরাঙ্ক"
+      },
+      "humidity": {
+        "name": "বাইরের আর্দ্রতা"
+      },
+      "inbat": {
+        "name": "কনসোলের ব্যাটারির মাত্রা"
+      },
+      "indoorhumidity": {
+        "name": "ভিতরের আর্দ্রতা"
+      },
+      "indoortempf": {
+        "name": "ভিতরের তাপমাত্রা"
+      },
+      "inhum": {
+        "name": "ভিতরের আর্দ্রতা"
+      },
+      "intem": {
+        "name": "ভিতরের তাপমাত্রা"
+      },
+      "last_update": {
+        "name": "সর্বশেষ প্রাপ্তি"
+      },
+      "leafwetness": {
+        "name": "পাতার ভেজা ভাব"
+      },
+      "leafwetness2": {
+        "name": "CH2 পাতার ভেজা ভাব"
+      },
+      "lowbatt": {
+        "name": "ব্যাটারি কম"
+      },
+      "monthlyrainin": {
+        "name": "মাসিক বৃষ্টি"
+      },
+      "rainin": {
+        "name": "ঘণ্টাপ্রতি বৃষ্টি"
+      },
+      "rbar": {
+        "name": "আপেক্ষিক বায়ুচাপ"
+      },
+      "rtfreq": {
+        "name": "হালনাগাদের কম্পাঙ্ক"
+      },
+      "soilmoisture": {
+        "name": "মাটির আর্দ্রতা"
+      },
+      "soilmoisture2": {
+        "name": "CH2 মাটির আর্দ্রতা"
+      },
+      "soilmoisture3": {
+        "name": "CH3 মাটির আর্দ্রতা"
+      },
+      "soilmoisture4": {
+        "name": "CH4 মাটির আর্দ্রতা"
+      },
+      "soiltemp2f": {
+        "name": "CH2 মাটির তাপমাত্রা"
+      },
+      "soiltemp3f": {
+        "name": "CH3 মাটির তাপমাত্রা"
+      },
+      "soiltemp4f": {
+        "name": "CH4 মাটির তাপমাত্রা"
+      },
+      "soiltempf": {
+        "name": "মাটির তাপমাত্রা"
+      },
+      "solarradiation": {
+        "name": "সৌর বিকিরণ"
+      },
+      "t10bat": {
+        "name": "CO2 সেন্সরের ব্যাটারির মাত্রা"
+      },
+      "t10cn": {
+        "name": "CO2 সেন্সরের সংযোগের অবস্থা"
+      },
+      "t10co2": {
+        "name": "CO2 ঘনত্ব"
+      },
+      "t11bat": {
+        "name": "CO সেন্সরের ব্যাটারির মাত্রা"
+      },
+      "t11cn": {
+        "name": "CO সেন্সরের সংযোগের অবস্থা"
+      },
+      "t11co": {
+        "name": "CO ঘনত্ব"
+      },
+      "t1bat": {
+        "name": "বাইরের সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t1chill": {
+        "name": "বায়ু শীতলতার তাপমাত্রা"
+      },
+      "t1cn": {
+        "name": "বাইরের সেন্সরের সংযোগের অবস্থা"
+      },
+      "t1dew": {
+        "name": "শিশিরাঙ্কের তাপমাত্রা"
+      },
+      "t1feels": {
+        "name": "অনুভূত তাপমাত্রা"
+      },
+      "t1heat": {
+        "name": "তাপ সূচক"
+      },
+      "t1hum": {
+        "name": "বাইরের আর্দ্রতা"
+      },
+      "t1raindy": {
+        "name": "দৈনিক বৃষ্টিপাত"
+      },
+      "t1rainhr": {
+        "name": "ঘণ্টাপ্রতি বৃষ্টিপাত"
+      },
+      "t1rainmth": {
+        "name": "মাসিক বৃষ্টিপাত"
+      },
+      "t1rainra": {
+        "name": "বৃষ্টির তীব্রতা"
+      },
+      "t1rainwy": {
+        "name": "সাপ্তাহিক বৃষ্টিপাত"
+      },
+      "t1rainyr": {
+        "name": "বার্ষিক বৃষ্টিপাত"
+      },
+      "t1solrad": {
+        "name": "আলোর তীব্রতা"
+      },
+      "t1tem": {
+        "name": "বাইরের তাপমাত্রা"
+      },
+      "t1uvi": {
+        "name": "UV সূচক"
+      },
+      "t1wbgt": {
+        "name": "WBGT তাপমাত্রা"
+      },
+      "t1wdir": {
+        "name": "বাতাসের দিক"
+      },
+      "t1wgust": {
+        "name": "দমকা হাওয়া"
+      },
+      "t1ws": {
+        "name": "বাতাসের গতি"
+      },
+      "t1ws10mav": {
+        "name": "বাতাসের গতি ১০ মিনিটের গড়"
+      },
+      "t234c1bat": {
+        "name": "CH1 ব্যাটারির অবস্থা"
+      },
+      "t234c1cn": {
+        "name": "CH1 সংযোগের অবস্থা"
+      },
+      "t234c1hum": {
+        "name": "CH1 আর্দ্রতা"
+      },
+      "t234c1tem": {
+        "name": "CH1 তাপমাত্রা"
+      },
+      "t234c1tp": {
+        "name": "CH1 সেন্সরের ধরন"
+      },
+      "t234c2bat": {
+        "name": "CH2 ব্যাটারির অবস্থা"
+      },
+      "t234c2cn": {
+        "name": "CH2 সংযোগের অবস্থা"
+      },
+      "t234c2hum": {
+        "name": "CH2 আর্দ্রতা"
+      },
+      "t234c2tem": {
+        "name": "CH2 তাপমাত্রা"
+      },
+      "t234c2tp": {
+        "name": "CH2 সেন্সরের ধরন"
+      },
+      "t234c3bat": {
+        "name": "CH3 ব্যাটারির অবস্থা"
+      },
+      "t234c3cn": {
+        "name": "CH3 সংযোগের অবস্থা"
+      },
+      "t234c3hum": {
+        "name": "CH3 আর্দ্রতা"
+      },
+      "t234c3tem": {
+        "name": "CH3 তাপমাত্রা"
+      },
+      "t234c3tp": {
+        "name": "CH3 সেন্সরের ধরন"
+      },
+      "t234c4bat": {
+        "name": "CH4 ব্যাটারির অবস্থা"
+      },
+      "t234c4cn": {
+        "name": "CH4 সংযোগের অবস্থা"
+      },
+      "t234c4hum": {
+        "name": "CH4 আর্দ্রতা"
+      },
+      "t234c4tem": {
+        "name": "CH4 তাপমাত্রা"
+      },
+      "t234c4tp": {
+        "name": "CH4 সেন্সরের ধরন"
+      },
+      "t234c5bat": {
+        "name": "CH5 ব্যাটারির অবস্থা"
+      },
+      "t234c5cn": {
+        "name": "CH5 সংযোগের অবস্থা"
+      },
+      "t234c5hum": {
+        "name": "CH5 আর্দ্রতা"
+      },
+      "t234c5tem": {
+        "name": "CH5 তাপমাত্রা"
+      },
+      "t234c5tp": {
+        "name": "CH5 সেন্সরের ধরন"
+      },
+      "t234c6bat": {
+        "name": "CH6 ব্যাটারির অবস্থা"
+      },
+      "t234c6cn": {
+        "name": "CH6 সংযোগের অবস্থা"
+      },
+      "t234c6hum": {
+        "name": "CH6 আর্দ্রতা"
+      },
+      "t234c6tem": {
+        "name": "CH6 তাপমাত্রা"
+      },
+      "t234c6tp": {
+        "name": "CH6 সেন্সরের ধরন"
+      },
+      "t234c7bat": {
+        "name": "CH7 ব্যাটারির অবস্থা"
+      },
+      "t234c7cn": {
+        "name": "CH7 সংযোগের অবস্থা"
+      },
+      "t234c7hum": {
+        "name": "CH7 আর্দ্রতা"
+      },
+      "t234c7tem": {
+        "name": "CH7 তাপমাত্রা"
+      },
+      "t234c7tp": {
+        "name": "CH7 সেন্সরের ধরন"
+      },
+      "t5ls1dtc": {
+        "name": "১ দিনে মোট বজ্রপাত"
+      },
+      "t5ls1htc": {
+        "name": "১ ঘণ্টায় মোট বজ্রপাত"
+      },
+      "t5ls30mtc": {
+        "name": "গত ৩০ মিনিটের বজ্রপাত"
+      },
+      "t5ls5mtc": {
+        "name": "গত ৫ মিনিটের বজ্রপাত"
+      },
+      "t5lsbat": {
+        "name": "বজ্রপাত সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t5lscn": {
+        "name": "বজ্রপাত সেন্সরের সংযোগের অবস্থা"
+      },
+      "t5lsf": {
+        "name": "গত এক ঘণ্টার বজ্রপাত"
+      },
+      "t5lskm": {
+        "name": "বজ্রপাতের দূরত্ব"
+      },
+      "t5lst": {
+        "name": "শেষ বজ্রপাতের সময়"
+      },
+      "t6c1bat": {
+        "name": "CH1 চুইয়ে পড়া সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t6c1cn": {
+        "name": "CH1 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c1wls": {
+        "name": "CH1 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c2bat": {
+        "name": "CH2 চুইয়ে পড়া সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t6c2cn": {
+        "name": "CH2 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c2wls": {
+        "name": "CH2 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c3bat": {
+        "name": "CH3 চুইয়ে পড়া সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t6c3cn": {
+        "name": "CH3 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c3wls": {
+        "name": "CH3 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c4bat": {
+        "name": "CH4 চুইয়ে পড়া সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t6c4cn": {
+        "name": "CH4 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c4wls": {
+        "name": "CH4 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c5bat": {
+        "name": "CH5 চুইয়ে পড়া সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t6c5cn": {
+        "name": "CH5 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c5wls": {
+        "name": "CH5 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c6bat": {
+        "name": "CH6 চুইয়ে পড়া সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t6c6cn": {
+        "name": "CH6 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c6wls": {
+        "name": "CH6 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c7bat": {
+        "name": "CH7 চুইয়ে পড়া সেন্সরের ব্যাটারির অবস্থা"
+      },
+      "t6c7cn": {
+        "name": "CH7 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c7wls": {
+        "name": "CH7 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t8bat": {
+        "name": "কণা সেন্সরের ব্যাটারির মাত্রা"
+      },
+      "t8cn": {
+        "name": "কণা সেন্সরের সংযোগের অবস্থা"
+      },
+      "t8pm10": {
+        "name": "PM10 ঘনত্ব"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5 ঘনত্ব"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "HCHO/VOC সেন্সরের ব্যাটারির মাত্রা"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC সেন্সরের সংযোগের অবস্থা"
+      },
+      "t9hcho": {
+        "name": "HCHO ঘনত্ব"
+      },
+      "t9voclv": {
+        "name": "VOC মাত্রা"
+      },
+      "tempf": {
+        "name": "বাইরের তাপমাত্রা"
+      },
+      "uv": {
+        "name": "UV সূচক"
+      },
+      "visibility": {
+        "name": "দৃশ্যমানতা"
+      },
+      "weeklyrainin": {
+        "name": "সাপ্তাহিক বৃষ্টি"
+      },
+      "wind_direction_raw": {
+        "name": "বাতাসের দিক (অপ্রক্রিয়াকৃত)"
+      },
+      "windchillf": {
+        "name": "বায়ু শীতলতা"
+      },
+      "winddir": {
+        "name": "বাতাসের দিক"
+      },
+      "winddir_avg2m": {
+        "name": "বাতাসের দিক ২ মিনিটের গড়"
+      },
+      "windgustdir": {
+        "name": "দমকার দিক"
+      },
+      "windgustdir_10m": {
+        "name": "দমকার দিক ১০ মিনিটের গড়"
+      },
+      "windgustmph": {
+        "name": "দমকা হাওয়া"
+      },
+      "windgustmph_10m": {
+        "name": "দমকার গতি ১০ মিনিটের গড়"
+      },
+      "windspdmph_avg2m": {
+        "name": "বাতাসের গতি ২ মিনিটের গড়"
+      },
+      "windspeedmph": {
+        "name": "বাতাসের গতি"
+      },
+      "yearlyrainin": {
+        "name": "বার্ষিক বৃষ্টি"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "CO2 সেন্সরের সংযোগের অবস্থা"
+      },
+      "t11cn": {
+        "name": "CO সেন্সরের সংযোগের অবস্থা"
+      },
+      "t1cn": {
+        "name": "বাইরের সেন্সরের সংযোগের অবস্থা"
+      },
+      "t234c1cn": {
+        "name": "CH1 সংযোগের অবস্থা"
+      },
+      "t234c2cn": {
+        "name": "CH2 সংযোগের অবস্থা"
+      },
+      "t234c3cn": {
+        "name": "CH3 সংযোগের অবস্থা"
+      },
+      "t234c4cn": {
+        "name": "CH4 সংযোগের অবস্থা"
+      },
+      "t234c5cn": {
+        "name": "CH5 সংযোগের অবস্থা"
+      },
+      "t234c6cn": {
+        "name": "CH6 সংযোগের অবস্থা"
+      },
+      "t234c7cn": {
+        "name": "CH7 সংযোগের অবস্থা"
+      },
+      "t5lscn": {
+        "name": "বজ্রপাত সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c1cn": {
+        "name": "CH1 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c1wls": {
+        "name": "CH1 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c2cn": {
+        "name": "CH2 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c2wls": {
+        "name": "CH2 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c3cn": {
+        "name": "CH3 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c3wls": {
+        "name": "CH3 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c4cn": {
+        "name": "CH4 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c4wls": {
+        "name": "CH4 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c5cn": {
+        "name": "CH5 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c5wls": {
+        "name": "CH5 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c6cn": {
+        "name": "CH6 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c6wls": {
+        "name": "CH6 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t6c7cn": {
+        "name": "CH7 চুইয়ে পড়া সেন্সরের সংযোগের অবস্থা"
+      },
+      "t6c7wls": {
+        "name": "CH7 পানি চুইয়ে পড়ার অবস্থা"
+      },
+      "t8cn": {
+        "name": "কণা সেন্সরের সংযোগের অবস্থা"
+      },
+      "t9cn": {
+        "name": "HCHO/VOC সেন্সরের সংযোগের অবস্থা"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "বাতাসের দিকের অফসেট"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "অফসেট রিসেট করুন"
+      },
+      "set_north": {
+        "name": "বর্তমান মানকে উত্তর হিসেবে সেট করুন"
+      }
+    }
+  }
+}

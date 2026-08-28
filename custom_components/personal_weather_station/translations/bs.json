@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Lična meteorološka stanica",
+        "description": "Ovdje postavite ključ postaje koji vaše meteorološke postaje moraju slati kako njihovi podaci ne bi bili odbijeni. Ostavite li polje prazno, prihvaćat će se svi zahtjevi.",
+        "data": {
+          "password": "Ključ postaje"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Već konfigurirano. Jedna jedina instanca poslužuje sve meteorološke stanice."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Lična meteorološka stanica",
+        "description": "Ovdje postavite ključ postaje koji vaše meteorološke postaje moraju slati kako njihovi podaci ne bi bili odbijeni. Ostavite li polje prazno, prihvaćat će se svi zahtjevi.",
+        "data": {
+          "password": "Ključ postaje",
+          "availability_timeout": "Označi kao nedostupno nakon (minuta)",
+          "debug": "Zabilježi svaki dolazni zahtjev"
+        },
+        "data_description": {
+          "availability_timeout": "Koliko dugo postaja smije šutjeti prije nego što se njezini senzori označe kao nedostupni. 0 znači nikada.",
+          "debug": "Zapisuje cijeli sadržaj svakog zahtjeva u zapisnik Home Assistanta. Korisno pri postavljanju postaje, bučno poslije."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Meteorološka postaja odbijena: pogrešan ključ postaje",
+      "description": "Meteorološka postaja na {ip} pokušala je poslati podatke kao `{station_id}` bez slanja očekivanog ključa postaje.\n\nProvjerite podudara li se ključ postavljen u postaji ili u aplikaciji WSLink s onim postavljenim u ovoj integraciji. Ova poruka nestaje sama čim zahtjev s {ip} bude prihvaćen."
+    },
+    "missing_device_id": {
+      "title": "Meteorološka postaja odbijena: nema identifikatora postaje",
+      "description": "Meteorološka postaja na {ip} poslala je podatke bez identifikatora postaje.\n\nPostavite Sender ID u aplikaciji WSLink ili parametar ID u konfiguraciji postaje. Ova poruka nestaje sama čim zahtjev s {ip} bude prihvaćen."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "Postaja {device} još nije poslala smjer vjetra pa se nema prema čemu kalibrirati. Pričekajte sljedeće slanje i pokušajte ponovno."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Apsolutni pritisak vazduha"
+      },
+      "apiver": {
+        "name": "Verzija API-ja"
+      },
+      "aqbc": {
+        "name": "Crni ugljik"
+      },
+      "aqco": {
+        "name": "Ugljikov monoksid"
+      },
+      "aqcot": {
+        "name": "Ugljikov monoksid u tragovima"
+      },
+      "aqec": {
+        "name": "Elementarni ugljik"
+      },
+      "aqno": {
+        "name": "Dušikov monoksid"
+      },
+      "aqno2": {
+        "name": "NO2 X izračunato"
+      },
+      "aqno2t": {
+        "name": "Dušikov dioksid"
+      },
+      "aqno2y": {
+        "name": "NO2 Y izračunato"
+      },
+      "aqno3": {
+        "name": "Ion NO3"
+      },
+      "aqnox": {
+        "name": "Dušikovi oksidi"
+      },
+      "aqnoy": {
+        "name": "Ukupni reaktivni dušik"
+      },
+      "aqoc": {
+        "name": "Organski ugljik"
+      },
+      "aqozone": {
+        "name": "Ozon"
+      },
+      "aqpm10": {
+        "name": "Masa PM10"
+      },
+      "aqpm2_5": {
+        "name": "Masa PM2.5"
+      },
+      "aqso2": {
+        "name": "Sumporov dioksid"
+      },
+      "aqso2t": {
+        "name": "Sumporov dioksid u tragovima"
+      },
+      "aqso4": {
+        "name": "Ion SO4"
+      },
+      "aquv_aeth": {
+        "name": "Etalometar kanal 2"
+      },
+      "baromin": {
+        "name": "Pritisak"
+      },
+      "clouds": {
+        "name": "Naoblaka"
+      },
+      "dailyrainin": {
+        "name": "Dnevna kiša"
+      },
+      "dewptf": {
+        "name": "Rosište"
+      },
+      "humidity": {
+        "name": "Vanjska vlažnost vazduha"
+      },
+      "inbat": {
+        "name": "Razina baterije konzole"
+      },
+      "indoorhumidity": {
+        "name": "Unutrašnja vlažnost vazduha"
+      },
+      "indoortempf": {
+        "name": "Unutrašnja temperatura"
+      },
+      "inhum": {
+        "name": "Unutrašnja vlažnost vazduha"
+      },
+      "intem": {
+        "name": "Unutrašnja temperatura"
+      },
+      "last_update": {
+        "name": "Zadnji primitak"
+      },
+      "leafwetness": {
+        "name": "Vlaga na lišću"
+      },
+      "leafwetness2": {
+        "name": "CH2 vlaga na lišću"
+      },
+      "lowbatt": {
+        "name": "Slaba baterija"
+      },
+      "monthlyrainin": {
+        "name": "Mjesečna kiša"
+      },
+      "rainin": {
+        "name": "Kiša po satu"
+      },
+      "rbar": {
+        "name": "Relativni pritisak vazduha"
+      },
+      "rtfreq": {
+        "name": "Učestalost ažuriranja"
+      },
+      "soilmoisture": {
+        "name": "Vlažnost tla"
+      },
+      "soilmoisture2": {
+        "name": "CH2 vlažnost tla"
+      },
+      "soilmoisture3": {
+        "name": "CH3 vlažnost tla"
+      },
+      "soilmoisture4": {
+        "name": "CH4 vlažnost tla"
+      },
+      "soiltemp2f": {
+        "name": "CH2 temperatura tla"
+      },
+      "soiltemp3f": {
+        "name": "CH3 temperatura tla"
+      },
+      "soiltemp4f": {
+        "name": "CH4 temperatura tla"
+      },
+      "soiltempf": {
+        "name": "Temperatura tla"
+      },
+      "solarradiation": {
+        "name": "Sunčevo zračenje"
+      },
+      "t10bat": {
+        "name": "Razina baterije senzora CO2"
+      },
+      "t10cn": {
+        "name": "Stanje veze senzora CO2"
+      },
+      "t10co2": {
+        "name": "Koncentracija CO2"
+      },
+      "t11bat": {
+        "name": "Razina baterije senzora CO"
+      },
+      "t11cn": {
+        "name": "Stanje veze senzora CO"
+      },
+      "t11co": {
+        "name": "Koncentracija CO"
+      },
+      "t1bat": {
+        "name": "Stanje baterije vanjskog senzora"
+      },
+      "t1chill": {
+        "name": "Temperatura hlađenja vjetrom"
+      },
+      "t1cn": {
+        "name": "Stanje veze vanjskog senzora"
+      },
+      "t1dew": {
+        "name": "Temperatura rosišta"
+      },
+      "t1feels": {
+        "name": "Osjet temperature"
+      },
+      "t1heat": {
+        "name": "Indeks topline"
+      },
+      "t1hum": {
+        "name": "Vanjska vlažnost vazduha"
+      },
+      "t1raindy": {
+        "name": "Dnevna količina oborina"
+      },
+      "t1rainhr": {
+        "name": "Satna količina oborina"
+      },
+      "t1rainmth": {
+        "name": "Mjesečna količina oborina"
+      },
+      "t1rainra": {
+        "name": "Intenzitet kiše"
+      },
+      "t1rainwy": {
+        "name": "Tjedna količina oborina"
+      },
+      "t1rainyr": {
+        "name": "Godišnja količina oborina"
+      },
+      "t1solrad": {
+        "name": "Jačina svjetlosti"
+      },
+      "t1tem": {
+        "name": "Vanjska temperatura"
+      },
+      "t1uvi": {
+        "name": "UV indeks"
+      },
+      "t1wbgt": {
+        "name": "WBGT temperatura"
+      },
+      "t1wdir": {
+        "name": "Smjer vjetra"
+      },
+      "t1wgust": {
+        "name": "Udar vjetra"
+      },
+      "t1ws": {
+        "name": "Brzina vjetra"
+      },
+      "t1ws10mav": {
+        "name": "Brzina vjetra pros. 10 min"
+      },
+      "t234c1bat": {
+        "name": "CH1 stanje baterije"
+      },
+      "t234c1cn": {
+        "name": "CH1 stanje veze"
+      },
+      "t234c1hum": {
+        "name": "CH1 vlažnost"
+      },
+      "t234c1tem": {
+        "name": "CH1 temperatura"
+      },
+      "t234c1tp": {
+        "name": "CH1 tip senzora"
+      },
+      "t234c2bat": {
+        "name": "CH2 stanje baterije"
+      },
+      "t234c2cn": {
+        "name": "CH2 stanje veze"
+      },
+      "t234c2hum": {
+        "name": "CH2 vlažnost"
+      },
+      "t234c2tem": {
+        "name": "CH2 temperatura"
+      },
+      "t234c2tp": {
+        "name": "CH2 tip senzora"
+      },
+      "t234c3bat": {
+        "name": "CH3 stanje baterije"
+      },
+      "t234c3cn": {
+        "name": "CH3 stanje veze"
+      },
+      "t234c3hum": {
+        "name": "CH3 vlažnost"
+      },
+      "t234c3tem": {
+        "name": "CH3 temperatura"
+      },
+      "t234c3tp": {
+        "name": "CH3 tip senzora"
+      },
+      "t234c4bat": {
+        "name": "CH4 stanje baterije"
+      },
+      "t234c4cn": {
+        "name": "CH4 stanje veze"
+      },
+      "t234c4hum": {
+        "name": "CH4 vlažnost"
+      },
+      "t234c4tem": {
+        "name": "CH4 temperatura"
+      },
+      "t234c4tp": {
+        "name": "CH4 tip senzora"
+      },
+      "t234c5bat": {
+        "name": "CH5 stanje baterije"
+      },
+      "t234c5cn": {
+        "name": "CH5 stanje veze"
+      },
+      "t234c5hum": {
+        "name": "CH5 vlažnost"
+      },
+      "t234c5tem": {
+        "name": "CH5 temperatura"
+      },
+      "t234c5tp": {
+        "name": "CH5 tip senzora"
+      },
+      "t234c6bat": {
+        "name": "CH6 stanje baterije"
+      },
+      "t234c6cn": {
+        "name": "CH6 stanje veze"
+      },
+      "t234c6hum": {
+        "name": "CH6 vlažnost"
+      },
+      "t234c6tem": {
+        "name": "CH6 temperatura"
+      },
+      "t234c6tp": {
+        "name": "CH6 tip senzora"
+      },
+      "t234c7bat": {
+        "name": "CH7 stanje baterije"
+      },
+      "t234c7cn": {
+        "name": "CH7 stanje veze"
+      },
+      "t234c7hum": {
+        "name": "CH7 vlažnost"
+      },
+      "t234c7tem": {
+        "name": "CH7 temperatura"
+      },
+      "t234c7tp": {
+        "name": "CH7 tip senzora"
+      },
+      "t5ls1dtc": {
+        "name": "Munje ukupno u 1 danu"
+      },
+      "t5ls1htc": {
+        "name": "Munje ukupno u 1 satu"
+      },
+      "t5ls30mtc": {
+        "name": "Munje u posljednjih 30 minuta"
+      },
+      "t5ls5mtc": {
+        "name": "Munje u posljednjih 5 minuta"
+      },
+      "t5lsbat": {
+        "name": "Stanje baterije senzora munja"
+      },
+      "t5lscn": {
+        "name": "Stanje veze senzora munja"
+      },
+      "t5lsf": {
+        "name": "Munje u posljednjem satu"
+      },
+      "t5lskm": {
+        "name": "Udaljenost munje"
+      },
+      "t5lst": {
+        "name": "Vrijeme posljednje munje"
+      },
+      "t6c1bat": {
+        "name": "CH1 stanje baterije senzora curenja"
+      },
+      "t6c1cn": {
+        "name": "CH1 stanje veze senzora curenja"
+      },
+      "t6c1wls": {
+        "name": "CH1 stanje curenja vode"
+      },
+      "t6c2bat": {
+        "name": "CH2 stanje baterije senzora curenja"
+      },
+      "t6c2cn": {
+        "name": "CH2 stanje veze senzora curenja"
+      },
+      "t6c2wls": {
+        "name": "CH2 stanje curenja vode"
+      },
+      "t6c3bat": {
+        "name": "CH3 stanje baterije senzora curenja"
+      },
+      "t6c3cn": {
+        "name": "CH3 stanje veze senzora curenja"
+      },
+      "t6c3wls": {
+        "name": "CH3 stanje curenja vode"
+      },
+      "t6c4bat": {
+        "name": "CH4 stanje baterije senzora curenja"
+      },
+      "t6c4cn": {
+        "name": "CH4 stanje veze senzora curenja"
+      },
+      "t6c4wls": {
+        "name": "CH4 stanje curenja vode"
+      },
+      "t6c5bat": {
+        "name": "CH5 stanje baterije senzora curenja"
+      },
+      "t6c5cn": {
+        "name": "CH5 stanje veze senzora curenja"
+      },
+      "t6c5wls": {
+        "name": "CH5 stanje curenja vode"
+      },
+      "t6c6bat": {
+        "name": "CH6 stanje baterije senzora curenja"
+      },
+      "t6c6cn": {
+        "name": "CH6 stanje veze senzora curenja"
+      },
+      "t6c6wls": {
+        "name": "CH6 stanje curenja vode"
+      },
+      "t6c7bat": {
+        "name": "CH7 stanje baterije senzora curenja"
+      },
+      "t6c7cn": {
+        "name": "CH7 stanje veze senzora curenja"
+      },
+      "t6c7wls": {
+        "name": "CH7 stanje curenja vode"
+      },
+      "t8bat": {
+        "name": "Razina baterije senzora čestica"
+      },
+      "t8cn": {
+        "name": "Stanje veze senzora čestica"
+      },
+      "t8pm10": {
+        "name": "Koncentracija PM10"
+      },
+      "t8pm10ai": {
+        "name": "AQI PM10"
+      },
+      "t8pm25": {
+        "name": "Koncentracija PM2.5"
+      },
+      "t8pm25ai": {
+        "name": "AQI PM2.5"
+      },
+      "t9bat": {
+        "name": "Razina baterije senzora HCHO/HOS"
+      },
+      "t9cn": {
+        "name": "Stanje veze senzora HCHO/HOS"
+      },
+      "t9hcho": {
+        "name": "Koncentracija HCHO"
+      },
+      "t9voclv": {
+        "name": "Razina HOS"
+      },
+      "tempf": {
+        "name": "Vanjska temperatura"
+      },
+      "uv": {
+        "name": "UV indeks"
+      },
+      "visibility": {
+        "name": "Vidljivost"
+      },
+      "weeklyrainin": {
+        "name": "Tjedna kiša"
+      },
+      "wind_direction_raw": {
+        "name": "Smjer vjetra (sirovi)"
+      },
+      "windchillf": {
+        "name": "Hlađenje vjetrom"
+      },
+      "winddir": {
+        "name": "Smjer vjetra"
+      },
+      "winddir_avg2m": {
+        "name": "Smjer vjetra pros. 2 min"
+      },
+      "windgustdir": {
+        "name": "Smjer udara"
+      },
+      "windgustdir_10m": {
+        "name": "Smjer udara pros. 10 min"
+      },
+      "windgustmph": {
+        "name": "Udar vjetra"
+      },
+      "windgustmph_10m": {
+        "name": "Brzina udara pros. 10 min"
+      },
+      "windspdmph_avg2m": {
+        "name": "Brzina vjetra pros. 2 min"
+      },
+      "windspeedmph": {
+        "name": "Brzina vjetra"
+      },
+      "yearlyrainin": {
+        "name": "Godišnja kiša"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Stanje veze senzora CO2"
+      },
+      "t11cn": {
+        "name": "Stanje veze senzora CO"
+      },
+      "t1cn": {
+        "name": "Stanje veze vanjskog senzora"
+      },
+      "t234c1cn": {
+        "name": "CH1 stanje veze"
+      },
+      "t234c2cn": {
+        "name": "CH2 stanje veze"
+      },
+      "t234c3cn": {
+        "name": "CH3 stanje veze"
+      },
+      "t234c4cn": {
+        "name": "CH4 stanje veze"
+      },
+      "t234c5cn": {
+        "name": "CH5 stanje veze"
+      },
+      "t234c6cn": {
+        "name": "CH6 stanje veze"
+      },
+      "t234c7cn": {
+        "name": "CH7 stanje veze"
+      },
+      "t5lscn": {
+        "name": "Stanje veze senzora munja"
+      },
+      "t6c1cn": {
+        "name": "CH1 stanje veze senzora curenja"
+      },
+      "t6c1wls": {
+        "name": "CH1 stanje curenja vode"
+      },
+      "t6c2cn": {
+        "name": "CH2 stanje veze senzora curenja"
+      },
+      "t6c2wls": {
+        "name": "CH2 stanje curenja vode"
+      },
+      "t6c3cn": {
+        "name": "CH3 stanje veze senzora curenja"
+      },
+      "t6c3wls": {
+        "name": "CH3 stanje curenja vode"
+      },
+      "t6c4cn": {
+        "name": "CH4 stanje veze senzora curenja"
+      },
+      "t6c4wls": {
+        "name": "CH4 stanje curenja vode"
+      },
+      "t6c5cn": {
+        "name": "CH5 stanje veze senzora curenja"
+      },
+      "t6c5wls": {
+        "name": "CH5 stanje curenja vode"
+      },
+      "t6c6cn": {
+        "name": "CH6 stanje veze senzora curenja"
+      },
+      "t6c6wls": {
+        "name": "CH6 stanje curenja vode"
+      },
+      "t6c7cn": {
+        "name": "CH7 stanje veze senzora curenja"
+      },
+      "t6c7wls": {
+        "name": "CH7 stanje curenja vode"
+      },
+      "t8cn": {
+        "name": "Stanje veze senzora čestica"
+      },
+      "t9cn": {
+        "name": "Stanje veze senzora HCHO/HOS"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Pomak smjera vjetra"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Poništi pomak"
+      },
+      "set_north": {
+        "name": "Postavi sjever prema trenutnoj vrijednosti"
+      }
+    }
+  }
+}

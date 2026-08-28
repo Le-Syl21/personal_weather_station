@@ -1,0 +1,665 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Personlig vejrstation",
+        "description": "Angiv her en stationsnøgle, som dine vejrstationer skal sende, for at deres data ikke bliver afvist. Lader du feltet stå tomt, accepteres alle forespørgsler.",
+        "data": {
+          "password": "Stationsnøgle"
+        }
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Allerede konfigureret. En enkelt instans betjener alle vejrstationer."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Personlig vejrstation",
+        "description": "Angiv her en stationsnøgle, som dine vejrstationer skal sende, for at deres data ikke bliver afvist. Lader du feltet stå tomt, accepteres alle forespørgsler.",
+        "data": {
+          "password": "Stationsnøgle",
+          "availability_timeout": "Markér som utilgængelig efter (minutter)",
+          "debug": "Log hver indkommende forespørgsel"
+        },
+        "data_description": {
+          "availability_timeout": "Hvor længe en station må være tavs, før dens sensorer markeres som utilgængelige. 0 for aldrig at markere dem.",
+          "debug": "Skriver hele indholdet af hver forespørgsel til Home Assistant-loggen. Nyttigt mens en station sættes op, støjende bagefter."
+        }
+      }
+    }
+  },
+  "issues": {
+    "invalid_station_key": {
+      "title": "Vejrstation afvist: forkert stationsnøgle",
+      "description": "En vejrstation på {ip} forsøgte at sende data som `{station_id}` uden at sende den forventede stationsnøgle.\n\nKontrollér, at nøglen i stationen eller i WSLink-appen svarer til den, der er angivet i denne integration. Denne meddelelse forsvinder af sig selv, så snart en forespørgsel fra {ip} accepteres."
+    },
+    "missing_device_id": {
+      "title": "Vejrstation afvist: ingen stationsidentifikator",
+      "description": "En vejrstation på {ip} sendte data uden stationsidentifikator.\n\nAngiv et Sender ID i WSLink-appen eller en ID-parameter i stationens konfiguration. Denne meddelelse forsvinder af sig selv, så snart en forespørgsel fra {ip} accepteres."
+    },
+    "legacy_entity_ids": {
+      "title": "Entity IDs repeat the station name",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Shorten the entity IDs",
+            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    },
+    "legacy_status_sensors": {
+      "title": "Connection and leak readings are still numbers",
+      "fix_flow": {
+        "step": {
+          "confirm": {
+            "title": "Convert to binary sensors",
+            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "no_wind_direction": {
+      "message": "Stationen {device} har endnu ikke sendt en vindretning, så der er intet at kalibrere efter. Vent på næste upload, og prøv igen."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "abar": {
+        "name": "Absolut lufttryk"
+      },
+      "apiver": {
+        "name": "API-version"
+      },
+      "aqbc": {
+        "name": "Sort kulstof"
+      },
+      "aqco": {
+        "name": "Kulilte"
+      },
+      "aqcot": {
+        "name": "Kulilte i spor"
+      },
+      "aqec": {
+        "name": "Elementært kulstof"
+      },
+      "aqno": {
+        "name": "Nitrogenoxid"
+      },
+      "aqno2": {
+        "name": "NO2 X beregnet"
+      },
+      "aqno2t": {
+        "name": "Nitrogendioxid"
+      },
+      "aqno2y": {
+        "name": "NO2 Y beregnet"
+      },
+      "aqno3": {
+        "name": "NO3-ion"
+      },
+      "aqnox": {
+        "name": "Nitrogenoxider"
+      },
+      "aqnoy": {
+        "name": "Samlet reaktivt nitrogen"
+      },
+      "aqoc": {
+        "name": "Organisk kulstof"
+      },
+      "aqozone": {
+        "name": "Ozon"
+      },
+      "aqpm10": {
+        "name": "PM10-masse"
+      },
+      "aqpm2_5": {
+        "name": "PM2.5-masse"
+      },
+      "aqso2": {
+        "name": "Svovldioxid"
+      },
+      "aqso2t": {
+        "name": "Svovldioxid i spor"
+      },
+      "aqso4": {
+        "name": "SO4-ion"
+      },
+      "aquv_aeth": {
+        "name": "Aethalometer kanal 2"
+      },
+      "baromin": {
+        "name": "Tryk"
+      },
+      "clouds": {
+        "name": "Skydække"
+      },
+      "dailyrainin": {
+        "name": "Døgnnedbør"
+      },
+      "dewptf": {
+        "name": "Dugpunkt"
+      },
+      "humidity": {
+        "name": "Udendørs luftfugtighed"
+      },
+      "inbat": {
+        "name": "Batteriniveau for konsol"
+      },
+      "indoorhumidity": {
+        "name": "Indendørs luftfugtighed"
+      },
+      "indoortempf": {
+        "name": "Indetemperatur"
+      },
+      "inhum": {
+        "name": "Indendørs luftfugtighed"
+      },
+      "intem": {
+        "name": "Indetemperatur"
+      },
+      "last_update": {
+        "name": "Seneste modtagelse"
+      },
+      "leafwetness": {
+        "name": "Bladfugt"
+      },
+      "leafwetness2": {
+        "name": "CH2 bladfugt"
+      },
+      "lowbatt": {
+        "name": "Lavt batteri"
+      },
+      "monthlyrainin": {
+        "name": "Månedsnedbør"
+      },
+      "rainin": {
+        "name": "Timenedbør"
+      },
+      "rbar": {
+        "name": "Relativt lufttryk"
+      },
+      "rtfreq": {
+        "name": "Opdateringsfrekvens"
+      },
+      "soilmoisture": {
+        "name": "Jordfugtighed"
+      },
+      "soilmoisture2": {
+        "name": "CH2 jordfugtighed"
+      },
+      "soilmoisture3": {
+        "name": "CH3 jordfugtighed"
+      },
+      "soilmoisture4": {
+        "name": "CH4 jordfugtighed"
+      },
+      "soiltemp2f": {
+        "name": "CH2 jordtemperatur"
+      },
+      "soiltemp3f": {
+        "name": "CH3 jordtemperatur"
+      },
+      "soiltemp4f": {
+        "name": "CH4 jordtemperatur"
+      },
+      "soiltempf": {
+        "name": "Jordtemperatur"
+      },
+      "solarradiation": {
+        "name": "Solindstråling"
+      },
+      "t10bat": {
+        "name": "Batteriniveau for CO2-sensor"
+      },
+      "t10cn": {
+        "name": "Forbindelsesstatus for CO2-sensor"
+      },
+      "t10co2": {
+        "name": "CO2-koncentration"
+      },
+      "t11bat": {
+        "name": "Batteriniveau for CO-sensor"
+      },
+      "t11cn": {
+        "name": "Forbindelsesstatus for CO-sensor"
+      },
+      "t11co": {
+        "name": "CO-koncentration"
+      },
+      "t1bat": {
+        "name": "Batteristatus for udendørssensor"
+      },
+      "t1chill": {
+        "name": "Kuldeindekstemperatur"
+      },
+      "t1cn": {
+        "name": "Forbindelsesstatus for udendørssensor"
+      },
+      "t1dew": {
+        "name": "Dugpunktstemperatur"
+      },
+      "t1feels": {
+        "name": "Følt temperatur"
+      },
+      "t1heat": {
+        "name": "Varmeindeks"
+      },
+      "t1hum": {
+        "name": "Udendørs luftfugtighed"
+      },
+      "t1raindy": {
+        "name": "Nedbør pr. døgn"
+      },
+      "t1rainhr": {
+        "name": "Nedbør pr. time"
+      },
+      "t1rainmth": {
+        "name": "Nedbør pr. måned"
+      },
+      "t1rainra": {
+        "name": "Nedbørsintensitet"
+      },
+      "t1rainwy": {
+        "name": "Nedbør pr. uge"
+      },
+      "t1rainyr": {
+        "name": "Nedbør pr. år"
+      },
+      "t1solrad": {
+        "name": "Lysstyrke"
+      },
+      "t1tem": {
+        "name": "Udetemperatur"
+      },
+      "t1uvi": {
+        "name": "UV-indeks"
+      },
+      "t1wbgt": {
+        "name": "WBGT-temperatur"
+      },
+      "t1wdir": {
+        "name": "Vindretning"
+      },
+      "t1wgust": {
+        "name": "Vindstød"
+      },
+      "t1ws": {
+        "name": "Vindhastighed"
+      },
+      "t1ws10mav": {
+        "name": "Vindhastighed gns. 10 min"
+      },
+      "t234c1bat": {
+        "name": "CH1 batteristatus"
+      },
+      "t234c1cn": {
+        "name": "CH1 forbindelsesstatus"
+      },
+      "t234c1hum": {
+        "name": "CH1 luftfugtighed"
+      },
+      "t234c1tem": {
+        "name": "CH1 temperatur"
+      },
+      "t234c1tp": {
+        "name": "CH1 sensortype"
+      },
+      "t234c2bat": {
+        "name": "CH2 batteristatus"
+      },
+      "t234c2cn": {
+        "name": "CH2 forbindelsesstatus"
+      },
+      "t234c2hum": {
+        "name": "CH2 luftfugtighed"
+      },
+      "t234c2tem": {
+        "name": "CH2 temperatur"
+      },
+      "t234c2tp": {
+        "name": "CH2 sensortype"
+      },
+      "t234c3bat": {
+        "name": "CH3 batteristatus"
+      },
+      "t234c3cn": {
+        "name": "CH3 forbindelsesstatus"
+      },
+      "t234c3hum": {
+        "name": "CH3 luftfugtighed"
+      },
+      "t234c3tem": {
+        "name": "CH3 temperatur"
+      },
+      "t234c3tp": {
+        "name": "CH3 sensortype"
+      },
+      "t234c4bat": {
+        "name": "CH4 batteristatus"
+      },
+      "t234c4cn": {
+        "name": "CH4 forbindelsesstatus"
+      },
+      "t234c4hum": {
+        "name": "CH4 luftfugtighed"
+      },
+      "t234c4tem": {
+        "name": "CH4 temperatur"
+      },
+      "t234c4tp": {
+        "name": "CH4 sensortype"
+      },
+      "t234c5bat": {
+        "name": "CH5 batteristatus"
+      },
+      "t234c5cn": {
+        "name": "CH5 forbindelsesstatus"
+      },
+      "t234c5hum": {
+        "name": "CH5 luftfugtighed"
+      },
+      "t234c5tem": {
+        "name": "CH5 temperatur"
+      },
+      "t234c5tp": {
+        "name": "CH5 sensortype"
+      },
+      "t234c6bat": {
+        "name": "CH6 batteristatus"
+      },
+      "t234c6cn": {
+        "name": "CH6 forbindelsesstatus"
+      },
+      "t234c6hum": {
+        "name": "CH6 luftfugtighed"
+      },
+      "t234c6tem": {
+        "name": "CH6 temperatur"
+      },
+      "t234c6tp": {
+        "name": "CH6 sensortype"
+      },
+      "t234c7bat": {
+        "name": "CH7 batteristatus"
+      },
+      "t234c7cn": {
+        "name": "CH7 forbindelsesstatus"
+      },
+      "t234c7hum": {
+        "name": "CH7 luftfugtighed"
+      },
+      "t234c7tem": {
+        "name": "CH7 temperatur"
+      },
+      "t234c7tp": {
+        "name": "CH7 sensortype"
+      },
+      "t5ls1dtc": {
+        "name": "Lynnedslag i alt på 1 døgn"
+      },
+      "t5ls1htc": {
+        "name": "Lynnedslag i alt på 1 time"
+      },
+      "t5ls30mtc": {
+        "name": "Lynnedslag de seneste 30 minutter"
+      },
+      "t5ls5mtc": {
+        "name": "Lynnedslag de seneste 5 minutter"
+      },
+      "t5lsbat": {
+        "name": "Batteristatus for lynsensor"
+      },
+      "t5lscn": {
+        "name": "Forbindelsesstatus for lynsensor"
+      },
+      "t5lsf": {
+        "name": "Lynnedslag den seneste time"
+      },
+      "t5lskm": {
+        "name": "Lynafstand"
+      },
+      "t5lst": {
+        "name": "Tidspunkt for seneste lynnedslag"
+      },
+      "t6c1bat": {
+        "name": "CH1 batteristatus for lækagesensor"
+      },
+      "t6c1cn": {
+        "name": "CH1 forbindelsesstatus for lækagesensor"
+      },
+      "t6c1wls": {
+        "name": "CH1 vandlækagestatus"
+      },
+      "t6c2bat": {
+        "name": "CH2 batteristatus for lækagesensor"
+      },
+      "t6c2cn": {
+        "name": "CH2 forbindelsesstatus for lækagesensor"
+      },
+      "t6c2wls": {
+        "name": "CH2 vandlækagestatus"
+      },
+      "t6c3bat": {
+        "name": "CH3 batteristatus for lækagesensor"
+      },
+      "t6c3cn": {
+        "name": "CH3 forbindelsesstatus for lækagesensor"
+      },
+      "t6c3wls": {
+        "name": "CH3 vandlækagestatus"
+      },
+      "t6c4bat": {
+        "name": "CH4 batteristatus for lækagesensor"
+      },
+      "t6c4cn": {
+        "name": "CH4 forbindelsesstatus for lækagesensor"
+      },
+      "t6c4wls": {
+        "name": "CH4 vandlækagestatus"
+      },
+      "t6c5bat": {
+        "name": "CH5 batteristatus for lækagesensor"
+      },
+      "t6c5cn": {
+        "name": "CH5 forbindelsesstatus for lækagesensor"
+      },
+      "t6c5wls": {
+        "name": "CH5 vandlækagestatus"
+      },
+      "t6c6bat": {
+        "name": "CH6 batteristatus for lækagesensor"
+      },
+      "t6c6cn": {
+        "name": "CH6 forbindelsesstatus for lækagesensor"
+      },
+      "t6c6wls": {
+        "name": "CH6 vandlækagestatus"
+      },
+      "t6c7bat": {
+        "name": "CH7 batteristatus for lækagesensor"
+      },
+      "t6c7cn": {
+        "name": "CH7 forbindelsesstatus for lækagesensor"
+      },
+      "t6c7wls": {
+        "name": "CH7 vandlækagestatus"
+      },
+      "t8bat": {
+        "name": "Batteriniveau for partikelsensor"
+      },
+      "t8cn": {
+        "name": "Forbindelsesstatus for partikelsensor"
+      },
+      "t8pm10": {
+        "name": "PM10-koncentration"
+      },
+      "t8pm10ai": {
+        "name": "PM10 AQI"
+      },
+      "t8pm25": {
+        "name": "PM2.5-koncentration"
+      },
+      "t8pm25ai": {
+        "name": "PM2.5 AQI"
+      },
+      "t9bat": {
+        "name": "Batteriniveau for HCHO/VOC-sensor"
+      },
+      "t9cn": {
+        "name": "Forbindelsesstatus for HCHO/VOC-sensor"
+      },
+      "t9hcho": {
+        "name": "HCHO-koncentration"
+      },
+      "t9voclv": {
+        "name": "VOC-niveau"
+      },
+      "tempf": {
+        "name": "Udetemperatur"
+      },
+      "uv": {
+        "name": "UV-indeks"
+      },
+      "visibility": {
+        "name": "Sigtbarhed"
+      },
+      "weeklyrainin": {
+        "name": "Ugenedbør"
+      },
+      "wind_direction_raw": {
+        "name": "Vindretning (rå)"
+      },
+      "windchillf": {
+        "name": "Kuldeindeks"
+      },
+      "winddir": {
+        "name": "Vindretning"
+      },
+      "winddir_avg2m": {
+        "name": "Vindretning gns. 2 min"
+      },
+      "windgustdir": {
+        "name": "Vindstødsretning"
+      },
+      "windgustdir_10m": {
+        "name": "Vindstødsretning gns. 10 min"
+      },
+      "windgustmph": {
+        "name": "Vindstød"
+      },
+      "windgustmph_10m": {
+        "name": "Vindstødshastighed gns. 10 min"
+      },
+      "windspdmph_avg2m": {
+        "name": "Vindhastighed gns. 2 min"
+      },
+      "windspeedmph": {
+        "name": "Vindhastighed"
+      },
+      "yearlyrainin": {
+        "name": "Årsnedbør"
+      }
+    },
+    "binary_sensor": {
+      "t10cn": {
+        "name": "Forbindelsesstatus for CO2-sensor"
+      },
+      "t11cn": {
+        "name": "Forbindelsesstatus for CO-sensor"
+      },
+      "t1cn": {
+        "name": "Forbindelsesstatus for udendørssensor"
+      },
+      "t234c1cn": {
+        "name": "CH1 forbindelsesstatus"
+      },
+      "t234c2cn": {
+        "name": "CH2 forbindelsesstatus"
+      },
+      "t234c3cn": {
+        "name": "CH3 forbindelsesstatus"
+      },
+      "t234c4cn": {
+        "name": "CH4 forbindelsesstatus"
+      },
+      "t234c5cn": {
+        "name": "CH5 forbindelsesstatus"
+      },
+      "t234c6cn": {
+        "name": "CH6 forbindelsesstatus"
+      },
+      "t234c7cn": {
+        "name": "CH7 forbindelsesstatus"
+      },
+      "t5lscn": {
+        "name": "Forbindelsesstatus for lynsensor"
+      },
+      "t6c1cn": {
+        "name": "CH1 forbindelsesstatus for lækagesensor"
+      },
+      "t6c1wls": {
+        "name": "CH1 vandlækagestatus"
+      },
+      "t6c2cn": {
+        "name": "CH2 forbindelsesstatus for lækagesensor"
+      },
+      "t6c2wls": {
+        "name": "CH2 vandlækagestatus"
+      },
+      "t6c3cn": {
+        "name": "CH3 forbindelsesstatus for lækagesensor"
+      },
+      "t6c3wls": {
+        "name": "CH3 vandlækagestatus"
+      },
+      "t6c4cn": {
+        "name": "CH4 forbindelsesstatus for lækagesensor"
+      },
+      "t6c4wls": {
+        "name": "CH4 vandlækagestatus"
+      },
+      "t6c5cn": {
+        "name": "CH5 forbindelsesstatus for lækagesensor"
+      },
+      "t6c5wls": {
+        "name": "CH5 vandlækagestatus"
+      },
+      "t6c6cn": {
+        "name": "CH6 forbindelsesstatus for lækagesensor"
+      },
+      "t6c6wls": {
+        "name": "CH6 vandlækagestatus"
+      },
+      "t6c7cn": {
+        "name": "CH7 forbindelsesstatus for lækagesensor"
+      },
+      "t6c7wls": {
+        "name": "CH7 vandlækagestatus"
+      },
+      "t8cn": {
+        "name": "Forbindelsesstatus for partikelsensor"
+      },
+      "t9cn": {
+        "name": "Forbindelsesstatus for HCHO/VOC-sensor"
+      }
+    },
+    "number": {
+      "wind_offset": {
+        "name": "Forskydning af vindretning"
+      }
+    },
+    "button": {
+      "reset_wind_offset": {
+        "name": "Nulstil forskydning"
+      },
+      "set_north": {
+        "name": "Sæt nord ud fra nuværende værdi"
+      }
+    }
+  }
+}

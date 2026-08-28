@@ -9,8 +9,8 @@
         }
       },
       "instructions": {
-        "title": "Set up your weather station",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Подесите своју метеоролошку станицу",
+        "description": "Уређаје и сензоре ствара ваша метеоролошка станица — овде нема шта да се дода.\n\nУ апликацији станице отворите своју станицу, затим **Settings → Weather server → Other Server**, и попуните:\n\n**URL**\n{urls}\nБез `http://` или `https://`. Користите адресу до које ваша станица може да дође на вашој сопственој мрежи — нема никаквог разлога да због тога излажете Home Assistant интернету. Ако ваша станица не разрешава имена, унесите IP адресу.\n\n**Station ID** — шта год желите. Постаје назив уређаја у Home Assistant-у.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 минут је добра вредност.\n\n**API type** — *WUnderground API*.\n\n**Upload** — оставите укључено.\n\nПритисните **Save**, вратите се назад па притисните **Confirm & Exit**.\n\n> ⚠️ **Тек Confirm & Exit уписује подешавања у станицу.** Само чување ништа не мења. Ваши сензори се појављују секунду касније.\n\nКрајње тачке које слушају су:\n{endpoints}"
       }
     },
     "abort": {
@@ -20,10 +20,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Personal Weather Station",
+        "title": "Лична метеоролошка станица",
         "menu_options": {
-          "options": "Settings",
-          "instructions": "How to point a station at Home Assistant"
+          "options": "Подешавања",
+          "instructions": "Како усмерити станицу ка Home Assistant-у"
         }
       },
       "options": {
@@ -40,8 +40,8 @@
         }
       },
       "instructions": {
-        "title": "Point a station at Home Assistant",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Усмерите станицу ка Home Assistant-у",
+        "description": "Уређаје и сензоре ствара ваша метеоролошка станица — овде нема шта да се дода.\n\nУ апликацији станице отворите своју станицу, затим **Settings → Weather server → Other Server**, и попуните:\n\n**URL**\n{urls}\nБез `http://` или `https://`. Користите адресу до које ваша станица може да дође на вашој сопственој мрежи — нема никаквог разлога да због тога излажете Home Assistant интернету. Ако ваша станица не разрешава имена, унесите IP адресу.\n\n**Station ID** — шта год желите. Постаје назив уређаја у Home Assistant-у.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 минут је добра вредност.\n\n**API type** — *WUnderground API*.\n\n**Upload** — оставите укључено.\n\nПритисните **Save**, вратите се назад па притисните **Confirm & Exit**.\n\n> ⚠️ **Тек Confirm & Exit уписује подешавања у станицу.** Само чување ништа не мења. Ваши сензори се појављују секунду касније.\n\nКрајње тачке које слушају су:\n{endpoints}"
       }
     }
   },
@@ -55,49 +55,49 @@
       "description": "Метеоролошка станица на {ip} послала је податке без идентификатора станице.\n\nПоставите Sender ID у апликацији WSLink или параметар ID у подешавањима станице. Ова порука нестаје сама чим захтев са {ip} буде прихваћен."
     },
     "legacy_entity_ids": {
-      "title": "Entity IDs repeat the station name",
+      "title": "Идентификатори ентитета понављају назив станице",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Shorten the entity IDs",
-            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Скратите идентификаторе ентитета",
+            "description": "До верзије 1.0.8 ова интеграција је правила идентификаторе ентитета који двапут носе назив станице, попут `{example_old}`. Нове станице то више не раде.\n\n**{count} ентитета** може бити преименовано, на пример у `{example_new}`.\n\nИсторија и дугорочне статистике аутоматски прате преименовање. **Аутоматизације, скрипте, сцене и контролне табле не** — све што упућује на старе идентификаторе мораћете сами да ажурирате.\n\nАко желите радије да их оставите какви јесу, занемарите ову поправку."
           }
         }
       }
     },
     "legacy_status_sensors": {
-      "title": "Connection and leak readings are still numbers",
+      "title": "Стања везе и цурења су и даље бројеви",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Convert to binary sensors",
-            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Претвори у бинарне сензоре",
+            "description": "Стања везе и цурења воде шаљу се као 1 или 0. До верзије 1.0.8 приказивала су се као нумерички сензори, попут `{example}`, који се не могу користити са стандардним картицама и упозорењима за цурење у Home Assistant-у. Нове станице сада добијају бинарне сензоре који приказују **Мокро / Суво** и **Повезано / Неповезано**.\n\n**{count} ентитета** може бити претворено. Нивои батерије нису погођени: остају проценти, на којима раде упозорења о слабој батерији.\n\nПромена платформе није преименовање, па се стари ентитети уклањају и поново стварају као `binary_sensor`. **Њихова забележена историја се губи** — ова очитавања немају дугорочне статистике, па је погођена само сирова историја — и **аутоматизације, скрипте, сцене и контролне табле које упућују на њих морају бити ажуриране**. Нови ентитети појављују се при следећем слању станице.\n\nАко желите радије да их оставите какви јесу, занемарите ову поправку."
           }
         }
       }
     },
     "no_station_yet": {
-      "title": "No weather station has sent anything yet",
+      "title": "Ниједна метеоролошка станица још ништа није послала",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Set up your weather station",
-            "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+            "title": "Подесите своју метеоролошку станицу",
+            "description": "Уређаје и сензоре ствара ваша метеоролошка станица — овде нема шта да се дода.\n\nУ апликацији станице отворите своју станицу, затим **Settings → Weather server → Other Server**, и попуните:\n\n**URL**\n{urls}\nБез `http://` или `https://`. Користите адресу до које ваша станица може да дође на вашој сопственој мрежи — нема никаквог разлога да због тога излажете Home Assistant интернету. Ако ваша станица не разрешава имена, унесите IP адресу.\n\n**Station ID** — шта год желите. Постаје назив уређаја у Home Assistant-у.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 минут је добра вредност.\n\n**API type** — *WUnderground API*.\n\n**Upload** — оставите укључено.\n\nПритисните **Save**, вратите се назад па притисните **Confirm & Exit**.\n\n> ⚠️ **Тек Confirm & Exit уписује подешавања у станицу.** Само чување ништа не мења. Ваши сензори се појављују секунду касније.\n\nКрајње тачке које слушају су:\n{endpoints}"
           },
           "received": {
-            "title": "Your station is through",
-            "description": "**{station}** has sent its first upload. Its sensors are being created now, and more appear as the station reports them.\n\nThis message will not come back."
+            "title": "Ваша станица је прошла",
+            "description": "**{station}** је послала своје прво слање. Њени сензори се управо стварају, а појавиће се и други како их станица буде пријављивала.\n\nОва порука се неће вратити."
           },
           "timeout": {
-            "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nIn order of likelihood:\n\n  - **Did you press Confirm & Exit?** Saving the server screen alone does not write anything to the station.\n  - The **URL** has to be {urls_inline}, without `http://`, and reachable by the station on your network.\n  - **Upload** must be enabled on that screen.\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an address serving HTTPS.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "title": "Још ништа није примљено",
+            "description": "Ниједно слање није стигло за {minutes} минута.\n\nПо реду вероватноће:\n\n  - **Да ли сте притиснули Confirm & Exit?** Само чување екрана сервера ништа не уписује у станицу.\n  - **URL** мора бити {urls_inline}, без `http://`, и доступан станици на вашој мрежи.\n  - **Upload** мора бити укључен на том екрану.\n  - Неки Bresser фирмвери од **3.02** надаље одбијају обичан HTTP и траже адресу која служи HTTPS.\n  - Интервал слања је можда једноставно дужи од чекања.\n  - **Кључ станице**: {key_hint}.\n\nАко је станица досегла Home Assistant али је одбијена, то се засебно пријављује у **Подешавања → Систем → Поправке**.\n\nМожете затворити. Остаје овде док се станица не појави, а поновно отварање почиње чекање изнова."
           }
         },
         "progress": {
-          "waiting_for_station": "Waiting for your station's first upload…"
+          "waiting_for_station": "Чека се прво слање ваше станице…"
         },
         "abort": {
-          "not_received": "Nothing has arrived yet, so this is left open. It stays in Repairs until a station shows up, and you can reopen it to wait again."
+          "not_received": "Још ништа није стигло, па ово остаје отворено. Остаје у Поправкама док се станица не појави, а можете га поново отворити да опет чекате."
         }
       }
     }

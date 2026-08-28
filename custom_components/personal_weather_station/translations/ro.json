@@ -9,8 +9,8 @@
         }
       },
       "instructions": {
-        "title": "Set up your weather station",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Configurați-vă stația meteo",
+        "description": "Stația dumneavoastră meteo este cea care creează dispozitivele și senzorii — aici nu este nimic de adăugat.\n\nÎn aplicația stației deschideți-vă stația, apoi **Settings → Weather server → Other Server**, și completați:\n\n**URL**\n{urls}\nFără `http://` sau `https://`. Folosiți o adresă la care stația dumneavoastră poate ajunge în propria rețea — nu există niciun motiv să expuneți Home Assistant pe internet pentru asta. Dacă stația nu rezolvă nume, puneți adresa IP.\n\n**Station ID** — ce doriți. Va deveni numele dispozitivului în Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minut este o valoare bună.\n\n**API type** — *WUnderground API*.\n\n**Upload** — lăsați-l activat.\n\nApăsați **Save**, reveniți înapoi, apoi apăsați **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit este cel care scrie setările în stație.** Simpla salvare nu schimbă nimic. Senzorii apar o secundă mai târziu.\n\nPunctele finale care ascultă sunt:\n{endpoints}"
       }
     },
     "abort": {
@@ -20,10 +20,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Personal Weather Station",
+        "title": "Stație meteo personală",
         "menu_options": {
-          "options": "Settings",
-          "instructions": "How to point a station at Home Assistant"
+          "options": "Setări",
+          "instructions": "Cum să îndreptați o stație către Home Assistant"
         }
       },
       "options": {
@@ -40,8 +40,8 @@
         }
       },
       "instructions": {
-        "title": "Point a station at Home Assistant",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Îndreptați o stație către Home Assistant",
+        "description": "Stația dumneavoastră meteo este cea care creează dispozitivele și senzorii — aici nu este nimic de adăugat.\n\nÎn aplicația stației deschideți-vă stația, apoi **Settings → Weather server → Other Server**, și completați:\n\n**URL**\n{urls}\nFără `http://` sau `https://`. Folosiți o adresă la care stația dumneavoastră poate ajunge în propria rețea — nu există niciun motiv să expuneți Home Assistant pe internet pentru asta. Dacă stația nu rezolvă nume, puneți adresa IP.\n\n**Station ID** — ce doriți. Va deveni numele dispozitivului în Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minut este o valoare bună.\n\n**API type** — *WUnderground API*.\n\n**Upload** — lăsați-l activat.\n\nApăsați **Save**, reveniți înapoi, apoi apăsați **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit este cel care scrie setările în stație.** Simpla salvare nu schimbă nimic. Senzorii apar o secundă mai târziu.\n\nPunctele finale care ascultă sunt:\n{endpoints}"
       }
     }
   },
@@ -55,49 +55,49 @@
       "description": "O stație meteo de la {ip} a trimis date fără identificator de stație.\n\nSetați un Sender ID în aplicația WSLink sau un parametru ID în configurația stației. Acest mesaj dispare de la sine de îndată ce o cerere de la {ip} este acceptată."
     },
     "legacy_entity_ids": {
-      "title": "Entity IDs repeat the station name",
+      "title": "Identificatorii entităților repetă numele stației",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Shorten the entity IDs",
-            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Scurtați identificatorii entităților",
+            "description": "Până la versiunea 1.0.8 această integrare construia identificatori de entități care poartă numele stației de două ori, precum `{example_old}`. Stațiile noi nu mai fac asta.\n\n**{count} entități** pot fi redenumite, de exemplu în `{example_new}`.\n\nIstoricul și statisticile pe termen lung urmează redenumirea automat. **Automatizările, scripturile, scenele și tablourile de bord nu** — tot ce face referire la vechii identificatori va trebui să actualizați dumneavoastră.\n\nDacă preferați să le lăsați așa cum sunt, ignorați această reparație."
           }
         }
       }
     },
     "legacy_status_sensors": {
-      "title": "Connection and leak readings are still numbers",
+      "title": "Stările de conexiune și de scurgere sunt încă numere",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Convert to binary sensors",
-            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Convertiți în senzori binari",
+            "description": "Stările de conexiune și de scurgere a apei sunt trimise ca 1 sau 0. Până la versiunea 1.0.8 erau afișate ca senzori numerici, precum `{example}`, care nu pot fi folosiți cu cardurile și alertele standard de scurgere din Home Assistant. Stațiile noi primesc acum senzori binari care afișează **Ud / Uscat** și **Conectat / Deconectat**.\n\n**{count} entități** pot fi convertite. Nivelurile bateriei nu sunt afectate: rămân procente, pe care funcționează alertele de baterie descărcată.\n\nSchimbarea platformei nu este o redenumire, așa că vechile entități sunt eliminate și reconstruite ca `binary_sensor`. **Istoricul lor înregistrat se pierde** — aceste citiri nu au statistici pe termen lung, deci este afectat doar istoricul brut — iar **automatizările, scripturile, scenele și tablourile de bord care le indică trebuie actualizate**. Entitățile noi apar la următoarea transmisie a stației.\n\nDacă preferați să le lăsați așa cum sunt, ignorați această reparație."
           }
         }
       }
     },
     "no_station_yet": {
-      "title": "No weather station has sent anything yet",
+      "title": "Nicio stație meteo nu a trimis încă nimic",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Set up your weather station",
-            "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+            "title": "Configurați-vă stația meteo",
+            "description": "Stația dumneavoastră meteo este cea care creează dispozitivele și senzorii — aici nu este nimic de adăugat.\n\nÎn aplicația stației deschideți-vă stația, apoi **Settings → Weather server → Other Server**, și completați:\n\n**URL**\n{urls}\nFără `http://` sau `https://`. Folosiți o adresă la care stația dumneavoastră poate ajunge în propria rețea — nu există niciun motiv să expuneți Home Assistant pe internet pentru asta. Dacă stația nu rezolvă nume, puneți adresa IP.\n\n**Station ID** — ce doriți. Va deveni numele dispozitivului în Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minut este o valoare bună.\n\n**API type** — *WUnderground API*.\n\n**Upload** — lăsați-l activat.\n\nApăsați **Save**, reveniți înapoi, apoi apăsați **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit este cel care scrie setările în stație.** Simpla salvare nu schimbă nimic. Senzorii apar o secundă mai târziu.\n\nPunctele finale care ascultă sunt:\n{endpoints}"
           },
           "received": {
-            "title": "Your station is through",
-            "description": "**{station}** has sent its first upload. Its sensors are being created now, and more appear as the station reports them.\n\nThis message will not come back."
+            "title": "Stația dumneavoastră a ajuns",
+            "description": "**{station}** a trimis prima sa transmisie. Senzorii ei se creează acum, iar alții vor apărea pe măsură ce stația îi raportează.\n\nAcest mesaj nu va reveni."
           },
           "timeout": {
-            "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nIn order of likelihood:\n\n  - **Did you press Confirm & Exit?** Saving the server screen alone does not write anything to the station.\n  - The **URL** has to be {urls_inline}, without `http://`, and reachable by the station on your network.\n  - **Upload** must be enabled on that screen.\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an address serving HTTPS.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "title": "Încă nu s-a primit nimic",
+            "description": "Nicio transmisie nu a sosit în {minutes} minute.\n\nÎn ordinea probabilității:\n\n  - **Ați apăsat Confirm & Exit?** Simpla salvare a ecranului serverului nu scrie nimic în stație.\n  - **URL** trebuie să fie {urls_inline}, fără `http://`, și accesibil stației în rețeaua dumneavoastră.\n  - **Upload** trebuie să fie activat pe acel ecran.\n  - Unele firmware-uri Bresser de la **3.02** încolo refuză HTTP simplu și cer o adresă care servește HTTPS.\n  - Intervalul de trimitere ar putea fi pur și simplu mai lung decât așteptarea.\n  - **Cheia stației**: {key_hint}.\n\nDacă stația a ajuns la Home Assistant dar a fost respinsă, acest lucru este raportat separat în **Setări → Sistem → Reparații**.\n\nPuteți închide. Rămâne aici până apare o stație, iar redeschiderea reia așteptarea de la început."
           }
         },
         "progress": {
-          "waiting_for_station": "Waiting for your station's first upload…"
+          "waiting_for_station": "Se așteaptă prima transmisie a stației dumneavoastră…"
         },
         "abort": {
-          "not_received": "Nothing has arrived yet, so this is left open. It stays in Repairs until a station shows up, and you can reopen it to wait again."
+          "not_received": "Încă nu a sosit nimic, așa că acest lucru rămâne deschis. Rămâne în Reparații până apare o stație, iar dumneavoastră îl puteți redeschide pentru a aștepta din nou."
         }
       }
     }

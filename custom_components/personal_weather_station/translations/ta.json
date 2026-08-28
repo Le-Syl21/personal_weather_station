@@ -9,8 +9,8 @@
         }
       },
       "instructions": {
-        "title": "Set up your weather station",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "உங்கள் வானிலை நிலையத்தை அமைக்கவும்",
+        "description": "சாதனங்களையும் உணரிகளையும் உருவாக்குவது உங்கள் வானிலை நிலையமே — இங்கே சேர்க்க எதுவும் இல்லை.\n\nநிலையத்தின் செயலியில் உங்கள் நிலையத்தைத் திறந்து, **Settings → Weather server → Other Server** சென்று நிரப்பவும்:\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்தவும் — இதற்காக Home Assistant-ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. உங்கள் நிலையம் பெயர்களைத் தீர்க்கவில்லை என்றால் IP முகவரியைப் பயன்படுத்தவும்.\n\n**Station ID** — நீங்கள் விரும்புவது. இது Home Assistant-இல் சாதனப் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WUnderground API*.\n\n**Upload** — இயக்கத்தில் விடவும்.\n\n**Save** அழுத்தி, பின்செல்லவும், பிறகு **Confirm & Exit** அழுத்தவும்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது. ஒரு நொடி கழித்து உங்கள் உணரிகள் தோன்றும்.\n\nகேட்டுக்கொண்டிருக்கும் முனைப்புள்ளிகள்:\n{endpoints}"
       }
     },
     "abort": {
@@ -20,10 +20,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Personal Weather Station",
+        "title": "தனிப்பட்ட வானிலை நிலையம்",
         "menu_options": {
-          "options": "Settings",
-          "instructions": "How to point a station at Home Assistant"
+          "options": "அமைப்புகள்",
+          "instructions": "ஒரு நிலையத்தை Home Assistant-ஐ நோக்கி எப்படித் திருப்புவது"
         }
       },
       "options": {
@@ -40,8 +40,8 @@
         }
       },
       "instructions": {
-        "title": "Point a station at Home Assistant",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "ஒரு நிலையத்தை Home Assistant-ஐ நோக்கித் திருப்பவும்",
+        "description": "சாதனங்களையும் உணரிகளையும் உருவாக்குவது உங்கள் வானிலை நிலையமே — இங்கே சேர்க்க எதுவும் இல்லை.\n\nநிலையத்தின் செயலியில் உங்கள் நிலையத்தைத் திறந்து, **Settings → Weather server → Other Server** சென்று நிரப்பவும்:\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்தவும் — இதற்காக Home Assistant-ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. உங்கள் நிலையம் பெயர்களைத் தீர்க்கவில்லை என்றால் IP முகவரியைப் பயன்படுத்தவும்.\n\n**Station ID** — நீங்கள் விரும்புவது. இது Home Assistant-இல் சாதனப் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WUnderground API*.\n\n**Upload** — இயக்கத்தில் விடவும்.\n\n**Save** அழுத்தி, பின்செல்லவும், பிறகு **Confirm & Exit** அழுத்தவும்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது. ஒரு நொடி கழித்து உங்கள் உணரிகள் தோன்றும்.\n\nகேட்டுக்கொண்டிருக்கும் முனைப்புள்ளிகள்:\n{endpoints}"
       }
     }
   },
@@ -55,49 +55,49 @@
       "description": "{ip} இல் உள்ள ஒரு வானிலை நிலையம் நிலைய அடையாளங்காட்டி இல்லாமல் தரவை அனுப்பியது.\n\nWSLink பயன்பாட்டில் ஒரு Sender ID, அல்லது நிலைய கட்டமைப்பில் ஒரு ID அளவுருவை அமைக்கவும். {ip} இலிருந்து ஒரு கோரிக்கை ஏற்கப்பட்டவுடன் இந்தச் செய்தி தானாகவே மறையும்."
     },
     "legacy_entity_ids": {
-      "title": "Entity IDs repeat the station name",
+      "title": "உருபு அடையாளங்கள் நிலையப் பெயரை மீண்டும் கூறுகின்றன",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Shorten the entity IDs",
-            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "உருபு அடையாளங்களைச் சுருக்கவும்",
+            "description": "பதிப்பு 1.0.8 வரை இந்த ஒருங்கிணைப்பு நிலையப் பெயரை இரண்டு முறை கொண்ட உருபு அடையாளங்களை உருவாக்கியது, எடுத்துக்காட்டாக `{example_old}`. புதிய நிலையங்கள் இனி அப்படிச் செய்வதில்லை.\n\n**{count} உருபுகளை** மறுபெயரிடலாம், எடுத்துக்காட்டாக `{example_new}` என.\n\nவரலாறும் நீண்டகாலப் புள்ளிவிவரங்களும் மறுபெயரிடலைத் தானாகவே பின்தொடரும். **தானியக்கங்கள், ஸ்கிரிப்ட்கள், காட்சிகள், டாஷ்போர்டுகள் பின்தொடராது** — பழைய அடையாளங்களைக் குறிப்பிடும் அனைத்தையும் நீங்களே புதுப்பிக்க வேண்டும்.\n\nஅவற்றை அப்படியே வைக்க விரும்பினால், இந்தப் பழுதுநீக்கலைப் புறக்கணிக்கவும்."
           }
         }
       }
     },
     "legacy_status_sensors": {
-      "title": "Connection and leak readings are still numbers",
+      "title": "இணைப்பு மற்றும் கசிவு நிலைகள் இன்னும் எண்களே",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Convert to binary sensors",
-            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "இருமநிலை உணரிகளாக மாற்றவும்",
+            "description": "இணைப்பு மற்றும் நீர்க்கசிவு நிலைகள் 1 அல்லது 0 ஆக அனுப்பப்படுகின்றன. பதிப்பு 1.0.8 வரை அவை எண் உணரிகளாகக் காட்டப்பட்டன, எடுத்துக்காட்டாக `{example}`, அவற்றை Home Assistant-இன் நிலையான கசிவு அட்டைகள் மற்றும் எச்சரிக்கைகளுடன் பயன்படுத்த முடியாது. புதிய நிலையங்கள் இப்போது **ஈரம் / உலர்** மற்றும் **இணைக்கப்பட்டது / துண்டிக்கப்பட்டது** காட்டும் இருமநிலை உணரிகளைப் பெறுகின்றன.\n\n**{count} உருபுகளை** மாற்றலாம். மின்கல அளவுகள் பாதிக்கப்படாது: அவை சதவீதங்களாகவே இருக்கும், அதன் மீதே குறைந்த மின்கல எச்சரிக்கைகள் இயங்குகின்றன.\n\nதளத்தை மாற்றுவது மறுபெயரிடல் அல்ல, எனவே பழைய உருபுகள் அகற்றப்பட்டு `binary_sensor` ஆக மீண்டும் உருவாக்கப்படும். **அவற்றின் பதிவுசெய்யப்பட்ட வரலாறு இழக்கப்படும்** — இந்த அளவீடுகளுக்கு நீண்டகாலப் புள்ளிவிவரங்கள் இல்லை, எனவே மூல வரலாறு மட்டுமே பாதிக்கப்படும் — மேலும் **அவற்றைக் குறிக்கும் தானியக்கங்கள், ஸ்கிரிப்ட்கள், காட்சிகள், டாஷ்போர்டுகள் புதுப்பிக்கப்பட வேண்டும்**. புதிய உருபுகள் நிலையத்தின் அடுத்த அனுப்புதலில் தோன்றும்.\n\nஅவற்றை அப்படியே வைக்க விரும்பினால், இந்தப் பழுதுநீக்கலைப் புறக்கணிக்கவும்."
           }
         }
       }
     },
     "no_station_yet": {
-      "title": "No weather station has sent anything yet",
+      "title": "எந்த வானிலை நிலையமும் இதுவரை எதையும் அனுப்பவில்லை",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Set up your weather station",
-            "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+            "title": "உங்கள் வானிலை நிலையத்தை அமைக்கவும்",
+            "description": "சாதனங்களையும் உணரிகளையும் உருவாக்குவது உங்கள் வானிலை நிலையமே — இங்கே சேர்க்க எதுவும் இல்லை.\n\nநிலையத்தின் செயலியில் உங்கள் நிலையத்தைத் திறந்து, **Settings → Weather server → Other Server** சென்று நிரப்பவும்:\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்தவும் — இதற்காக Home Assistant-ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. உங்கள் நிலையம் பெயர்களைத் தீர்க்கவில்லை என்றால் IP முகவரியைப் பயன்படுத்தவும்.\n\n**Station ID** — நீங்கள் விரும்புவது. இது Home Assistant-இல் சாதனப் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WUnderground API*.\n\n**Upload** — இயக்கத்தில் விடவும்.\n\n**Save** அழுத்தி, பின்செல்லவும், பிறகு **Confirm & Exit** அழுத்தவும்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது. ஒரு நொடி கழித்து உங்கள் உணரிகள் தோன்றும்.\n\nகேட்டுக்கொண்டிருக்கும் முனைப்புள்ளிகள்:\n{endpoints}"
           },
           "received": {
-            "title": "Your station is through",
-            "description": "**{station}** has sent its first upload. Its sensors are being created now, and more appear as the station reports them.\n\nThis message will not come back."
+            "title": "உங்கள் நிலையம் வந்துவிட்டது",
+            "description": "**{station}** தனது முதல் அனுப்புதலை அனுப்பியது. அதன் உணரிகள் இப்போது உருவாக்கப்படுகின்றன, நிலையம் தெரிவிக்கும்போது மேலும் தோன்றும்.\n\nஇந்தச் செய்தி மீண்டும் வராது."
           },
           "timeout": {
-            "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nIn order of likelihood:\n\n  - **Did you press Confirm & Exit?** Saving the server screen alone does not write anything to the station.\n  - The **URL** has to be {urls_inline}, without `http://`, and reachable by the station on your network.\n  - **Upload** must be enabled on that screen.\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an address serving HTTPS.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "title": "இதுவரை எதுவும் பெறப்படவில்லை",
+            "description": "{minutes} நிமிடங்களில் எந்த அனுப்புதலும் வரவில்லை.\n\nநிகழ்தகவு வரிசையில்:\n\n  - **Confirm & Exit அழுத்தினீர்களா?** சேவையக திரையை மட்டும் சேமிப்பது நிலையத்தில் எதையும் எழுதாது.\n  - **URL** {urls_inline} ஆக இருக்க வேண்டும், `http://` இல்லாமல், உங்கள் வலையமைப்பில் நிலையம் அடையக்கூடியதாக.\n  - அந்தத் திரையில் **Upload** இயக்கத்தில் இருக்க வேண்டும்.\n  - **3.02** முதலான சில Bresser நிலைபொருள்கள் சாதாரண HTTP-ஐ மறுத்து HTTPS வழங்கும் முகவரியைக் கோருகின்றன.\n  - அனுப்பும் இடைவெளி காத்திருப்பை விட வெறுமனே நீளமாக இருக்கலாம்.\n  - **நிலைய விசை**: {key_hint}.\n\nநிலையம் Home Assistant-ஐ அடைந்தும் நிராகரிக்கப்பட்டால், அது **அமைப்புகள் → கணினி → பழுதுநீக்கல்** இல் தனியாகத் தெரிவிக்கப்படும்.\n\nமூடலாம். ஒரு நிலையம் தோன்றும் வரை இது இங்கேயே இருக்கும், மீண்டும் திறந்தால் காத்திருப்பு புதிதாகத் தொடங்கும்."
           }
         },
         "progress": {
-          "waiting_for_station": "Waiting for your station's first upload…"
+          "waiting_for_station": "உங்கள் நிலையத்தின் முதல் அனுப்புதலுக்குக் காத்திருக்கிறது…"
         },
         "abort": {
-          "not_received": "Nothing has arrived yet, so this is left open. It stays in Repairs until a station shows up, and you can reopen it to wait again."
+          "not_received": "இதுவரை எதுவும் வரவில்லை, எனவே இது திறந்தே விடப்படுகிறது. ஒரு நிலையம் தோன்றும் வரை இது பழுதுநீக்கலில் இருக்கும், மீண்டும் திறந்து காத்திருக்கலாம்."
         }
       }
     }

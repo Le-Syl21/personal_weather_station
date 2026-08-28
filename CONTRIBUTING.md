@@ -85,8 +85,9 @@ reviewed with care:**
 
 `de`, `en-GB`, `es`, `fr`, `it`, `nl`, `pt-BR`, `pt`
 
-All other languages were seeded in one pass and are marked `"quality": "seeded"`.
-They are complete and structurally valid, but nobody has proofread them. **If you
+All other languages are complete — every string, the setup wizard and the repairs
+included — but were written in one pass and are marked `"quality": "seeded"`:
+nobody has proofread them. **If you
 speak one of them, corrections are very welcome** — fix the phrase book, set
 `"quality": "reviewed"`, run `build`, and open a pull request. `build` prints
 which languages are still waiting for a review.

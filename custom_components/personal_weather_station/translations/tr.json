@@ -9,8 +9,8 @@
         }
       },
       "instructions": {
-        "title": "Set up your weather station",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Hava istasyonunuzu kurun",
+        "description": "Cihazları ve sensörleri oluşturan hava istasyonunuzdur — burada eklenecek bir şey yok.\n\nİstasyonun uygulamasında istasyonunuzu açın, ardından **Settings → Weather server → Other Server** yolunu izleyip doldurun:\n\n**URL**\n{urls}\n`http://` veya `https://` olmadan. İstasyonunuzun kendi ağınızda ulaşabileceği bir adres kullanın — bunun için Home Assistant'ı internete açmanın hiçbir gerekçesi yok. İstasyonunuz adları çözemiyorsa IP adresini yazın.\n\n**Station ID** — ne isterseniz. Home Assistant'ta cihaz adı olur.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 dakika iyi bir değerdir.\n\n**API type** — *WUnderground API*.\n\n**Upload** — açık bırakın.\n\n**Save** tuşuna basın, geri dönün, sonra **Confirm & Exit** tuşuna basın.\n\n> ⚠️ **Ayarları istasyona yazan Confirm & Exit'tir.** Yalnızca kaydetmek hiçbir şeyi değiştirmez. Sensörleriniz bir saniye sonra görünür.\n\nDinleyen uç noktalar:\n{endpoints}"
       }
     },
     "abort": {
@@ -20,10 +20,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Personal Weather Station",
+        "title": "Kişisel hava istasyonu",
         "menu_options": {
-          "options": "Settings",
-          "instructions": "How to point a station at Home Assistant"
+          "options": "Ayarlar",
+          "instructions": "Bir istasyonu Home Assistant'a nasıl yönlendirirsiniz"
         }
       },
       "options": {
@@ -40,8 +40,8 @@
         }
       },
       "instructions": {
-        "title": "Point a station at Home Assistant",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Bir istasyonu Home Assistant'a yönlendirin",
+        "description": "Cihazları ve sensörleri oluşturan hava istasyonunuzdur — burada eklenecek bir şey yok.\n\nİstasyonun uygulamasında istasyonunuzu açın, ardından **Settings → Weather server → Other Server** yolunu izleyip doldurun:\n\n**URL**\n{urls}\n`http://` veya `https://` olmadan. İstasyonunuzun kendi ağınızda ulaşabileceği bir adres kullanın — bunun için Home Assistant'ı internete açmanın hiçbir gerekçesi yok. İstasyonunuz adları çözemiyorsa IP adresini yazın.\n\n**Station ID** — ne isterseniz. Home Assistant'ta cihaz adı olur.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 dakika iyi bir değerdir.\n\n**API type** — *WUnderground API*.\n\n**Upload** — açık bırakın.\n\n**Save** tuşuna basın, geri dönün, sonra **Confirm & Exit** tuşuna basın.\n\n> ⚠️ **Ayarları istasyona yazan Confirm & Exit'tir.** Yalnızca kaydetmek hiçbir şeyi değiştirmez. Sensörleriniz bir saniye sonra görünür.\n\nDinleyen uç noktalar:\n{endpoints}"
       }
     }
   },
@@ -55,49 +55,49 @@
       "description": "{ip} adresindeki bir hava istasyonu, istasyon tanımlayıcısı olmadan veri gönderdi.\n\nWSLink uygulamasında bir Sender ID veya istasyon yapılandırmasında bir ID parametresi ayarlayın. Bu mesaj, {ip} adresinden gelen bir istek kabul edilir edilmez kendiliğinden kaybolur."
     },
     "legacy_entity_ids": {
-      "title": "Entity IDs repeat the station name",
+      "title": "Varlık kimlikleri istasyon adını yineliyor",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Shorten the entity IDs",
-            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Varlık kimliklerini kısaltın",
+            "description": "1.0.8 sürümüne kadar bu entegrasyon, istasyon adını iki kez taşıyan varlık kimlikleri oluşturuyordu; örneğin `{example_old}`. Yeni istasyonlar artık böyle yapmıyor.\n\n**{count} varlık** yeniden adlandırılabilir, örneğin `{example_new}` olarak.\n\nGeçmiş ve uzun vadeli istatistikler yeniden adlandırmayı otomatik olarak izler. **Otomasyonlar, betikler, sahneler ve panolar izlemez** — eski kimliklere atıfta bulunan her şeyi kendiniz güncellemeniz gerekir.\n\nOlduğu gibi bırakmayı tercih ederseniz bu onarımı yok sayın."
           }
         }
       }
     },
     "legacy_status_sensors": {
-      "title": "Connection and leak readings are still numbers",
+      "title": "Bağlantı ve kaçak durumları hâlâ sayı",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Convert to binary sensors",
-            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "İkili sensörlere dönüştür",
+            "description": "Bağlantı ve su kaçağı durumları 1 veya 0 olarak gönderilir. 1.0.8 sürümüne kadar sayısal sensör olarak gösteriliyordu; örneğin `{example}`, bunlar Home Assistant'ın standart kaçak kartları ve uyarılarıyla kullanılamaz. Yeni istasyonlar artık **Islak / Kuru** ve **Bağlı / Bağlantı yok** gösteren ikili sensörler alıyor.\n\n**{count} varlık** dönüştürülebilir. Pil seviyeleri etkilenmez: yüzde olarak kalır, düşük pil uyarıları bunun üzerinden çalışır.\n\nPlatform değiştirmek bir yeniden adlandırma değildir, bu yüzden eski varlıklar kaldırılır ve `binary_sensor` olarak yeniden oluşturulur. **Kayıtlı geçmişleri kaybolur** — bu okumaların uzun vadeli istatistiği yoktur, dolayısıyla yalnızca ham geçmiş etkilenir — ve **onlara işaret eden otomasyonlar, betikler, sahneler ve panolar güncellenmelidir**. Yeni varlıklar istasyonun bir sonraki gönderiminde görünür.\n\nOlduğu gibi bırakmayı tercih ederseniz bu onarımı yok sayın."
           }
         }
       }
     },
     "no_station_yet": {
-      "title": "No weather station has sent anything yet",
+      "title": "Henüz hiçbir hava istasyonu bir şey göndermedi",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Set up your weather station",
-            "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+            "title": "Hava istasyonunuzu kurun",
+            "description": "Cihazları ve sensörleri oluşturan hava istasyonunuzdur — burada eklenecek bir şey yok.\n\nİstasyonun uygulamasında istasyonunuzu açın, ardından **Settings → Weather server → Other Server** yolunu izleyip doldurun:\n\n**URL**\n{urls}\n`http://` veya `https://` olmadan. İstasyonunuzun kendi ağınızda ulaşabileceği bir adres kullanın — bunun için Home Assistant'ı internete açmanın hiçbir gerekçesi yok. İstasyonunuz adları çözemiyorsa IP adresini yazın.\n\n**Station ID** — ne isterseniz. Home Assistant'ta cihaz adı olur.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 dakika iyi bir değerdir.\n\n**API type** — *WUnderground API*.\n\n**Upload** — açık bırakın.\n\n**Save** tuşuna basın, geri dönün, sonra **Confirm & Exit** tuşuna basın.\n\n> ⚠️ **Ayarları istasyona yazan Confirm & Exit'tir.** Yalnızca kaydetmek hiçbir şeyi değiştirmez. Sensörleriniz bir saniye sonra görünür.\n\nDinleyen uç noktalar:\n{endpoints}"
           },
           "received": {
-            "title": "Your station is through",
-            "description": "**{station}** has sent its first upload. Its sensors are being created now, and more appear as the station reports them.\n\nThis message will not come back."
+            "title": "İstasyonunuz ulaştı",
+            "description": "**{station}** ilk gönderimini yaptı. Sensörleri şimdi oluşturuluyor, istasyon bildirdikçe yenileri eklenecek.\n\nBu mesaj bir daha görünmeyecek."
           },
           "timeout": {
-            "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nIn order of likelihood:\n\n  - **Did you press Confirm & Exit?** Saving the server screen alone does not write anything to the station.\n  - The **URL** has to be {urls_inline}, without `http://`, and reachable by the station on your network.\n  - **Upload** must be enabled on that screen.\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an address serving HTTPS.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "title": "Henüz bir şey alınmadı",
+            "description": "{minutes} dakikada hiçbir gönderim gelmedi.\n\nOlasılık sırasına göre:\n\n  - **Confirm & Exit tuşuna bastınız mı?** Yalnızca sunucu ekranını kaydetmek istasyona hiçbir şey yazmaz.\n  - **URL** {urls_inline} olmalı, `http://` olmadan ve istasyonun ağınızda erişebileceği şekilde.\n  - O ekranda **Upload** açık olmalı.\n  - **3.02** ve sonrası bazı Bresser üretici yazılımları düz HTTP'yi reddeder ve HTTPS sunan bir adres ister.\n  - Gönderim aralığı basitçe bekleme süresinden uzun olabilir.\n  - **İstasyon anahtarı**: {key_hint}.\n\nİstasyon Home Assistant'a ulaştı ama geri çevrildiyse, bu ayrıca **Ayarlar → Sistem → Onarımlar** bölümünde bildirilir.\n\nKapatabilirsiniz. Bir istasyon görünene kadar burada kalır ve yeniden açmak beklemeyi baştan başlatır."
           }
         },
         "progress": {
-          "waiting_for_station": "Waiting for your station's first upload…"
+          "waiting_for_station": "İstasyonunuzun ilk gönderimi bekleniyor…"
         },
         "abort": {
-          "not_received": "Nothing has arrived yet, so this is left open. It stays in Repairs until a station shows up, and you can reopen it to wait again."
+          "not_received": "Henüz bir şey gelmedi, bu yüzden açık bırakılıyor. Bir istasyon görünene kadar Onarımlar'da kalır ve yeniden açıp tekrar bekleyebilirsiniz."
         }
       }
     }

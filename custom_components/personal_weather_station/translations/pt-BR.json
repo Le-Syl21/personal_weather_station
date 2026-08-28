@@ -10,7 +10,7 @@
       },
       "instructions": {
         "title": "Configure a sua estação meteorológica",
-        "description": "É a sua estação meteorológica que cria os dispositivos e sensores — aqui não há nenhum dispositivo para adicionar.\n\nIntroduza o seguinte na sua estação, ou na aplicação WSLink:\n\n**URL**\n{urls}\n\n**Sender ID** — o que quiser, passará a ser o nome do dispositivo no Home Assistant.\n\n**Chave de estação** — {key_hint}.\n\n**Tipo de API** — *WUnderground API* ou *WSLink*, ambos funcionam.\n\n**Intervalo de envio** — 60 segundos é um bom valor padrão.\n\nOs seus sensores aparecem no primeiro envio recebido. Se não chegar nada, veja em **Configurações → Sistema → Reparos**: uma estação rejeitada é informada ali.\n\nOs pontos de entrada escutando são:\n{endpoints}"
+        "description": "É a sua estação meteorológica que cria os dispositivos e sensores — aqui não há nada para adicionar.\n\nNa aplicativo da estação, abra a sua estação, depois **Settings → Weather server → Other Server**, e preencha:\n\n**URL**\n{urls}\nSem `http://` nem `https://`. Use um endereço que a sua estação consiga alcançar na sua própria rede — não há qualquer razão para expor o Home Assistant à internet para isto. Se a sua estação não resolver nomes, use o endereço IP.\n\n**Station ID** — o que quiser. Passará a ser o nome do dispositivo no Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuto é um bom valor.\n\n**API type** — *WUnderground API*.\n\n**Upload** — deixe ativado.\n\nToque em **Save**, volte e toque em **Confirm & Exit**.\n\n> ⚠️ **É o Confirm & Exit que escreve as configurações na estação.** Salvar apenas não muda nada. Os seus sensores aparecem um segundo depois.\n\nOs pontos de entrada escutando são:\n{endpoints}"
       }
     },
     "abort": {
@@ -41,7 +41,7 @@
       },
       "instructions": {
         "title": "Apontar uma estação para o Home Assistant",
-        "description": "É a sua estação meteorológica que cria os dispositivos e sensores — aqui não há nenhum dispositivo para adicionar.\n\nIntroduza o seguinte na sua estação, ou na aplicação WSLink:\n\n**URL**\n{urls}\n\n**Sender ID** — o que quiser, passará a ser o nome do dispositivo no Home Assistant.\n\n**Chave de estação** — {key_hint}.\n\n**Tipo de API** — *WUnderground API* ou *WSLink*, ambos funcionam.\n\n**Intervalo de envio** — 60 segundos é um bom valor padrão.\n\nOs seus sensores aparecem no primeiro envio recebido. Se não chegar nada, veja em **Configurações → Sistema → Reparos**: uma estação rejeitada é informada ali.\n\nOs pontos de entrada escutando são:\n{endpoints}"
+        "description": "É a sua estação meteorológica que cria os dispositivos e sensores — aqui não há nada para adicionar.\n\nNa aplicativo da estação, abra a sua estação, depois **Settings → Weather server → Other Server**, e preencha:\n\n**URL**\n{urls}\nSem `http://` nem `https://`. Use um endereço que a sua estação consiga alcançar na sua própria rede — não há qualquer razão para expor o Home Assistant à internet para isto. Se a sua estação não resolver nomes, use o endereço IP.\n\n**Station ID** — o que quiser. Passará a ser o nome do dispositivo no Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuto é um bom valor.\n\n**API type** — *WUnderground API*.\n\n**Upload** — deixe ativado.\n\nToque em **Save**, volte e toque em **Confirm & Exit**.\n\n> ⚠️ **É o Confirm & Exit que escreve as configurações na estação.** Salvar apenas não muda nada. Os seus sensores aparecem um segundo depois.\n\nOs pontos de entrada escutando são:\n{endpoints}"
       }
     }
   },
@@ -82,7 +82,7 @@
         "step": {
           "confirm": {
             "title": "Configure a sua estação meteorológica",
-            "description": "É a sua estação meteorológica que cria os dispositivos e sensores — aqui não há nenhum dispositivo para adicionar.\n\nIntroduza o seguinte na sua estação, ou na aplicação WSLink:\n\n**URL**\n{urls}\n\n**Sender ID** — o que quiser, passará a ser o nome do dispositivo no Home Assistant.\n\n**Chave de estação** — {key_hint}.\n\n**Tipo de API** — *WUnderground API* ou *WSLink*, ambos funcionam.\n\n**Intervalo de envio** — 60 segundos é um bom valor padrão.\n\nOs seus sensores aparecem no primeiro envio recebido. Se não chegar nada, veja em **Configurações → Sistema → Reparos**: uma estação rejeitada é informada ali.\n\nOs pontos de entrada escutando são:\n{endpoints}"
+            "description": "É a sua estação meteorológica que cria os dispositivos e sensores — aqui não há nada para adicionar.\n\nNa aplicativo da estação, abra a sua estação, depois **Settings → Weather server → Other Server**, e preencha:\n\n**URL**\n{urls}\nSem `http://` nem `https://`. Use um endereço que a sua estação consiga alcançar na sua própria rede — não há qualquer razão para expor o Home Assistant à internet para isto. Se a sua estação não resolver nomes, use o endereço IP.\n\n**Station ID** — o que quiser. Passará a ser o nome do dispositivo no Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuto é um bom valor.\n\n**API type** — *WUnderground API*.\n\n**Upload** — deixe ativado.\n\nToque em **Save**, volte e toque em **Confirm & Exit**.\n\n> ⚠️ **É o Confirm & Exit que escreve as configurações na estação.** Salvar apenas não muda nada. Os seus sensores aparecem um segundo depois.\n\nOs pontos de entrada escutando são:\n{endpoints}"
           },
           "received": {
             "title": "A sua estação chegou",
@@ -90,7 +90,7 @@
           },
           "timeout": {
             "title": "Ainda não foi recebido nada",
-            "description": "Não chegou nenhum envio em {minutes} minutos.\n\n**Verifique a URL inserida na estação.** Precisa ser uma destas:\n{urls}\n\nDepois, por ordem de probabilidade:\n\n  - Alguns firmwares Bresser a partir da **3.02** recusam HTTP simples e exigem um endereço `https://`.\n  - O intervalo de envio pode ser simplesmente mais longo do que a espera.\n  - **Chave de estação**: {key_hint}.\n\nSe a estação chegou ao Home Assistant mas foi recusada, isso é informado separadamente em **Configurações → Sistema → Reparos**.\n\nVocê pode fechar. O aviso mantém-se até aparecer uma estação, e reabri-lo recomeça a espera."
+            "description": "Não chegou nenhum envio em {minutes} minutos.\n\nPor ordem de probabilidade:\n\n  - **Você tocou em Confirm & Exit?** Salvar a tela do servidor não escreve nada na estação.\n  - A **URL** precisa ser {urls_inline}, sem `http://`, e alcançável pela estação na sua rede.\n  - O **Upload** tem de estar ativado nessa tela.\n  - Alguns firmwares Bresser a partir da **3.02** recusam HTTP simples e exigem um endereço que sirva HTTPS.\n  - O intervalo de envio pode ser simplesmente mais longo do que a espera.\n  - **Chave de estação**: {key_hint}.\n\nSe a estação chegou ao Home Assistant mas foi recusada, isso é informado separadamente em **Configurações → Sistema → Reparos**.\n\nVocê pode fechar. O aviso mantém-se até aparecer uma estação, e reabri-lo recomeça a espera."
           }
         },
         "progress": {

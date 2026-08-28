@@ -10,7 +10,7 @@
       },
       "instructions": {
         "title": "Stel uw weerstation in",
-        "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
+        "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt niets toe te voegen.\n\nOpen in de app van het station uw station, dan **Settings → Weather server → Other Server**, en vul in:\n\n**URL**\n{urls}\nZonder `http://` of `https://`. Gebruik een adres dat uw station op uw eigen netwerk kan bereiken — er is geen enkele reden om Home Assistant hiervoor aan het internet bloot te stellen. Kan uw station geen namen omzetten, gebruik dan het IP-adres.\n\n**Station ID** — wat u wilt. Dit wordt de apparaatnaam in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuut is een goede waarde.\n\n**API type** — *WUnderground API*.\n\n**Upload** — laat ingeschakeld.\n\nDruk op **Save**, ga terug en druk op **Confirm & Exit**.\n\n> ⚠️ **Pas Confirm & Exit schrijft de instellingen naar het station.** Alleen opslaan verandert niets. Uw sensoren verschijnen een seconde later.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
       }
     },
     "abort": {
@@ -41,7 +41,7 @@
       },
       "instructions": {
         "title": "Een station naar Home Assistant laten sturen",
-        "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
+        "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt niets toe te voegen.\n\nOpen in de app van het station uw station, dan **Settings → Weather server → Other Server**, en vul in:\n\n**URL**\n{urls}\nZonder `http://` of `https://`. Gebruik een adres dat uw station op uw eigen netwerk kan bereiken — er is geen enkele reden om Home Assistant hiervoor aan het internet bloot te stellen. Kan uw station geen namen omzetten, gebruik dan het IP-adres.\n\n**Station ID** — wat u wilt. Dit wordt de apparaatnaam in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuut is een goede waarde.\n\n**API type** — *WUnderground API*.\n\n**Upload** — laat ingeschakeld.\n\nDruk op **Save**, ga terug en druk op **Confirm & Exit**.\n\n> ⚠️ **Pas Confirm & Exit schrijft de instellingen naar het station.** Alleen opslaan verandert niets. Uw sensoren verschijnen een seconde later.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
       }
     }
   },
@@ -82,7 +82,7 @@
         "step": {
           "confirm": {
             "title": "Stel uw weerstation in",
-            "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt geen apparaat toe te voegen.\n\nVoer het volgende in uw station of in de WSLink-app in:\n\n**URL**\n{urls}\n\n**Sender ID** — wat u wilt, dit wordt de apparaatnaam in Home Assistant.\n\n**Stationssleutel** — {key_hint}.\n\n**API-type** — *WUnderground API* of *WSLink*, beide werken.\n\n**Uploadinterval** — 60 seconden is een goede standaard.\n\nUw sensoren verschijnen bij de eerste ontvangen upload. Komt er niets, kijk dan bij **Instellingen → Systeem → Reparaties**: een geweigerd station wordt daar gemeld.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
+            "description": "Uw weerstation maakt de apparaten en sensoren aan — hier valt niets toe te voegen.\n\nOpen in de app van het station uw station, dan **Settings → Weather server → Other Server**, en vul in:\n\n**URL**\n{urls}\nZonder `http://` of `https://`. Gebruik een adres dat uw station op uw eigen netwerk kan bereiken — er is geen enkele reden om Home Assistant hiervoor aan het internet bloot te stellen. Kan uw station geen namen omzetten, gebruik dan het IP-adres.\n\n**Station ID** — wat u wilt. Dit wordt de apparaatnaam in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuut is een goede waarde.\n\n**API type** — *WUnderground API*.\n\n**Upload** — laat ingeschakeld.\n\nDruk op **Save**, ga terug en druk op **Confirm & Exit**.\n\n> ⚠️ **Pas Confirm & Exit schrijft de instellingen naar het station.** Alleen opslaan verandert niets. Uw sensoren verschijnen een seconde later.\n\nDe luisterende eindpunten zijn:\n{endpoints}"
           },
           "received": {
             "title": "Uw station is doorgekomen",
@@ -90,7 +90,7 @@
           },
           "timeout": {
             "title": "Nog niets ontvangen",
-            "description": "Er is in {minutes} minuten geen upload binnengekomen.\n\n**Controleer de URL in het station.** Die moet een van deze zijn:\n{urls}\n\nDaarna, op volgorde van waarschijnlijkheid:\n\n  - Sommige Bresser-firmwares vanaf **3.02** weigeren gewoon HTTP en hebben een `https://`-adres nodig.\n  - Het uploadinterval is misschien simpelweg langer dan de wachttijd.\n  - **Stationssleutel**: {key_hint}.\n\nHeeft het station Home Assistant wel bereikt maar werd het geweigerd, dan wordt dat apart gemeld bij **Instellingen → Systeem → Reparaties**.\n\nU kunt dit sluiten. Het blijft staan tot er een station opduikt, en opnieuw openen start de wachttijd opnieuw."
+            "description": "Er is in {minutes} minuten geen upload binnengekomen.\n\nOp volgorde van waarschijnlijkheid:\n\n  - **Hebt u op Confirm & Exit gedrukt?** Alleen het serverscherm opslaan schrijft niets naar het station.\n  - De **URL** moet {urls_inline} zijn, zonder `http://`, en bereikbaar voor het station op uw netwerk.\n  - **Upload** moet op dat scherm ingeschakeld zijn.\n  - Sommige Bresser-firmwares vanaf **3.02** weigeren gewoon HTTP en hebben een adres met HTTPS nodig.\n  - Het uploadinterval is misschien simpelweg langer dan de wachttijd.\n  - **Stationssleutel**: {key_hint}.\n\nHeeft het station Home Assistant wel bereikt maar werd het geweigerd, dan wordt dat apart gemeld bij **Instellingen → Systeem → Reparaties**.\n\nU kunt dit sluiten. Het blijft staan tot er een station opduikt, en opnieuw openen start de wachttijd opnieuw."
           }
         },
         "progress": {

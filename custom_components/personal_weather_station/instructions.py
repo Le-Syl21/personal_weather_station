@@ -6,6 +6,8 @@ page and no hint, so the setup flow ends on these instructions and a repair
 brings them back until a station actually shows up.
 """
 
+from urllib.parse import urlparse
+
 from homeassistant.const import CONF_PASSWORD
 from homeassistant.helpers.network import NoURLAvailableError, get_url
 
@@ -14,27 +16,22 @@ from .const import ENDPOINTS
 
 def async_urls(hass):
     """
-    Addresses a station can post to, internal first.
+    Addresses a station can post to, without their scheme.
+
+    Deliberately internal only. A weather station sits on the same network, and
+    nobody should be opening a port to the internet so it can upload. The field
+    in the station app takes no "http://" either.
 
     Returns:
-        list: URLs, possibly empty when Home Assistant knows of none.
+        list: host:port strings, possibly empty when Home Assistant knows of none.
     """
 
-    urls = []
+    try:
+        url = get_url(hass, allow_external=False, allow_ip=True)
+    except NoURLAvailableError:
+        return []
 
-    for kwargs in (
-        {"allow_external": False, "allow_ip": True},
-        {"allow_internal": False, "allow_cloud": False},
-    ):
-        try:
-            url = get_url(hass, **kwargs)
-        except NoURLAvailableError:
-            continue
-
-        if url not in urls:
-            urls.append(url)
-
-    return urls
+    return [urlparse(url).netloc or url]
 
 
 def async_placeholders(hass, station_key):
@@ -56,7 +53,7 @@ def async_placeholders(hass, station_key):
     else:
         addresses = (
             "  - Home Assistant could not work out its own address. Use the one "
-            "you reach it at, port included."
+            "your station can reach it at on your network, port included."
         )
 
     # Phrased to read correctly both after a dash and after a colon, since the
@@ -69,6 +66,7 @@ def async_placeholders(hass, station_key):
 
     return {
         "urls": addresses,
+        "urls_inline": ", ".join(f"`{url}`" for url in urls) or "your address",
         "key_hint": key_hint,
         "endpoints": "\n".join(f"  - `{path}`" for path in ENDPOINTS),
     }

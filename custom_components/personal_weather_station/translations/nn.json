@@ -10,7 +10,7 @@
       },
       "instructions": {
         "title": "Set up your weather station",
-        "description": "Your weather station is what creates the devices and sensors — there is no device to add here.\n\nEnter the following in your station, or in the WSLink app:\n\n**URL**\n{urls}\n\n**Sender ID** — anything you like, it becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**API type** — *WUnderground API* or *WSLink*, either works.\n\n**Upload interval** — 60 seconds is a good default.\n\nYour sensors appear on the first upload received. If nothing shows up, check **Settings → System → Repairs**: a rejected station is reported there.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     },
     "abort": {
@@ -41,7 +41,7 @@
       },
       "instructions": {
         "title": "Point a station at Home Assistant",
-        "description": "Your weather station is what creates the devices and sensors — there is no device to add here.\n\nEnter the following in your station, or in the WSLink app:\n\n**URL**\n{urls}\n\n**Sender ID** — anything you like, it becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**API type** — *WUnderground API* or *WSLink*, either works.\n\n**Upload interval** — 60 seconds is a good default.\n\nYour sensors appear on the first upload received. If nothing shows up, check **Settings → System → Repairs**: a rejected station is reported there.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
       }
     }
   },
@@ -82,7 +82,7 @@
         "step": {
           "confirm": {
             "title": "Set up your weather station",
-            "description": "Your weather station is what creates the devices and sensors — there is no device to add here.\n\nEnter the following in your station, or in the WSLink app:\n\n**URL**\n{urls}\n\n**Sender ID** — anything you like, it becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**API type** — *WUnderground API* or *WSLink*, either works.\n\n**Upload interval** — 60 seconds is a good default.\n\nYour sensors appear on the first upload received. If nothing shows up, check **Settings → System → Repairs**: a rejected station is reported there.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+            "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
           },
           "received": {
             "title": "Your station is through",
@@ -90,7 +90,7 @@
           },
           "timeout": {
             "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\n**Check the URL entered in the station.** It has to be one of these:\n{urls}\n\nThen, in order of likelihood:\n\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an `https://` address.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "description": "No upload arrived in {minutes} minutes.\n\nIn order of likelihood:\n\n  - **Did you press Confirm & Exit?** Saving the server screen alone does not write anything to the station.\n  - The **URL** has to be {urls_inline}, without `http://`, and reachable by the station on your network.\n  - **Upload** must be enabled on that screen.\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an address serving HTTPS.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
           }
         },
         "progress": {

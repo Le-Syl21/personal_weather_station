@@ -67,6 +67,9 @@ to keep everything exactly as it is.
   `pt-BR`); the rest are complete but await proofreading — corrections welcome,
   see [CONTRIBUTING.md](CONTRIBUTING.md).
 - A test suite driving a real Home Assistant instance, run in CI.
+- The WSLink walkthrough in the readme is now illustrated, and says the two
+  things that were missing: the URL takes no `http://`, and **Confirm & Exit** is
+  what actually writes the settings to the station.
 
 ### Changed
 

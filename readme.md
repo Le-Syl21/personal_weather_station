@@ -81,19 +81,58 @@ Some weather stations do not natively support custom upload URLs. Two workaround
 
 ## Quick Start Guide for Bresser Stations with WSLink App
 
-1.  **Install the Integration:** Follow the HACS or Manual installation steps below.
-2.  **Add the Integration in Home Assistant:** Go to **Settings → Devices & Services → Add Integration** and search for "Personal Weather Station".
-3.  **Configure the Integration:** Enter a **Station Key** (like a password). You will need this for the WSLink app.
-4.  **Configure the WSLink App:**
-    *   **URL**: Your Home Assistant URL (e.g., `https://my-home-assistant.duckdns.org` or `http://192.168.1.100:8123`).
-    *   **Sender ID**: A unique name for your station (e.g., `bresser_station`).
-    *   **Station Key**: The same key you entered in the Home Assistant integration.
-    *   **API Type**: Select **"WUnderground API"** or **WSLINK**, both should work.
-    *   **Upload Interval**: Set your desired update frequency (e.g., 60 seconds).
-5.  **Done!** Your weather station data should now appear as a new device in Home Assistant.
+Install the integration (see below), add it in **Settings → Devices & Services →
+Add Integration**, and note the **station key** you set — you will need it in a
+moment. The integration then shows you exactly what to enter; the same
+instructions stay available from its ⚙️ afterwards.
 
-> [!IMPORTANT]  
-> Bresser stations support either HTTP or HTTPS. If your connection fails, switch to the alternative protocol and update your URL in the WSLink App accordingly.
+Your station must already be set up in the WSLink app and running an up-to-date
+firmware. Then:
+
+### 1. Open your station's settings
+
+<img src="docs/images/wslink-1-your-device.jpeg" width="270" alt="The WSLink device list, with the settings gear on the station">
+
+### 2. Weather server
+
+<img src="docs/images/wslink-2-settings.jpeg" width="270" alt="The station settings, with Weather server highlighted">
+
+### 3. Other Server
+
+<img src="docs/images/wslink-3-weather-server.jpeg" width="270" alt="The weather service list, with Other Server highlighted">
+
+Weather Underground and Weathercloud upload to those services. **Other Server**
+is the one that lets you point the station at your own Home Assistant.
+
+### 4. Fill in the server
+
+<img src="docs/images/wslink-4-other-server.jpeg" width="270" alt="The Other Server form, filled in">
+
+| Field | What to enter |
+|---|---|
+| **URL** | Your Home Assistant address and port, **without `http://` or `https://`** — for example `192.168.1.100:8123`. Use an address your station can reach **on your own network**; there is no reason to open a port to the internet so a weather station can upload. If your station cannot resolve names, use the IP. |
+| **Station ID** | Anything you like. It becomes the device name in Home Assistant. |
+| **Station key** | The key you set in the integration. Leave it empty if you left that blank. |
+| **Upload interval** | 1 minute is a good default. |
+| **API type** | **WUnderground API**. |
+| **Upload** | Already enabled by default — leave it on. |
+
+Then press **Save**.
+
+### 5. Confirm & Exit
+
+<img src="docs/images/wslink-5-confirm-and-exit.jpeg" width="270" alt="The station settings, with Confirm and Exit highlighted">
+
+> [!IMPORTANT]
+> **This is the step that actually writes the settings to the station.** Pressing
+> *Save* on the previous screen changes nothing on its own. Once you press
+> **Confirm & Exit**, Home Assistant receives data within seconds and your
+> sensors appear.
+
+> [!NOTE]
+> Some Bresser firmwares from **3.02** onwards refuse plain HTTP. Home Assistant
+> then has to serve HTTPS on an address your station can reach.
+
 ---
 
 ## Installation

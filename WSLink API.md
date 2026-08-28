@@ -234,6 +234,13 @@ verbatim in `tests/wslink_example_payload.txt` and replayed by the test suite.
 | 404 | Too many request |
 | 405 | Incorrect data format |
 
+All five are implemented. 404 is answered to a station posting more than
+`RATE_LIMIT_REQUESTS` times within `RATE_LIMIT_WINDOW` seconds, which sits well
+above the shortest upload interval these stations offer. 405 is answered only
+when every recognised parameter in a payload failed to be read — a station
+sending parameters this document does not list is answered 200, because a newer
+API version is not a malformed request.
+
 ## Revision history
 
 | Version | Description | Date |

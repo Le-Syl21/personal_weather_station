@@ -47,6 +47,13 @@ CONF_WIND_OFFSETS = "wind_offsets"
 DEFAULT_AVAILABILITY_TIMEOUT = 15
 
 # Query string parameters that carry identity instead of a measurement.
+# The vendor API answers 404 to a station that posts too often. The shortest
+# upload interval any of these stations offers is 8 seconds, so one request per
+# second leaves roughly eight times the headroom a healthy station needs. Past
+# that, a station is looping rather than reporting.
+RATE_LIMIT_REQUESTS = 60
+RATE_LIMIT_WINDOW = 60
+
 ID_PARAMS = ("id", "wsid")
 AUTH_PARAMS = ("password", "wspw")
 # Parameters carrying the moment the payload was produced, most precise first.

@@ -36,6 +36,7 @@ from .const import (
     KEY_LAST_UPDATE,
     KEY_WIND_DIR_RAW,
     PLATFORMS,
+    RATE_LIMIT_REQUESTS,
     RESERVED_PARAMS,
     SENSOR_KEY_MAP,
     SENSOR_LIST,
@@ -516,7 +517,7 @@ class PwsView(HomeAssistantView):
 
         Returns:
             web.Response: JSON summary, or an error following the codes
-                documented by the WSLink API (200, 400, 401).
+                documented by the WSLink API (200, 400, 401, 404, 405).
         """
 
         hass = self.hass
@@ -617,6 +618,23 @@ class PwsView(HomeAssistantView):
 
         device, is_new = runtime.get_device(device_id)
 
+        if not device.register_request():
+            # Answered before anything is recorded: a station stuck in a loop
+            # is not reporting, and its readings should not reach the recorder
+            # sixty times a minute.
+            _LOGGER.warning(
+                "[#%d] Station '%s' at %s is posting more than %d times a "
+                "minute; answering 404 as the API prescribes",
+                request_id,
+                device_id,
+                remote,
+                RATE_LIMIT_REQUESTS,
+            )
+            return web.json_response(
+                {"status": "error", "detail": "Too many requests"},
+                status=404,
+            )
+
         if is_new:
             debug_log("[#%d] New device detected: %s", request_id, device_id)
             ir.async_delete_issue(hass, DOMAIN, ISSUE_NO_STATION_YET)
@@ -663,6 +681,23 @@ class PwsView(HomeAssistantView):
                     value,
                     remote,
                 )
+
+        if errors and not updated_keys:
+            # Every recognised parameter failed and none produced a reading.
+            # Unknown parameters do not count: a station speaking a newer API
+            # version is not malformed, and telling it so would be wrong.
+            _LOGGER.warning(
+                "[#%d] Station '%s' at %s sent %d parameters and not one "
+                "could be read; answering 405",
+                request_id,
+                device_id,
+                remote,
+                errors,
+            )
+            return web.json_response(
+                {"status": "error", "detail": "Incorrect data format"},
+                status=405,
+            )
 
         _async_report_unknown_parameters(hass, device, unknown_keys)
 

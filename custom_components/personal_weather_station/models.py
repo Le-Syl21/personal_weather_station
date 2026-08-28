@@ -1,5 +1,7 @@
 """Runtime objects shared between the HTTP handler and the entity platforms."""
 
+import time
+from collections import deque
 from datetime import timedelta
 
 from homeassistant.core import callback
@@ -9,6 +11,8 @@ from .const import (
     CONF_AVAILABILITY_TIMEOUT,
     CONF_WIND_OFFSETS,
     DEFAULT_AVAILABILITY_TIMEOUT,
+    RATE_LIMIT_REQUESTS,
+    RATE_LIMIT_WINDOW,
     WIND_DIR_PRIMARY_KEYS,
     WIND_OFFSET_KEYS,
 )
@@ -61,11 +65,41 @@ class PwsDevice:
         self.last_seen = None
         self.was_available = True
 
+        # Arrival times of the recent requests, for the rate limit. Bounded by
+        # the limit itself, so it cannot grow however hard a station tries.
+        self._requests = deque(maxlen=RATE_LIMIT_REQUESTS)
+
         # Devices seen for the first time get the shorter, modern entity IDs.
         # Existing ones keep theirs so nothing an automation or a dashboard
         # points at ever moves on its own.
         self.legacy_entity_ids = False
         self.legacy_status_sensors = False
+
+    def register_request(self):
+        """
+        Record an incoming request and say whether it is within the rate limit.
+
+        Uses the monotonic clock rather than the wall clock: a station
+        correcting its time, or the host adjusting for daylight saving, must
+        not open or close the window by an hour.
+
+        Returns:
+            bool: False when the station is posting faster than the API allows,
+                in which case the request should be answered 404 and dropped.
+        """
+
+        now = time.monotonic()
+
+        # A full deque means the oldest of the last RATE_LIMIT_REQUESTS is
+        # still in the window, so this one is over the limit.
+        if len(self._requests) == RATE_LIMIT_REQUESTS and (
+            now - self._requests[0] < RATE_LIMIT_WINDOW
+        ):
+            return False
+
+        self._requests.append(now)
+
+        return True
 
     @property
     def availability_timeout(self):

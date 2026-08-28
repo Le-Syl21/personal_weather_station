@@ -153,7 +153,8 @@ is the one that lets you point the station at your own Home Assistant.
 > only when your station does not offer WSLink.
 
 The **WSLink API ⤓** button below hands you the protocol documentation, if you
-want to know exactly what your station sends.
+want to know exactly what your station sends. It is transcribed in
+[WSLink API.md](WSLink%20API.md) too, down to the last parameter.
 
 Then press **Save**.
 

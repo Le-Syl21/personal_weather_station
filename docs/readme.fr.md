@@ -165,7 +165,8 @@ est celui qui permet de diriger la station vers votre propre Home Assistant.
 > choix que si votre station ne propose pas WSLink.
 
 Le bouton **WSLink API ⤓** en dessous vous remet la documentation du protocole,
-si vous voulez savoir exactement ce que votre station envoie.
+si vous voulez savoir exactement ce que votre station envoie. Elle est aussi
+transcrite dans [WSLink API.md](../WSLink%20API.md), jusqu'au dernier paramètre.
 
 Appuyez ensuite sur **Save**.
 

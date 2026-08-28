@@ -142,8 +142,27 @@ est celui qui permet de diriger la station vers votre propre Home Assistant.
 | **Station ID** | Ce que vous voulez. Cela devient le nom de l'appareil dans Home Assistant. |
 | **Station key** | La clé définie dans l'intégration. Laissez vide si vous n'en avez pas mis. |
 | **Upload interval** | 1 minute est une bonne valeur. |
-| **API type** | **WUnderground API**. |
+| **API type** | **WSLink** — voir ci-dessous. |
 | **Upload** | Activé par défaut — laissez-le ainsi. |
+
+> [!TIP]
+> **Préférez WSLink à WUnderground API si votre station propose les deux.**
+> Weather Underground est un protocole plus ancien qui n'offre que **4
+> emplacements** pour les sondes supplémentaires, et les stations Bresser y font
+> passer tous leurs canaux — y compris un thermomètre de piscine — via les champs
+> destinés au sol. Une station avec 5 sondes déportées ou plus ne peut tout
+> simplement pas les exprimer : le surplus n'atteint jamais Home Assistant, sans
+> le moindre message.
+>
+> | | Weather Underground | WSLink |
+> |---|---|---|
+> | Paramètres reconnus | 55 | 108 |
+> | Canaux de sondes supplémentaires | 4 | 7 |
+> | Détecteurs de fuite | — | 7 |
+> | Foudre, particules, HCHO/COV, CO₂, CO | — | oui |
+>
+> Les deux fonctionnent et sont pris en charge ici. WUnderground API n'est le bon
+> choix que si votre station ne propose pas WSLink.
 
 Appuyez ensuite sur **Save**.
 

@@ -100,6 +100,10 @@
           "not_received": "아직 아무것도 도착하지 않아 이 항목은 열린 채로 둡니다. 관측소가 나타날 때까지 복구에 남아 있으며, 다시 열어 계속 기다릴 수 있습니다."
         }
       }
+    },
+    "unknown_parameters": {
+      "title": "Station {station} is sending readings that are being dropped",
+      "description": "**{count} parameters** from **{station}** are not recognised, so their values are discarded on every upload:\n\n{parameters}\n\nThe usual cause is a station reporting more than its protocol can carry. Weather Underground has only **4 slots** for extra sensors; if your station offers **WSLink** as an *API type*, switching to it exposes seven channels and roughly twice as many readings.\n\nIf that is not it, these parameter names are exactly what a bug report needs: open one on the [issue tracker](https://github.com/MaxensF/personal_weather_station/issues) and they can be added.\n\nYou can also ignore this — nothing is broken, these particular values simply do not arrive."
     }
   },
   "exceptions": {

@@ -100,6 +100,10 @@
           "not_received": "Ainda não chegou nada, por isso isto fica em aberto. Mantém-se em Reparações até aparecer uma estação, e pode reabri-lo para esperar de novo."
         }
       }
+    },
+    "unknown_parameters": {
+      "title": "A estação {station} envia leituras que são descartadas",
+      "description": "**{count} parâmetros** de **{station}** não são reconhecidos, pelo que os seus valores são descartados em cada envio:\n\n{parameters}\n\nA causa habitual é uma estação que reporta mais do que o seu protocolo consegue transportar. O Weather Underground tem apenas **4 lugares** para sensores adicionais; se a sua estação oferecer **WSLink** como *API type*, mudar para lá expõe sete canais e cerca do dobro das leituras.\n\nSe não for isso, estes nomes de parâmetros são exatamente o que um relatório de erro precisa: abra um no [rastreador de problemas](https://github.com/MaxensF/personal_weather_station/issues) e poderão ser adicionados.\n\nTambém pode ignorar isto — nada está avariado, simplesmente esses valores não chegam."
     }
   },
   "exceptions": {

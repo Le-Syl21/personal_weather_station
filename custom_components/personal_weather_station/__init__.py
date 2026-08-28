@@ -32,6 +32,7 @@ from .const import (
     ISSUE_LEGACY_ENTITY_IDS,
     ISSUE_LEGACY_STATUS_SENSORS,
     ISSUE_NO_STATION_YET,
+    ISSUE_UNKNOWN_PARAMETERS,
     KEY_LAST_UPDATE,
     KEY_WIND_DIR_RAW,
     PLATFORMS,
@@ -233,6 +234,47 @@ def _async_check_legacy_entity_ids(hass: HomeAssistant, entry: ConfigEntry):
         translation_key=ISSUE_LEGACY_ENTITY_IDS,
         translation_placeholders={"count": str(len(renames))},
         data={"entry_id": entry.entry_id},
+    )
+
+
+@callback
+def _async_report_unknown_parameters(hass, device, unknown_keys):
+    """
+    Surface parameters this integration silently drops.
+
+    A station that reports more than the protocol can express — a Bresser with
+    five extra sensors uploading over Weather Underground, for instance — loses
+    the surplus without a word. Naming the parameters turns a mystery into
+    something reportable.
+
+    Args:
+        hass: Home Assistant instance.
+        device: PwsDevice the payload came from.
+        unknown_keys: Parameter names seen in this payload and not recognised.
+
+    Returns:
+        None
+    """
+
+    new_keys = unknown_keys - device.unknown_keys
+
+    if not new_keys:
+        return
+
+    device.unknown_keys |= new_keys
+
+    ir.async_create_issue(
+        hass,
+        DOMAIN,
+        f"{ISSUE_UNKNOWN_PARAMETERS}_{slugify(device.device_id)}",
+        is_fixable=False,
+        severity=ir.IssueSeverity.WARNING,
+        translation_key=ISSUE_UNKNOWN_PARAMETERS,
+        translation_placeholders={
+            "station": device.device_id,
+            "count": str(len(device.unknown_keys)),
+            "parameters": ", ".join(f"`{key}`" for key in sorted(device.unknown_keys)),
+        },
     )
 
 
@@ -583,6 +625,7 @@ class PwsView(HomeAssistantView):
         device.was_available = True
 
         updated_keys = []
+        unknown_keys = set()
         errors = 0
 
         for key, value in params.items():
@@ -599,6 +642,7 @@ class PwsView(HomeAssistantView):
                         key,
                         value,
                     )
+                    unknown_keys.add(key)
                     continue
 
                 value = parse_value(value)
@@ -619,6 +663,8 @@ class PwsView(HomeAssistantView):
                     value,
                     remote,
                 )
+
+        _async_report_unknown_parameters(hass, device, unknown_keys)
 
         created = self._async_add_new_entities(runtime, device, updated_keys)
 

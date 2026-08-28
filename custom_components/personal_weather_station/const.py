@@ -70,6 +70,7 @@ KEY_RESET_WIND_OFFSET = "reset_wind_offset"
 ISSUE_LEGACY_ENTITY_IDS = "legacy_entity_ids"
 ISSUE_LEGACY_STATUS_SENSORS = "legacy_status_sensors"
 ISSUE_NO_STATION_YET = "no_station_yet"
+ISSUE_UNKNOWN_PARAMETERS = "unknown_parameters"
 
 # How long the onboarding repair waits for a first upload before letting the
 # user go. Stations post every minute or so once they are configured.

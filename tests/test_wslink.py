@@ -188,3 +188,59 @@ async def test_several_stations_share_one_config_entry(hass, setup_pws):
 
     assert state_of(hass, "jardin", "wind_offset", "number") is not None
     assert state_of(hass, "serre", "wind_offset", "number") is not None
+
+
+async def test_unknown_parameters_are_reported(hass, setup_pws):
+    """
+    Dropping a reading in silence is how issue #29 upstream went unsolved.
+
+    A Bresser with more extra sensors than Weather Underground has slots loses
+    the surplus without a word. Naming the parameters makes it reportable.
+    """
+
+    from homeassistant.helpers import issue_registry as ir
+
+    from custom_components.personal_weather_station.const import (
+        DOMAIN,
+        ISSUE_UNKNOWN_PARAMETERS,
+    )
+
+    _, client = await setup_pws()
+
+    await client.get(
+        f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1tem=21.5&soilmoisture5=30&temp6f=68"
+    )
+    await hass.async_block_till_done()
+
+    issue = ir.async_get(hass).async_get_issue(
+        DOMAIN, f"{ISSUE_UNKNOWN_PARAMETERS}_{DEVICE_ID}"
+    )
+    assert issue is not None
+    assert issue.translation_placeholders["count"] == "2"
+    assert issue.translation_placeholders["parameters"] == "`soilmoisture5`, `temp6f`"
+    assert issue.translation_placeholders["station"] == DEVICE_ID
+
+    # The known reading still went through.
+    assert state_of(hass, DEVICE_ID, "t1tem").state == "21.5"
+
+
+async def test_unknown_parameters_reported_once(hass, setup_pws):
+    """The station repeats them every minute; the repair must not churn."""
+
+    from homeassistant.helpers import issue_registry as ir
+
+    from custom_components.personal_weather_station.const import (
+        DOMAIN,
+        ISSUE_UNKNOWN_PARAMETERS,
+    )
+
+    _, client = await setup_pws()
+
+    for _ in range(3):
+        await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1tem=21.5&nope=1")
+    await hass.async_block_till_done()
+
+    issues = [i for (d, _), i in ir.async_get(hass).issues.items() if d == DOMAIN]
+    unknown = [i for i in issues if i.translation_key == ISSUE_UNKNOWN_PARAMETERS]
+    assert len(unknown) == 1
+    assert unknown[0].translation_placeholders["count"] == "1"

@@ -24,6 +24,7 @@ class PwsDevice:
         device_id: Unique identifier of the device, as announced by the station.
         data: Raw sensor values keyed by sensor type, exactly as received.
         entities: Every entity attached to the device, keyed by entity key.
+        unknown_keys: Parameters this station sent that we do not recognise.
         legacy_entity_ids: Whether this device already carries the entity IDs
             released up to 1.0.8, which repeat the station name twice.
         legacy_status_sensors: Whether its connection and leak keys are still
@@ -55,6 +56,7 @@ class PwsDevice:
         self.data = {}
 
         self.entities = {}
+        self.unknown_keys = set()
 
         self.last_seen = None
         self.was_available = True

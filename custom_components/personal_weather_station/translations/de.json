@@ -100,6 +100,10 @@
           "not_received": "Es ist noch nichts eingegangen, daher bleibt dieser Punkt offen. Er bleibt in den Reparaturen, bis eine Station auftaucht, und Sie können ihn erneut öffnen, um wieder zu warten."
         }
       }
+    },
+    "unknown_parameters": {
+      "title": "Station {station} sendet Messwerte, die verworfen werden",
+      "description": "**{count} Parameter** von **{station}** werden nicht erkannt, ihre Werte werden daher bei jeder Übertragung verworfen:\n\n{parameters}\n\nDie übliche Ursache ist eine Station, die mehr meldet, als ihr Protokoll transportieren kann. Weather Underground hat nur **4 Plätze** für zusätzliche Sensoren; bietet Ihre Station **WSLink** als *API type* an, stehen dort sieben Kanäle und etwa doppelt so viele Messwerte zur Verfügung.\n\nFalls es daran nicht liegt: Diese Parameternamen sind genau das, was ein Fehlerbericht braucht. Öffnen Sie einen im [Issue-Tracker](https://github.com/MaxensF/personal_weather_station/issues), dann können sie ergänzt werden.\n\nSie können das auch ignorieren — es ist nichts kaputt, diese Werte kommen schlicht nicht an."
     }
   },
   "exceptions": {

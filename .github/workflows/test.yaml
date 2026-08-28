@@ -15,7 +15,11 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          # pytest-homeassistant-custom-component has required 3.14 since
+          # 0.13.317. On 3.13 pip silently resolves an old release instead,
+          # which drags in a Home Assistant several months behind and fails on
+          # API differences that have nothing to do with the change under test.
+          python-version: "3.14"
           cache: pip
           # Without this the cache looks for requirements.txt or pyproject.toml,
           # finds neither, and fails the job before a single test runs.

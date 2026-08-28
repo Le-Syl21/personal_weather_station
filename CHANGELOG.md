@@ -26,6 +26,10 @@ to keep everything exactly as it is.
   stacking a new route on every reload.
 - The station key is compared with `hmac.compare_digest`, and `PASSWORD` /
   `wspw` are matched case-insensitively like every other parameter.
+- Repairs for a rejected request are keyed on the station identifier rather than
+  the source address. Behind a proxy such as the WSLink add-on every station
+  shares one address, so a station getting through cleared the warning raised for
+  another one.
 - Replaced the `CONCENTRATION_*` constants deprecated for removal in Home
   Assistant 2027.8. Same values, so nothing changes for existing statistics.
 

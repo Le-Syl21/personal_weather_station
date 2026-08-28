@@ -354,13 +354,27 @@ def _parse_timestamp(params):
 
 
 @callback
-def _async_report_rejection(hass, kind, remote, placeholders):
-    """Surface a rejected request in Repairs, where it is actually visible."""
+def _async_report_rejection(hass, kind, issue_key, placeholders):
+    """
+    Surface a rejected request in Repairs, where it is actually visible.
+
+    Args:
+        hass: Home Assistant instance.
+        kind: Issue translation key.
+        issue_key: What identifies the offending station. The station ID is
+            preferred over the address: behind a proxy such as the WSLink
+            add-on, every station shares one address, and one of them getting
+            through would clear a warning raised for another.
+        placeholders: Translation placeholders.
+
+    Returns:
+        None
+    """
 
     ir.async_create_issue(
         hass,
         DOMAIN,
-        f"{kind}_{slugify(remote)}",
+        f"{kind}_{slugify(issue_key)}",
         is_fixable=False,
         severity=ir.IssueSeverity.WARNING,
         translation_key=kind,
@@ -369,11 +383,28 @@ def _async_report_rejection(hass, kind, remote, placeholders):
 
 
 @callback
-def _async_clear_rejections(hass, remote):
-    """Drop the Repairs issues for a station that is now getting through."""
+def _async_clear_rejections(hass, remote, device_id):
+    """
+    Drop the Repairs issues for a station that is now getting through.
 
-    for kind in ("invalid_station_key", "missing_device_id"):
-        ir.async_delete_issue(hass, DOMAIN, f"{kind}_{slugify(remote)}")
+    Both keyings are cleared: a station rejected before it announced an ID was
+    filed under its address.
+
+    Args:
+        hass: Home Assistant instance.
+        remote: Address the request came from.
+        device_id: Identifier the station announced.
+
+    Returns:
+        None
+    """
+
+    for issue_id in (
+        f"invalid_station_key_{slugify(device_id)}",
+        f"invalid_station_key_{slugify(remote)}",
+        f"missing_device_id_{slugify(remote)}",
+    ):
+        ir.async_delete_issue(hass, DOMAIN, issue_id)
 
 
 class PwsView(HomeAssistantView):
@@ -476,14 +507,13 @@ class PwsView(HomeAssistantView):
                     request_id,
                     remote,
                 )
+                announced_id = _get_param(params, ID_PARAMS)
+
                 _async_report_rejection(
                     hass,
                     "invalid_station_key",
-                    remote,
-                    {
-                        "ip": remote,
-                        "station_id": str(_get_param(params, ID_PARAMS) or "?"),
-                    },
+                    announced_id or remote,
+                    {"ip": remote, "station_id": str(announced_id or "?")},
                 )
                 return web.json_response(
                     {"status": "error", "detail": "Invalid password"}, status=401
@@ -508,7 +538,7 @@ class PwsView(HomeAssistantView):
                 status=400,
             )
 
-        _async_clear_rejections(hass, remote)
+        _async_clear_rejections(hass, remote, device_id)
 
         runtime.last_request = dt_util.utcnow()
 

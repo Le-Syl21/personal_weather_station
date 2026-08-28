@@ -109,3 +109,49 @@ async def test_missing_device_id_returns_400(hass, setup_pws):
     issues = issues_for(hass)
     assert len(issues) == 1
     assert issues[0].translation_key == "missing_device_id"
+
+
+async def test_two_stations_behind_a_proxy_do_not_clear_each_other(hass, setup_pws):
+    """
+    The WSLink add-on proxies uploads, so every station shares one address.
+
+    Keying the warning on the address meant a station getting through cleared
+    the warning raised for another one behind the same proxy, which made the
+    repair flap and never be seen.
+    """
+
+    _, client = await setup_pws(password=STATION_KEY)
+
+    await client.get(f"{WSLINK_ENDPOINT}?wsid=attic&wspw=wrong&t1tem=21")
+
+    issues = issues_for(hass)
+    assert len(issues) == 1
+    assert issues[0].translation_placeholders["station_id"] == "attic"
+
+    # A different station, same address, correct key.
+    await client.get(f"{WSLINK_ENDPOINT}?wsid=garden&wspw={STATION_KEY}&t1tem=19")
+    await hass.async_block_till_done()
+
+    still_there = issues_for(hass)
+    assert len(still_there) == 1, "the warning for 'attic' was cleared by 'garden'"
+    assert still_there[0].translation_placeholders["station_id"] == "attic"
+
+    # And it goes away once that station itself gets through.
+    await client.get(f"{WSLINK_ENDPOINT}?wsid=attic&wspw={STATION_KEY}&t1tem=21")
+    await hass.async_block_till_done()
+
+    assert issues_for(hass) == []
+
+
+async def test_rejection_without_an_id_is_cleared_on_success(hass, setup_pws):
+    """A station rejected before announcing an ID is filed under its address."""
+
+    _, client = await setup_pws(password=STATION_KEY)
+
+    await client.get(f"{WSLINK_ENDPOINT}?wspw=wrong&t1tem=21")
+    assert len(issues_for(hass)) == 1
+
+    await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&wspw={STATION_KEY}&t1tem=21")
+    await hass.async_block_till_done()
+
+    assert issues_for(hass) == []

@@ -72,9 +72,10 @@ Some weather stations do not natively support custom upload URLs. Two workaround
 
 - **Manual workaround:** Intercept Weather Underground traffic. See the detailed setup instructions in [Intercepting Wunderground traffic (issue #20)](../../issues/20).
 - **All-in-one solution:** Use the **WSLink Add-on**, developed by @schizza, which intercepts Weather Underground traffic and forwards the decoded weather data to Home Assistant. See the project [here](https://github.com/schizza/wslink-addon)
-> [!WARNING]
-> **WSLink Add-on v0.0.7 is currently broken and is not compatible with this integration.**
-> Until the issue is resolved, please use @derbmann's [fork](https://github.com/derbmann/wslink-addon).
+> [!NOTE]
+> Version **0.0.7** of the add-on broke the upload flow. It was fixed in **0.0.8**
+> and the add-on has moved on since, so use a current version — there is no longer
+> any reason to run a fork.
 
 ---
 
@@ -301,7 +302,13 @@ raise a repair in **Settings → System → Repairs**:
 - **No station identifier** — the station posted without an `ID` / `wsid`.
   Set a Sender ID in the WSLink app.
 
-The repair disappears on its own once a request from that address is accepted.
+The repair disappears on its own once that station is accepted.
+
+> [!NOTE]
+> Behind the WSLink add-on, every station reaches Home Assistant through the
+> proxy, so the address shown in the repair is the proxy's unless you enable
+> `forward_real_ip` in the add-on and set `trusted_proxies` in Home Assistant.
+> The station identifier in the message is reliable either way.
 If nothing at all appears, not even a repair, the requests are not reaching Home
 Assistant: check the URL, the port, and whether your firmware requires HTTPS
 (see the warning about firmware 3.02 above).

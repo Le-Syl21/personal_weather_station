@@ -1,93 +1,101 @@
-
-
-<image src="https://raw.githubusercontent.com/home-assistant/brands/refs/heads/master/custom_integrations/personal_weather_station/icon%402x.png" alt="image" align="right" height="177"></image>
-
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration) 
-
-[![GH-downloads](https://img.shields.io/github/downloads/MaxensF/personal_weather_station/total?style=flat-square)](https://github.com/MaxensF/personal_weather_station/releases)
-
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=MaxensF&repository=personal_weather_station&category=integration)
-
-
-
+<img src="https://raw.githubusercontent.com/home-assistant/brands/refs/heads/master/custom_integrations/personal_weather_station/icon%402x.png" alt="" align="right" height="177">
 
 # Personal Weather Station (PWS)
 
-This custom Home Assistant integration allows you to receive real-time data from your **Personal Weather Station** and expose it as sensors inside Home Assistant. It uses an HTTP endpoint to receive sensor updates and automatically creates or updates sensors for temperature, humidity, pressure, and more.
+**🇬🇧 English** · [🇫🇷 Français](docs/readme.fr.md)
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=flat-square)](https://github.com/hacs/integration)
+[![GH-downloads](https://img.shields.io/github/downloads/MaxensF/personal_weather_station/total?style=flat-square)](https://github.com/MaxensF/personal_weather_station/releases)
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=MaxensF&repository=personal_weather_station&category=integration)
+
+Turn Home Assistant into the server your weather station uploads to. No cloud, no
+account, no polling: the station posts straight to your instance, and its
+devices and sensors appear on their own.
+
+---
+
+## How it works, in one paragraph
+
+Most integrations go and fetch data. This one does the opposite: it opens two
+HTTP endpoints and waits. Your station — configured to upload to your Home
+Assistant address instead of Weather Underground — posts its readings every
+minute or so, and the integration creates a device for it and a sensor for every
+value it recognises. **That is why there is no "add device" button:** the station
+creates its own.
+
+Both protocols are supported and can be mixed on the same instance:
+
+| Protocol | Endpoint | Units |
+|---|---|---|
+| Weather Underground | `/weatherstation/updateweatherstation.php` | imperial (°F, mph, inHg, in) |
+| WSLink | `/data/upload.php` | metric (°C, m/s, hPa, mm) |
+
+Each key is declared with the unit its protocol uses, so Home Assistant converts
+to whatever your system is set to. A WSLink wind speed sent in m/s shows up in
+km/h on a metric system — that is correct, not a bug.
 
 ---
 
 ## Features
 
-- Receive weather station data via HTTP requests, in either the Weather Underground or the WSLink format.
-- Automatically create new sensors for any supported data key.
-- Update existing sensors in real time.
-- Entities and their values survive a Home Assistant restart.
-- A station that stops reporting is marked unavailable instead of showing a frozen value.
-- Recalibrate true north without touching the hardware.
-- Water leak and connection readings are proper binary sensors.
-- Misconfigured stations are reported in Repairs instead of failing silently.
-- Available in all 64 languages Home Assistant supports (8 reviewed, the rest awaiting proofreading — see [Contributing](CONTRIBUTING.md)).
-- Authentication (optional).
+- **Guided setup.** Adding the integration ends on the exact settings to enter in
+  your station, your Home Assistant address included. Until a station has posted,
+  a prompt waits with you for its first upload.
+- **170 sensors** across both protocols: temperature, humidity, pressure, wind,
+  rain, lightning, air quality, multi-channel sensors, batteries.
+- **North calibration.** Realign a vane that was not mounted precisely, without
+  touching the hardware.
+- **A station that stops reporting is marked unavailable** instead of showing a
+  frozen reading forever.
+- **A `Last update` diagnostic** per station, readable precisely when the station
+  has gone quiet.
+- **Water leak and connection readings as binary sensors**, usable with the
+  standard leak cards and alerts.
+- **Entities and values survive a restart** — no waiting for the next upload.
+- **Rejected stations are reported** in Repairs rather than failing silently.
+- **Available in all 64 languages Home Assistant supports.**
+- Optional station key.
 
 ---
 
-## Supported Sensors
+## Requirements
 
-The integration relies on a predefined list of sensors in [`SENSOR_LIST`](./custom_components/personal_weather_station/const.py), covering both supported protocols. The parameter names differ between them:
+> [!IMPORTANT]
+> **Home Assistant 2025.3.0 or later.**
 
-| Measurement | Weather Underground | WSLink |
-|---|---|---|
-| Outdoor temperature | `tempf` (°F) | `t1tem` (°C) |
-| Outdoor humidity | `humidity` (%) | `t1hum` (%) |
-| Pressure | `baromin` (inHg) | `rbar` / `abar` (hPa) |
-| Wind speed | `windspeedmph` (mph) | `t1ws` (m/s) |
-| Wind direction | `winddir` (°) | `t1wdir` (°) |
-| Daily rain | `dailyrainin` (in) | `t1raindy` (mm) |
-
-Each sensor carries a **name**, **unit of measurement**, **icon**, **device class** and **state class**, so Home Assistant converts and records it correctly.
+Upgrading from an earlier release of this integration is safe: nothing is renamed
+or removed on its own. See the [changelog](CHANGELOG.md).
 
 ---
 
-## Compatible Weather Stations
+## Installation
 
-The following personal weather stations have been confirmed to work with this integration:
+### HACS
 
-- **Bresser Weather Stations**
-  - 7002586
-  - 7002582
-  - 7002620 
-  - 7003300
-  - 7003400
-  - 7004406
-- **YOUSHIKO Weather Stations**
-  - YC9471 
+This integration is in the default HACS store.
 
-Other stations may also work if they can send HTTP/HTTPS GET requests with query parameters matching the keys defined in `SENSOR_LIST`.  
-Feel free to try your own weather station and see if it works, and consider contributing any new compatible models to the project!
+1. Open HACS, search for **Personal Weather Station**, download it.
+2. Restart Home Assistant.
+3. **Settings → Devices & Services → Add Integration**, search for it.
+4. Set a **station key** if you want one, or leave it blank to accept any station.
 
-### Advanced workaround
+The last screen tells you exactly what to enter in your station. The same
+instructions stay available afterwards from the integration's ⚙️ →
+*How to point a station at Home Assistant*.
 
-Some weather stations do not natively support custom upload URLs. Two workarounds are available:
+### Manual
 
-- **Manual workaround:** Intercept Weather Underground traffic. See the detailed setup instructions in [Intercepting Wunderground traffic (issue #20)](../../issues/20).
-- **All-in-one solution:** Use the **WSLink Add-on**, developed by @schizza, which intercepts Weather Underground traffic and forwards the decoded weather data to Home Assistant. See the project [here](https://github.com/schizza/wslink-addon)
-> [!NOTE]
-> Version **0.0.7** of the add-on broke the upload flow. It was fixed in **0.0.8**
-> and the add-on has moved on since, so use a current version — there is no longer
-> any reason to run a fork.
+Copy `custom_components/personal_weather_station/` into your Home Assistant
+`config/custom_components/`, restart, then add the integration as above.
 
 ---
 
-## Quick Start Guide for Bresser Stations with WSLink App
+## Pointing your station at Home Assistant
 
-Install the integration (see below), add it in **Settings → Devices & Services →
-Add Integration**, and note the **station key** you set — you will need it in a
-moment. The integration then shows you exactly what to enter; the same
-instructions stay available from its ⚙️ afterwards.
+### Bresser stations, with the WSLink app
 
-Your station must already be set up in the WSLink app and running an up-to-date
-firmware. Then:
+Your station must already be set up in the app and running an up-to-date
+firmware.
 
 > [!WARNING]
 > **Have the values ready before you open the app, and do not linger on these
@@ -96,27 +104,27 @@ firmware. Then:
 > waiting for the data to turn up in Home Assistant.
 >
 > Copy the URL, station ID and key first, fill the form in one go, and press
-> **Confirm & Exit** straight away. Watch for the data on the Home Assistant
-> side afterwards, not from the app.
+> **Confirm & Exit** straight away. Watch for the data on the Home Assistant side
+> afterwards, not from the app.
 
-### 1. Open your station's settings
+**1. Open your station's settings**
 
-<img src="docs/images/wslink-1-your-device.jpeg" width="270" alt="The WSLink device list, with the settings gear on the station">
+<img src="docs/images/wslink-1-your-device.jpeg" width="260" alt="The WSLink device list, with the settings gear on the station">
 
-### 2. Weather server
+**2. Weather server**
 
-<img src="docs/images/wslink-2-settings.jpeg" width="270" alt="The station settings, with Weather server highlighted">
+<img src="docs/images/wslink-2-settings.jpeg" width="260" alt="The station settings, with Weather server highlighted">
 
-### 3. Other Server
+**3. Other Server**
 
-<img src="docs/images/wslink-3-weather-server.jpeg" width="270" alt="The weather service list, with Other Server highlighted">
+<img src="docs/images/wslink-3-weather-server.jpeg" width="260" alt="The weather service list, with Other Server highlighted">
 
 Weather Underground and Weathercloud upload to those services. **Other Server**
 is the one that lets you point the station at your own Home Assistant.
 
-### 4. Fill in the server
+**4. Fill in the server**
 
-<img src="docs/images/wslink-4-other-server.jpeg" width="270" alt="The Other Server form, filled in">
+<img src="docs/images/wslink-4-other-server.jpeg" width="260" alt="The Other Server form, filled in">
 
 | Field | What to enter |
 |---|---|
@@ -125,162 +133,56 @@ is the one that lets you point the station at your own Home Assistant.
 | **Station key** | The key you set in the integration. Leave it empty if you left that blank. |
 | **Upload interval** | 1 minute is a good default. |
 | **API type** | **WUnderground API**. |
-| **Upload** | Already enabled by default — leave it on. |
+| **Upload** | Enabled by default — leave it on. |
 
 Then press **Save**.
 
-### 5. Confirm & Exit
+**5. Confirm & Exit**
 
-<img src="docs/images/wslink-5-confirm-and-exit.jpeg" width="270" alt="The station settings, with Confirm and Exit highlighted">
+<img src="docs/images/wslink-5-confirm-and-exit.jpeg" width="260" alt="The station settings, with Confirm and Exit highlighted">
 
 > [!IMPORTANT]
 > **This is the step that actually writes the settings to the station.** Pressing
 > *Save* on the previous screen changes nothing on its own. Once you press
-> **Confirm & Exit**, Home Assistant receives data within seconds and your
-> sensors appear.
+> **Confirm & Exit**, Home Assistant receives data within seconds and your sensors
+> appear.
 
 > [!NOTE]
 > Some Bresser firmwares from **3.02** onwards refuse plain HTTP. Home Assistant
 > then has to serve HTTPS on an address your station can reach.
 
----
+### Any station supporting the PWS protocol
 
-## Installation
+Point it at your Home Assistant address and set:
 
-> [!IMPORTANT]
-> Requires **Home Assistant 2025.3.0 or later**.
+- **ID** — any identifier; it becomes the device name.
+- **Password / station key** — the one you set in the integration, or nothing.
 
-Upgrading from an earlier release is safe: nothing is renamed or removed on its
-own. See the [changelog](CHANGELOG.md) for what changed and for the two optional
-migrations offered in Repairs.
-
-### HACS Installation (Recommended)
-
-This integration is available in the default HACS store. You do not need to add a custom repository anymore!
-
-1. Open HACS in Home Assistant
-2. Search for **"Personal Weather Station"**
-3. Click **Download**, then install the integration
-4. Restart Home Assistant
-5. Add the integration from **Settings → Devices & Services → Add Integration**
-
-
-### Manual Installation
-
-1. Navigate to your Home Assistant configuration folder.
-2. Create the folder `custom_components/personal_weather_station`.
-3. Copy all integration files into this folder (`__init__.py`, `sensor.py`, `manifest.json`, etc.).
-4. Restart Home Assistant.
-5. Add the integration from  **Settings → Devices & Services → Add Integration**
-
----
-
-## Weather station configuration
-
-### Manual configuration for any Weather Station supporting the PWS protocol
-
-Set at least these parameters :
-
-- **URL**: ```http://<HOME_ASSISTANT_IP>:8123```
-- **ID**: `any identifier (e.g., my_station) — this will become the device ID in Home Assistant
-- **Station Key**: a password known only to you.
-
-**Important** : In your weather station configuration, make sure to set the URL to point to your Home Assistant instance
-
-#### HTTP Endpoint
-
-The integration exposes an HTTP endpoint that your weather station can call:
+The endpoint accepts a plain GET:
 
 ```
-http://<home_assistant_ip>:8123/weatherstation/updateweatherstation.php
+http://<home_assistant>:8123/weatherstation/updateweatherstation.php?ID=my_station&PASSWORD=<key>&tempf=72&humidity=55
 ```
 
-Query parameters format:
+- `ID` (or `wsid`) is **required** — a request without it is answered `400`.
+- `PASSWORD` (or `wspw`) is checked only if you set a key; a wrong one gets `401`
+  and raises a repair.
+- Unknown keys are ignored. A key sent with an **empty value** simply leaves its
+  sensor `unknown` — the rest of the request is processed normally.
 
-```
-?ID=<device_id>&PASSWORD=<station_key>&tempf=72&humidity=55
-```
+### Stations that cannot change their upload URL
 
-- `ID` (or `wsid` on the WSLink endpoint): unique device ID, **required**. A request without it is answered with HTTP 400.
-- `PASSWORD` (or `wspw`): the station key. A wrong one is answered with HTTP 401 and raises a repair issue in Home Assistant.
-- Other parameters: sensor keys matching `SENSOR_LIST`. Unknown keys are ignored, and a key sent with an empty value simply leaves its sensor unknown.
+Some stations only ever talk to Weather Underground. Two ways around it:
 
-### Configuration for Weather Stations with WSLink App
-
-Make sure to set these parameters in the WSLink application:
-
-- **URL**: ```http://<HOME_ASSISTANT_IP>:8123``` (for http) or ```<HOME_ASSISTANT_DOMAIN>``` (for https) (depending on weather your Weather Station only supports http or https)
-- **Sender ID**: any identifier (e.g., my_station) — this will become the device ID in Home Assistant
-- **Station Key**: a password known only to you
-- **Upload** Interval: any interval you want, e.g., 60 seconds
-- **API Type**: Note that some stations have this field. In that case, make sure to select "WUnderground API" or "WSLink API".
-
-This configuration will allow your Weather Station to send weather data correctly to Home Assistant via the PWS integration. As this integration only allows you to configure one station key, all of your Weather Stations should use the same.
-
-> [!IMPORTANT]  
-> Bresser weather stations running firmware version **3.02** or later require SSL.
-> With these versions, using HTTP will cause a silent failure, meaning no data will be transmitted.
-> Note: There might be versions prior to 3.02 that also require SSL, but 3.02 is the first known version that definitively needs it.
-> Home Assistant must therefore be configured with SSL enabled, and the URL configured in WSLink must use https instead of http.
-
-### Config Flow
-- Add a new weather station using its station key. Ensure that this key matches the one configured in the weather station settings or leave it blank to accept any station key.
-- All setup is done automatically upon HTTP(S) requests.
-
----
-
-## Usage
-
-1. Your weather station sends HTTP GET requests with sensor data to Home Assistant.
-2. The integration checks if the device exists. If not, it creates a new device.
-3. Each sensor in the request is either created (if new) or updated (if existing).
-4. All sensors appear in Home Assistant under the device `Weather Station <ID>`.
-
-### Example HTTP Request
-
-```text
-http://192.168.1.23:8123/weatherstation/updateweatherstation.php?ID=my_station&PASSWORD=<station_key>&tempf=72&humidity=55
-```
-
-- Creates/updates the outdoor temperature and outdoor humidity sensors of device `my_station`.
-
----
-
-## Entity Creation
-
-The integration automatically creates entities based on the parameters received in each HTTP request. 
-When a new parameter is sent that does not yet exist as a sensor in Home Assistant, the integration will generate a new entity for it under the device corresponding to the ID of the request.
-
-Multiple requests can be sent sequentially to create new entities. You do not need to include all parameters in a single request. Any new parameter sent in a later request will automatically create its corresponding entity.
-
-Entities have no default values, as they are created only when a value is received from the station.
-They always reflect the last received value.
-
-### Example:
-
-HTTP request:
-```http://192.168.1.23:8123/weatherstation/updateweatherstation.php?ID=my_station&tempf=72&humidity=55&winddir=180```
-
-Will create the `my_station` device. The following entities will be attached to it:
-- `sensor.my_station_outdoor_temperature`
-- `sensor.my_station_outdoor_humidity`
-- `sensor.my_station_wind_direction`
-- `sensor.my_station_last_update` (diagnostic, see below)
-
-Subsequent requests with new parameters (e.g., `rainin=0.1`) will create additional entities automatically without manual configuration.
-
-## Entity Update
-
-When a value is received from the weather station, the integration automatically updates the corresponding entity:
-
-- A whole number becomes an int, a decimal number becomes a float.
-- A value that is not a number at all is kept as text.
-- An **empty** value becomes `unknown`. Both protocols do send keys with no value when the matching sensor has nothing to report, and the rest of the request is processed normally.
-
-A single unusable parameter never costs you the others: it is logged and skipped, and the response reports how many were skipped.
+- **The WSLink add-on** by @schizza, which intercepts that traffic and forwards
+  it to Home Assistant: [wslink-addon](https://github.com/schizza/wslink-addon).
+- **By hand**, by intercepting the traffic yourself — see
+  [issue #20](https://github.com/MaxensF/personal_weather_station/issues/20).
 
 > [!NOTE]
-> This integration does not convert anything itself. Values are stored exactly as received and each key is declared with the unit its protocol uses: **Weather Underground is imperial** (°F, mph, inHg, inches) while **WSLink is metric** (°C, m/s, hPa, mm). Home Assistant then converts to whatever your system is set to, which is why a WSLink wind speed sent in m/s shows up in km/h on a metric system.
+> Version **0.0.7** of the add-on broke the upload flow. It was fixed in **0.0.8**
+> and the add-on has moved on since, so simply use a current version. Running a
+> fork is no longer necessary.
 
 ---
 
@@ -299,13 +201,15 @@ page:
 | `button.<station>_set_north_from_current` | Takes the direction being reported right now as north. |
 | `button.<station>_reset_wind_offset` | Drops the calibration. |
 
-**Procedure:** hold the vane pointing at **geographic** north (not magnetic
-north — in most of Europe the difference is a few degrees, but check your local
-declination), wait for the station to upload, then press *Set north from current*.
-The offset appears in the number entity and every direction sensor follows.
+**Procedure:** hold the vane pointing at **geographic** north — not magnetic
+north; check your local declination — wait for the station to upload, then press
+*Set north from current*. The offset appears in the number entity and every
+direction sensor follows.
 
 A diagnostic sensor `Wind direction (raw)` keeps showing the uncorrected reading,
-so you can always check a calibration or redo one.
+so you can always check a calibration or redo one. The offset is stored in the
+integration's options, not as a restored state, so a recorder purge cannot lose
+it.
 
 > [!NOTE]
 > The offset applies to values as they arrive. History already recorded is not
@@ -328,56 +232,16 @@ confirmation:
 Because the integration only ever receives data, it has no other way to notice a
 station that stopped reporting.
 
-- Every station gets a **`Last update`** diagnostic sensor showing when it last
-  posted. It stays readable even when the station is offline, which is exactly
-  when you need it.
-- After a configurable delay (**Mark as unavailable after**, 15 minutes by
-  default, `0` to disable) the station's sensors switch to *unavailable* instead
-  of showing a frozen reading forever.
+- Every station gets a **`Last update`** diagnostic showing when it last posted.
+  It stays readable even when the station is offline, which is exactly when you
+  need it. It uses the timestamp from the payload when the station clock looks
+  trustworthy, and the server time otherwise.
+- After a configurable delay — **Mark as unavailable after**, 15 minutes by
+  default, `0` to disable — the station's sensors switch to *unavailable* instead
+  of showing a frozen reading.
 
-Entities and their last values are restored on restart, so a Home Assistant
-reboot no longer leaves a dashboard full of holes until the next upload.
-
----
-
-## When nothing shows up
-
-This integration has **no "add device" button**, and that is not an oversight:
-your weather station creates its own device the first time it posts. Nothing here
-can go looking for it.
-
-So the setup flow ends by telling you exactly what to enter in the station — the
-address of your Home Assistant instance included, worked out for you. And until a
-station has actually posted, a prompt sits in **Settings → System → Repairs** that
-brings those instructions back and **waits with you** for the first upload,
-reporting what to check if nothing arrives within a few minutes.
-
-That prompt goes away once a station is through, so the same instructions stay
-available from the integration itself: **⚙️ → How to point a station at Home
-Assistant**. That is where to look when adding a second station later on.
-
-Once a station is misconfigured rather than absent, it looks exactly the same from
-here: an empty page. To make the difference visible, rejected requests raise their
-own repair:
-
-- **Wrong station key** — the key in the station or in the WSLink app does not
-  match the one set here. The repair names the source IP address.
-- **No station identifier** — the station posted without an `ID` / `wsid`.
-  Set a Sender ID in the WSLink app.
-
-The repair disappears on its own once that station is accepted.
-
-> [!NOTE]
-> Behind the WSLink add-on, every station reaches Home Assistant through the
-> proxy, so the address shown in the repair is the proxy's unless you enable
-> `forward_real_ip` in the add-on and set `trusted_proxies` in Home Assistant.
-> The station identifier in the message is reliable either way.
-If nothing at all appears, not even a repair, the requests are not reaching Home
-Assistant: check the URL, the port, and whether your firmware requires HTTPS
-(see the warning about firmware 3.02 above).
-
-Turning on **Log every incoming request** in the options writes the full content
-of each request to the log while you are setting a station up.
+That second point matters more than it looks: an automation acting on a
+temperature has no way of telling a real value from one frozen three days ago.
 
 ---
 
@@ -392,81 +256,103 @@ Battery levels are deliberately **not** binary sensors. Even the ones the
 protocol reports as `Normal=1 / Low=0` stay percentages, because that is what
 Home Assistant's low-battery alerts and long-term statistics work on.
 
+---
+
+## When nothing shows up
+
+A station that is misconfigured looks exactly like a station that has not posted
+yet: an empty page. To tell them apart, rejected requests raise a repair in
+**Settings → System → Repairs**:
+
+| Repair | Meaning |
+|---|---|
+| **Wrong station key** | The key in the station does not match the one set here. Names the station and the source address. |
+| **No station identifier** | The station posted without an `ID` / `wsid`. |
+
+A repair disappears on its own once that station is accepted.
+
+If nothing appears at all — not even a repair — the requests are not reaching
+Home Assistant. Check the URL, the port, and whether your firmware requires
+HTTPS. And check you pressed **Confirm & Exit**.
+
+Turning on **Log every incoming request** in the options writes the full content
+of each request to the log while you are setting a station up.
+
 > [!NOTE]
-> Stations already known to Home Assistant keep these readings as numeric
-> sensors, so nothing disappears on upgrade. A repair in
-> **Settings → System → Repairs** offers the conversion. Because it changes
-> platform rather than just the name, the old entities are removed and their
-> recorded history is lost — these readings carry no long-term statistics, so
-> only the raw history is affected — and anything pointing at them has to be
-> updated. Ignore the repair to keep things as they are.
+> Behind the WSLink add-on, every station reaches Home Assistant through the
+> proxy, so the address shown in a repair is the proxy's unless you enable
+> `forward_real_ip` in the add-on and set `trusted_proxies` in Home Assistant. The
+> station identifier is reliable either way.
 
 ---
 
-## Entity IDs
+## Upgrading an older installation
 
-Entity IDs are built from the station ID and the **English** sensor name, so a
-dashboard keeps working when it is shared between users of different languages,
-even though the displayed names follow each user's language.
+Two things changed for new stations that would move entities for existing ones.
+Neither happens on its own: each is offered as a repair you can ignore.
 
-> [!NOTE]
-> Up to version 1.0.8 the station name appeared **twice**, as in
-> `sensor.my_station_my_station_outdoor_temperature`. Stations already known to
-> Home Assistant keep those IDs — including for sensors that appear later, so one
-> station never mixes two naming styles. **Nothing is renamed on upgrade.**
->
-> If you would rather have the shorter form, a repair appears in
-> **Settings → System → Repairs** offering to rename them. History and long-term
-> statistics follow the rename automatically; **automations, scripts, scenes and
-> dashboards do not**, so you have to update those yourself. Ignore the repair to
-> keep things as they are.
+| Repair | What it does | What it costs |
+|---|---|---|
+| **Shorten the entity IDs** | Renames `sensor.x_x_outdoor_temperature` to `sensor.x_outdoor_temperature` | History and long-term statistics follow the rename. **Automations, scripts, scenes and dashboards do not** — update them yourself. |
+| **Convert status readings** | Turns the 27 connection and leak sensors into binary sensors | Changing platform is not a rename: the old entities are removed and rebuilt, and **their raw history is lost**. These readings carry no long-term statistics. Anything pointing at them must be updated. |
+
+Up to version 1.0.8 the station name appeared **twice** in every entity ID, as in
+`sensor.my_station_my_station_outdoor_temperature`. Stations already known to
+Home Assistant keep those IDs — including for sensors that appear later, so one
+station never mixes two naming styles.
+
+Entity IDs are built from the **English** sensor name whatever your language, so a
+dashboard survives being shared between users of different languages, even though
+the displayed names follow each user's language.
 
 ---
 
-## Removing a station or the integration
+## Removing a station
 
-A station appears on its own the first time it posts, so a typo in the Sender ID
+A station appears on its own the first time it posts, so a typo in the station ID
 creates a device you did not want. Such a device can be deleted from its page
 (**⋮ → Delete**); it comes back automatically if that station posts again.
 
-Removing the integration unloads every platform and clears all in-memory data.
-
 ---
 
-## Dependencies
+## Compatible weather stations
 
-- Home Assistant components: `http`, `repairs`, `sensor`, `binary_sensor`, `number`, `button`
+Confirmed working:
 
-No third-party Python package is required.
+- **Bresser** — 7002586, 7002582, 7002620, 7003300, 7003400, 7004406
+- **YOUSHIKO** — YC9471
+
+Any station able to send HTTP GET requests with parameters matching
+[`SENSOR_LIST`](./custom_components/personal_weather_station/const.py) should
+work. If yours does, a pull request adding it to this list is welcome.
 
 ---
 
 ## Development
 
-- Code is in `custom_components/personal_weather_station`.
-- Main files:
-  - `__init__.py`: integration setup and the HTTP endpoints.
-  - `models.py`: `PwsDevice` and the shared runtime.
-  - `entity.py`: the base entity, availability and state writing.
-  - `sensor.py` / `binary_sensor.py` / `number.py` / `button.py`: the platforms.
-  - `migration.py` / `repairs.py`: the two opt-in migrations.
-  - `registry.py`: rebuilding entities from the registries on startup.
-  - `normalizer.py`: value parsing, battery scaling, wind offset.
-  - `const.py`: `DOMAIN` and `SENSOR_LIST`.
-  - `strings.json` + `translations/`: every user-visible string.
-- Tests: `pip install -r requirements_test.txt && pytest tests/ -v`
+```bash
+pip install -r requirements_test.txt
+pytest tests/ -v
+```
 
----
+| Path | What it holds |
+|---|---|
+| `__init__.py` | Setup and the HTTP endpoints |
+| `models.py` | `PwsDevice` and the shared runtime |
+| `entity.py` | Base entity: naming, availability, state writing |
+| `sensor.py` `binary_sensor.py` `number.py` `button.py` | The four platforms |
+| `registry.py` | Rebuilding entities from the registries on startup |
+| `migration.py` `repairs.py` | The two opt-in migrations |
+| `instructions.py` | The setup instructions, worked out for this instance |
+| `normalizer.py` | Value parsing, battery scaling, wind offset |
+| `const.py` | `DOMAIN` and `SENSOR_LIST` |
+| `strings.json` + `translations/` | Every user-visible string |
 
-## Contributing
-
-Contributions are welcome!
-
-Please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or submitting a pull request.
+See [CONTRIBUTING.md](CONTRIBUTING.md) — in particular for adding a sensor or
+improving a translation, neither of which is edited by hand.
 
 ---
 
 ## License
-![License](https://img.shields.io/badge/license-Public%20Domain-blue)
-<br>
-This software is released into the **public domain** under the [Unlicense](https://unlicense.org):
+
+Released into the **public domain** under the [Unlicense](https://unlicense.org).

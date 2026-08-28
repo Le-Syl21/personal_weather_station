@@ -48,6 +48,13 @@ Example:
 }
 ```
 
+## Documentation
+
+The readme exists in two languages, linked to each other by the flag index at the
+top: [`readme.md`](readme.md) in English and
+[`docs/readme.fr.md`](docs/readme.fr.md) in French. **A change to one belongs in
+the other**, or the flag stops meaning what it says. English is the reference.
+
 ## Translations
 
 Every user-visible string lives in `custom_components/personal_weather_station/strings.json`,

@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "1. solis no 5 — jūsu stacija",
+        "description": "{image}\n\nJūsu meteoroloģiskā stacija pati izveido savas ierīces un sensorus, tāpēc šeit nav nekā ko pievienot. Tālāk ir tas, kas jāievada stacijas lietotnē.\n\nAtveriet lietotni, pārbaudiet, vai stacijas aparātprogrammatūra ir aktuāla, un atveriet tās iestatījumus."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "2. solis no 5 — laika ziņu pakalpojums",
+        "description": "{image}\n\nIzvēlieties **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "3. solis no 5 — cits serveris",
+        "description": "{image}\n\nIzvēlieties **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "4. solis no 5 — servera iestatījumi",
+        "description": "{image}\n\nAizpildiet veidlapu un nospiediet **Save**.\n\n**URL**\n{urls}\nBez `http://` un bez `https://`. Izmantojiet adresi, ko jūsu stacija var sasniegt jūsu pašu tīklā — nav nekāda iemesla tāpēc pakļaut Home Assistant internetam. Ja stacija neatrisina nosaukumus, ierakstiet IP adresi.\n\n**Station ID** — ko vien vēlaties. Tas kļūs par ierīces nosaukumu Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minūte ir laba vērtība.\n\n**API type** — *WSLink API*. *WUnderground API* izvēlieties tikai tad, ja jūsu stacija nepiedāvā WSLink: tas pārnes uz pusi mazāk rādījumu un tikai četrus kanālus.\n\n**Upload** — atstājiet ieslēgtu.\n\n> ⏱️ Dažas stacijas zaudē Wi-Fi, ja šajā ekrānā kavējaties. Turiet adresi pa rokai, ievadiet to un saglabājiet."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "5. solis no 5 — confirm & exit",
+        "description": "{image}\n\nDodieties atpakaļ un nospiediet **Confirm & Exit**.\n\n> ⚠️ **Tieši Confirm & Exit ieraksta iestatījumus stacijā.** Saglabāšana vien neko nemaina.\n\nKad tas izdarīts, nospiediet Tālāk."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Jūsu stacija sarunājas ar Home Assistant",
+        "description": "**{station}** tikko nosūtīja savu pirmo sūtījumu.\n\nTās sensori parādīsies ar nākamo un tiek izveidoti no tā, ko stacija patiešām sūta — šeit nav nekā ko izvēlēties."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Vēl nekas nav pienācis",
+        "description": "Pēdējās {minutes} minūtēs neviena stacija nav neko nosūtījusi.{key_hint_extra}\n\nParastie iemesli ir adrese, ko stacija nevar sasniegt, nenospiests **Confirm & Exit**, vai aparātprogrammatūra no 3.02, kas prasa HTTPS.\n\nAdreses, uz kurām to virzīt:\n{urls}\nGalapunkti, kas gaida sūtījumus:\n{endpoints}\n\nNospiediet Tālāk, lai tomēr pabeigtu — iestatījumi tiek saglabāti, galapunkti patiešām sāk klausīties, un labojums atvedīs jūs atpakaļ šurp, līdz parādīsies kāda stacija."
       }
     },
     "abort": {
       "single_instance_allowed": "Jau konfigurēts. Viena vienīga instance apkalpo visas meteostacijas."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Gaida jūsu stacijas pirmo sūtījumu…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "1. solis no 5 — jūsu stacija",
+        "description": "{image}\n\nJūsu meteoroloģiskā stacija pati izveido savas ierīces un sensorus, tāpēc šeit nav nekā ko pievienot. Tālāk ir tas, kas jāievada stacijas lietotnē.\n\nAtveriet lietotni, pārbaudiet, vai stacijas aparātprogrammatūra ir aktuāla, un atveriet tās iestatījumus."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "2. solis no 5 — laika ziņu pakalpojums",
+        "description": "{image}\n\nIzvēlieties **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "3. solis no 5 — cits serveris",
+        "description": "{image}\n\nIzvēlieties **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "4. solis no 5 — servera iestatījumi",
+        "description": "{image}\n\nAizpildiet veidlapu un nospiediet **Save**.\n\n**URL**\n{urls}\nBez `http://` un bez `https://`. Izmantojiet adresi, ko jūsu stacija var sasniegt jūsu pašu tīklā — nav nekāda iemesla tāpēc pakļaut Home Assistant internetam. Ja stacija neatrisina nosaukumus, ierakstiet IP adresi.\n\n**Station ID** — ko vien vēlaties. Tas kļūs par ierīces nosaukumu Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minūte ir laba vērtība.\n\n**API type** — *WSLink API*. *WUnderground API* izvēlieties tikai tad, ja jūsu stacija nepiedāvā WSLink: tas pārnes uz pusi mazāk rādījumu un tikai četrus kanālus.\n\n**Upload** — atstājiet ieslēgtu.\n\n> ⏱️ Dažas stacijas zaudē Wi-Fi, ja šajā ekrānā kavējaties. Turiet adresi pa rokai, ievadiet to un saglabājiet."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "5. solis no 5 — confirm & exit",
+        "description": "{image}\n\nDodieties atpakaļ un nospiediet **Confirm & Exit**.\n\n> ⚠️ **Tieši Confirm & Exit ieraksta iestatījumus stacijā.** Saglabāšana vien neko nemaina.\n\nKad tas izdarīts, nospiediet Tālāk."
       }
     }
   },

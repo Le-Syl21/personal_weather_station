@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Шаг 1 из 5 — ваша станция",
+        "description": "{image}\n\nВаша метеостанция сама создаёт свои устройства и датчики, так что здесь добавлять нечего. Дальше — то, что нужно ввести в приложении станции.\n\nОткройте приложение, убедитесь, что прошивка станции актуальна, и откройте её настройки."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Шаг 2 из 5 — метеослужба",
+        "description": "{image}\n\nВыберите **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Шаг 3 из 5 — другой сервер",
+        "description": "{image}\n\nВыберите **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Шаг 4 из 5 — настройки сервера",
+        "description": "{image}\n\nЗаполните форму и нажмите **Save**.\n\n**URL**\n{urls}\nБез `http://` и без `https://`. Используйте адрес, до которого станция дотянется в вашей собственной сети — нет никакой причины ради этого выставлять Home Assistant в интернет. Если станция не разрешает имена, укажите IP-адрес.\n\n**Station ID** — что угодно. Это станет именем устройства в Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 минута — хорошее значение.\n\n**API type** — *WSLink API*. Выбирайте *WUnderground API* только если ваша станция не предлагает WSLink: он передаёт вдвое меньше показаний и всего четыре канала.\n\n**Upload** — оставьте включённым.\n\n> ⏱️ Некоторые станции теряют Wi-Fi, если задержаться на этом экране. Держите адрес под рукой, введите его и сохраните."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Шаг 5 из 5 — confirm & exit",
+        "description": "{image}\n\nВернитесь назад и нажмите **Confirm & Exit**.\n\n> ⚠️ **Именно Confirm & Exit записывает настройки в станцию.** Одно сохранение ничего не меняет.\n\nНажмите «Далее», как только сделаете это."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Ваша станция говорит с Home Assistant",
+        "description": "**{station}** только что отправила первую передачу.\n\nЕё датчики появятся при следующей и создаются из того, что станция действительно шлёт — выбирать здесь нечего."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Пока ничего не пришло",
+        "description": "За последние {minutes} минут ни одна станция ничего не отправила.{key_hint_extra}\n\nОбычные причины — адрес, до которого станция не дотягивается, ненажатый **Confirm & Exit**, или прошивка начиная с 3.02, которая требует HTTPS.\n\nАдреса, на которые её направить:\n{urls}\nТочки, ожидающие передач:\n{endpoints}\n\nНажмите «Далее», чтобы всё же завершить — настройка сохраняется, точки действительно начинают слушать, а исправление вернёт вас сюда, пока станция не появится."
       }
     },
     "abort": {
       "single_instance_allowed": "Уже настроено. Один экземпляр обслуживает все метеостанции."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Ожидание первой передачи вашей станции…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Шаг 1 из 5 — ваша станция",
+        "description": "{image}\n\nВаша метеостанция сама создаёт свои устройства и датчики, так что здесь добавлять нечего. Дальше — то, что нужно ввести в приложении станции.\n\nОткройте приложение, убедитесь, что прошивка станции актуальна, и откройте её настройки."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Шаг 2 из 5 — метеослужба",
+        "description": "{image}\n\nВыберите **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Шаг 3 из 5 — другой сервер",
+        "description": "{image}\n\nВыберите **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Шаг 4 из 5 — настройки сервера",
+        "description": "{image}\n\nЗаполните форму и нажмите **Save**.\n\n**URL**\n{urls}\nБез `http://` и без `https://`. Используйте адрес, до которого станция дотянется в вашей собственной сети — нет никакой причины ради этого выставлять Home Assistant в интернет. Если станция не разрешает имена, укажите IP-адрес.\n\n**Station ID** — что угодно. Это станет именем устройства в Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 минута — хорошее значение.\n\n**API type** — *WSLink API*. Выбирайте *WUnderground API* только если ваша станция не предлагает WSLink: он передаёт вдвое меньше показаний и всего четыре канала.\n\n**Upload** — оставьте включённым.\n\n> ⏱️ Некоторые станции теряют Wi-Fi, если задержаться на этом экране. Держите адрес под рукой, введите его и сохраните."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Шаг 5 из 5 — confirm & exit",
+        "description": "{image}\n\nВернитесь назад и нажмите **Confirm & Exit**.\n\n> ⚠️ **Именно Confirm & Exit записывает настройки в станцию.** Одно сохранение ничего не меняет.\n\nНажмите «Далее», как только сделаете это."
       }
     }
   },

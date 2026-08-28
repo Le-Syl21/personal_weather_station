@@ -144,6 +144,21 @@
     "issues::legacy_status_sensors::fix_flow::step::confirm::title": "バイナリセンサーに変換する",
     "issues::legacy_status_sensors::fix_flow::step::confirm::description": "接続状態と漏水状態は 1 または 0 として送られます。バージョン 1.0.8 までは数値センサーとして表示されており（例：`{example}`）、Home Assistant の標準的な漏水カードやアラートでは使えませんでした。新しい観測所では、**濡れ / 乾燥** と **接続済み / 切断** を表示するバイナリセンサーになります。\n\n**{count} 個のエンティティ**を変換できます。電池残量は影響を受けません。パーセント表示のままで、電池残量低下の通知はそれを使います。\n\nプラットフォームの変更は名前の変更ではないため、古いエンティティは削除され `binary_sensor` として作り直されます。**記録された履歴は失われます。** これらの値には長期統計がないため、影響を受けるのは生の履歴だけです。また、**それらを参照しているオートメーション、スクリプト、シーン、ダッシュボードは更新が必要です。** 新しいエンティティは観測所の次の送信時に現れます。\n\nそのままにしておきたい場合は、この修復を無視してください。",
     "issues::unknown_parameters::title": "ステーション {station} が破棄されている測定値を送信しています",
-    "issues::unknown_parameters::description": "**{station}** からの **{count} 個のパラメーター** は認識できないため、送信のたびにその値は破棄されています:\n\n{parameters}\n\nよくある原因は、ステーションがプロトコルの運べる量を超えて報告していることです。Weather Underground には追加センサー用の枠が **4 つ** しかありません。お使いのステーションが *API type* として **WSLink** を提供している場合、そちらに切り替えると 7 チャンネルと、およそ 2 倍の測定値が利用できるようになります。\n\n原因がそれでない場合、これらのパラメーター名こそが不具合報告に必要なものです。[イシュートラッカー]({issue_tracker}) で報告していただければ、追加できます。\n\n無視してもかまいません。壊れているものはなく、これらの値が届かないというだけです。"
+    "issues::unknown_parameters::description": "**{station}** からの **{count} 個のパラメーター** は認識できないため、送信のたびにその値は破棄されています:\n\n{parameters}\n\nよくある原因は、ステーションがプロトコルの運べる量を超えて報告していることです。Weather Underground には追加センサー用の枠が **4 つ** しかありません。お使いのステーションが *API type* として **WSLink** を提供している場合、そちらに切り替えると 7 チャンネルと、およそ 2 倍の測定値が利用できるようになります。\n\n原因がそれでない場合、これらのパラメーター名こそが不具合報告に必要なものです。[イシュートラッカー]({issue_tracker}) で報告していただければ、追加できます。\n\n無視してもかまいません。壊れているものはなく、これらの値が届かないというだけです。",
+    "config::step::station::title": "ステップ 1/5 — お使いのステーション",
+    "config::step::station::description": "{image}\n\n気象ステーションが自分で機器とセンサーを作成するため、こちら側で追加するものはありません。以下は、ステーションのアプリに入力する内容です。\n\nアプリを開き、ステーションのファームウェアが最新であることを確認してから、その設定を開いてください。",
+    "config::step::settings::title": "ステップ 2/5 — 気象サービス",
+    "config::step::settings::description": "{image}\n\n**Weather server** を選びます。",
+    "config::step::server::title": "ステップ 3/5 — その他のサーバー",
+    "config::step::server::description": "{image}\n\n**Other Server** を選びます。",
+    "config::step::form::title": "ステップ 4/5 — サーバー設定",
+    "config::step::form::description": "{image}\n\nフォームに入力し、**Save** を押します。\n\n**URL**\n{urls}\n`http://` も `https://` も付けません。ご自宅のネットワーク内でステーションから到達できるアドレスを使ってください。このために Home Assistant をインターネットへ公開する理由はありません。ステーションが名前を解決できない場合は IP アドレスを入れてください。\n\n**Station ID** — お好きなもので構いません。これが Home Assistant での機器名になります。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分が手頃な値です。\n\n**API type** — *WSLink API*。*WUnderground API* は、お使いのステーションが WSLink を提供していない場合にのみ選んでください。測定値は半分、チャンネルは 4 つだけです。\n\n**Upload** — 有効のままにします。\n\n> ⏱️ この画面に長く留まると Wi-Fi が切れるステーションがあります。アドレスを手元に用意し、一気に入力して保存してください。",
+    "config::step::confirm::title": "ステップ 5/5 — confirm & exit",
+    "config::step::confirm::description": "{image}\n\n戻ってから **Confirm & Exit** を押します。\n\n> ⚠️ **設定をステーションに書き込むのは Confirm & Exit です。** 保存だけでは何も変わりません。\n\n押し終えたら「次へ」を押してください。",
+    "config::step::received::title": "ステーションが Home Assistant と通信しています",
+    "config::step::received::description": "**{station}** が最初の送信を行いました。\n\nセンサーは次の送信で現れ、ステーションが実際に送ってくる内容から作成されます。ここで選ぶものはありません。",
+    "config::step::timeout::title": "まだ何も届いていません",
+    "config::step::timeout::description": "この {minutes} 分の間、どのステーションからも送信がありません。{key_hint_extra}\n\nよくある原因は、ステーションから届かないアドレス、**Confirm & Exit** の押し忘れ、または HTTPS を要求する 3.02 以降のファームウェアです。\n\n向ける先のアドレス:\n{urls}\n送信を待ち受けているエンドポイント:\n{endpoints}\n\n「次へ」を押せばこのまま完了できます。設定は保持され、エンドポイントが実際に待ち受けを始め、ステーションが現れるまで修復項目がここへ連れ戻します。",
+    "config::progress::waiting_for_station": "ステーションからの最初の送信を待っています…"
   }
 }

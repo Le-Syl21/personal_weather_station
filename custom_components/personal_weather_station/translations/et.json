@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Samm 1/5 — teie jaam",
+        "description": "{image}\n\nTeie ilmajaam loob oma seadmed ja andurid ise, nii et siin pole midagi lisada. Järgnev on see, mis tuleb sisestada jaama rakendusse.\n\nAvage rakendus, veenduge, et jaama püsivara on ajakohane, ja avage selle seaded."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Samm 2/5 — ilmateenus",
+        "description": "{image}\n\nValige **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Samm 3/5 — muu server",
+        "description": "{image}\n\nValige **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Samm 4/5 — serveri seaded",
+        "description": "{image}\n\nTäitke vorm ja vajutage **Save**.\n\n**URL**\n{urls}\nIlma `http://` ja `https://` eesliiteta. Kasutage aadressi, milleni jaam teie enda võrgus ulatub — pole mingit põhjust Home Assistanti selleks internetti avada. Kui jaam nimesid ei lahenda, kasutage IP-aadressi.\n\n**Station ID** — mida iganes soovite. Sellest saab seadme nimi Home Assistantis.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minut on hea väärtus.\n\n**API type** — *WSLink API*. Valige *WUnderground API* ainult siis, kui teie jaam WSLinki ei paku: see kannab poole vähem näite ja ainult neli kanalit.\n\n**Upload** — jätke sisse lülitatuks.\n\n> ⏱️ Mõned jaamad kaotavad Wi-Fi, kui sellel ekraanil viivitada. Hoidke aadress käepärast, sisestage see ja salvestage."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Samm 5/5 — confirm & exit",
+        "description": "{image}\n\nMinge tagasi ja vajutage **Confirm & Exit**.\n\n> ⚠️ **Just Confirm & Exit kirjutab seaded jaama.** Ainuüksi salvestamine ei muuda midagi.\n\nKui olete seda teinud, vajutage Edasi."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Teie jaam räägib Home Assistantiga",
+        "description": "**{station}** saatis just oma esimese saadetise.\n\nSelle andurid ilmuvad järgmisega ja luuakse sellest, mida jaam tegelikult saadab — siin pole midagi valida."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Midagi pole veel saabunud",
+        "description": "Viimase {minutes} minuti jooksul pole ükski jaam midagi saatnud.{key_hint_extra}\n\nTavalised põhjused on aadress, milleni jaam ei ulatu, vajutamata **Confirm & Exit**, või püsivara alates versioonist 3.02, mis nõuab HTTPS-i.\n\nAadressid, kuhu see suunata:\n{urls}\nSaadetisi kuulavad lõpp-punktid:\n{endpoints}\n\nVajutage Edasi, et sellegipoolest lõpetada — seadistus säilib, lõpp-punktid hakkavad tõesti kuulama ja parandus toob teid siia tagasi, kuni mõni jaam ilmub."
       }
     },
     "abort": {
       "single_instance_allowed": "Juba seadistatud. Üksainus eksemplar teenindab kõiki ilmajaamu."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Ootan teie jaama esimest saadetist…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Samm 1/5 — teie jaam",
+        "description": "{image}\n\nTeie ilmajaam loob oma seadmed ja andurid ise, nii et siin pole midagi lisada. Järgnev on see, mis tuleb sisestada jaama rakendusse.\n\nAvage rakendus, veenduge, et jaama püsivara on ajakohane, ja avage selle seaded."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Samm 2/5 — ilmateenus",
+        "description": "{image}\n\nValige **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Samm 3/5 — muu server",
+        "description": "{image}\n\nValige **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Samm 4/5 — serveri seaded",
+        "description": "{image}\n\nTäitke vorm ja vajutage **Save**.\n\n**URL**\n{urls}\nIlma `http://` ja `https://` eesliiteta. Kasutage aadressi, milleni jaam teie enda võrgus ulatub — pole mingit põhjust Home Assistanti selleks internetti avada. Kui jaam nimesid ei lahenda, kasutage IP-aadressi.\n\n**Station ID** — mida iganes soovite. Sellest saab seadme nimi Home Assistantis.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minut on hea väärtus.\n\n**API type** — *WSLink API*. Valige *WUnderground API* ainult siis, kui teie jaam WSLinki ei paku: see kannab poole vähem näite ja ainult neli kanalit.\n\n**Upload** — jätke sisse lülitatuks.\n\n> ⏱️ Mõned jaamad kaotavad Wi-Fi, kui sellel ekraanil viivitada. Hoidke aadress käepärast, sisestage see ja salvestage."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Samm 5/5 — confirm & exit",
+        "description": "{image}\n\nMinge tagasi ja vajutage **Confirm & Exit**.\n\n> ⚠️ **Just Confirm & Exit kirjutab seaded jaama.** Ainuüksi salvestamine ei muuda midagi.\n\nKui olete seda teinud, vajutage Edasi."
       }
     }
   },

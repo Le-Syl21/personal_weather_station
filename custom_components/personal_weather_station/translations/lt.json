@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "1 žingsnis iš 5 — jūsų stotis",
+        "description": "{image}\n\nJūsų orų stotis pati sukuria savo įrenginius ir jutiklius, tad čia nėra ko pridėti. Toliau nurodyta tai, ką reikia įvesti stoties programėlėje.\n\nAtverkite programėlę, patikrinkite, ar stoties programinė aparatinė įranga atnaujinta, ir atverkite jos nustatymus."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "2 žingsnis iš 5 — orų paslauga",
+        "description": "{image}\n\nPasirinkite **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "3 žingsnis iš 5 — kitas serveris",
+        "description": "{image}\n\nPasirinkite **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "4 žingsnis iš 5 — serverio nustatymai",
+        "description": "{image}\n\nUžpildykite formą ir paspauskite **Save**.\n\n**URL**\n{urls}\nBe `http://` ir be `https://`. Naudokite adresą, kurį jūsų stotis pasiekia jūsų pačių tinkle — nėra jokios priežasties dėl to atverti Home Assistant internetui. Jei stotis neišsprendžia vardų, įrašykite IP adresą.\n\n**Station ID** — ką tik norite. Tai taps įrenginio pavadinimu Home Assistant sistemoje.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minutė yra gera reikšmė.\n\n**API type** — *WSLink API*. *WUnderground API* rinkitės tik tuo atveju, jei jūsų stotis nesiūlo WSLink: jis perneša dvigubai mažiau rodmenų ir tik keturis kanalus.\n\n**Upload** — palikite įjungtą.\n\n> ⏱️ Kai kurios stotys praranda Wi-Fi, jei užsibūnate šiame ekrane. Turėkite adresą po ranka, įrašykite jį ir įrašykite nustatymus."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "5 žingsnis iš 5 — confirm & exit",
+        "description": "{image}\n\nGrįžkite atgal ir paspauskite **Confirm & Exit**.\n\n> ⚠️ **Būtent Confirm & Exit įrašo nustatymus į stotį.** Vien išsaugojimas nieko nekeičia.\n\nKai tai padarysite, spauskite Toliau."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Jūsų stotis kalbasi su Home Assistant",
+        "description": "**{station}** ką tik atsiuntė pirmąją siuntą.\n\nJos jutikliai pasirodys su kita ir sukuriami iš to, ką stotis iš tikrųjų siunčia — čia nėra ko rinktis."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Kol kas nieko neatkeliavo",
+        "description": "Per pastarąsias {minutes} minutes nė viena stotis nieko neatsiuntė.{key_hint_extra}\n\nĮprastos priežastys – adresas, kurio stotis nepasiekia, nepaspaustas **Confirm & Exit**, arba 3.02 ir naujesnė programinė įranga, reikalaujanti HTTPS.\n\nAdresai, į kuriuos ją nukreipti:\n{urls}\nGaliniai taškai, laukiantys siuntų:\n{endpoints}\n\nSpauskite Toliau, kad vis dėlto užbaigtumėte — sąranka išsaugoma, galiniai taškai iš tikrųjų pradeda klausytis, o taisymas grąžins jus čia, kol pasirodys kokia nors stotis."
       }
     },
     "abort": {
       "single_instance_allowed": "Jau sukonfigūruota. Vienas egzempliorius aptarnauja visas meteorologijos stotis."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Laukiama pirmosios jūsų stoties siuntos…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "1 žingsnis iš 5 — jūsų stotis",
+        "description": "{image}\n\nJūsų orų stotis pati sukuria savo įrenginius ir jutiklius, tad čia nėra ko pridėti. Toliau nurodyta tai, ką reikia įvesti stoties programėlėje.\n\nAtverkite programėlę, patikrinkite, ar stoties programinė aparatinė įranga atnaujinta, ir atverkite jos nustatymus."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "2 žingsnis iš 5 — orų paslauga",
+        "description": "{image}\n\nPasirinkite **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "3 žingsnis iš 5 — kitas serveris",
+        "description": "{image}\n\nPasirinkite **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "4 žingsnis iš 5 — serverio nustatymai",
+        "description": "{image}\n\nUžpildykite formą ir paspauskite **Save**.\n\n**URL**\n{urls}\nBe `http://` ir be `https://`. Naudokite adresą, kurį jūsų stotis pasiekia jūsų pačių tinkle — nėra jokios priežasties dėl to atverti Home Assistant internetui. Jei stotis neišsprendžia vardų, įrašykite IP adresą.\n\n**Station ID** — ką tik norite. Tai taps įrenginio pavadinimu Home Assistant sistemoje.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minutė yra gera reikšmė.\n\n**API type** — *WSLink API*. *WUnderground API* rinkitės tik tuo atveju, jei jūsų stotis nesiūlo WSLink: jis perneša dvigubai mažiau rodmenų ir tik keturis kanalus.\n\n**Upload** — palikite įjungtą.\n\n> ⏱️ Kai kurios stotys praranda Wi-Fi, jei užsibūnate šiame ekrane. Turėkite adresą po ranka, įrašykite jį ir įrašykite nustatymus."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "5 žingsnis iš 5 — confirm & exit",
+        "description": "{image}\n\nGrįžkite atgal ir paspauskite **Confirm & Exit**.\n\n> ⚠️ **Būtent Confirm & Exit įrašo nustatymus į stotį.** Vien išsaugojimas nieko nekeičia.\n\nKai tai padarysite, spauskite Toliau."
       }
     }
   },

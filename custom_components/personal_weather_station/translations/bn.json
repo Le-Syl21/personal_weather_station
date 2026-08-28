@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "ধাপ ১/৫ — আপনার স্টেশন",
+        "description": "{image}\n\nআপনার আবহাওয়া স্টেশন নিজেই তার ডিভাইস ও সেন্সর তৈরি করে, তাই এদিকে যোগ করার কিছু নেই। নিচে যা আছে তা স্টেশনের অ্যাপে লিখতে হবে।\n\nঅ্যাপটি খুলুন, স্টেশনের ফার্মওয়্যার হালনাগাদ কি না দেখে নিন, তারপর তার সেটিংস খুলুন।"
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "ধাপ ২/৫ — আবহাওয়া পরিষেবা",
+        "description": "{image}\n\n**Weather server** বেছে নিন।"
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "ধাপ ৩/৫ — অন্য সার্ভার",
+        "description": "{image}\n\n**Other Server** বেছে নিন।"
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "ধাপ ৪/৫ — সার্ভার সেটিংস",
+        "description": "{image}\n\nফর্মটি পূরণ করে **Save** চাপুন।\n\n**URL**\n{urls}\n`http://` বা `https://` ছাড়া। এমন একটি ঠিকানা দিন যেটিতে আপনার স্টেশন আপনার নিজের নেটওয়ার্কেই পৌঁছাতে পারে — এর জন্য Home Assistant-কে ইন্টারনেটে খুলে দেওয়ার কোনো কারণ নেই। স্টেশন নাম রেজলভ করতে না পারলে IP ঠিকানা দিন।\n\n**Station ID** — আপনার যা ইচ্ছা। এটিই Home Assistant-এ ডিভাইসের নাম হবে।\n\n**Station key** — {key_hint}।\n\n**Upload interval** — ১ মিনিট ভালো মান।\n\n**API type** — *WSLink API*। আপনার স্টেশন WSLink না দিলে তবেই *WUnderground API* বেছে নিন: এটি অর্ধেক পাঠ ও কেবল চারটি চ্যানেল বহন করে।\n\n**Upload** — চালু রাখুন।\n\n> ⏱️ এই পর্দায় বেশি সময় থাকলে কিছু স্টেশন ওয়াই-ফাই হারায়। ঠিকানাটি হাতের কাছে রাখুন, লিখুন এবং সেভ করুন।"
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "ধাপ ৫/৫ — confirm & exit",
+        "description": "{image}\n\nপেছনে ফিরে **Confirm & Exit** চাপুন।\n\n> ⚠️ **সেটিংস স্টেশনে লেখে Confirm & Exit-ই।** শুধু সেভ করলে কিছুই বদলায় না।\n\nকরা হয়ে গেলে পরবর্তী চাপুন।"
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "আপনার স্টেশন Home Assistant-এর সঙ্গে কথা বলছে",
+        "description": "**{station}** এইমাত্র তার প্রথম আপলোড পাঠিয়েছে।\n\nপরেরটিতে এর সেন্সরগুলি দেখা যাবে, এবং স্টেশন আসলে যা পাঠায় তা থেকেই সেগুলি তৈরি হয় — এখানে বেছে নেওয়ার কিছু নেই।"
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "এখনও কিছু আসেনি",
+        "description": "গত {minutes} মিনিটে কোনো স্টেশন কিছু পাঠায়নি।{key_hint_extra}\n\nসাধারণ কারণ হল স্টেশন পৌঁছাতে পারে না এমন ঠিকানা, **Confirm & Exit** না চাপা, অথবা ৩.০২ বা তার পরের ফার্মওয়্যার, যা HTTPS দাবি করে।\n\nযেসব ঠিকানায় একে পাঠাতে হবে:\n{urls}\nযেসব প্রান্তবিন্দু আপলোডের জন্য অপেক্ষা করছে:\n{endpoints}\n\nতবুও শেষ করতে পরবর্তী চাপুন — কনফিগারেশন রাখা হবে, প্রান্তবিন্দুগুলি সত্যিই শুনতে শুরু করবে, এবং কোনো স্টেশন না আসা পর্যন্ত একটি মেরামত আপনাকে এখানে ফিরিয়ে আনবে।"
       }
     },
     "abort": {
       "single_instance_allowed": "ইতিমধ্যে কনফিগার করা হয়েছে। একটি মাত্র ইনস্ট্যান্স সব আবহাওয়া কেন্দ্রকে সেবা দেয়।"
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "আপনার স্টেশনের প্রথম আপলোডের অপেক্ষায়…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "ধাপ ১/৫ — আপনার স্টেশন",
+        "description": "{image}\n\nআপনার আবহাওয়া স্টেশন নিজেই তার ডিভাইস ও সেন্সর তৈরি করে, তাই এদিকে যোগ করার কিছু নেই। নিচে যা আছে তা স্টেশনের অ্যাপে লিখতে হবে।\n\nঅ্যাপটি খুলুন, স্টেশনের ফার্মওয়্যার হালনাগাদ কি না দেখে নিন, তারপর তার সেটিংস খুলুন।"
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "ধাপ ২/৫ — আবহাওয়া পরিষেবা",
+        "description": "{image}\n\n**Weather server** বেছে নিন।"
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "ধাপ ৩/৫ — অন্য সার্ভার",
+        "description": "{image}\n\n**Other Server** বেছে নিন।"
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "ধাপ ৪/৫ — সার্ভার সেটিংস",
+        "description": "{image}\n\nফর্মটি পূরণ করে **Save** চাপুন।\n\n**URL**\n{urls}\n`http://` বা `https://` ছাড়া। এমন একটি ঠিকানা দিন যেটিতে আপনার স্টেশন আপনার নিজের নেটওয়ার্কেই পৌঁছাতে পারে — এর জন্য Home Assistant-কে ইন্টারনেটে খুলে দেওয়ার কোনো কারণ নেই। স্টেশন নাম রেজলভ করতে না পারলে IP ঠিকানা দিন।\n\n**Station ID** — আপনার যা ইচ্ছা। এটিই Home Assistant-এ ডিভাইসের নাম হবে।\n\n**Station key** — {key_hint}।\n\n**Upload interval** — ১ মিনিট ভালো মান।\n\n**API type** — *WSLink API*। আপনার স্টেশন WSLink না দিলে তবেই *WUnderground API* বেছে নিন: এটি অর্ধেক পাঠ ও কেবল চারটি চ্যানেল বহন করে।\n\n**Upload** — চালু রাখুন।\n\n> ⏱️ এই পর্দায় বেশি সময় থাকলে কিছু স্টেশন ওয়াই-ফাই হারায়। ঠিকানাটি হাতের কাছে রাখুন, লিখুন এবং সেভ করুন।"
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "ধাপ ৫/৫ — confirm & exit",
+        "description": "{image}\n\nপেছনে ফিরে **Confirm & Exit** চাপুন।\n\n> ⚠️ **সেটিংস স্টেশনে লেখে Confirm & Exit-ই।** শুধু সেভ করলে কিছুই বদলায় না।\n\nকরা হয়ে গেলে পরবর্তী চাপুন।"
       }
     }
   },

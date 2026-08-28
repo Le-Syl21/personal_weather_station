@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "שלב 1 מתוך 5 — התחנה שלך",
+        "description": "{image}\n\nתחנת מזג האוויר שלך יוצרת בעצמה את המכשירים והחיישנים שלה, ולכן אין כאן מה להוסיף. מה שלהלן הוא מה שיש להקליד באפליקציה של התחנה.\n\nפתחו את האפליקציה, ודאו שקושחת התחנה מעודכנת, ואז פתחו את ההגדרות שלה."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "שלב 2 מתוך 5 — שירות מזג אוויר",
+        "description": "{image}\n\nבחרו **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "שלב 3 מתוך 5 — שרת אחר",
+        "description": "{image}\n\nבחרו **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "שלב 4 מתוך 5 — הגדרות השרת",
+        "description": "{image}\n\nמלאו את הטופס ואז לחצו **Save**.\n\n**URL**\n{urls}\nבלי `http://` ובלי `https://`. השתמשו בכתובת שהתחנה שלכם יכולה להגיע אליה ברשת שלכם — אין שום סיבה לחשוף את Home Assistant לאינטרנט בשביל זה. אם התחנה אינה מתרגמת שמות, הזינו את כתובת ה‑IP.\n\n**Station ID** — מה שתרצו. זה יהפוך לשם המכשיר ב‑Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — דקה אחת היא ערך טוב.\n\n**API type** — *WSLink API*. בחרו *WUnderground API* רק אם התחנה שלכם אינה מציעה WSLink: הוא נושא חצי מהמדידות ורק ארבעה ערוצים.\n\n**Upload** — השאירו מופעל.\n\n> ⏱️ תחנות מסוימות מאבדות את ה‑Wi‑Fi אם משתהים במסך הזה. החזיקו את הכתובת בהישג יד, מלאו אותה ושמרו."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "שלב 5 מתוך 5 — confirm & exit",
+        "description": "{image}\n\nחזרו אחורה ואז לחצו **Confirm & Exit**.\n\n> ⚠️ **‏Confirm & Exit הוא מה שכותב את ההגדרות אל התחנה.** שמירה לבדה אינה משנה דבר.\n\nלחצו על «הבא» ברגע שעשיתם זאת."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "התחנה שלך מדברת עם Home Assistant",
+        "description": "**{station}** בדיוק שלחה את המשלוח הראשון שלה.\n\nהחיישנים שלה יופיעו במשלוח הבא, והם נוצרים ממה שהתחנה באמת שולחת — אין כאן מה לבחור."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "עדיין לא הגיע דבר",
+        "description": "אף תחנה לא שלחה נתונים ב‑{minutes} הדקות האחרונות.{key_hint_extra}\n\nהסיבות הרגילות הן כתובת שהתחנה אינה מצליחה להגיע אליה, **Confirm & Exit** שלא נלחץ, או קושחה מגרסה 3.02 ואילך, הדורשת HTTPS.\n\nהכתובות שאליהן להפנות אותה הן:\n{urls}\nנקודות הקצה המאזינות למשלוחים הן:\n{endpoints}\n\nלחצו על «הבא» כדי לסיים בכל זאת — ההגדרה נשמרת, נקודות הקצה מתחילות באמת להאזין, ותיקון יחזיר אתכם לכאן עד שתופיע תחנה."
       }
     },
     "abort": {
       "single_instance_allowed": "כבר מוגדר. מופע יחיד משרת את כל תחנות מזג האוויר."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "ממתין למשלוח הראשון של התחנה שלך…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "שלב 1 מתוך 5 — התחנה שלך",
+        "description": "{image}\n\nתחנת מזג האוויר שלך יוצרת בעצמה את המכשירים והחיישנים שלה, ולכן אין כאן מה להוסיף. מה שלהלן הוא מה שיש להקליד באפליקציה של התחנה.\n\nפתחו את האפליקציה, ודאו שקושחת התחנה מעודכנת, ואז פתחו את ההגדרות שלה."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "שלב 2 מתוך 5 — שירות מזג אוויר",
+        "description": "{image}\n\nבחרו **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "שלב 3 מתוך 5 — שרת אחר",
+        "description": "{image}\n\nבחרו **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "שלב 4 מתוך 5 — הגדרות השרת",
+        "description": "{image}\n\nמלאו את הטופס ואז לחצו **Save**.\n\n**URL**\n{urls}\nבלי `http://` ובלי `https://`. השתמשו בכתובת שהתחנה שלכם יכולה להגיע אליה ברשת שלכם — אין שום סיבה לחשוף את Home Assistant לאינטרנט בשביל זה. אם התחנה אינה מתרגמת שמות, הזינו את כתובת ה‑IP.\n\n**Station ID** — מה שתרצו. זה יהפוך לשם המכשיר ב‑Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — דקה אחת היא ערך טוב.\n\n**API type** — *WSLink API*. בחרו *WUnderground API* רק אם התחנה שלכם אינה מציעה WSLink: הוא נושא חצי מהמדידות ורק ארבעה ערוצים.\n\n**Upload** — השאירו מופעל.\n\n> ⏱️ תחנות מסוימות מאבדות את ה‑Wi‑Fi אם משתהים במסך הזה. החזיקו את הכתובת בהישג יד, מלאו אותה ושמרו."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "שלב 5 מתוך 5 — confirm & exit",
+        "description": "{image}\n\nחזרו אחורה ואז לחצו **Confirm & Exit**.\n\n> ⚠️ **‏Confirm & Exit הוא מה שכותב את ההגדרות אל התחנה.** שמירה לבדה אינה משנה דבר.\n\nלחצו על «הבא» ברגע שעשיתם זאת."
       }
     }
   },

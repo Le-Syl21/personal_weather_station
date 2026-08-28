@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Քայլ 1՝ 5-ից — ձեր կայանը",
+        "description": "{image}\n\nՁեր օդերևութաբանական կայանն ինքն է ստեղծում իր սարքերն ու տվիչները, ուստի այստեղ ավելացնելու բան չկա։ Ստորև բերվածը պետք է մուտքագրվի կայանի հավելվածում։\n\nԲացեք հավելվածը, ստուգեք, որ կայանի որոնվածը թարմ է, ապա բացեք դրա կարգավորումները։"
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Քայլ 2՝ 5-ից — եղանակի ծառայություն",
+        "description": "{image}\n\nԸնտրեք **Weather server**։"
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Քայլ 3՝ 5-ից — այլ սերվեր",
+        "description": "{image}\n\nԸնտրեք **Other Server**։"
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Քայլ 4՝ 5-ից — սերվերի կարգավորումներ",
+        "description": "{image}\n\nԼրացրեք ձևը, ապա սեղմեք **Save**։\n\n**URL**\n{urls}\nԱռանց `http://`-ի և `https://`-ի։ Օգտագործեք հասցե, որին ձեր կայանը կարող է հասնել ձեր սեփական ցանցում․ դրա համար Home Assistant-ը համացանցին բացելու ոչ մի պատճառ չկա։ Եթե ձեր կայանը անուններ չի լուծում, նշեք IP հասցեն։\n\n**Station ID** — ինչ ուզում եք։ Դա կդառնա սարքի անունը Home Assistant-ում։\n\n**Station key** — {key_hint}։\n\n**Upload interval** — 1 րոպեն լավ արժեք է։\n\n**API type** — *WSLink API*։ *WUnderground API* ընտրեք միայն այն դեպքում, եթե ձեր կայանը WSLink չի առաջարկում․ այն կրում է կիսով չափ ցուցմունք և ընդամենը չորս ալիք։\n\n**Upload** — թողեք միացված։\n\n> ⏱️ Որոշ կայաններ կորցնում են Wi-Fi-ը, եթե այս էկրանին ուշանաք։ Հասցեն ձեռքի տակ ունեցեք, մուտքագրեք և պահպանեք։"
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Քայլ 5՝ 5-ից — confirm & exit",
+        "description": "{image}\n\nՎերադարձեք, ապա սեղմեք **Confirm & Exit**։\n\n> ⚠️ **Հենց Confirm & Exit-ն է կարգավորումները գրում կայանի մեջ։** Միայն պահպանելը ոչինչ չի փոխում։\n\nԵրբ դա արած լինեք, սեղմեք «Հաջորդ»։"
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Ձեր կայանը խոսում է Home Assistant-ի հետ",
+        "description": "**{station}**-ը հենց նոր ուղարկեց իր առաջին խմբաքանակը։\n\nԴրա տվիչները կհայտնվեն հաջորդի հետ և ստեղծվում են այն բանից, ինչ կայանն իրականում ուղարկում է․ այստեղ ընտրելու բան չկա։"
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Դեռ ոչինչ չի հասել",
+        "description": "Վերջին {minutes} րոպեում ոչ մի կայան ոչինչ չի ուղարկել։{key_hint_extra}\n\nՍովորական պատճառներն են՝ հասցե, որին կայանը չի հասնում, չսեղմված **Confirm & Exit**, կամ 3.02-ից սկսած որոնվածը, որը պահանջում է HTTPS։\n\nՀասցեները, որոնց ուղղել այն․\n{urls}\nՎերջնակետերը, որոնք սպասում են ուղարկումների․\n{endpoints}\n\nՍեղմեք «Հաջորդ»՝ այնուամենայնիվ ավարտելու համար․ կարգավորումը պահպանվում է, վերջնակետերն իսկապես սկսում են լսել, և վերանորոգումը ձեզ կվերադարձնի այստեղ, մինչև որևէ կայան հայտնվի։"
       }
     },
     "abort": {
       "single_instance_allowed": "Արդեն կարգավորված է։ Մեկ օրինակը սպասարկում է բոլոր օդերևութաբանական կայանները։"
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Սպասում ենք ձեր կայանի առաջին խմբաքանակին…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Քայլ 1՝ 5-ից — ձեր կայանը",
+        "description": "{image}\n\nՁեր օդերևութաբանական կայանն ինքն է ստեղծում իր սարքերն ու տվիչները, ուստի այստեղ ավելացնելու բան չկա։ Ստորև բերվածը պետք է մուտքագրվի կայանի հավելվածում։\n\nԲացեք հավելվածը, ստուգեք, որ կայանի որոնվածը թարմ է, ապա բացեք դրա կարգավորումները։"
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Քայլ 2՝ 5-ից — եղանակի ծառայություն",
+        "description": "{image}\n\nԸնտրեք **Weather server**։"
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Քայլ 3՝ 5-ից — այլ սերվեր",
+        "description": "{image}\n\nԸնտրեք **Other Server**։"
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Քայլ 4՝ 5-ից — սերվերի կարգավորումներ",
+        "description": "{image}\n\nԼրացրեք ձևը, ապա սեղմեք **Save**։\n\n**URL**\n{urls}\nԱռանց `http://`-ի և `https://`-ի։ Օգտագործեք հասցե, որին ձեր կայանը կարող է հասնել ձեր սեփական ցանցում․ դրա համար Home Assistant-ը համացանցին բացելու ոչ մի պատճառ չկա։ Եթե ձեր կայանը անուններ չի լուծում, նշեք IP հասցեն։\n\n**Station ID** — ինչ ուզում եք։ Դա կդառնա սարքի անունը Home Assistant-ում։\n\n**Station key** — {key_hint}։\n\n**Upload interval** — 1 րոպեն լավ արժեք է։\n\n**API type** — *WSLink API*։ *WUnderground API* ընտրեք միայն այն դեպքում, եթե ձեր կայանը WSLink չի առաջարկում․ այն կրում է կիսով չափ ցուցմունք և ընդամենը չորս ալիք։\n\n**Upload** — թողեք միացված։\n\n> ⏱️ Որոշ կայաններ կորցնում են Wi-Fi-ը, եթե այս էկրանին ուշանաք։ Հասցեն ձեռքի տակ ունեցեք, մուտքագրեք և պահպանեք։"
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Քայլ 5՝ 5-ից — confirm & exit",
+        "description": "{image}\n\nՎերադարձեք, ապա սեղմեք **Confirm & Exit**։\n\n> ⚠️ **Հենց Confirm & Exit-ն է կարգավորումները գրում կայանի մեջ։** Միայն պահպանելը ոչինչ չի փոխում։\n\nԵրբ դա արած լինեք, սեղմեք «Հաջորդ»։"
       }
     }
   },

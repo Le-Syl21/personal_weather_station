@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Чекор 1 од 5 — вашата станица",
+        "description": "{image}\n\nВашата метеоролошка станица сама ги создава своите уреди и сензори, па тука нема што да се додава. Она што следува е она што треба да се внесе во апликацијата на станицата.\n\nОтворете ја апликацијата, проверете дали фирмверот на станицата е ажуриран, па отворете ги нејзините поставки."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Чекор 2 од 5 — метеоролошка услуга",
+        "description": "{image}\n\nИзберете **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Чекор 3 од 5 — друг сервер",
+        "description": "{image}\n\nИзберете **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Чекор 4 од 5 — поставки на серверот",
+        "description": "{image}\n\nПополнете го образецот, па притиснете **Save**.\n\n**URL**\n{urls}\nБез `http://` и без `https://`. Користете адреса до која вашата станица може да допре на вашата мрежа — нема никаква причина за тоа да го изложувате Home Assistant на интернет. Ако станицата не разрешува имиња, впишете ја IP адресата.\n\n**Station ID** — што сакате. Тоа станува име на уредот во Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 минута е добра вредност.\n\n**API type** — *WSLink API*. Изберете *WUnderground API* само ако вашата станица не нуди WSLink: тој пренесува двојно помалку мерења и само четири канали.\n\n**Upload** — оставете вклучено.\n\n> ⏱️ Некои станици го губат Wi-Fi ако се задржите на овој екран. Држете ја адресата при рака, внесете ја и зачувајте."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Чекор 5 од 5 — confirm & exit",
+        "description": "{image}\n\nВратете се назад, па притиснете **Confirm & Exit**.\n\n> ⚠️ **Токму Confirm & Exit ги запишува поставките во станицата.** Само зачувувањето не менува ништо.\n\nПритиснете «Следно» штом го направите тоа."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Вашата станица зборува со Home Assistant",
+        "description": "**{station}** штотуку го испрати своето прво испраќање.\n\nНејзините сензори ќе се појават при следното и се создаваат од она што станицата навистина го испраќа — тука нема што да се избира."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Сè уште ништо не пристигнало",
+        "description": "Во последните {minutes} минути ниту една станица не испратила ништо.{key_hint_extra}\n\nВообичаени причини се адреса до која станицата не може да допре, непритиснат **Confirm & Exit**, или фирмвер од 3.02 наваму, кој бара HTTPS.\n\nАдресите кон кои да се насочи се:\n{urls}\nТочките што слушаат за испраќања се:\n{endpoints}\n\nПритиснете «Следно» за сепак да завршите — поставувањето се задржува, точките навистина почнуваат да слушаат, а поправка ќе ве врати овде додека не се појави станица."
       }
     },
     "abort": {
       "single_instance_allowed": "Веќе е конфигурирано. Една единствена инстанца ги опслужува сите метеоролошки станици."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Се чека првото испраќање од вашата станица…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Чекор 1 од 5 — вашата станица",
+        "description": "{image}\n\nВашата метеоролошка станица сама ги создава своите уреди и сензори, па тука нема што да се додава. Она што следува е она што треба да се внесе во апликацијата на станицата.\n\nОтворете ја апликацијата, проверете дали фирмверот на станицата е ажуриран, па отворете ги нејзините поставки."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Чекор 2 од 5 — метеоролошка услуга",
+        "description": "{image}\n\nИзберете **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Чекор 3 од 5 — друг сервер",
+        "description": "{image}\n\nИзберете **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Чекор 4 од 5 — поставки на серверот",
+        "description": "{image}\n\nПополнете го образецот, па притиснете **Save**.\n\n**URL**\n{urls}\nБез `http://` и без `https://`. Користете адреса до која вашата станица може да допре на вашата мрежа — нема никаква причина за тоа да го изложувате Home Assistant на интернет. Ако станицата не разрешува имиња, впишете ја IP адресата.\n\n**Station ID** — што сакате. Тоа станува име на уредот во Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 минута е добра вредност.\n\n**API type** — *WSLink API*. Изберете *WUnderground API* само ако вашата станица не нуди WSLink: тој пренесува двојно помалку мерења и само четири канали.\n\n**Upload** — оставете вклучено.\n\n> ⏱️ Некои станици го губат Wi-Fi ако се задржите на овој екран. Држете ја адресата при рака, внесете ја и зачувајте."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Чекор 5 од 5 — confirm & exit",
+        "description": "{image}\n\nВратете се назад, па притиснете **Confirm & Exit**.\n\n> ⚠️ **Токму Confirm & Exit ги запишува поставките во станицата.** Само зачувувањето не менува ништо.\n\nПритиснете «Следно» штом го направите тоа."
       }
     }
   },

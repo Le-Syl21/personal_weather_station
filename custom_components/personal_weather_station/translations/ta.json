@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "படி 1 / 5 — உங்கள் நிலையம்",
+        "description": "{image}\n\nஉங்கள் வானிலை நிலையமே தன் சாதனங்களையும் உணரிகளையும் உருவாக்குகிறது, எனவே இங்கே சேர்க்க எதுவும் இல்லை. கீழே உள்ளதைத்தான் நிலையத்தின் செயலியில் உள்ளிட வேண்டும்.\n\nசெயலியைத் திறந்து, நிலையத்தின் நிலைபொருள் புதுப்பிக்கப்பட்டுள்ளதா என்று பார்த்து, அதன் அமைப்புகளைத் திறங்கள்."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "படி 2 / 5 — வானிலை சேவை",
+        "description": "{image}\n\n**Weather server** ஐத் தேர்ந்தெடுங்கள்."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "படி 3 / 5 — வேறு சேவையகம்",
+        "description": "{image}\n\n**Other Server** ஐத் தேர்ந்தெடுங்கள்."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "படி 4 / 5 — சேவையக அமைப்புகள்",
+        "description": "{image}\n\nபடிவத்தை நிரப்பி, பிறகு **Save** ஐ அழுத்துங்கள்.\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்துங்கள் — இதற்காக Home Assistant ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. நிலையத்தால் பெயர்களைத் தீர்க்க முடியாவிட்டால், IP முகவரியைக் கொடுங்கள்.\n\n**Station ID** — உங்கள் விருப்பம். இதுவே Home Assistant இல் சாதனத்தின் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WSLink API*. உங்கள் நிலையம் WSLink வழங்காவிட்டால் மட்டுமே *WUnderground API* ஐத் தேர்ந்தெடுங்கள்: அது பாதி அளவீடுகளையும் நான்கு தடங்களையும் மட்டுமே சுமக்கும்.\n\n**Upload** — இயக்கத்திலேயே விடுங்கள்.\n\n> ⏱️ இந்தத் திரையில் தாமதித்தால் சில நிலையங்கள் Wi-Fi ஐ இழக்கும். முகவரியைக் கையில் வைத்துக்கொண்டு, நிரப்பி, சேமியுங்கள்."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "படி 5 / 5 — confirm & exit",
+        "description": "{image}\n\nபின்னால் சென்று, **Confirm & Exit** ஐ அழுத்துங்கள்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது.\n\nஅதைச் செய்தபின் «அடுத்து» ஐ அழுத்துங்கள்."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "உங்கள் நிலையம் Home Assistant உடன் பேசுகிறது",
+        "description": "**{station}** இப்போதுதான் தன் முதல் அனுப்புகையை அனுப்பியது.\n\nஅதன் உணரிகள் அடுத்ததில் தோன்றும், நிலையம் உண்மையில் அனுப்புவதிலிருந்தே அவை உருவாக்கப்படுகின்றன — இங்கே தேர்ந்தெடுக்க எதுவும் இல்லை."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "இன்னும் எதுவும் வரவில்லை",
+        "description": "கடந்த {minutes} நிமிடங்களில் எந்த நிலையமும் எதையும் அனுப்பவில்லை.{key_hint_extra}\n\nவழக்கமான காரணங்கள்: நிலையத்தால் அடைய முடியாத முகவரி, அழுத்தப்படாத **Confirm & Exit**, அல்லது HTTPS கோரும் 3.02 முதலான நிலைபொருள்.\n\nஅதை நோக்கிச் செலுத்த வேண்டிய முகவரிகள்:\n{urls}\nஅனுப்புகைகளுக்குக் காத்திருக்கும் இறுதிப்புள்ளிகள்:\n{endpoints}\n\nஇருப்பினும் முடிக்க «அடுத்து» ஐ அழுத்துங்கள் — அமைப்பு காக்கப்படும், இறுதிப்புள்ளிகள் உண்மையிலேயே கேட்கத் தொடங்கும், ஒரு நிலையம் தோன்றும் வரை ஒரு சீரமைப்பு உங்களை இங்கே திரும்பக் கொண்டுவரும்."
       }
     },
     "abort": {
       "single_instance_allowed": "ஏற்கனவே கட்டமைக்கப்பட்டுள்ளது. ஒரே நிகழ்வு அனைத்து வானிலை நிலையங்களுக்கும் சேவை செய்கிறது."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "உங்கள் நிலையத்தின் முதல் அனுப்புகைக்காகக் காத்திருக்கிறது…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "படி 1 / 5 — உங்கள் நிலையம்",
+        "description": "{image}\n\nஉங்கள் வானிலை நிலையமே தன் சாதனங்களையும் உணரிகளையும் உருவாக்குகிறது, எனவே இங்கே சேர்க்க எதுவும் இல்லை. கீழே உள்ளதைத்தான் நிலையத்தின் செயலியில் உள்ளிட வேண்டும்.\n\nசெயலியைத் திறந்து, நிலையத்தின் நிலைபொருள் புதுப்பிக்கப்பட்டுள்ளதா என்று பார்த்து, அதன் அமைப்புகளைத் திறங்கள்."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "படி 2 / 5 — வானிலை சேவை",
+        "description": "{image}\n\n**Weather server** ஐத் தேர்ந்தெடுங்கள்."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "படி 3 / 5 — வேறு சேவையகம்",
+        "description": "{image}\n\n**Other Server** ஐத் தேர்ந்தெடுங்கள்."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "படி 4 / 5 — சேவையக அமைப்புகள்",
+        "description": "{image}\n\nபடிவத்தை நிரப்பி, பிறகு **Save** ஐ அழுத்துங்கள்.\n\n**URL**\n{urls}\n`http://` அல்லது `https://` இல்லாமல். உங்கள் சொந்த வலையமைப்பில் நிலையம் அடையக்கூடிய முகவரியைப் பயன்படுத்துங்கள் — இதற்காக Home Assistant ஐ இணையத்திற்குத் திறந்துவிட எந்தக் காரணமும் இல்லை. நிலையத்தால் பெயர்களைத் தீர்க்க முடியாவிட்டால், IP முகவரியைக் கொடுங்கள்.\n\n**Station ID** — உங்கள் விருப்பம். இதுவே Home Assistant இல் சாதனத்தின் பெயராகும்.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 நிமிடம் நல்ல மதிப்பு.\n\n**API type** — *WSLink API*. உங்கள் நிலையம் WSLink வழங்காவிட்டால் மட்டுமே *WUnderground API* ஐத் தேர்ந்தெடுங்கள்: அது பாதி அளவீடுகளையும் நான்கு தடங்களையும் மட்டுமே சுமக்கும்.\n\n**Upload** — இயக்கத்திலேயே விடுங்கள்.\n\n> ⏱️ இந்தத் திரையில் தாமதித்தால் சில நிலையங்கள் Wi-Fi ஐ இழக்கும். முகவரியைக் கையில் வைத்துக்கொண்டு, நிரப்பி, சேமியுங்கள்."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "படி 5 / 5 — confirm & exit",
+        "description": "{image}\n\nபின்னால் சென்று, **Confirm & Exit** ஐ அழுத்துங்கள்.\n\n> ⚠️ **அமைப்புகளை நிலையத்தில் எழுதுவது Confirm & Exit தான்.** சேமிப்பது மட்டும் எதையும் மாற்றாது.\n\nஅதைச் செய்தபின் «அடுத்து» ஐ அழுத்துங்கள்."
       }
     }
   },

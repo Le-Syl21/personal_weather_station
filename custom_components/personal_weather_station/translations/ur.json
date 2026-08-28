@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "مرحلہ 1 از 5 — آپ کا اسٹیشن",
+        "description": "{image}\n\nآپ کا موسمیاتی اسٹیشن اپنے آلات اور سینسر خود بناتا ہے، اس لیے یہاں کچھ شامل کرنے کی ضرورت نہیں۔ آگے وہ ہے جو اسٹیشن کی ایپ میں درج کرنا ہے۔\n\nایپ کھولیے، دیکھیے کہ اسٹیشن کا فرم ویئر تازہ ترین ہے، پھر اس کی ترتیبات کھولیے۔"
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "مرحلہ 2 از 5 — موسمی سروس",
+        "description": "{image}\n\n**Weather server** منتخب کیجیے۔"
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "مرحلہ 3 از 5 — دوسرا سرور",
+        "description": "{image}\n\n**Other Server** منتخب کیجیے۔"
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "مرحلہ 4 از 5 — سرور کی ترتیبات",
+        "description": "{image}\n\nفارم بھریے، پھر **Save** دبائیے۔\n\n**URL**\n{urls}\n`http://` یا `https://` کے بغیر۔ ایسا پتہ استعمال کیجیے جس تک آپ کا اسٹیشن آپ ہی کے نیٹ ورک پر پہنچ سکے — اس کے لیے Home Assistant کو انٹرنیٹ پر کھولنے کی کوئی وجہ نہیں۔ اگر آپ کا اسٹیشن نام حل نہ کر سکے تو IP پتہ لکھیے۔\n\n**Station ID** — جو آپ چاہیں۔ یہی Home Assistant میں آلے کا نام بنے گا۔\n\n**Station key** — {key_hint}۔\n\n**Upload interval** — 1 منٹ اچھی قدر ہے۔\n\n**API type** — *WSLink API*۔ *WUnderground API* صرف اسی صورت منتخب کیجیے جب آپ کا اسٹیشن WSLink پیش نہ کرتا ہو: یہ آدھی پیمائشیں اور صرف چار چینل لے جاتا ہے۔\n\n**Upload** — فعال ہی رہنے دیجیے۔\n\n> ⏱️ اس اسکرین پر دیر لگانے سے بعض اسٹیشن Wi-Fi کھو دیتے ہیں۔ پتہ پہلے سے تیار رکھیے، بھریے اور محفوظ کیجیے۔"
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "مرحلہ 5 از 5 — confirm & exit",
+        "description": "{image}\n\nواپس جائیے، پھر **Confirm & Exit** دبائیے۔\n\n> ⚠️ **ترتیبات کو اسٹیشن میں لکھنے والا Confirm & Exit ہی ہے۔** محض محفوظ کرنے سے کچھ نہیں بدلتا۔\n\nیہ کر لینے کے بعد «اگلا» دبائیے۔"
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "آپ کا اسٹیشن Home Assistant سے بات کر رہا ہے",
+        "description": "**{station}** نے ابھی اپنی پہلی ترسیل بھیجی ہے۔\n\nاس کے سینسر اگلی ترسیل پر ظاہر ہوں گے، اور وہ اسی سے بنتے ہیں جو اسٹیشن واقعی بھیجتا ہے — یہاں چننے کو کچھ نہیں۔"
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "ابھی تک کچھ نہیں پہنچا",
+        "description": "پچھلے {minutes} منٹ میں کسی اسٹیشن نے کچھ نہیں بھیجا۔{key_hint_extra}\n\nعام وجوہات یہ ہیں: ایسا پتہ جس تک اسٹیشن نہیں پہنچ پاتا، **Confirm & Exit** کا نہ دبایا جانا، یا 3.02 اور اس کے بعد کا فرم ویئر جو HTTPS مانگتا ہے۔\n\nجن پتوں کی طرف اسے بھیجنا ہے:\n{urls}\nجو اینڈ پوائنٹ ترسیل کے منتظر ہیں:\n{endpoints}\n\nپھر بھی مکمل کرنے کے لیے «اگلا» دبائیے — ترتیب محفوظ رہتی ہے، اینڈ پوائنٹ واقعی سننا شروع کر دیتے ہیں، اور کوئی اسٹیشن ظاہر ہونے تک ایک مرمت آپ کو یہاں واپس لے آئے گی۔"
       }
     },
     "abort": {
       "single_instance_allowed": "پہلے سے ترتیب دیا گیا ہے۔ ایک ہی مثال تمام موسمی اسٹیشنوں کو خدمت فراہم کرتی ہے۔"
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "آپ کے اسٹیشن کی پہلی ترسیل کا انتظار…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "مرحلہ 1 از 5 — آپ کا اسٹیشن",
+        "description": "{image}\n\nآپ کا موسمیاتی اسٹیشن اپنے آلات اور سینسر خود بناتا ہے، اس لیے یہاں کچھ شامل کرنے کی ضرورت نہیں۔ آگے وہ ہے جو اسٹیشن کی ایپ میں درج کرنا ہے۔\n\nایپ کھولیے، دیکھیے کہ اسٹیشن کا فرم ویئر تازہ ترین ہے، پھر اس کی ترتیبات کھولیے۔"
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "مرحلہ 2 از 5 — موسمی سروس",
+        "description": "{image}\n\n**Weather server** منتخب کیجیے۔"
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "مرحلہ 3 از 5 — دوسرا سرور",
+        "description": "{image}\n\n**Other Server** منتخب کیجیے۔"
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "مرحلہ 4 از 5 — سرور کی ترتیبات",
+        "description": "{image}\n\nفارم بھریے، پھر **Save** دبائیے۔\n\n**URL**\n{urls}\n`http://` یا `https://` کے بغیر۔ ایسا پتہ استعمال کیجیے جس تک آپ کا اسٹیشن آپ ہی کے نیٹ ورک پر پہنچ سکے — اس کے لیے Home Assistant کو انٹرنیٹ پر کھولنے کی کوئی وجہ نہیں۔ اگر آپ کا اسٹیشن نام حل نہ کر سکے تو IP پتہ لکھیے۔\n\n**Station ID** — جو آپ چاہیں۔ یہی Home Assistant میں آلے کا نام بنے گا۔\n\n**Station key** — {key_hint}۔\n\n**Upload interval** — 1 منٹ اچھی قدر ہے۔\n\n**API type** — *WSLink API*۔ *WUnderground API* صرف اسی صورت منتخب کیجیے جب آپ کا اسٹیشن WSLink پیش نہ کرتا ہو: یہ آدھی پیمائشیں اور صرف چار چینل لے جاتا ہے۔\n\n**Upload** — فعال ہی رہنے دیجیے۔\n\n> ⏱️ اس اسکرین پر دیر لگانے سے بعض اسٹیشن Wi-Fi کھو دیتے ہیں۔ پتہ پہلے سے تیار رکھیے، بھریے اور محفوظ کیجیے۔"
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "مرحلہ 5 از 5 — confirm & exit",
+        "description": "{image}\n\nواپس جائیے، پھر **Confirm & Exit** دبائیے۔\n\n> ⚠️ **ترتیبات کو اسٹیشن میں لکھنے والا Confirm & Exit ہی ہے۔** محض محفوظ کرنے سے کچھ نہیں بدلتا۔\n\nیہ کر لینے کے بعد «اگلا» دبائیے۔"
       }
     }
   },

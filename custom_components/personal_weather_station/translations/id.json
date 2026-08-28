@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Langkah 1 dari 5 — stasiun Anda",
+        "description": "{image}\n\nStasiun cuaca Anda membuat sendiri perangkat dan sensornya, jadi tidak ada yang perlu ditambahkan di sini. Berikut ini adalah yang harus diisikan di aplikasi stasiun.\n\nBuka aplikasinya, pastikan firmware stasiun sudah mutakhir, lalu buka pengaturannya."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Langkah 2 dari 5 — layanan cuaca",
+        "description": "{image}\n\nPilih **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Langkah 3 dari 5 — server lain",
+        "description": "{image}\n\nPilih **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Langkah 4 dari 5 — pengaturan server",
+        "description": "{image}\n\nIsi formulirnya, lalu tekan **Save**.\n\n**URL**\n{urls}\nTanpa `http://` maupun `https://`. Gunakan alamat yang dapat dijangkau stasiun Anda di jaringan Anda sendiri — tidak ada alasan untuk memaparkan Home Assistant ke internet demi hal ini. Jika stasiun Anda tidak dapat mengurai nama, isikan alamat IP.\n\n**Station ID** — terserah Anda. Ini menjadi nama perangkat di Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 menit adalah nilai yang baik.\n\n**API type** — *WSLink API*. Pilih *WUnderground API* hanya jika stasiun Anda tidak menawarkan WSLink: ia membawa separuh jumlah pembacaan dan hanya empat kanal.\n\n**Upload** — biarkan aktif.\n\n> ⏱️ Sebagian stasiun kehilangan Wi-Fi jika Anda berlama-lama di layar ini. Siapkan alamatnya, isikan, lalu simpan."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Langkah 5 dari 5 — confirm & exit",
+        "description": "{image}\n\nKembali, lalu tekan **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit-lah yang menuliskan pengaturan ke stasiun.** Menyimpan saja tidak mengubah apa pun.\n\nTekan Berikutnya setelah Anda melakukannya."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Stasiun Anda berbicara dengan Home Assistant",
+        "description": "**{station}** baru saja mengirim unggahan pertamanya.\n\nSensornya muncul pada unggahan berikutnya, dan dibuat dari apa yang benar-benar dikirim stasiun — tidak ada yang perlu dipilih di sini."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Belum ada yang tiba",
+        "description": "Tidak ada stasiun yang mengirim apa pun dalam {minutes} menit terakhir.{key_hint_extra}\n\nPenyebab yang biasa adalah alamat yang tidak dapat dijangkau stasiun, **Confirm & Exit** yang belum ditekan, atau firmware 3.02 ke atas, yang mensyaratkan HTTPS.\n\nAlamat yang harus dituju:\n{urls}\nTitik akhir yang menunggu unggahan:\n{endpoints}\n\nTekan Berikutnya untuk tetap menyelesaikan — konfigurasinya disimpan, titik akhir benar-benar mulai mendengarkan, dan sebuah perbaikan akan membawa Anda kembali ke sini sampai ada stasiun yang muncul."
       }
     },
     "abort": {
       "single_instance_allowed": "Sudah dikonfigurasi. Satu instans melayani semua stasiun cuaca."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Menunggu unggahan pertama dari stasiun Anda…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Langkah 1 dari 5 — stasiun Anda",
+        "description": "{image}\n\nStasiun cuaca Anda membuat sendiri perangkat dan sensornya, jadi tidak ada yang perlu ditambahkan di sini. Berikut ini adalah yang harus diisikan di aplikasi stasiun.\n\nBuka aplikasinya, pastikan firmware stasiun sudah mutakhir, lalu buka pengaturannya."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Langkah 2 dari 5 — layanan cuaca",
+        "description": "{image}\n\nPilih **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Langkah 3 dari 5 — server lain",
+        "description": "{image}\n\nPilih **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Langkah 4 dari 5 — pengaturan server",
+        "description": "{image}\n\nIsi formulirnya, lalu tekan **Save**.\n\n**URL**\n{urls}\nTanpa `http://` maupun `https://`. Gunakan alamat yang dapat dijangkau stasiun Anda di jaringan Anda sendiri — tidak ada alasan untuk memaparkan Home Assistant ke internet demi hal ini. Jika stasiun Anda tidak dapat mengurai nama, isikan alamat IP.\n\n**Station ID** — terserah Anda. Ini menjadi nama perangkat di Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 menit adalah nilai yang baik.\n\n**API type** — *WSLink API*. Pilih *WUnderground API* hanya jika stasiun Anda tidak menawarkan WSLink: ia membawa separuh jumlah pembacaan dan hanya empat kanal.\n\n**Upload** — biarkan aktif.\n\n> ⏱️ Sebagian stasiun kehilangan Wi-Fi jika Anda berlama-lama di layar ini. Siapkan alamatnya, isikan, lalu simpan."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Langkah 5 dari 5 — confirm & exit",
+        "description": "{image}\n\nKembali, lalu tekan **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit-lah yang menuliskan pengaturan ke stasiun.** Menyimpan saja tidak mengubah apa pun.\n\nTekan Berikutnya setelah Anda melakukannya."
       }
     }
   },

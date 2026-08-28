@@ -50,12 +50,9 @@
 - **The walkthrough is also reachable from the integration's options**, for
   pointing a second station at Home Assistant. Both flows show the same five
   screens, translated once and shown in both places.
+- The walkthrough is translated into all 64 languages Home Assistant ships,
+  like the rest of the interface.
 
-### Known gaps
-
-- The walkthrough's new screens are translated into the eight reviewed
-  languages and fall back to English in the other 56; the rest of the interface
-  is translated as before.
 
 ## 1.1.0
 

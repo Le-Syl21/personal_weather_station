@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Bước 1 trên 5 — trạm của bạn",
+        "description": "{image}\n\nTrạm thời tiết của bạn tự tạo ra thiết bị và cảm biến của nó, nên ở phía này không có gì phải thêm. Những gì tiếp theo là những gì cần nhập vào ứng dụng của trạm.\n\nMở ứng dụng, kiểm tra xem phần sụn của trạm đã cập nhật chưa, rồi mở phần cài đặt của nó."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Bước 2 trên 5 — dịch vụ thời tiết",
+        "description": "{image}\n\nChọn **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Bước 3 trên 5 — máy chủ khác",
+        "description": "{image}\n\nChọn **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Bước 4 trên 5 — cài đặt máy chủ",
+        "description": "{image}\n\nĐiền vào biểu mẫu, rồi nhấn **Save**.\n\n**URL**\n{urls}\nKhông có `http://` hay `https://`. Hãy dùng một địa chỉ mà trạm của bạn tới được trong chính mạng của bạn — không có lý do gì để phơi Home Assistant ra Internet cho việc này. Nếu trạm không phân giải được tên, hãy điền địa chỉ IP.\n\n**Station ID** — tùy bạn. Nó sẽ trở thành tên thiết bị trong Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 phút là giá trị tốt.\n\n**API type** — *WSLink API*. Chỉ chọn *WUnderground API* nếu trạm của bạn không có WSLink: nó mang một nửa số đo và chỉ bốn kênh.\n\n**Upload** — cứ để bật.\n\n> ⏱️ Một số trạm rớt Wi-Fi nếu bạn nán lại trên màn hình này. Hãy chuẩn bị sẵn địa chỉ, điền một mạch, rồi lưu."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Bước 5 trên 5 — confirm & exit",
+        "description": "{image}\n\nQuay lại, rồi nhấn **Confirm & Exit**.\n\n> ⚠️ **Chính Confirm & Exit mới ghi cài đặt vào trạm.** Chỉ lưu thôi thì không thay đổi gì cả.\n\nNhấn Tiếp theo khi bạn đã làm xong."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Trạm của bạn đang nói chuyện với Home Assistant",
+        "description": "**{station}** vừa gửi lần tải lên đầu tiên.\n\nCác cảm biến sẽ xuất hiện ở lần kế tiếp, và được tạo ra từ những gì trạm thực sự gửi — ở đây không có gì để chọn."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Vẫn chưa có gì đến",
+        "description": "Không trạm nào gửi gì trong {minutes} phút vừa qua.{key_hint_extra}\n\nNguyên nhân thường gặp là một địa chỉ mà trạm không tới được, chưa nhấn **Confirm & Exit**, hoặc phần sụn từ 3.02 trở đi, vốn đòi HTTPS.\n\nCác địa chỉ để trỏ tới là:\n{urls}\nCác điểm cuối đang chờ dữ liệu là:\n{endpoints}\n\nNhấn Tiếp theo để kết thúc dù sao đi nữa — cấu hình được giữ lại, các điểm cuối thực sự bắt đầu lắng nghe, và một mục sửa chữa sẽ đưa bạn về đây cho tới khi một trạm xuất hiện."
       }
     },
     "abort": {
       "single_instance_allowed": "Đã cấu hình. Một phiên bản duy nhất phục vụ tất cả các trạm thời tiết."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Đang chờ lần tải lên đầu tiên của trạm…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Bước 1 trên 5 — trạm của bạn",
+        "description": "{image}\n\nTrạm thời tiết của bạn tự tạo ra thiết bị và cảm biến của nó, nên ở phía này không có gì phải thêm. Những gì tiếp theo là những gì cần nhập vào ứng dụng của trạm.\n\nMở ứng dụng, kiểm tra xem phần sụn của trạm đã cập nhật chưa, rồi mở phần cài đặt của nó."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Bước 2 trên 5 — dịch vụ thời tiết",
+        "description": "{image}\n\nChọn **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Bước 3 trên 5 — máy chủ khác",
+        "description": "{image}\n\nChọn **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Bước 4 trên 5 — cài đặt máy chủ",
+        "description": "{image}\n\nĐiền vào biểu mẫu, rồi nhấn **Save**.\n\n**URL**\n{urls}\nKhông có `http://` hay `https://`. Hãy dùng một địa chỉ mà trạm của bạn tới được trong chính mạng của bạn — không có lý do gì để phơi Home Assistant ra Internet cho việc này. Nếu trạm không phân giải được tên, hãy điền địa chỉ IP.\n\n**Station ID** — tùy bạn. Nó sẽ trở thành tên thiết bị trong Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 phút là giá trị tốt.\n\n**API type** — *WSLink API*. Chỉ chọn *WUnderground API* nếu trạm của bạn không có WSLink: nó mang một nửa số đo và chỉ bốn kênh.\n\n**Upload** — cứ để bật.\n\n> ⏱️ Một số trạm rớt Wi-Fi nếu bạn nán lại trên màn hình này. Hãy chuẩn bị sẵn địa chỉ, điền một mạch, rồi lưu."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Bước 5 trên 5 — confirm & exit",
+        "description": "{image}\n\nQuay lại, rồi nhấn **Confirm & Exit**.\n\n> ⚠️ **Chính Confirm & Exit mới ghi cài đặt vào trạm.** Chỉ lưu thôi thì không thay đổi gì cả.\n\nNhấn Tiếp theo khi bạn đã làm xong."
       }
     }
   },

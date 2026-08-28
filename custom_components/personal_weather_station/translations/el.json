@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Βήμα 1 από 5 — ο σταθμός σας",
+        "description": "{image}\n\nΟ μετεωρολογικός σταθμός σας δημιουργεί μόνος του τις συσκευές και τους αισθητήρες του, οπότε εδώ δεν υπάρχει τίποτα να προστεθεί. Αυτά που ακολουθούν είναι όσα πρέπει να συμπληρώσετε στην εφαρμογή του σταθμού.\n\nΑνοίξτε την εφαρμογή, ελέγξτε ότι το υλικολογισμικό του σταθμού είναι ενημερωμένο και ανοίξτε τις ρυθμίσεις του."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Βήμα 2 από 5 — υπηρεσία καιρού",
+        "description": "{image}\n\nΕπιλέξτε **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Βήμα 3 από 5 — άλλος διακομιστής",
+        "description": "{image}\n\nΕπιλέξτε **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Βήμα 4 από 5 — ρυθμίσεις διακομιστή",
+        "description": "{image}\n\nΣυμπληρώστε τη φόρμα και πατήστε **Save**.\n\n**URL**\n{urls}\nΧωρίς `http://` ούτε `https://`. Χρησιμοποιήστε μια διεύθυνση που ο σταθμός σας μπορεί να προσεγγίσει στο δικό σας δίκτυο — δεν υπάρχει κανένας λόγος να εκθέσετε το Home Assistant στο διαδίκτυο γι' αυτό. Αν ο σταθμός δεν επιλύει ονόματα, βάλτε τη διεύθυνση IP.\n\n**Station ID** — ό,τι θέλετε. Γίνεται το όνομα της συσκευής στο Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 λεπτό είναι καλή τιμή.\n\n**API type** — *WSLink API*. Επιλέξτε *WUnderground API* μόνο αν ο σταθμός σας δεν προσφέρει WSLink: μεταφέρει τις μισές μετρήσεις και μόνο τέσσερα κανάλια.\n\n**Upload** — αφήστε το ενεργό.\n\n> ⏱️ Ορισμένοι σταθμοί χάνουν το Wi-Fi αν καθυστερήσετε σε αυτή την οθόνη. Έχετε τη διεύθυνση πρόχειρη, συμπληρώστε την και αποθηκεύστε."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Βήμα 5 από 5 — confirm & exit",
+        "description": "{image}\n\nΓυρίστε πίσω και πατήστε **Confirm & Exit**.\n\n> ⚠️ **Το Confirm & Exit είναι αυτό που γράφει τις ρυθμίσεις στον σταθμό.** Η αποθήκευση από μόνη της δεν αλλάζει τίποτα.\n\nΠατήστε «Επόμενο» μόλις το κάνετε."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Ο σταθμός σας μιλά στο Home Assistant",
+        "description": "Ο **{station}** μόλις έστειλε την πρώτη του αποστολή.\n\nΟι αισθητήρες του θα εμφανιστούν στην επόμενη και δημιουργούνται από όσα στέλνει πραγματικά ο σταθμός — εδώ δεν υπάρχει τίποτα να επιλέξετε."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Δεν έχει φτάσει τίποτα ακόμα",
+        "description": "Κανένας σταθμός δεν έστειλε δεδομένα τα τελευταία {minutes} λεπτά.{key_hint_extra}\n\nΟι συνήθεις αιτίες είναι μια διεύθυνση που ο σταθμός δεν μπορεί να προσεγγίσει, το **Confirm & Exit** που δεν πατήθηκε, ή υλικολογισμικό από 3.02 και μετά, που απαιτεί HTTPS.\n\nΟι διευθύνσεις προς τις οποίες να τον στρέψετε είναι:\n{urls}\nΤα σημεία που ακούν για αποστολές είναι:\n{endpoints}\n\nΠατήστε «Επόμενο» για να ολοκληρώσετε ούτως ή άλλως — η ρύθμιση διατηρείται, τα σημεία αρχίζουν πραγματικά να ακούν, και μια επιδιόρθωση θα σας φέρει πίσω εδώ ώσπου να εμφανιστεί κάποιος σταθμός."
       }
     },
     "abort": {
       "single_instance_allowed": "Έχει ήδη ρυθμιστεί. Ένα μόνο στιγμιότυπο εξυπηρετεί όλους τους μετεωρολογικούς σταθμούς."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Αναμονή για την πρώτη αποστολή του σταθμού σας…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Βήμα 1 από 5 — ο σταθμός σας",
+        "description": "{image}\n\nΟ μετεωρολογικός σταθμός σας δημιουργεί μόνος του τις συσκευές και τους αισθητήρες του, οπότε εδώ δεν υπάρχει τίποτα να προστεθεί. Αυτά που ακολουθούν είναι όσα πρέπει να συμπληρώσετε στην εφαρμογή του σταθμού.\n\nΑνοίξτε την εφαρμογή, ελέγξτε ότι το υλικολογισμικό του σταθμού είναι ενημερωμένο και ανοίξτε τις ρυθμίσεις του."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Βήμα 2 από 5 — υπηρεσία καιρού",
+        "description": "{image}\n\nΕπιλέξτε **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Βήμα 3 από 5 — άλλος διακομιστής",
+        "description": "{image}\n\nΕπιλέξτε **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Βήμα 4 από 5 — ρυθμίσεις διακομιστή",
+        "description": "{image}\n\nΣυμπληρώστε τη φόρμα και πατήστε **Save**.\n\n**URL**\n{urls}\nΧωρίς `http://` ούτε `https://`. Χρησιμοποιήστε μια διεύθυνση που ο σταθμός σας μπορεί να προσεγγίσει στο δικό σας δίκτυο — δεν υπάρχει κανένας λόγος να εκθέσετε το Home Assistant στο διαδίκτυο γι' αυτό. Αν ο σταθμός δεν επιλύει ονόματα, βάλτε τη διεύθυνση IP.\n\n**Station ID** — ό,τι θέλετε. Γίνεται το όνομα της συσκευής στο Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 λεπτό είναι καλή τιμή.\n\n**API type** — *WSLink API*. Επιλέξτε *WUnderground API* μόνο αν ο σταθμός σας δεν προσφέρει WSLink: μεταφέρει τις μισές μετρήσεις και μόνο τέσσερα κανάλια.\n\n**Upload** — αφήστε το ενεργό.\n\n> ⏱️ Ορισμένοι σταθμοί χάνουν το Wi-Fi αν καθυστερήσετε σε αυτή την οθόνη. Έχετε τη διεύθυνση πρόχειρη, συμπληρώστε την και αποθηκεύστε."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Βήμα 5 από 5 — confirm & exit",
+        "description": "{image}\n\nΓυρίστε πίσω και πατήστε **Confirm & Exit**.\n\n> ⚠️ **Το Confirm & Exit είναι αυτό που γράφει τις ρυθμίσεις στον σταθμό.** Η αποθήκευση από μόνη της δεν αλλάζει τίποτα.\n\nΠατήστε «Επόμενο» μόλις το κάνετε."
       }
     }
   },

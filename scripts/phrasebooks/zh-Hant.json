@@ -144,6 +144,21 @@
     "issues::legacy_status_sensors::fix_flow::step::confirm::title": "轉換為二元感測器",
     "issues::legacy_status_sensors::fix_flow::step::confirm::description": "連線與漏水狀態以 1 或 0 回報。在 1.0.8 版本之前，它們顯示為數值感測器，例如 `{example}`，無法搭配 Home Assistant 的標準漏水卡片與提醒使用。新氣象站現在會取得顯示 **潮濕 / 乾燥** 與 **已連線 / 已中斷** 的二元感測器。\n\n可以轉換 **{count} 個實體**。電量不受影響：它們仍是百分比，低電量提醒正是以此為準。\n\n更換平台不是重新命名，因此舊實體會被移除並以 `binary_sensor` 重新建立。**它們已記錄的歷史將遺失** —— 這些讀數沒有長期統計，因此只影響原始歷史 —— 而且**引用它們的自動化、腳本、場景與儀表板必須更新**。新實體會在氣象站下次上傳時出現。\n\n若您比較想維持原樣，請忽略此修復項目。",
     "issues::unknown_parameters::title": "氣象站 {station} 傳送的讀數正被捨棄",
-    "issues::unknown_parameters::description": "來自 **{station}** 的 **{count} 個參數** 無法辨識，因此每次上傳時其數值都會被捨棄：\n\n{parameters}\n\n常見原因是氣象站回報的內容超出其通訊協定所能承載的範圍。Weather Underground 只有 **4 個** 額外感測器的位置；若您的氣象站在 *API type* 中提供 **WSLink**，切換過去可取得七個通道以及大約兩倍的讀數。\n\n若原因並非如此，這些參數名稱正是一份錯誤回報所需要的：請至 [問題追蹤器]({issue_tracker}) 提交，之後即可將它們加入。\n\n您也可以忽略此提示 — 沒有任何東西損壞，只是這些特定數值沒有送達。"
+    "issues::unknown_parameters::description": "來自 **{station}** 的 **{count} 個參數** 無法辨識，因此每次上傳時其數值都會被捨棄：\n\n{parameters}\n\n常見原因是氣象站回報的內容超出其通訊協定所能承載的範圍。Weather Underground 只有 **4 個** 額外感測器的位置；若您的氣象站在 *API type* 中提供 **WSLink**，切換過去可取得七個通道以及大約兩倍的讀數。\n\n若原因並非如此，這些參數名稱正是一份錯誤回報所需要的：請至 [問題追蹤器]({issue_tracker}) 提交，之後即可將它們加入。\n\n您也可以忽略此提示 — 沒有任何東西損壞，只是這些特定數值沒有送達。",
+    "config::step::station::title": "第 1 步，共 5 步 — 您的氣象站",
+    "config::step::station::description": "{image}\n\n您的氣象站會自行建立裝置與感測器，因此這一側無需新增任何內容。以下是需要在氣象站應用程式中填寫的內容。\n\n開啟應用程式，確認氣象站韌體為最新版，然後開啟它的設定。",
+    "config::step::settings::title": "第 2 步，共 5 步 — 氣象服務",
+    "config::step::settings::description": "{image}\n\n選擇 **Weather server**。",
+    "config::step::server::title": "第 3 步，共 5 步 — 其他伺服器",
+    "config::step::server::description": "{image}\n\n選擇 **Other Server**。",
+    "config::step::form::title": "第 4 步，共 5 步 — 伺服器設定",
+    "config::step::form::description": "{image}\n\n填寫表單，然後按 **Save**。\n\n**URL**\n{urls}\n不要帶 `http://` 或 `https://`。請使用氣象站在您自己網路中能夠連到的位址 — 沒有任何理由為此把 Home Assistant 暴露到網際網路上。若氣象站無法解析名稱，請填寫 IP 位址。\n\n**Station ID** — 隨您喜好。它將成為 Home Assistant 中的裝置名稱。\n\n**Station key** — {key_hint}。\n\n**Upload interval** — 1 分鐘是個合適的值。\n\n**API type** — *WSLink API*。只有當您的氣象站不提供 WSLink 時才選 *WUnderground API*：它承載的讀數只有一半，通道也只有四個。\n\n**Upload** — 保持啟用。\n\n> ⏱️ 在此畫面停留過久，有些氣象站會斷線。請先備妥位址，一次填完並儲存。",
+    "config::step::confirm::title": "第 5 步，共 5 步 — confirm & exit",
+    "config::step::confirm::description": "{image}\n\n返回上一層，然後按 **Confirm & Exit**。\n\n> ⚠️ **把設定寫入氣象站的是 Confirm & Exit。** 僅僅儲存不會改變任何東西。\n\n完成後請點選「下一步」。",
+    "config::step::received::title": "您的氣象站正在與 Home Assistant 通訊",
+    "config::step::received::description": "**{station}** 剛剛送出第一次上傳。\n\n它的感測器會在下一次上傳時出現，並且是依據氣象站實際送出的內容建立的 — 這裡沒有需要選擇的東西。",
+    "config::step::timeout::title": "目前還沒有任何資料抵達",
+    "config::step::timeout::description": "過去 {minutes} 分鐘內沒有任何氣象站送出資料。{key_hint_extra}\n\n常見原因是氣象站無法連到的位址、未按下 **Confirm & Exit**，或者 3.02 以上的韌體，它要求使用 HTTPS。\n\n可以指向的位址為：\n{urls}\n正在等待上傳的接入點為：\n{endpoints}\n\n點選「下一步」即可照常完成 — 設定會被保留，接入點將真正開始接聽，並且在氣象站出現之前，會有一個修復項把您帶回此處。",
+    "config::progress::waiting_for_station": "正在等待您的氣象站首次上傳…"
   }
 }

@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Trin 1 af 5 — din station",
+        "description": "{image}\n\nDin vejrstation opretter selv sine enheder og sensorer, så der er intet at tilføje her. Det følgende er, hvad du skal skrive ind i stationens app.\n\nÅbn appen, kontrollér at stationens firmware er opdateret, og åbn så dens indstillinger."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Trin 2 af 5 — vejrtjeneste",
+        "description": "{image}\n\nVælg **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Trin 3 af 5 — anden server",
+        "description": "{image}\n\nVælg **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Trin 4 af 5 — serverindstillinger",
+        "description": "{image}\n\nUdfyld formularen, og tryk så på **Save**.\n\n**URL**\n{urls}\nUden `http://` eller `https://`. Brug en adresse, som din station kan nå på dit eget netværk — der er ingen grund til at udstille Home Assistant på internettet for det. Kan din station ikke slå navne op, så brug IP-adressen.\n\n**Station ID** — hvad du vil. Det bliver enhedens navn i Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minut er en god værdi.\n\n**API type** — *WSLink API*. Vælg kun *WUnderground API*, hvis din station ikke tilbyder WSLink: den bærer halvt så mange målinger og kun fire kanaler.\n\n**Upload** — lad det være slået til.\n\n> ⏱️ Nogle stationer mister Wi-Fi, hvis du bliver hængende på denne skærm. Hav adressen klar, skriv den ind, og gem."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Trin 5 af 5 — confirm & exit",
+        "description": "{image}\n\nGå tilbage, og tryk så på **Confirm & Exit**.\n\n> ⚠️ **Det er Confirm & Exit, der skriver indstillingerne til stationen.** At gemme alene ændrer intet.\n\nTryk på Næste, når du har gjort det."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Din station taler med Home Assistant",
+        "description": "**{station}** har lige sendt sin første upload.\n\nDens sensorer dukker op ved den næste og oprettes ud fra det, stationen faktisk sender — der er intet at vælge her."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Der er ikke kommet noget endnu",
+        "description": "Ingen station har sendt noget de sidste {minutes} minutter.{key_hint_extra}\n\nDe sædvanlige årsager er en adresse, stationen ikke kan nå, at **Confirm & Exit** ikke er trykket, eller firmware fra 3.02 og frem, som kræver HTTPS.\n\nAdresserne at pege den mod er:\n{urls}\nEndepunkterne, der lytter efter uploads, er:\n{endpoints}\n\nTryk på Næste for at afslutte alligevel — opsætningen bevares, endepunkterne begynder for alvor at lytte, og en reparation henter dig tilbage hertil, indtil en station dukker op."
       }
     },
     "abort": {
       "single_instance_allowed": "Allerede konfigureret. En enkelt instans betjener alle vejrstationer."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Venter på din stations første upload…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Trin 1 af 5 — din station",
+        "description": "{image}\n\nDin vejrstation opretter selv sine enheder og sensorer, så der er intet at tilføje her. Det følgende er, hvad du skal skrive ind i stationens app.\n\nÅbn appen, kontrollér at stationens firmware er opdateret, og åbn så dens indstillinger."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Trin 2 af 5 — vejrtjeneste",
+        "description": "{image}\n\nVælg **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Trin 3 af 5 — anden server",
+        "description": "{image}\n\nVælg **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Trin 4 af 5 — serverindstillinger",
+        "description": "{image}\n\nUdfyld formularen, og tryk så på **Save**.\n\n**URL**\n{urls}\nUden `http://` eller `https://`. Brug en adresse, som din station kan nå på dit eget netværk — der er ingen grund til at udstille Home Assistant på internettet for det. Kan din station ikke slå navne op, så brug IP-adressen.\n\n**Station ID** — hvad du vil. Det bliver enhedens navn i Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minut er en god værdi.\n\n**API type** — *WSLink API*. Vælg kun *WUnderground API*, hvis din station ikke tilbyder WSLink: den bærer halvt så mange målinger og kun fire kanaler.\n\n**Upload** — lad det være slået til.\n\n> ⏱️ Nogle stationer mister Wi-Fi, hvis du bliver hængende på denne skærm. Hav adressen klar, skriv den ind, og gem."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Trin 5 af 5 — confirm & exit",
+        "description": "{image}\n\nGå tilbage, og tryk så på **Confirm & Exit**.\n\n> ⚠️ **Det er Confirm & Exit, der skriver indstillingerne til stationen.** At gemme alene ændrer intet.\n\nTryk på Næste, når du har gjort det."
       }
     }
   },

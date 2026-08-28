@@ -9,39 +9,39 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Cam 1 o 5 — eich gorsaf",
+        "description": "{image}\n\nEich gorsaf dywydd sy'n creu ei dyfeisiau a'i synwyryddion ei hun, felly nid oes dim i'w ychwanegu yma. Yr hyn sy'n dilyn yw'r hyn i'w deipio i mewn i ap yr orsaf.\n\nAgorwch yr ap, gwiriwch fod cadarnwedd yr orsaf yn gyfredol, ac yna agorwch ei gosodiadau."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Cam 2 o 5 — gwasanaeth tywydd",
+        "description": "{image}\n\nDewiswch **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Cam 3 o 5 — gweinydd arall",
+        "description": "{image}\n\nDewiswch **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Cam 4 o 5 — gosodiadau'r gweinydd",
+        "description": "{image}\n\nLlenwch y ffurflen, yna pwyswch **Save**.\n\n**URL**\n{urls}\nHeb `http://` na `https://`. Defnyddiwch gyfeiriad y gall eich gorsaf ei gyrraedd ar eich rhwydwaith eich hun — nid oes rheswm i ddatgelu Home Assistant i'r rhyngrwyd ar gyfer hyn. Os na all eich gorsaf ddatrys enwau, defnyddiwch y cyfeiriad IP.\n\n**Station ID** — beth bynnag a fynnoch. Dyma fydd enw'r ddyfais yn Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — mae 1 munud yn werth da.\n\n**API type** — *WSLink API*. Dewiswch *WUnderground API* dim ond os nad yw eich gorsaf yn cynnig WSLink: mae'n cario hanner cymaint o ddarlleniadau a dim ond pedair sianel.\n\n**Upload** — gadewch ef ymlaen.\n\n> ⏱️ Mae rhai gorsafoedd yn colli'r Wi-Fi os arhoswch ar y sgrin hon. Cadwch y cyfeiriad wrth law, llenwch ef, a chadwch."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Cam 5 o 5 — confirm & exit",
+        "description": "{image}\n\nEwch yn ôl, yna pwyswch **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit sy'n ysgrifennu'r gosodiadau i'r orsaf.** Nid yw cadw ar ei ben ei hun yn newid dim.\n\nPwyswch Nesaf unwaith y byddwch wedi gwneud hynny."
       },
       "received": {
-        "title": "Your station is talking to Home Assistant",
-        "description": "**{station}** just sent its first upload.\n\nIts sensors appear on the next one, and are created from whatever the station actually sends — nothing to pick here."
+        "title": "Mae eich gorsaf yn siarad â Home Assistant",
+        "description": "Mae **{station}** newydd anfon ei llwythiad cyntaf.\n\nBydd ei synwyryddion yn ymddangos ar y nesaf, ac maent yn cael eu creu o'r hyn y mae'r orsaf yn ei anfon mewn gwirionedd — nid oes dim i'w ddewis yma."
       },
       "timeout": {
-        "title": "Nothing arrived yet",
-        "description": "No station has posted in the last {minutes} minutes.{key_hint_extra}\n\nThe usual causes are an address the station cannot reach, **Confirm & Exit** not pressed, or a firmware from 3.02 onwards, which requires HTTPS.\n\nThe addresses to point it at are:\n{urls}\nThe endpoints listening for uploads are:\n{endpoints}\n\nPress Next to finish anyway — the setup is kept, the endpoints start listening for real, and a repair will bring you back here until a station shows up."
+        "title": "Nid oes dim wedi cyrraedd eto",
+        "description": "Nid oes yr un orsaf wedi anfon dim yn ystod y {minutes} munud diwethaf.{key_hint_extra}\n\nYr achosion arferol yw cyfeiriad na all yr orsaf ei gyrraedd, **Confirm & Exit** heb ei bwyso, neu gadarnwedd o 3.02 ymlaen, sy'n mynnu HTTPS.\n\nY cyfeiriadau i'w chyfeirio atynt yw:\n{urls}\nY pwyntiau terfyn sy'n gwrando am lwythiadau yw:\n{endpoints}\n\nPwyswch Nesaf i orffen beth bynnag — cedwir y gosodiad, mae'r pwyntiau terfyn yn dechrau gwrando o ddifrif, a bydd atgyweiriad yn dod â chi yn ôl yma nes i orsaf ymddangos."
       }
     },
     "abort": {
       "single_instance_allowed": "Wedi'i ffurfweddu eisoes. Mae un enghraifft yn gwasanaethu pob gorsaf dywydd."
     },
     "progress": {
-      "waiting_for_station": "Waiting for your station's first upload…"
+      "waiting_for_station": "Yn aros am lwythiad cyntaf eich gorsaf…"
     }
   },
   "options": {
@@ -67,24 +67,24 @@
         }
       },
       "station": {
-        "title": "Step 1 of 5 — your station",
-        "description": "{image}\n\nYour weather station creates its own devices and sensors, so there is nothing to add on this side. What follows is what to type into the station's app.\n\nOpen the app, check that the station's firmware is up to date, then open its settings."
+        "title": "Cam 1 o 5 — eich gorsaf",
+        "description": "{image}\n\nEich gorsaf dywydd sy'n creu ei dyfeisiau a'i synwyryddion ei hun, felly nid oes dim i'w ychwanegu yma. Yr hyn sy'n dilyn yw'r hyn i'w deipio i mewn i ap yr orsaf.\n\nAgorwch yr ap, gwiriwch fod cadarnwedd yr orsaf yn gyfredol, ac yna agorwch ei gosodiadau."
       },
       "settings": {
-        "title": "Step 2 of 5 — weather service",
-        "description": "{image}\n\nChoose **Weather server**."
+        "title": "Cam 2 o 5 — gwasanaeth tywydd",
+        "description": "{image}\n\nDewiswch **Weather server**."
       },
       "server": {
-        "title": "Step 3 of 5 — other server",
-        "description": "{image}\n\nChoose **Other Server**."
+        "title": "Cam 3 o 5 — gweinydd arall",
+        "description": "{image}\n\nDewiswch **Other Server**."
       },
       "form": {
-        "title": "Step 4 of 5 — server settings",
-        "description": "{image}\n\nFill the form in, then press **Save**.\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WSLink API*. Pick *WUnderground API* only if your station does not offer WSLink: it carries half as many readings and only four channels.\n\n**Upload** — leave it enabled.\n\n> ⏱️ Some stations drop off Wi-Fi if you linger on this screen. Have the address ready, fill it in, and save."
+        "title": "Cam 4 o 5 — gosodiadau'r gweinydd",
+        "description": "{image}\n\nLlenwch y ffurflen, yna pwyswch **Save**.\n\n**URL**\n{urls}\nHeb `http://` na `https://`. Defnyddiwch gyfeiriad y gall eich gorsaf ei gyrraedd ar eich rhwydwaith eich hun — nid oes rheswm i ddatgelu Home Assistant i'r rhyngrwyd ar gyfer hyn. Os na all eich gorsaf ddatrys enwau, defnyddiwch y cyfeiriad IP.\n\n**Station ID** — beth bynnag a fynnoch. Dyma fydd enw'r ddyfais yn Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — mae 1 munud yn werth da.\n\n**API type** — *WSLink API*. Dewiswch *WUnderground API* dim ond os nad yw eich gorsaf yn cynnig WSLink: mae'n cario hanner cymaint o ddarlleniadau a dim ond pedair sianel.\n\n**Upload** — gadewch ef ymlaen.\n\n> ⏱️ Mae rhai gorsafoedd yn colli'r Wi-Fi os arhoswch ar y sgrin hon. Cadwch y cyfeiriad wrth law, llenwch ef, a chadwch."
       },
       "confirm": {
-        "title": "Step 5 of 5 — confirm & exit",
-        "description": "{image}\n\nGo back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing.\n\nPress Next once you have."
+        "title": "Cam 5 o 5 — confirm & exit",
+        "description": "{image}\n\nEwch yn ôl, yna pwyswch **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit sy'n ysgrifennu'r gosodiadau i'r orsaf.** Nid yw cadw ar ei ben ei hun yn newid dim.\n\nPwyswch Nesaf unwaith y byddwch wedi gwneud hynny."
       }
     }
   },

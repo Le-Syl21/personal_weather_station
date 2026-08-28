@@ -144,6 +144,21 @@
     "issues::legacy_status_sensors::fix_flow::step::confirm::title": "바이너리 센서로 변환",
     "issues::legacy_status_sensors::fix_flow::step::confirm::description": "연결 및 누수 상태는 1 또는 0으로 전송됩니다. 버전 1.0.8까지는 숫자 센서로 표시되어(예: `{example}`) Home Assistant의 표준 누수 카드와 알림에 사용할 수 없었습니다. 새 관측소는 이제 **젖음 / 마름** 과 **연결됨 / 연결 끊김** 을 표시하는 바이너리 센서를 받습니다.\n\n**{count}개 엔티티**를 변환할 수 있습니다. 배터리 잔량은 영향을 받지 않습니다: 백분율로 남으며, 배터리 부족 알림이 이를 기준으로 작동합니다.\n\n플랫폼 변경은 이름 변경이 아니므로 이전 엔티티는 제거되고 `binary_sensor` 로 다시 만들어집니다. **기록된 기록은 사라집니다** — 이 값들은 장기 통계가 없으므로 원시 기록만 영향을 받습니다 — 그리고 **이를 가리키는 자동화, 스크립트, 장면, 대시보드는 갱신해야 합니다.** 새 엔티티는 관측소의 다음 전송 시 나타납니다.\n\n그대로 두고 싶다면 이 복구를 무시하세요.",
     "issues::unknown_parameters::title": "{station} 스테이션이 버려지고 있는 측정값을 보내고 있습니다",
-    "issues::unknown_parameters::description": "**{station}** 의 **{count}개 매개변수** 를 인식할 수 없어 전송할 때마다 그 값이 버려지고 있습니다:\n\n{parameters}\n\n흔한 원인은 스테이션이 프로토콜이 실어 나를 수 있는 것보다 더 많이 보고하는 경우입니다. Weather Underground 에는 추가 센서를 위한 자리가 **4개** 뿐입니다. 스테이션이 *API type* 으로 **WSLink** 를 제공한다면, 그쪽으로 바꾸면 7개 채널과 약 두 배의 측정값을 쓸 수 있습니다.\n\n원인이 그것이 아니라면, 버그 보고에 꼭 필요한 것이 바로 이 매개변수 이름들입니다. [이슈 트래커]({issue_tracker}) 에 보고해 주시면 추가할 수 있습니다.\n\n무시해도 됩니다 — 고장 난 것은 없고, 이 값들만 도착하지 않을 뿐입니다."
+    "issues::unknown_parameters::description": "**{station}** 의 **{count}개 매개변수** 를 인식할 수 없어 전송할 때마다 그 값이 버려지고 있습니다:\n\n{parameters}\n\n흔한 원인은 스테이션이 프로토콜이 실어 나를 수 있는 것보다 더 많이 보고하는 경우입니다. Weather Underground 에는 추가 센서를 위한 자리가 **4개** 뿐입니다. 스테이션이 *API type* 으로 **WSLink** 를 제공한다면, 그쪽으로 바꾸면 7개 채널과 약 두 배의 측정값을 쓸 수 있습니다.\n\n원인이 그것이 아니라면, 버그 보고에 꼭 필요한 것이 바로 이 매개변수 이름들입니다. [이슈 트래커]({issue_tracker}) 에 보고해 주시면 추가할 수 있습니다.\n\n무시해도 됩니다 — 고장 난 것은 없고, 이 값들만 도착하지 않을 뿐입니다.",
+    "config::step::station::title": "5단계 중 1단계 — 스테이션",
+    "config::step::station::description": "{image}\n\n기상 스테이션이 스스로 기기와 센서를 만들기 때문에, 이쪽에서 추가할 것은 없습니다. 아래는 스테이션 앱에 입력할 내용입니다.\n\n앱을 열고, 스테이션의 펌웨어가 최신인지 확인한 다음, 설정을 여십시오.",
+    "config::step::settings::title": "5단계 중 2단계 — 날씨 서비스",
+    "config::step::settings::description": "{image}\n\n**Weather server** 를 선택합니다.",
+    "config::step::server::title": "5단계 중 3단계 — 다른 서버",
+    "config::step::server::description": "{image}\n\n**Other Server** 를 선택합니다.",
+    "config::step::form::title": "5단계 중 4단계 — 서버 설정",
+    "config::step::form::description": "{image}\n\n양식을 채우고 **Save** 를 누릅니다.\n\n**URL**\n{urls}\n`http://` 나 `https://` 없이 입력합니다. 스테이션이 댁내 네트워크에서 도달할 수 있는 주소를 쓰십시오. 이를 위해 Home Assistant 를 인터넷에 노출할 이유는 없습니다. 스테이션이 이름을 해석하지 못하면 IP 주소를 넣으십시오.\n\n**Station ID** — 원하는 대로 정하면 됩니다. Home Assistant 에서 기기 이름이 됩니다.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1분이 적당한 값입니다.\n\n**API type** — *WSLink API*. 스테이션이 WSLink 를 제공하지 않을 때만 *WUnderground API* 를 고르십시오. 측정값이 절반이고 채널도 네 개뿐입니다.\n\n**Upload** — 켜둔 채로 둡니다.\n\n> ⏱️ 이 화면에 오래 머물면 Wi-Fi 가 끊기는 스테이션이 있습니다. 주소를 미리 준비해 한 번에 입력하고 저장하십시오.",
+    "config::step::confirm::title": "5단계 중 5단계 — confirm & exit",
+    "config::step::confirm::description": "{image}\n\n뒤로 간 다음 **Confirm & Exit** 를 누릅니다.\n\n> ⚠️ **설정을 스테이션에 기록하는 것은 Confirm & Exit 입니다.** 저장만으로는 아무것도 바뀌지 않습니다.\n\n누르셨으면 «다음» 을 누르십시오.",
+    "config::step::received::title": "스테이션이 Home Assistant 와 통신하고 있습니다",
+    "config::step::received::description": "**{station}** 이(가) 방금 첫 전송을 보냈습니다.\n\n센서는 다음 전송에서 나타나며, 스테이션이 실제로 보내는 내용에서 만들어집니다. 여기서 고를 것은 없습니다.",
+    "config::step::timeout::title": "아직 아무것도 도착하지 않았습니다",
+    "config::step::timeout::description": "지난 {minutes}분 동안 어떤 스테이션도 데이터를 보내지 않았습니다.{key_hint_extra}\n\n흔한 원인은 스테이션이 닿지 못하는 주소, 누르지 않은 **Confirm & Exit**, 또는 HTTPS 를 요구하는 3.02 이상의 펌웨어입니다.\n\n가리킬 주소는 다음과 같습니다:\n{urls}\n전송을 기다리는 엔드포인트는 다음과 같습니다:\n{endpoints}\n\n그래도 마치려면 «다음» 을 누르십시오. 설정은 유지되고, 엔드포인트가 실제로 수신을 시작하며, 스테이션이 나타날 때까지 복구 항목이 이곳으로 다시 데려옵니다.",
+    "config::progress::waiting_for_station": "스테이션의 첫 전송을 기다리는 중…"
   }
 }

@@ -20,7 +20,7 @@ from custom_components.personal_weather_station.const import (
     IMAGES_URL,
 )
 
-from .conftest import WSLINK_ENDPOINT, state_of
+from .conftest import WSLINK_ENDPOINT, device_for, state_of
 
 DEVICE_ID = "wsabcde123"
 
@@ -254,9 +254,7 @@ async def test_station_can_be_removed(hass, setup_pws):
     await hass.async_block_till_done()
     assert entry.options[CONF_WIND_OFFSETS] == {DEVICE_ID: 123}
 
-    device_entry = dr.async_get(hass).async_get_device_by_identifier(
-        (DOMAIN, DEVICE_ID), entry.entry_id
-    )
+    device_entry = device_for(hass, entry, DEVICE_ID)
     assert device_entry is not None
 
     assert await async_remove_config_entry_device(hass, entry, device_entry)
@@ -275,9 +273,7 @@ async def test_removed_station_reappears_when_it_posts_again(hass, setup_pws):
     await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1tem=21")
     await hass.async_block_till_done()
 
-    device_entry = dr.async_get(hass).async_get_device_by_identifier(
-        (DOMAIN, DEVICE_ID), entry.entry_id
-    )
+    device_entry = device_for(hass, entry, DEVICE_ID)
     await async_remove_config_entry_device(hass, entry, device_entry)
     dr.async_get(hass).async_remove_device(device_entry.id)
     await hass.async_block_till_done()

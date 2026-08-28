@@ -251,8 +251,6 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             return await self.async_step_init()
 
-        await async_ensure_images(self.hass)
-
         return self.async_show_form(
             step_id="instructions",
             data_schema=vol.Schema({}),

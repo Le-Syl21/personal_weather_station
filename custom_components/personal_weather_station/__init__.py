@@ -46,7 +46,7 @@ from .const import (
     SENSOR_LIST,
     TIMESTAMP_PARAMS,
 )
-from .instructions import async_placeholders_for_entry
+from .instructions import async_ensure_images, async_placeholders_for_entry
 from .migration import async_find_legacy_entities, async_find_status_sensors
 from .models import PwsRuntime
 from .normalizer import normalize_battery, parse_value
@@ -85,6 +85,7 @@ async def async_setup(hass: HomeAssistant, config):
     """
 
     async_ensure_views(hass)
+    await async_ensure_images(hass)
 
     return True
 

@@ -4,6 +4,7 @@ import pathlib
 
 import pytest
 from homeassistant.const import CONF_PASSWORD
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
 from homeassistant.setup import async_setup_component
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -67,6 +68,25 @@ def entity_id_for(hass, device_id, key, platform="sensor"):
     return er.async_get(hass).async_get_entity_id(
         platform, DOMAIN, f"{DOMAIN}_{device_id}_{key}".lower()
     )
+
+
+def device_for(hass, entry, device_id):
+    """
+    Look a station's device up by the identifier it announced.
+
+    Goes through async_entries_for_config_entry rather than a registry lookup:
+    async_get_device(identifiers=...) is deprecated and
+    async_get_device_by_identifier only exists from 2026.9, so either one ties
+    the suite to a narrow band of Home Assistant versions.
+    """
+
+    entries = dr.async_entries_for_config_entry(dr.async_get(hass), entry.entry_id)
+
+    for device in entries:
+        if (DOMAIN, device_id) in device.identifiers:
+            return device
+
+    return None
 
 
 def state_of(hass, device_id, key, platform="sensor"):

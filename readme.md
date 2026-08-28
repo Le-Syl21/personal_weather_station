@@ -89,6 +89,16 @@ instructions stay available from its ⚙️ afterwards.
 Your station must already be set up in the WSLink app and running an up-to-date
 firmware. Then:
 
+> [!WARNING]
+> **Have the values ready before you open the app, and do not linger on these
+> screens.** The station tends to drop its WiFi connection if you spend too long
+> entering the server settings — and all the more so if you sit in the menu
+> waiting for the data to turn up in Home Assistant.
+>
+> Copy the URL, station ID and key first, fill the form in one go, and press
+> **Confirm & Exit** straight away. Watch for the data on the Home Assistant
+> side afterwards, not from the app.
+
 ### 1. Open your station's settings
 
 <img src="docs/images/wslink-1-your-device.jpeg" width="270" alt="The WSLink device list, with the settings gear on the station">

@@ -9,8 +9,8 @@
         }
       },
       "instructions": {
-        "title": "Set up your weather station",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Stel u weerstasie in",
+        "description": "U weerstasie skep die toestelle en sensors — hier is niks om by te voeg nie.\n\nOpen u stasie in die stasie se toepassing, dan **Settings → Weather server → Other Server**, en vul in:\n\n**URL**\n{urls}\nSonder `http://` of `https://`. Gebruik 'n adres wat u stasie op u eie netwerk kan bereik — daar is geen rede om Home Assistant hiervoor aan die internet bloot te stel nie. As u stasie nie name kan oplos nie, gebruik die IP-adres.\n\n**Station ID** — wat u ook al wil. Dit word die toestelnaam in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuut is 'n goeie verstek.\n\n**API type** — *WUnderground API*.\n\n**Upload** — laat dit geaktiveer.\n\nDruk **Save**, gaan terug, druk dan **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is wat die instellings na die stasie skryf.** Net stoor verander niks. U sensors verskyn 'n sekonde nadat u dit druk.\n\nDie eindpunte wat na oplaaie luister, is:\n{endpoints}"
       }
     },
     "abort": {
@@ -20,10 +20,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Personal Weather Station",
+        "title": "Persoonlike weerstasie",
         "menu_options": {
-          "options": "Settings",
-          "instructions": "How to point a station at Home Assistant"
+          "options": "Instellings",
+          "instructions": "Hoe om 'n stasie na Home Assistant te wys"
         }
       },
       "options": {
@@ -40,8 +40,8 @@
         }
       },
       "instructions": {
-        "title": "Point a station at Home Assistant",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Wys 'n stasie na Home Assistant",
+        "description": "U weerstasie skep die toestelle en sensors — hier is niks om by te voeg nie.\n\nOpen u stasie in die stasie se toepassing, dan **Settings → Weather server → Other Server**, en vul in:\n\n**URL**\n{urls}\nSonder `http://` of `https://`. Gebruik 'n adres wat u stasie op u eie netwerk kan bereik — daar is geen rede om Home Assistant hiervoor aan die internet bloot te stel nie. As u stasie nie name kan oplos nie, gebruik die IP-adres.\n\n**Station ID** — wat u ook al wil. Dit word die toestelnaam in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuut is 'n goeie verstek.\n\n**API type** — *WUnderground API*.\n\n**Upload** — laat dit geaktiveer.\n\nDruk **Save**, gaan terug, druk dan **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is wat die instellings na die stasie skryf.** Net stoor verander niks. U sensors verskyn 'n sekonde nadat u dit druk.\n\nDie eindpunte wat na oplaaie luister, is:\n{endpoints}"
       }
     }
   },
@@ -55,49 +55,49 @@
       "description": "'n Weerstasie by {ip} het data sonder 'n stasie-identifiseerder gestuur.\n\nStel 'n Sender ID in die WSLink-toepassing, of 'n ID-parameter in die stasie se opstelling. Hierdie boodskap verdwyn vanself sodra 'n versoek van {ip} aanvaar word."
     },
     "legacy_entity_ids": {
-      "title": "Entity IDs repeat the station name",
+      "title": "Entiteit-ID's herhaal die stasienaam",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Shorten the entity IDs",
-            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Verkort die entiteit-ID's",
+            "description": "Tot weergawe 1.0.8 het hierdie integrasie entiteit-ID's gebou wat die stasienaam twee keer dra, soos `{example_old}`. Nuwe stasies doen dit nie meer nie.\n\n**{count} entiteite** kan hernoem word, byvoorbeeld na `{example_new}`.\n\nGeskiedenis en langtermynstatistieke volg die hernoeming outomaties. **Outomatiserings, skrifte, tonele en paneelborde nie** — u sal self alles moet bywerk wat na die ou ID's verwys.\n\nAs u hulle eerder so wil hou, ignoreer hierdie herstelwerk."
           }
         }
       }
     },
     "legacy_status_sensors": {
-      "title": "Connection and leak readings are still numbers",
+      "title": "Verbindings- en leklesings is steeds getalle",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Convert to binary sensors",
-            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Skakel om na binêre sensors",
+            "description": "Verbindings- en waterleklesings word as 1 of 0 gerapporteer. Tot weergawe 1.0.8 is hulle as numeriese sensors blootgestel, soos `{example}`, wat nie met die standaard lekkaarte en waarskuwings van Home Assistant gebruik kan word nie. Nuwe stasies kry nou binêre sensors wat **Nat / Droog** en **Gekoppel / Ontkoppel** wys.\n\n**{count} entiteite** kan omgeskakel word. Batteryvlakke word nie geraak nie: hulle bly persentasies, waarop die lae-battery-waarskuwings werk.\n\nOm van platform te verander is nie 'n hernoeming nie, dus word die ou entiteite verwyder en as `binary_sensor` herbou. **Hulle aangetekende geskiedenis gaan verlore** — hierdie lesings het geen langtermynstatistieke nie, dus word slegs die rou geskiedenis geraak — en **outomatiserings, skrifte, tonele en paneelborde wat na hulle wys, moet bygewerk word**. Die nuwe entiteite verskyn met die stasie se volgende oplaai.\n\nAs u hulle eerder so wil hou, ignoreer hierdie herstelwerk."
           }
         }
       }
     },
     "no_station_yet": {
-      "title": "No weather station has sent anything yet",
+      "title": "Geen weerstasie het nog iets gestuur nie",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Set up your weather station",
-            "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+            "title": "Stel u weerstasie in",
+            "description": "U weerstasie skep die toestelle en sensors — hier is niks om by te voeg nie.\n\nOpen u stasie in die stasie se toepassing, dan **Settings → Weather server → Other Server**, en vul in:\n\n**URL**\n{urls}\nSonder `http://` of `https://`. Gebruik 'n adres wat u stasie op u eie netwerk kan bereik — daar is geen rede om Home Assistant hiervoor aan die internet bloot te stel nie. As u stasie nie name kan oplos nie, gebruik die IP-adres.\n\n**Station ID** — wat u ook al wil. Dit word die toestelnaam in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuut is 'n goeie verstek.\n\n**API type** — *WUnderground API*.\n\n**Upload** — laat dit geaktiveer.\n\nDruk **Save**, gaan terug, druk dan **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is wat die instellings na die stasie skryf.** Net stoor verander niks. U sensors verskyn 'n sekonde nadat u dit druk.\n\nDie eindpunte wat na oplaaie luister, is:\n{endpoints}"
           },
           "received": {
-            "title": "Your station is through",
-            "description": "**{station}** has sent its first upload. Its sensors are being created now, and more appear as the station reports them.\n\nThis message will not come back."
+            "title": "U stasie het deurgekom",
+            "description": "**{station}** het sy eerste oplaai gestuur. Sy sensors word nou geskep, en meer verskyn soos die stasie hulle rapporteer.\n\nHierdie boodskap kom nie terug nie."
           },
           "timeout": {
-            "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nIn order of likelihood:\n\n  - **Did you press Confirm & Exit?** Saving the server screen alone does not write anything to the station.\n  - The **URL** has to be {urls_inline}, without `http://`, and reachable by the station on your network.\n  - **Upload** must be enabled on that screen.\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an address serving HTTPS.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "title": "Nog niks ontvang nie",
+            "description": "Geen oplaai het in {minutes} minute aangekom nie.\n\nIn volgorde van waarskynlikheid:\n\n  - **Het u Confirm & Exit gedruk?** Om net die bedienerskerm te stoor skryf niks na die stasie nie.\n  - Die **URL** moet {urls_inline} wees, sonder `http://`, en bereikbaar deur die stasie op u netwerk.\n  - **Upload** moet op daardie skerm geaktiveer wees.\n  - Sommige Bresser-fermware vanaf **3.02** weier gewone HTTP en benodig 'n adres wat HTTPS bedien.\n  - Die oplaai-interval is dalk eenvoudig langer as die wagtyd.\n  - **Stasiesleutel**: {key_hint}.\n\nAs die stasie Home Assistant bereik het maar weggewys is, word dit apart in **Instellings → Stelsel → Herstelwerk** gemeld.\n\nU kan dit sluit. Dit bly hier totdat 'n stasie opdaag, en om dit weer oop te maak begin die wagtyd van voor af."
           }
         },
         "progress": {
-          "waiting_for_station": "Waiting for your station's first upload…"
+          "waiting_for_station": "Wag vir u stasie se eerste oplaai…"
         },
         "abort": {
-          "not_received": "Nothing has arrived yet, so this is left open. It stays in Repairs until a station shows up, and you can reopen it to wait again."
+          "not_received": "Nog niks het aangekom nie, dus bly dit oop. Dit bly in Herstelwerk totdat 'n stasie opdaag, en u kan dit weer oopmaak om weer te wag."
         }
       }
     }

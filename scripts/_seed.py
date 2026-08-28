@@ -76,3 +76,81 @@ def seed_from(base, language, entity_overrides=None, ui_overrides=None, quality=
         [ui[key] for key in UI_KEYS],
         quality,
     )
+
+
+# Short names for the UI strings a language needs beyond the initial seed.
+# Several keys deliberately share one text: the setup instructions appear in the
+# config flow, in the options and in the onboarding repair.
+FILL_KEYS = {
+    "wizard_title": ["config::step::instructions::title"],
+    "wizard_body": [
+        "config::step::instructions::description",
+        "options::step::instructions::description",
+        "issues::no_station_yet::fix_flow::step::confirm::description",
+    ],
+    "options_title": ["options::step::init::title"],
+    "menu_settings": ["options::step::init::menu_options::options"],
+    "menu_howto": ["options::step::init::menu_options::instructions"],
+    "howto_title": ["options::step::instructions::title"],
+    "waiting_title": ["issues::no_station_yet::title"],
+    "waiting_step_title": [
+        "issues::no_station_yet::fix_flow::step::confirm::title"
+    ],
+    "received_title": ["issues::no_station_yet::fix_flow::step::received::title"],
+    "received_body": [
+        "issues::no_station_yet::fix_flow::step::received::description"
+    ],
+    "timeout_title": ["issues::no_station_yet::fix_flow::step::timeout::title"],
+    "timeout_body": ["issues::no_station_yet::fix_flow::step::timeout::description"],
+    "progress": [
+        "issues::no_station_yet::fix_flow::progress::waiting_for_station"
+    ],
+    "abort": ["issues::no_station_yet::fix_flow::abort::not_received"],
+    "ids_title": ["issues::legacy_entity_ids::title"],
+    "ids_step_title": [
+        "issues::legacy_entity_ids::fix_flow::step::confirm::title"
+    ],
+    "ids_body": [
+        "issues::legacy_entity_ids::fix_flow::step::confirm::description"
+    ],
+    "status_title": ["issues::legacy_status_sensors::title"],
+    "status_step_title": [
+        "issues::legacy_status_sensors::fix_flow::step::confirm::title"
+    ],
+    "status_body": [
+        "issues::legacy_status_sensors::fix_flow::step::confirm::description"
+    ],
+}
+
+
+def fill_ui(language, **texts):
+    """
+    Add the UI strings a phrase book is missing.
+
+    Args:
+        language: Language code.
+        texts: Short name from FILL_KEYS to translated text.
+
+    Returns:
+        int: number of keys written.
+    """
+
+    path = PHRASEBOOKS / f"{language}.json"
+    book = json.loads(path.read_text(encoding="utf-8"))
+
+    written = 0
+
+    for short, text in texts.items():
+        assert short in FILL_KEYS, f"{language}: nom inconnu {short!r}"
+        assert str(text).strip(), f"{language}: {short} vide"
+
+        for key in FILL_KEYS[short]:
+            assert key in UI_KEYS, f"clé absente de strings.json : {key}"
+            book["ui"][key] = text
+            written += 1
+
+    path.write_text(
+        json.dumps(book, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+
+    return written

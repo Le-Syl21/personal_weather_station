@@ -9,8 +9,8 @@
         }
       },
       "instructions": {
-        "title": "Set up your weather station",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Määritä sääasemasi",
+        "description": "Sääasemasi luo laitteet ja anturit — täällä ei ole mitään lisättävää.\n\nAvaa aseman sovelluksessa asemasi, sitten **Settings → Weather server → Other Server**, ja täytä:\n\n**URL**\n{urls}\nIlman `http://`- tai `https://`-etuliitettä. Käytä osoitetta, johon asemasi pääsee omassa verkossasi — ei ole mitään syytä altistaa Home Assistantia internetille tätä varten. Jos asemasi ei selvitä nimiä, käytä IP-osoitetta.\n\n**Station ID** — mitä haluat. Siitä tulee laitteen nimi Home Assistantissa.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuutti on hyvä arvo.\n\n**API type** — *WUnderground API*.\n\n**Upload** — jätä käyttöön.\n\nPaina **Save**, palaa takaisin ja paina **Confirm & Exit**.\n\n> ⚠️ **Vasta Confirm & Exit kirjoittaa asetukset asemaan.** Pelkkä tallennus ei muuta mitään. Anturisi ilmestyvät sekunti sen jälkeen.\n\nKuuntelevat päätepisteet ovat:\n{endpoints}"
       }
     },
     "abort": {
@@ -20,10 +20,10 @@
   "options": {
     "step": {
       "init": {
-        "title": "Personal Weather Station",
+        "title": "Oma sääasema",
         "menu_options": {
-          "options": "Settings",
-          "instructions": "How to point a station at Home Assistant"
+          "options": "Asetukset",
+          "instructions": "Kuinka ohjata asema Home Assistantiin"
         }
       },
       "options": {
@@ -40,8 +40,8 @@
         }
       },
       "instructions": {
-        "title": "Point a station at Home Assistant",
-        "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+        "title": "Ohjaa asema Home Assistantiin",
+        "description": "Sääasemasi luo laitteet ja anturit — täällä ei ole mitään lisättävää.\n\nAvaa aseman sovelluksessa asemasi, sitten **Settings → Weather server → Other Server**, ja täytä:\n\n**URL**\n{urls}\nIlman `http://`- tai `https://`-etuliitettä. Käytä osoitetta, johon asemasi pääsee omassa verkossasi — ei ole mitään syytä altistaa Home Assistantia internetille tätä varten. Jos asemasi ei selvitä nimiä, käytä IP-osoitetta.\n\n**Station ID** — mitä haluat. Siitä tulee laitteen nimi Home Assistantissa.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuutti on hyvä arvo.\n\n**API type** — *WUnderground API*.\n\n**Upload** — jätä käyttöön.\n\nPaina **Save**, palaa takaisin ja paina **Confirm & Exit**.\n\n> ⚠️ **Vasta Confirm & Exit kirjoittaa asetukset asemaan.** Pelkkä tallennus ei muuta mitään. Anturisi ilmestyvät sekunti sen jälkeen.\n\nKuuntelevat päätepisteet ovat:\n{endpoints}"
       }
     }
   },
@@ -55,49 +55,49 @@
       "description": "Osoitteessa {ip} oleva sääasema lähetti tietoja ilman asematunnistetta.\n\nAseta Sender ID WSLink-sovelluksessa tai ID-parametri aseman asetuksissa. Tämä viesti katoaa itsestään heti, kun pyyntö osoitteesta {ip} hyväksytään."
     },
     "legacy_entity_ids": {
-      "title": "Entity IDs repeat the station name",
+      "title": "Entiteettitunnukset toistavat aseman nimen",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Shorten the entity IDs",
-            "description": "Up to version 1.0.8 this integration built entity IDs that carry the station name twice, such as `{example_old}`. New stations no longer do.\n\n**{count} entities** can be renamed, for example to `{example_new}`.\n\nHistory and long-term statistics follow the rename automatically. **Automations, scripts, scenes and dashboards do not** — you will have to update anything that refers to the old IDs yourself.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Lyhennä entiteettitunnukset",
+            "description": "Versioon 1.0.8 asti tämä integraatio muodosti entiteettitunnuksia, joissa aseman nimi on kahdesti, kuten `{example_old}`. Uudet asemat eivät enää tee niin.\n\n**{count} entiteettiä** voidaan nimetä uudelleen, esimerkiksi muotoon `{example_new}`.\n\nHistoria ja pitkän aikavälin tilastot seuraavat uudelleennimeämistä automaattisesti. **Automaatiot, skriptit, kohtaukset ja koontinäytöt eivät** — sinun on itse päivitettävä kaikki, mikä viittaa vanhoihin tunnuksiin.\n\nJos haluat mieluummin pitää ne ennallaan, ohita tämä korjaus."
           }
         }
       }
     },
     "legacy_status_sensors": {
-      "title": "Connection and leak readings are still numbers",
+      "title": "Yhteyden ja vuodon tilat ovat yhä numeroita",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Convert to binary sensors",
-            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+            "title": "Muunna binäärisensoreiksi",
+            "description": "Yhteyden ja vesivuodon tilat lähetetään arvoina 1 tai 0. Versioon 1.0.8 asti ne näytettiin numeerisina antureina, kuten `{example}`, joita ei voi käyttää Home Assistantin tavallisten vuotokorttien ja -hälytysten kanssa. Uudet asemat saavat nyt binäärisensorit, jotka näyttävät **Märkä / Kuiva** ja **Yhdistetty / Ei yhteyttä**.\n\n**{count} entiteettiä** voidaan muuntaa. Akkutasot eivät muutu: ne pysyvät prosentteina, joiden varassa vähäisen akun hälytykset toimivat.\n\nAlustan vaihto ei ole uudelleennimeäminen, joten vanhat entiteetit poistetaan ja luodaan uudelleen muodossa `binary_sensor`. **Niiden tallennettu historia menetetään** — näillä lukemilla ei ole pitkän aikavälin tilastoja, joten vain raakahistoria kärsii — ja **niihin viittaavat automaatiot, skriptit, kohtaukset ja koontinäytöt on päivitettävä**. Uudet entiteetit ilmestyvät aseman seuraavalla lähetyksellä.\n\nJos haluat mieluummin pitää ne ennallaan, ohita tämä korjaus."
           }
         }
       }
     },
     "no_station_yet": {
-      "title": "No weather station has sent anything yet",
+      "title": "Yksikään sääasema ei ole vielä lähettänyt mitään",
       "fix_flow": {
         "step": {
           "confirm": {
-            "title": "Set up your weather station",
-            "description": "Your weather station creates the devices and sensors — there is nothing to add here.\n\nIn the station's app, open your station, then **Settings → Weather server → Other Server**, and fill in:\n\n**URL**\n{urls}\nWithout `http://` or `https://`. Use an address your station can reach on your own network — there is no reason to expose Home Assistant to the internet for this. If your station cannot resolve names, use the IP address.\n\n**Station ID** — anything you like. It becomes the device name in Home Assistant.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minute is a good default.\n\n**API type** — *WUnderground API*.\n\n**Upload** — leave it enabled.\n\nPress **Save**, go back, then press **Confirm & Exit**.\n\n> ⚠️ **Confirm & Exit is what writes the settings to the station.** Saving alone changes nothing. Your sensors appear a second after you press it.\n\nThe endpoints listening for uploads are:\n{endpoints}"
+            "title": "Määritä sääasemasi",
+            "description": "Sääasemasi luo laitteet ja anturit — täällä ei ole mitään lisättävää.\n\nAvaa aseman sovelluksessa asemasi, sitten **Settings → Weather server → Other Server**, ja täytä:\n\n**URL**\n{urls}\nIlman `http://`- tai `https://`-etuliitettä. Käytä osoitetta, johon asemasi pääsee omassa verkossasi — ei ole mitään syytä altistaa Home Assistantia internetille tätä varten. Jos asemasi ei selvitä nimiä, käytä IP-osoitetta.\n\n**Station ID** — mitä haluat. Siitä tulee laitteen nimi Home Assistantissa.\n\n**Station key** — {key_hint}.\n\n**Upload interval** — 1 minuutti on hyvä arvo.\n\n**API type** — *WUnderground API*.\n\n**Upload** — jätä käyttöön.\n\nPaina **Save**, palaa takaisin ja paina **Confirm & Exit**.\n\n> ⚠️ **Vasta Confirm & Exit kirjoittaa asetukset asemaan.** Pelkkä tallennus ei muuta mitään. Anturisi ilmestyvät sekunti sen jälkeen.\n\nKuuntelevat päätepisteet ovat:\n{endpoints}"
           },
           "received": {
-            "title": "Your station is through",
-            "description": "**{station}** has sent its first upload. Its sensors are being created now, and more appear as the station reports them.\n\nThis message will not come back."
+            "title": "Asemasi pääsi läpi",
+            "description": "**{station}** lähetti ensimmäisen lähetyksensä. Sen anturit luodaan parhaillaan, ja niitä tulee lisää sitä mukaa kun asema niistä ilmoittaa.\n\nTämä viesti ei palaa."
           },
           "timeout": {
-            "title": "Nothing received yet",
-            "description": "No upload arrived in {minutes} minutes.\n\nIn order of likelihood:\n\n  - **Did you press Confirm & Exit?** Saving the server screen alone does not write anything to the station.\n  - The **URL** has to be {urls_inline}, without `http://`, and reachable by the station on your network.\n  - **Upload** must be enabled on that screen.\n  - Some Bresser firmwares from **3.02** onwards refuse plain HTTP and need an address serving HTTPS.\n  - The upload interval may simply be longer than the wait.\n  - **Station key**: {key_hint}.\n\nIf the station reached Home Assistant but was turned away, it is reported separately in **Settings → System → Repairs**.\n\nYou can close this. It stays here until a station shows up, and reopening it starts the wait again."
+            "title": "Mitään ei ole vielä saapunut",
+            "description": "{minutes} minuutissa ei saapunut yhtään lähetystä.\n\nTodennäköisyysjärjestyksessä:\n\n  - **Painoitko Confirm & Exit?** Pelkkä palvelinnäytön tallentaminen ei kirjoita asemaan mitään.\n  - **URL**-kentän on oltava {urls_inline}, ilman `http://`-etuliitettä, ja aseman saavutettavissa verkossasi.\n  - **Upload** on oltava käytössä tuolla näytöllä.\n  - Jotkin Bresserin laiteohjelmistot versiosta **3.02** alkaen kieltäytyvät tavallisesta HTTP:stä ja vaativat HTTPS:ää tarjoavan osoitteen.\n  - Lähetysväli voi yksinkertaisesti olla odotusta pidempi.\n  - **Asema-avain**: {key_hint}.\n\nJos asema tavoitti Home Assistantin mutta käännytettiin, siitä ilmoitetaan erikseen kohdassa **Asetukset → Järjestelmä → Korjaukset**.\n\nVoit sulkea tämän. Se pysyy täällä, kunnes asema ilmestyy, ja uudelleen avaaminen aloittaa odotuksen alusta."
           }
         },
         "progress": {
-          "waiting_for_station": "Waiting for your station's first upload…"
+          "waiting_for_station": "Odotetaan asemasi ensimmäistä lähetystä…"
         },
         "abort": {
-          "not_received": "Nothing has arrived yet, so this is left open. It stays in Repairs until a station shows up, and you can reopen it to wait again."
+          "not_received": "Mitään ei ole vielä saapunut, joten tämä jää auki. Se pysyy Korjauksissa, kunnes asema ilmestyy, ja voit avata sen uudelleen odottaaksesi taas."
         }
       }
     }

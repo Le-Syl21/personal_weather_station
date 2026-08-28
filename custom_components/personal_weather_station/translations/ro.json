@@ -95,6 +95,9 @@
         },
         "progress": {
           "waiting_for_station": "Waiting for your station's first upload…"
+        },
+        "abort": {
+          "not_received": "Nothing has arrived yet, so this is left open. It stays in Repairs until a station shows up, and you can reopen it to wait again."
         }
       }
     }

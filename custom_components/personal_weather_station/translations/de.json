@@ -95,6 +95,9 @@
         },
         "progress": {
           "waiting_for_station": "Warte auf die erste Übertragung Ihrer Station…"
+        },
+        "abort": {
+          "not_received": "Es ist noch nichts eingegangen, daher bleibt dieser Punkt offen. Er bleibt in den Reparaturen, bis eine Station auftaucht, und Sie können ihn erneut öffnen, um wieder zu warten."
         }
       }
     }

@@ -86,6 +86,13 @@ to keep everything exactly as it is.
   Battery levels deliberately stay percentages, which is what the low-battery
   alerts and long-term statistics work on.
 
+### Known fix during development
+
+- The onboarding repair used to close as *successfully repaired* when the wait
+  ran out without a station showing up, and disappeared — while its own text
+  promised it would stay. Home Assistant deletes a repair for any fix flow
+  ending that is not an abort.
+
 ### Optional migrations
 
 Both appear in **Settings → System → Repairs** and can be ignored.

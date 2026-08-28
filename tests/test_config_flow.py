@@ -244,8 +244,12 @@ async def test_onboarding_repair_reports_a_failure_after_the_wait(
     # It says how long it waited, where to point the station and what the key is.
     assert {"minutes", "urls", "key_hint"} <= failure["description_placeholders"].keys()
 
-    # Closing it leaves the prompt in place.
-    assert (await flow.async_step_timeout({}))["type"] == FlowResultType.CREATE_ENTRY
+    # Closing it must abort, not succeed. RepairsFlowManager.async_finish_flow
+    # deletes the issue for every result type except ABORT, so ending any other
+    # way would mark a failed wait as resolved and make the prompt vanish.
+    closed = await flow.async_step_timeout({})
+    assert closed["type"] == FlowResultType.ABORT
+    assert closed["reason"] == "not_received"
     assert ir.async_get(hass).async_get_issue(DOMAIN, ISSUE_NO_STATION_YET) is not None
 
 
@@ -274,3 +278,94 @@ async def test_instructions_stay_reachable_from_the_options(hass, setup_pws):
     # Closing it returns to the menu rather than saving anything.
     back = await hass.config_entries.options.async_configure(result["flow_id"], {})
     assert back["type"] == FlowResultType.MENU
+
+
+async def test_failed_wait_does_not_resolve_the_repair(hass, setup_pws, monkeypatch):
+    """
+    Driven through the real repairs manager, which is where the rule lives.
+
+    RepairsFlowManager.async_finish_flow deletes the issue for every result
+    type except ABORT. Ending the failed wait any other way marked it as fixed
+    and made the prompt disappear, while its own text promised the opposite.
+    """
+
+    import asyncio
+
+    from homeassistant.helpers import issue_registry as ir
+    from homeassistant.setup import async_setup_component
+
+    from custom_components.personal_weather_station import repairs
+    from custom_components.personal_weather_station.const import ISSUE_NO_STATION_YET
+
+    monkeypatch.setattr(repairs, "STATION_WAIT_TIMEOUT", 2)
+
+    assert await async_setup_component(hass, "repairs", {})
+    await setup_pws()
+
+    manager = hass.data["repairs"]["flow_manager"]
+
+    result = await manager.async_init(
+        DOMAIN, data={"handler": DOMAIN, "issue_id": ISSUE_NO_STATION_YET}
+    )
+    assert result["step_id"] == "confirm"
+
+    flow_id = result["flow_id"]
+    result = await manager.async_configure(flow_id, {})
+    assert result["type"] == FlowResultType.SHOW_PROGRESS
+
+    for _ in range(6):
+        if result["type"] != FlowResultType.SHOW_PROGRESS:
+            break
+        await asyncio.sleep(1)
+        result = await manager.async_configure(flow_id)
+
+    assert result["step_id"] == "timeout"
+
+    result = await manager.async_configure(flow_id, {})
+    assert result["type"] == FlowResultType.ABORT
+    assert result["reason"] == "not_received"
+
+    assert ir.async_get(hass).async_get_issue(DOMAIN, ISSUE_NO_STATION_YET) is not None
+
+
+async def test_successful_wait_resolves_the_repair(hass, setup_pws, monkeypatch):
+    """The other half: a station arriving must clear the prompt for good."""
+
+    import asyncio
+
+    from homeassistant.helpers import issue_registry as ir
+    from homeassistant.setup import async_setup_component
+
+    from custom_components.personal_weather_station import repairs
+    from custom_components.personal_weather_station.const import ISSUE_NO_STATION_YET
+
+    monkeypatch.setattr(repairs, "STATION_WAIT_TIMEOUT", 10)
+
+    assert await async_setup_component(hass, "repairs", {})
+    _, client = await setup_pws()
+
+    manager = hass.data["repairs"]["flow_manager"]
+
+    result = await manager.async_init(
+        DOMAIN, data={"handler": DOMAIN, "issue_id": ISSUE_NO_STATION_YET}
+    )
+    flow_id = result["flow_id"]
+    result = await manager.async_configure(flow_id, {})
+    assert result["type"] == FlowResultType.SHOW_PROGRESS
+
+    await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1tem=21.5")
+    await hass.async_block_till_done()
+
+    for _ in range(6):
+        if result["type"] != FlowResultType.SHOW_PROGRESS:
+            break
+        await asyncio.sleep(1)
+        result = await manager.async_configure(flow_id)
+
+    assert result["step_id"] == "received"
+    assert result["description_placeholders"]["station"] == DEVICE_ID
+
+    result = await manager.async_configure(flow_id, {})
+    assert result["type"] == FlowResultType.CREATE_ENTRY
+
+    assert ir.async_get(hass).async_get_issue(DOMAIN, ISSUE_NO_STATION_YET) is None

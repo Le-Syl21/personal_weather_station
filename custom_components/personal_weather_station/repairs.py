@@ -163,9 +163,9 @@ class NoStationYetRepairFlow(RepairsFlow):
 
     async def async_step_received(self, user_input=None):
         if user_input is not None:
+            # Home Assistant deletes the issue for any ending that is not an
+            # abort, so there is nothing to clear here.
             return self.async_create_entry(title="", data={})
-
-        ir.async_delete_issue(self.hass, DOMAIN, ISSUE_NO_STATION_YET)
 
         return self.async_show_form(
             step_id="received",
@@ -177,7 +177,10 @@ class NoStationYetRepairFlow(RepairsFlow):
         """Nothing arrived. The repair stays so the user can come back."""
 
         if user_input is not None:
-            return self.async_create_entry(title="", data={})
+            # Aborting is the only ending that leaves the issue in place:
+            # RepairsFlowManager.async_finish_flow deletes it for every other
+            # result type, which would mark a failed wait as resolved.
+            return self.async_abort(reason="not_received")
 
         return self.async_show_form(
             step_id="timeout",

@@ -95,6 +95,9 @@
         },
         "progress": {
           "waiting_for_station": "Wachten op de eerste upload van uw station…"
+        },
+        "abort": {
+          "not_received": "Er is nog niets binnengekomen, dus dit blijft openstaan. Het blijft bij Reparaties staan tot er een station opduikt, en u kunt het opnieuw openen om weer te wachten."
         }
       }
     }

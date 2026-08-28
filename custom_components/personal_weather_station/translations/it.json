@@ -95,6 +95,9 @@
         },
         "progress": {
           "waiting_for_station": "In attesa del primo invio della tua stazione…"
+        },
+        "abort": {
+          "not_received": "Non è ancora arrivato nulla, quindi questo punto resta aperto. Rimane in Riparazioni finché non compare una stazione, e puoi riaprirlo per attendere di nuovo."
         }
       }
     }

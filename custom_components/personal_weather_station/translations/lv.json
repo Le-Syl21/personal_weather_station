@@ -604,7 +604,14 @@
         "name": "HCHO koncentrācija"
       },
       "t9voclv": {
-        "name": "GOS līmenis"
+        "name": "GOS līmenis",
+        "state": {
+          "very_low": "Ļoti zems",
+          "low": "Zems",
+          "moderate": "Vidējs",
+          "high": "Augsts",
+          "very_high": "Ļoti augsts"
+        }
       },
       "tempf": {
         "name": "Āra temperatūra"

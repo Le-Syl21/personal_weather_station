@@ -604,7 +604,14 @@
         "name": "HCHO yoğunluğu"
       },
       "t9voclv": {
-        "name": "UOB seviyesi"
+        "name": "UOB seviyesi",
+        "state": {
+          "very_low": "Çok düşük",
+          "low": "Düşük",
+          "moderate": "Orta",
+          "high": "Yüksek",
+          "very_high": "Çok yüksek"
+        }
       },
       "tempf": {
         "name": "Dış sıcaklık"

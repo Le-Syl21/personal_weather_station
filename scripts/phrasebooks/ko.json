@@ -107,6 +107,13 @@
     "Set north from current": "현재 값을 북쪽으로 설정",
     "Reset wind offset": "오프셋 초기화"
   },
+  "states": {
+    "Very low": "매우 낮음",
+    "Low": "낮음",
+    "Moderate": "보통",
+    "High": "높음",
+    "Very high": "매우 높음"
+  },
   "ui": {
     "config::step::user::title": "개인 기상 관측소",
     "config::step::user::description": "기상 관측소의 데이터가 거부되지 않도록 관측소가 전송해야 하는 스테이션 키를 여기에 설정하세요. 비워 두면 모든 요청이 수락됩니다.",

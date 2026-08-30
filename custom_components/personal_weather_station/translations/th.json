@@ -604,7 +604,14 @@
         "name": "ความเข้มข้น HCHO"
       },
       "t9voclv": {
-        "name": "ระดับ VOC"
+        "name": "ระดับ VOC",
+        "state": {
+          "very_low": "ต่ำมาก",
+          "low": "ต่ำ",
+          "moderate": "ปานกลาง",
+          "high": "สูง",
+          "very_high": "สูงมาก"
+        }
       },
       "tempf": {
         "name": "อุณหภูมิภายนอก"

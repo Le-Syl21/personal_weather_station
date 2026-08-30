@@ -107,6 +107,13 @@
     "Set north from current": "Définir le nord sur la valeur actuelle",
     "Reset wind offset": "Réinitialiser le décalage"
   },
+  "states": {
+    "Very low": "Très faible",
+    "Low": "Faible",
+    "Moderate": "Modéré",
+    "High": "Élevé",
+    "Very high": "Très élevé"
+  },
   "ui": {
     "config::step::user::title": "Station météo personnelle",
     "config::step::user::description": "Définissez ici une clé de station que vos stations météo devront transmettre pour que leurs données soient acceptées. Si vous laissez le champ vide, toutes les requêtes seront acceptées.",

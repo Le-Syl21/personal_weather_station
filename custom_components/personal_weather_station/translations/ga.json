@@ -604,7 +604,14 @@
         "name": "Tiúchan HCHO"
       },
       "t9voclv": {
-        "name": "Leibhéal VOC"
+        "name": "Leibhéal VOC",
+        "state": {
+          "very_low": "An-íseal",
+          "low": "Íseal",
+          "moderate": "Measartha",
+          "high": "Ard",
+          "very_high": "An-ard"
+        }
       },
       "tempf": {
         "name": "Teocht amuigh"

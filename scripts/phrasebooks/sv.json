@@ -107,6 +107,13 @@
     "Set north from current": "Ställ in norr efter aktuellt värde",
     "Reset wind offset": "Nollställ förskjutningen"
   },
+  "states": {
+    "Very low": "Mycket låg",
+    "Low": "Låg",
+    "Moderate": "Måttlig",
+    "High": "Hög",
+    "Very high": "Mycket hög"
+  },
   "ui": {
     "config::step::user::title": "Personlig väderstation",
     "config::step::user::description": "Ange här en stationsnyckel som dina väderstationer måste skicka med för att deras data inte ska avvisas. Lämnar du fältet tomt accepteras alla förfrågningar.",

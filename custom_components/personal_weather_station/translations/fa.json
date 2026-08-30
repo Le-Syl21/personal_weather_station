@@ -604,7 +604,14 @@
         "name": "غلظت HCHO"
       },
       "t9voclv": {
-        "name": "سطح VOC"
+        "name": "سطح VOC",
+        "state": {
+          "very_low": "خیلی کم",
+          "low": "کم",
+          "moderate": "متوسط",
+          "high": "زیاد",
+          "very_high": "خیلی زیاد"
+        }
       },
       "tempf": {
         "name": "دمای بیرون"

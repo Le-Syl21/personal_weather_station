@@ -604,7 +604,14 @@
         "name": "Stężenie HCHO"
       },
       "t9voclv": {
-        "name": "Poziom LZO"
+        "name": "Poziom LZO",
+        "state": {
+          "very_low": "Bardzo niski",
+          "low": "Niski",
+          "moderate": "Umiarkowany",
+          "high": "Wysoki",
+          "very_high": "Bardzo wysoki"
+        }
       },
       "tempf": {
         "name": "Temperatura zewnętrzna"

@@ -604,7 +604,14 @@
         "name": "Crynodiad HCHO"
       },
       "t9voclv": {
-        "name": "Lefel VOC"
+        "name": "Lefel VOC",
+        "state": {
+          "very_low": "Isel iawn",
+          "low": "Isel",
+          "moderate": "Cymedrol",
+          "high": "Uchel",
+          "very_high": "Uchel iawn"
+        }
       },
       "tempf": {
         "name": "Tymheredd allanol"

@@ -604,7 +604,14 @@
         "name": "HCHO-concentratie"
       },
       "t9voclv": {
-        "name": "VOC-niveau"
+        "name": "VOC-niveau",
+        "state": {
+          "very_low": "Zeer laag",
+          "low": "Laag",
+          "moderate": "Matig",
+          "high": "Hoog",
+          "very_high": "Zeer hoog"
+        }
       },
       "tempf": {
         "name": "Buitentemperatuur"

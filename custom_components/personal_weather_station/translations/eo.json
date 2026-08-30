@@ -604,7 +604,14 @@
         "name": "HCHO-koncentriteco"
       },
       "t9voclv": {
-        "name": "VOC-nivelo"
+        "name": "VOC-nivelo",
+        "state": {
+          "very_low": "Tre malalta",
+          "low": "Malalta",
+          "moderate": "Modera",
+          "high": "Alta",
+          "very_high": "Tre alta"
+        }
       },
       "tempf": {
         "name": "Ekstera temperaturo"

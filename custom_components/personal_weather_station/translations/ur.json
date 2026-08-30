@@ -604,7 +604,14 @@
         "name": "HCHO ارتکاز"
       },
       "t9voclv": {
-        "name": "VOC سطح"
+        "name": "VOC سطح",
+        "state": {
+          "very_low": "بہت کم",
+          "low": "کم",
+          "moderate": "درمیانہ",
+          "high": "زیادہ",
+          "very_high": "بہت زیادہ"
+        }
       },
       "tempf": {
         "name": "بیرونی درجہ حرارت"

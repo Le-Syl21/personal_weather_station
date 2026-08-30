@@ -107,6 +107,13 @@
     "Set north from current": "Norden op den aktuelle Wäert setzen",
     "Reset wind offset": "Verschibung zrécksetzen"
   },
+  "states": {
+    "Very low": "Ganz niddreg",
+    "Low": "Niddreg",
+    "Moderate": "Moderat",
+    "High": "Héich",
+    "Very high": "Ganz héich"
+  },
   "ui": {
     "config::step::user::title": "Perséinlech Wiederstatioun",
     "config::step::user::description": "Setzt hei e Statiounsschlëssel, deen Är Wiederstatiounen muss matschécken, fir datt hir Donnéeë net refuséiert ginn. Wann Dir d'Feld eidel loosst, ginn all Ufroe akzeptéiert.",

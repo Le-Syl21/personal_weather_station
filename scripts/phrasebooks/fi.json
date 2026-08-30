@@ -107,6 +107,13 @@
     "Set north from current": "Aseta pohjoinen nykyisestä arvosta",
     "Reset wind offset": "Nollaa korjaus"
   },
+  "states": {
+    "Very low": "Erittäin matala",
+    "Low": "Matala",
+    "Moderate": "Kohtalainen",
+    "High": "Korkea",
+    "Very high": "Erittäin korkea"
+  },
   "ui": {
     "config::step::user::title": "Oma sääasema",
     "config::step::user::description": "Aseta tähän asema-avain, joka sääasemiesi on lähetettävä, jotta niiden tietoja ei hylätä. Jos jätät kentän tyhjäksi, kaikki pyynnöt hyväksytään.",

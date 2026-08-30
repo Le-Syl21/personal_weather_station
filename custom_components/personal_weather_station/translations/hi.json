@@ -604,7 +604,14 @@
         "name": "HCHO सांद्रता"
       },
       "t9voclv": {
-        "name": "VOC स्तर"
+        "name": "VOC स्तर",
+        "state": {
+          "very_low": "बहुत कम",
+          "low": "कम",
+          "moderate": "मध्यम",
+          "high": "अधिक",
+          "very_high": "बहुत अधिक"
+        }
       },
       "tempf": {
         "name": "बाहरी तापमान"

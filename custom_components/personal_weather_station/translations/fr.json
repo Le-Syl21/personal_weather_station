@@ -604,7 +604,14 @@
         "name": "Concentration de HCHO"
       },
       "t9voclv": {
-        "name": "Niveau de COV"
+        "name": "Niveau de COV",
+        "state": {
+          "very_low": "Très faible",
+          "low": "Faible",
+          "moderate": "Modéré",
+          "high": "Élevé",
+          "very_high": "Très élevé"
+        }
       },
       "tempf": {
         "name": "Température extérieure"

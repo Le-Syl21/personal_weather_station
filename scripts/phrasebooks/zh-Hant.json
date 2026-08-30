@@ -107,6 +107,13 @@
     "Set north from current": "將目前值設為正北",
     "Reset wind offset": "重設偏移"
   },
+  "states": {
+    "Very low": "極低",
+    "Low": "低",
+    "Moderate": "中等",
+    "High": "高",
+    "Very high": "極高"
+  },
   "ui": {
     "config::step::user::title": "個人氣象站",
     "config::step::user::description": "在此設定一組氣象站金鑰，您的氣象站必須傳送該金鑰，其資料才不會被拒絕。若留空，則接受所有請求。",

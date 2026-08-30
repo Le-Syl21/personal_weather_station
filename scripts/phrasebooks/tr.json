@@ -107,6 +107,13 @@
     "Set north from current": "Kuzeyi mevcut değere ayarla",
     "Reset wind offset": "Sapmayı sıfırla"
   },
+  "states": {
+    "Very low": "Çok düşük",
+    "Low": "Düşük",
+    "Moderate": "Orta",
+    "High": "Yüksek",
+    "Very high": "Çok yüksek"
+  },
   "ui": {
     "config::step::user::title": "Kişisel hava istasyonu",
     "config::step::user::description": "Hava istasyonlarınızın verilerinin reddedilmemesi için göndermesi gereken istasyon anahtarını buraya girin. Alanı boş bırakırsanız tüm istekler kabul edilir.",

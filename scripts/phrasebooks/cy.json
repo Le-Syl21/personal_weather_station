@@ -107,6 +107,13 @@
     "Set north from current": "Gosod y gogledd yn ôl y gwerth presennol",
     "Reset wind offset": "Ailosod y gwrthbwysiad"
   },
+  "states": {
+    "Very low": "Isel iawn",
+    "Low": "Isel",
+    "Moderate": "Cymedrol",
+    "High": "Uchel",
+    "Very high": "Uchel iawn"
+  },
   "ui": {
     "config::step::user::title": "Gorsaf dywydd bersonol",
     "config::step::user::description": "Gosodwch allwedd gorsaf yma y mae'n rhaid i'ch gorsafoedd tywydd ei throsglwyddo fel na chaiff eu data ei wrthod. Os gadewch y maes yn wag, derbynnir pob cais.",

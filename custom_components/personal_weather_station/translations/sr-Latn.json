@@ -604,7 +604,14 @@
         "name": "Koncentracija HCHO"
       },
       "t9voclv": {
-        "name": "Nivo VOJ"
+        "name": "Nivo VOJ",
+        "state": {
+          "very_low": "Vrlo nisko",
+          "low": "Nisko",
+          "moderate": "Umereno",
+          "high": "Visoko",
+          "very_high": "Vrlo visoko"
+        }
       },
       "tempf": {
         "name": "Spoljna temperatura"

@@ -604,7 +604,14 @@
         "name": "HCHO kontzentrazioa"
       },
       "t9voclv": {
-        "name": "KOL maila"
+        "name": "KOL maila",
+        "state": {
+          "very_low": "Oso baxua",
+          "low": "Baxua",
+          "moderate": "Ertaina",
+          "high": "Altua",
+          "very_high": "Oso altua"
+        }
       },
       "tempf": {
         "name": "Kanpoko tenperatura"

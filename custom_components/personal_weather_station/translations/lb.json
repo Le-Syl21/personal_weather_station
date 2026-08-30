@@ -604,7 +604,14 @@
         "name": "HCHO-Konzentratioun"
       },
       "t9voclv": {
-        "name": "VOC-Niveau"
+        "name": "VOC-Niveau",
+        "state": {
+          "very_low": "Ganz niddreg",
+          "low": "Niddreg",
+          "moderate": "Moderat",
+          "high": "Héich",
+          "very_high": "Ganz héich"
+        }
       },
       "tempf": {
         "name": "Baussentemperatur"

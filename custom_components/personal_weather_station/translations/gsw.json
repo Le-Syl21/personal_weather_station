@@ -604,7 +604,14 @@
         "name": "HCHO-Konzentration"
       },
       "t9voclv": {
-        "name": "VOC-Stufe"
+        "name": "VOC-Stufe",
+        "state": {
+          "very_low": "Sehr nidrig",
+          "low": "Nidrig",
+          "moderate": "Mittel",
+          "high": "Hoch",
+          "very_high": "Sehr hoch"
+        }
       },
       "tempf": {
         "name": "Usse-Temperatur"

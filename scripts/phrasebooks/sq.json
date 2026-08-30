@@ -107,6 +107,13 @@
     "Set north from current": "Cakto veriun sipas vlerës aktuale",
     "Reset wind offset": "Rivendos zhvendosjen"
   },
+  "states": {
+    "Very low": "Shumë i ulët",
+    "Low": "I ulët",
+    "Moderate": "Mesatar",
+    "High": "I lartë",
+    "Very high": "Shumë i lartë"
+  },
   "ui": {
     "config::step::user::title": "Stacion meteorologjik personal",
     "config::step::user::description": "Vendosni këtu një çelës stacioni që stacionet tuaja meteorologjike duhet ta transmetojnë që të dhënat e tyre të mos refuzohen. Nëse e lini fushën bosh, të gjitha kërkesat do të pranohen.",

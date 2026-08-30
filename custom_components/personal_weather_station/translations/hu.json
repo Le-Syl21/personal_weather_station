@@ -604,7 +604,14 @@
         "name": "HCHO koncentráció"
       },
       "t9voclv": {
-        "name": "VOC szint"
+        "name": "VOC szint",
+        "state": {
+          "very_low": "Nagyon alacsony",
+          "low": "Alacsony",
+          "moderate": "Közepes",
+          "high": "Magas",
+          "very_high": "Nagyon magas"
+        }
       },
       "tempf": {
         "name": "Külső hőmérséklet"

@@ -604,7 +604,14 @@
         "name": "HCHO 농도"
       },
       "t9voclv": {
-        "name": "VOC 수준"
+        "name": "VOC 수준",
+        "state": {
+          "very_low": "매우 낮음",
+          "low": "낮음",
+          "moderate": "보통",
+          "high": "높음",
+          "very_high": "매우 높음"
+        }
       },
       "tempf": {
         "name": "실외 온도"

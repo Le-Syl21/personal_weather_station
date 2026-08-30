@@ -114,6 +114,11 @@ def cmd_strings():
     for key, name in sorted(sensor_names().items()):
         entity["sensor"][key] = {"name": name}
 
+        # A sensor whose reading is a code rather than a quantity carries the
+        # names of its states as well.
+        if (states := sensor_states(key)) is not None:
+            entity["sensor"][key]["state"] = states
+
     # A station upgrading from an earlier release keeps these on the sensor
     # platform, so both spellings have to carry a name.
     for key, name in sorted(sensor_names(binary_only=True).items()):
@@ -136,6 +141,25 @@ def count_strings(data):
     return sum(1 for _ in flatten(data))
 
 
+# English labels for the coded readings, keyed the way SENSOR_LIST names them.
+# One entry per sensor that declares `options`; the keys must match its values.
+SENSOR_STATE_LABELS = {
+    "t9voclv": {
+        "very_low": "Very low",
+        "low": "Low",
+        "moderate": "Moderate",
+        "high": "High",
+        "very_high": "Very high",
+    },
+}
+
+
+def sensor_states(key):
+    """The state labels of a coded sensor, or None if it reports a quantity."""
+
+    return SENSOR_STATE_LABELS.get(key)
+
+
 def phrase_list():
     """The distinct phrases a translator actually has to deal with."""
 
@@ -152,17 +176,36 @@ def phrase_list():
     return list(phrases)
 
 
+def state_phrase_list():
+    """The distinct state labels, which translate on their own."""
+
+    phrases = {}
+
+    for states in SENSOR_STATE_LABELS.values():
+        for label in states.values():
+            phrases[label] = None
+
+    return list(phrases)
+
+
 def cmd_phrases():
     """Print the phrase list, as a template for a new phrase book."""
 
     template = {phrase: "" for phrase in phrase_list()}
+    states = {phrase: "" for phrase in state_phrase_list()}
     ui = {
         path[-1] if len(path) < 2 else "::".join(path): value
         for path, value in flatten(load_json(STRINGS))
         if path[0] != "entity" and not walkthrough_alias("::".join(path))
     }
 
-    print(json.dumps({"entities": template, "ui": ui}, indent=2, ensure_ascii=False))
+    print(
+        json.dumps(
+            {"entities": template, "states": states, "ui": ui},
+            indent=2,
+            ensure_ascii=False,
+        )
+    )
 
 
 WALKTHROUGH_STEPS = ("station", "settings", "server", "form", "confirm")
@@ -216,6 +259,17 @@ def expand(language, book):
 
             if translated:
                 keys[key] = {"name": compose(channel, translated)}
+
+            # State labels are their own phrases: they say nothing about which
+            # sensor they belong to, so they translate once and are reused.
+            if (states := sensor_states(key)) is not None:
+                book_states = book.get("states", {})
+                rendered = {
+                    option: book_states.get(label) or label
+                    for option, label in states.items()
+                }
+                keys[key].setdefault("name", source.get(key, key))
+                keys[key]["state"] = rendered
 
     for path, value in flatten(strings):
         if path[0] == "entity":

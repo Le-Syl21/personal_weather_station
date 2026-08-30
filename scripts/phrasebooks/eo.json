@@ -107,6 +107,13 @@
     "Set north from current": "Agordi nordon laŭ nuna valoro",
     "Reset wind offset": "Restarigi la deŝovon"
   },
+  "states": {
+    "Very low": "Tre malalta",
+    "Low": "Malalta",
+    "Moderate": "Modera",
+    "High": "Alta",
+    "Very high": "Tre alta"
+  },
   "ui": {
     "config::step::user::title": "Persona veterstacio",
     "config::step::user::description": "Agordu ĉi tie stacian ŝlosilon, kiun viaj veterstacioj devas sendi por ke iliaj datumoj ne estu malakceptitaj. Se vi lasas la kampon malplena, ĉiuj petoj estos akceptitaj.",

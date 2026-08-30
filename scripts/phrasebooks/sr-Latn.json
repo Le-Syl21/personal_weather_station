@@ -107,6 +107,13 @@
     "Set north from current": "Postavi sever prema trenutnoj vrednosti",
     "Reset wind offset": "Poništi pomeraj"
   },
+  "states": {
+    "Very low": "Vrlo nisko",
+    "Low": "Nisko",
+    "Moderate": "Umereno",
+    "High": "Visoko",
+    "Very high": "Vrlo visoko"
+  },
   "ui": {
     "config::step::user::title": "Lična meteorološka stanica",
     "config::step::user::description": "Ovde postavite ključ stanice koji vaše meteorološke stanice moraju da šalju kako njihovi podaci ne bi bili odbijeni. Ako polje ostavite prazno, prihvataće se svi zahtevi.",

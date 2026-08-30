@@ -604,7 +604,14 @@
         "name": "HCHO-pitoisuus"
       },
       "t9voclv": {
-        "name": "VOC-taso"
+        "name": "VOC-taso",
+        "state": {
+          "very_low": "Erittäin matala",
+          "low": "Matala",
+          "moderate": "Kohtalainen",
+          "high": "Korkea",
+          "very_high": "Erittäin korkea"
+        }
       },
       "tempf": {
         "name": "Ulkolämpötila"

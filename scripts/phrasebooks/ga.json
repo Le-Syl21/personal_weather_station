@@ -107,6 +107,13 @@
     "Set north from current": "Socraigh an tuaisceart de réir an luacha reatha",
     "Reset wind offset": "Athshocraigh an fritháireamh"
   },
+  "states": {
+    "Very low": "An-íseal",
+    "Low": "Íseal",
+    "Moderate": "Measartha",
+    "High": "Ard",
+    "Very high": "An-ard"
+  },
   "ui": {
     "config::step::user::title": "Stáisiún aimsire pearsanta",
     "config::step::user::description": "Socraigh eochair stáisiúin anseo nach mór do do stáisiúin aimsire a sheoladh ionas nach ndiúltófar dá gcuid sonraí. Má fhágann tú an réimse folamh, glacfar le gach iarratas.",

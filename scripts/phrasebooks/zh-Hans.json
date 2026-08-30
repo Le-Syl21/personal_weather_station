@@ -107,6 +107,13 @@
     "Set north from current": "将当前值设为正北",
     "Reset wind offset": "重置偏移"
   },
+  "states": {
+    "Very low": "极低",
+    "Low": "低",
+    "Moderate": "中等",
+    "High": "高",
+    "Very high": "极高"
+  },
   "ui": {
     "config::step::user::title": "个人气象站",
     "config::step::user::description": "在此设置一个气象站密钥，您的气象站必须发送该密钥，其数据才不会被拒绝。若留空，则接受所有请求。",

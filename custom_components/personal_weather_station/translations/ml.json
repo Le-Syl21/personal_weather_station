@@ -604,7 +604,14 @@
         "name": "HCHO സാന്ദ്രത"
       },
       "t9voclv": {
-        "name": "VOC നില"
+        "name": "VOC നില",
+        "state": {
+          "very_low": "വളരെ കുറവ്",
+          "low": "കുറവ്",
+          "moderate": "ഇടത്തരം",
+          "high": "കൂടുതൽ",
+          "very_high": "വളരെ കൂടുതൽ"
+        }
       },
       "tempf": {
         "name": "പുറത്തെ താപനില"

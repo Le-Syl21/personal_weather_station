@@ -604,7 +604,14 @@
         "name": "HCHO செறிவு"
       },
       "t9voclv": {
-        "name": "VOC நிலை"
+        "name": "VOC நிலை",
+        "state": {
+          "very_low": "மிகக் குறைவு",
+          "low": "குறைவு",
+          "moderate": "மிதமான",
+          "high": "அதிகம்",
+          "very_high": "மிக அதிகம்"
+        }
       },
       "tempf": {
         "name": "வெளிப்புற வெப்பநிலை"

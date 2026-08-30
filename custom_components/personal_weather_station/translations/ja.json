@@ -604,7 +604,14 @@
         "name": "HCHO濃度"
       },
       "t9voclv": {
-        "name": "VOCレベル"
+        "name": "VOCレベル",
+        "state": {
+          "very_low": "非常に低い",
+          "low": "低い",
+          "moderate": "中程度",
+          "high": "高い",
+          "very_high": "非常に高い"
+        }
       },
       "tempf": {
         "name": "外気温"

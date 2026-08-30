@@ -604,7 +604,14 @@
         "name": "HCHO ঘনত্ব"
       },
       "t9voclv": {
-        "name": "VOC মাত্রা"
+        "name": "VOC মাত্রা",
+        "state": {
+          "very_low": "খুব কম",
+          "low": "কম",
+          "moderate": "মাঝারি",
+          "high": "বেশি",
+          "very_high": "খুব বেশি"
+        }
       },
       "tempf": {
         "name": "বাইরের তাপমাত্রা"

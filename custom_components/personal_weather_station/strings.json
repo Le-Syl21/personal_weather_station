@@ -604,7 +604,14 @@
         "name": "HCHO concentration"
       },
       "t9voclv": {
-        "name": "VOC level"
+        "name": "VOC level",
+        "state": {
+          "very_low": "Very low",
+          "low": "Low",
+          "moderate": "Moderate",
+          "high": "High",
+          "very_high": "Very high"
+        }
       },
       "tempf": {
         "name": "Outdoor temperature"

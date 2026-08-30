@@ -604,7 +604,14 @@
         "name": "HCHO-konsintraasje"
       },
       "t9voclv": {
-        "name": "VOC-nivo"
+        "name": "VOC-nivo",
+        "state": {
+          "very_low": "Tige leech",
+          "low": "Leech",
+          "moderate": "Matich",
+          "high": "Heech",
+          "very_high": "Tige heech"
+        }
       },
       "tempf": {
         "name": "Bûtentemperatuer"

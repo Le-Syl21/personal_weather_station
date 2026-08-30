@@ -107,6 +107,13 @@
     "Set north from current": "Nastavit sever podle aktuální hodnoty",
     "Reset wind offset": "Vynulovat posun"
   },
+  "states": {
+    "Very low": "Velmi nízká",
+    "Low": "Nízká",
+    "Moderate": "Střední",
+    "High": "Vysoká",
+    "Very high": "Velmi vysoká"
+  },
   "ui": {
     "config::step::user::title": "Osobní meteostanice",
     "config::step::user::description": "Nastavte zde klíč stanice, který musí vaše meteostanice odesílat, aby jejich data nebyla odmítnuta. Ponecháte-li pole prázdné, budou přijaty všechny požadavky.",

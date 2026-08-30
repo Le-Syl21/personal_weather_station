@@ -107,6 +107,13 @@
     "Set north from current": "Észak beállítása a jelenlegi értékre",
     "Reset wind offset": "Eltolás visszaállítása"
   },
+  "states": {
+    "Very low": "Nagyon alacsony",
+    "Low": "Alacsony",
+    "Moderate": "Közepes",
+    "High": "Magas",
+    "Very high": "Nagyon magas"
+  },
   "ui": {
     "config::step::user::title": "Személyes meteorológiai állomás",
     "config::step::user::description": "Adjon meg itt egy állomáskulcsot, amelyet a meteorológiai állomásainak továbbítaniuk kell, hogy adataikat ne utasítsa el a rendszer. Ha üresen hagyja a mezőt, minden kérés elfogadásra kerül.",

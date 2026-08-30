@@ -604,7 +604,14 @@
         "name": "HCHO sisaldus"
       },
       "t9voclv": {
-        "name": "LOÜ tase"
+        "name": "LOÜ tase",
+        "state": {
+          "very_low": "Väga madal",
+          "low": "Madal",
+          "moderate": "Mõõdukas",
+          "high": "Kõrge",
+          "very_high": "Väga kõrge"
+        }
       },
       "tempf": {
         "name": "Välistemperatuur"

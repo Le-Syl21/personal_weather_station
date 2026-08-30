@@ -107,6 +107,13 @@
     "Set north from current": "Norde uf de aktuell Wert setze",
     "Reset wind offset": "Offset zrugsetze"
   },
+  "states": {
+    "Very low": "Sehr nidrig",
+    "Low": "Nidrig",
+    "Moderate": "Mittel",
+    "High": "Hoch",
+    "Very high": "Sehr hoch"
+  },
   "ui": {
     "config::step::user::title": "Persönlichi Wetterstation",
     "config::step::user::description": "Setz da en Stationsschlüssel, wo dini Wetterstatione müend mitschicke, damit ihri Date nöd abglehnt werdet. Wenn du s Fäld leer lasch, werdet alli Aafrage aagno.",

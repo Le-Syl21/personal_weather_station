@@ -107,6 +107,13 @@
     "Set north from current": "Ezarri iparra uneko balioarekin",
     "Reset wind offset": "Berrezarri desplazamendua"
   },
+  "states": {
+    "Very low": "Oso baxua",
+    "Low": "Baxua",
+    "Moderate": "Ertaina",
+    "High": "Altua",
+    "Very high": "Oso altua"
+  },
   "ui": {
     "config::step::user::title": "Norberaren eguraldi-estazioa",
     "config::step::user::description": "Ezarri hemen zure eguraldi-estazioek bidali behar duten estazio-gakoa, haien datuak baztertuak izan ez daitezen. Eremua hutsik uzten baduzu, eskaera guztiak onartuko dira.",

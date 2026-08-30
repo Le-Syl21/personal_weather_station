@@ -604,7 +604,14 @@
         "name": "Koncentrace HCHO"
       },
       "t9voclv": {
-        "name": "Úroveň VOC"
+        "name": "Úroveň VOC",
+        "state": {
+          "very_low": "Velmi nízká",
+          "low": "Nízká",
+          "moderate": "Střední",
+          "high": "Vysoká",
+          "very_high": "Velmi vysoká"
+        }
       },
       "tempf": {
         "name": "Venkovní teplota"

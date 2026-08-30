@@ -107,6 +107,13 @@
     "Set north from current": "Stel it noarden yn op de hjoeddeistige wearde",
     "Reset wind offset": "Ferskowing weromsette"
   },
+  "states": {
+    "Very low": "Tige leech",
+    "Low": "Leech",
+    "Moderate": "Matich",
+    "High": "Heech",
+    "Very high": "Tige heech"
+  },
   "ui": {
     "config::step::user::title": "Persoanlik waarstasjon",
     "config::step::user::description": "Stel hjir in stasjonskaai yn dy't jo waarstasjons stjoere moatte sadat harren gegevens net wegere wurde. Litte jo it fjild leech, dan wurde alle fersiken akseptearre.",

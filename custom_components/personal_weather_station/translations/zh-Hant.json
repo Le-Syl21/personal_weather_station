@@ -604,7 +604,14 @@
         "name": "HCHO 濃度"
       },
       "t9voclv": {
-        "name": "VOC 等級"
+        "name": "VOC 等級",
+        "state": {
+          "very_low": "極低",
+          "low": "低",
+          "moderate": "中等",
+          "high": "高",
+          "very_high": "極高"
+        }
       },
       "tempf": {
         "name": "室外溫度"

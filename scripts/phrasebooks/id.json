@@ -107,6 +107,13 @@
     "Set north from current": "Tetapkan utara dari nilai saat ini",
     "Reset wind offset": "Atur ulang pergeseran"
   },
+  "states": {
+    "Very low": "Sangat rendah",
+    "Low": "Rendah",
+    "Moderate": "Sedang",
+    "High": "Tinggi",
+    "Very high": "Sangat tinggi"
+  },
   "ui": {
     "config::step::user::title": "Stasiun cuaca pribadi",
     "config::step::user::description": "Tetapkan kunci stasiun di sini yang harus dikirim oleh stasiun cuaca Anda agar datanya tidak ditolak. Jika Anda mengosongkan kolom ini, semua permintaan akan diterima.",

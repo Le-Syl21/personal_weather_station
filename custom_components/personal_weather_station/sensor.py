@@ -152,6 +152,15 @@ class PwsSensor(PwsEntity, RestoreSensor):
         if self._meta.get("wind_offset"):
             return apply_wind_offset(value, self.device.wind_offset)
 
+        if (levels := self._meta.get("options")) is not None:
+            # An index the station numbers rather than names. A code outside
+            # the documented range becomes unknown rather than a state Home
+            # Assistant would reject for not being in `options`.
+            try:
+                return levels.get(int(value))
+            except (TypeError, ValueError):
+                return None
+
         return value
 
     @property
@@ -173,6 +182,13 @@ class PwsSensor(PwsEntity, RestoreSensor):
     @property
     def suggested_display_precision(self):
         return self._meta.get("precision")
+
+    @property
+    def options(self):
+        """The states an enum sensor may take; `None` for every other sensor."""
+
+        levels = self._meta.get("options")
+        return None if levels is None else list(levels.values())
 
     async def async_added_to_hass(self):
         """Restore the last known value so a restart does not blank the sensor."""

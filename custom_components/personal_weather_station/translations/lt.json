@@ -604,7 +604,14 @@
         "name": "HCHO koncentracija"
       },
       "t9voclv": {
-        "name": "LOJ lygis"
+        "name": "LOJ lygis",
+        "state": {
+          "very_low": "Labai žemas",
+          "low": "Žemas",
+          "moderate": "Vidutinis",
+          "high": "Aukštas",
+          "very_high": "Labai aukštas"
+        }
       },
       "tempf": {
         "name": "Lauko temperatūra"

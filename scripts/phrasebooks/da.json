@@ -107,6 +107,13 @@
     "Set north from current": "Sæt nord ud fra nuværende værdi",
     "Reset wind offset": "Nulstil forskydning"
   },
+  "states": {
+    "Very low": "Meget lav",
+    "Low": "Lav",
+    "Moderate": "Moderat",
+    "High": "Høj",
+    "Very high": "Meget høj"
+  },
   "ui": {
     "config::step::user::title": "Personlig vejrstation",
     "config::step::user::description": "Angiv her en stationsnøgle, som dine vejrstationer skal sende, for at deres data ikke bliver afvist. Lader du feltet stå tomt, accepteres alle forespørgsler.",

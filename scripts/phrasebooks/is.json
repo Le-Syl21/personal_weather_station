@@ -107,6 +107,13 @@
     "Set north from current": "Stilla norður á núverandi gildi",
     "Reset wind offset": "Núllstilla frávik"
   },
+  "states": {
+    "Very low": "Mjög lágt",
+    "Low": "Lágt",
+    "Moderate": "Miðlungs",
+    "High": "Hátt",
+    "Very high": "Mjög hátt"
+  },
   "ui": {
     "config::step::user::title": "Persónuleg veðurstöð",
     "config::step::user::description": "Stilltu hér stöðvarlykil sem veðurstöðvarnar þínar verða að senda svo gögnum þeirra sé ekki hafnað. Ef þú skilur reitinn eftir auðan verða allar beiðnir samþykktar.",

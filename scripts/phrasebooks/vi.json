@@ -107,6 +107,13 @@
     "Set north from current": "Đặt hướng bắc theo giá trị hiện tại",
     "Reset wind offset": "Đặt lại độ lệch"
   },
+  "states": {
+    "Very low": "Rất thấp",
+    "Low": "Thấp",
+    "Moderate": "Trung bình",
+    "High": "Cao",
+    "Very high": "Rất cao"
+  },
   "ui": {
     "config::step::user::title": "Trạm thời tiết cá nhân",
     "config::step::user::description": "Đặt tại đây một khóa trạm mà các trạm thời tiết của bạn phải gửi kèm để dữ liệu không bị từ chối. Nếu để trống, mọi yêu cầu đều được chấp nhận.",

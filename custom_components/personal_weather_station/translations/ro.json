@@ -604,7 +604,14 @@
         "name": "Concentrație HCHO"
       },
       "t9voclv": {
-        "name": "Nivel COV"
+        "name": "Nivel COV",
+        "state": {
+          "very_low": "Foarte scăzut",
+          "low": "Scăzut",
+          "moderate": "Moderat",
+          "high": "Ridicat",
+          "very_high": "Foarte ridicat"
+        }
       },
       "tempf": {
         "name": "Temperatură exterioară"

@@ -604,7 +604,14 @@
         "name": "Përqendrimi i HCHO"
       },
       "t9voclv": {
-        "name": "Niveli i VOC"
+        "name": "Niveli i VOC",
+        "state": {
+          "very_low": "Shumë i ulët",
+          "low": "I ulët",
+          "moderate": "Mesatar",
+          "high": "I lartë",
+          "very_high": "Shumë i lartë"
+        }
       },
       "tempf": {
         "name": "Temperatura e jashtme"

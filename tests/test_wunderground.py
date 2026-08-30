@@ -1,6 +1,9 @@
 """The Weather Underground protocol, in its imperial units."""
 
+from datetime import timedelta
+
 import pytest
+from homeassistant.util import dt as dt_util
 
 from .conftest import WU_ENDPOINT, state_of
 
@@ -65,12 +68,16 @@ async def test_dateutc_is_used_as_last_seen(hass, setup_pws):
 
     _, client = await setup_pws()
 
-    stamp = "2026-08-28 09:30:00"
+    # Relative to now, not a literal date: the integration ignores a station
+    # clock more than a day out, so a hardcoded stamp passes on the day it is
+    # written and fails every day after.
+    moment = (dt_util.utcnow() - timedelta(hours=2)).replace(microsecond=0)
+    stamp = moment.strftime("%Y-%m-%d %H:%M:%S")
     await client.get(f"{WU_ENDPOINT}?ID={DEVICE_ID}&tempf=72&dateutc={stamp}")
     await hass.async_block_till_done()
 
     assert state_of(hass, DEVICE_ID, "last_update").state.startswith(
-        "2026-08-28T09:30:00"
+        moment.strftime("%Y-%m-%dT%H:%M:%S")
     )
 
     # And it is not mistaken for a sensor.

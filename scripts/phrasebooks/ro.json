@@ -107,6 +107,13 @@
     "Set north from current": "Setează nordul pe valoarea actuală",
     "Reset wind offset": "Resetează decalajul"
   },
+  "states": {
+    "Very low": "Foarte scăzut",
+    "Low": "Scăzut",
+    "Moderate": "Moderat",
+    "High": "Ridicat",
+    "Very high": "Foarte ridicat"
+  },
   "ui": {
     "config::step::user::title": "Stație meteo personală",
     "config::step::user::description": "Setați aici o cheie de stație pe care stațiile dvs. meteo trebuie să o transmită pentru ca datele lor să nu fie respinse. Dacă lăsați câmpul gol, toate cererile vor fi acceptate.",

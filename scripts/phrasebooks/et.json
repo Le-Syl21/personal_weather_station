@@ -107,6 +107,13 @@
     "Set north from current": "Määra põhi praeguse väärtuse järgi",
     "Reset wind offset": "Lähtesta nihe"
   },
+  "states": {
+    "Very low": "Väga madal",
+    "Low": "Madal",
+    "Moderate": "Mõõdukas",
+    "High": "Kõrge",
+    "Very high": "Väga kõrge"
+  },
   "ui": {
     "config::step::user::title": "Isiklik ilmajaam",
     "config::step::user::description": "Määrake siin jaamavõti, mille teie ilmajaamad peavad edastama, et nende andmeid ei lükataks tagasi. Kui jätate välja tühjaks, võetakse vastu kõik päringud.",

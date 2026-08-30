@@ -604,7 +604,14 @@
         "name": "HCHO-styrkur"
       },
       "t9voclv": {
-        "name": "VOC-stig"
+        "name": "VOC-stig",
+        "state": {
+          "very_low": "Mjög lágt",
+          "low": "Lágt",
+          "moderate": "Miðlungs",
+          "high": "Hátt",
+          "very_high": "Mjög hátt"
+        }
       },
       "tempf": {
         "name": "Útihiti"

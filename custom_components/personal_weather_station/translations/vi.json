@@ -604,7 +604,14 @@
         "name": "Nồng độ HCHO"
       },
       "t9voclv": {
-        "name": "Mức VOC"
+        "name": "Mức VOC",
+        "state": {
+          "very_low": "Rất thấp",
+          "low": "Thấp",
+          "moderate": "Trung bình",
+          "high": "Cao",
+          "very_high": "Rất cao"
+        }
       },
       "tempf": {
         "name": "Nhiệt độ ngoài trời"

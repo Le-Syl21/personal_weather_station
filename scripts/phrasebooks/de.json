@@ -107,6 +107,13 @@
     "Set north from current": "Norden auf aktuellen Wert setzen",
     "Reset wind offset": "Offset zurücksetzen"
   },
+  "states": {
+    "Very low": "Sehr niedrig",
+    "Low": "Niedrig",
+    "Moderate": "Mittel",
+    "High": "Hoch",
+    "Very high": "Sehr hoch"
+  },
   "ui": {
     "config::step::user::title": "Persönliche Wetterstation",
     "config::step::user::description": "Legen Sie hier einen Stationsschlüssel fest, den Ihre Wetterstationen übertragen müssen, damit ihre Daten nicht abgewiesen werden. Wenn Sie das Feld leer lassen, werden alle Anfragen akzeptiert.",

@@ -107,6 +107,13 @@
     "Set north from current": "Noorden instellen op huidige waarde",
     "Reset wind offset": "Correctie wissen"
   },
+  "states": {
+    "Very low": "Zeer laag",
+    "Low": "Laag",
+    "Moderate": "Matig",
+    "High": "Hoog",
+    "Very high": "Zeer hoog"
+  },
   "ui": {
     "config::step::user::title": "Persoonlijk weerstation",
     "config::step::user::description": "Stel hier een stationssleutel in die uw weerstations moeten meesturen zodat hun gegevens niet worden geweigerd. Laat u het veld leeg, dan worden alle verzoeken geaccepteerd.",

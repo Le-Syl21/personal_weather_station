@@ -107,6 +107,13 @@
     "Set north from current": "現在の値を北に設定",
     "Reset wind offset": "オフセットをリセット"
   },
+  "states": {
+    "Very low": "非常に低い",
+    "Low": "低い",
+    "Moderate": "中程度",
+    "High": "高い",
+    "Very high": "非常に高い"
+  },
   "ui": {
     "config::step::user::title": "パーソナル気象観測所",
     "config::step::user::description": "気象観測所のデータが拒否されないように、観測所が送信する必要のあるステーションキーをここで設定します。空欄のままにすると、すべてのリクエストが受け入れられます。",

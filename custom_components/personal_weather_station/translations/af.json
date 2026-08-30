@@ -604,7 +604,14 @@
         "name": "HCHO-konsentrasie"
       },
       "t9voclv": {
-        "name": "VOC-vlak"
+        "name": "VOC-vlak",
+        "state": {
+          "very_low": "Baie laag",
+          "low": "Laag",
+          "moderate": "Matig",
+          "high": "Hoog",
+          "very_high": "Baie hoog"
+        }
       },
       "tempf": {
         "name": "Buitetemperatuur"

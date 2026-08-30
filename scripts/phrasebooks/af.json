@@ -107,6 +107,13 @@
     "Set north from current": "Stel noord volgens huidige waarde",
     "Reset wind offset": "Herstel verskuiwing"
   },
+  "states": {
+    "Very low": "Baie laag",
+    "Low": "Laag",
+    "Moderate": "Matig",
+    "High": "Hoog",
+    "Very high": "Baie hoog"
+  },
   "ui": {
     "config::step::user::title": "Persoonlike weerstasie",
     "config::step::user::description": "Stel hier 'n stasiesleutel wat jou weerstasies moet stuur sodat hul data nie verwerp word nie. As jy die veld leeg laat, word alle versoeke aanvaar.",

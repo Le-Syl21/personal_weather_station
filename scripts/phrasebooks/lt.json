@@ -107,6 +107,13 @@
     "Set north from current": "Nustatyti šiaurę pagal dabartinę vertę",
     "Reset wind offset": "Atstatyti poslinkį"
   },
+  "states": {
+    "Very low": "Labai žemas",
+    "Low": "Žemas",
+    "Moderate": "Vidutinis",
+    "High": "Aukštas",
+    "Very high": "Labai aukštas"
+  },
   "ui": {
     "config::step::user::title": "Asmeninė meteorologijos stotis",
     "config::step::user::description": "Nustatykite čia stoties raktą, kurį jūsų meteorologijos stotys turi perduoti, kad jų duomenys nebūtų atmesti. Jei paliksite lauką tuščią, bus priimamos visos užklausos.",

@@ -107,6 +107,13 @@
     "Set north from current": "Fixar o norte co valor actual",
     "Reset wind offset": "Restablecer o desprazamento"
   },
+  "states": {
+    "Very low": "Moi baixo",
+    "Low": "Baixo",
+    "Moderate": "Moderado",
+    "High": "Alto",
+    "Very high": "Moi alto"
+  },
   "ui": {
     "config::step::user::title": "Estación meteorolóxica persoal",
     "config::step::user::description": "Defina aquí unha clave de estación que as súas estacións meteorolóxicas deberán transmitir para que os seus datos non sexan rexeitados. Se deixa o campo baleiro, aceptaranse todas as solicitudes.",

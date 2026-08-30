@@ -4,6 +4,28 @@
 
 ### Fixed
 
+- **The batteries had no unit, so they read as a bare number.** `Console
+  battery level 0` could mean empty or fine, and Home Assistant logs a warning
+  for a `battery` sensor without `%`. The readings were already normalised to
+  0-100; the unit was simply never declared. All 21 of them now say `0 %`.
+  Nothing about the values changes, but Home Assistant will offer to relabel
+  the recorded statistics of an existing installation, since it stored them
+  without a unit.
+- **PM2.5 and PM10 AQI are declared as AQI.** Home Assistant has a device class
+  for the index, which gives them the right icon and grouping instead of
+  leaving two more unlabelled numbers on the dashboard.
+- **The VOC level says what it means.** The API defines it as `1~5` with **1
+  the highest** concentration and 5 the lowest — so the scale runs backwards,
+  and a bare `3` told you neither how far it went nor which end was bad.
+  Reporting `3 / 5` would have read the wrong way round just as easily. It is
+  now one of *Very low* to *Very high*, translated into all 64 languages, and
+  a code outside the documented range reads as unknown rather than being
+  guessed at. The sensor changes from a number to a named state, so its
+  recorded history does not carry over.
+- A test pinned a literal date. The integration ignores a station clock more
+  than a day out, so `test_dateutc_is_used_as_last_seen` passed on the day it
+  was written and failed every day after. It builds its timestamp relative to
+  now.
 - **The setup wizard was telling you to pick the wrong API.** It said
   *WUnderground API* while the readme and the repairs recommend *WSLink API*,
   which carries roughly twice as many readings and seven channels instead of

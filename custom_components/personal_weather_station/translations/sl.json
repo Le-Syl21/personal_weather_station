@@ -604,7 +604,14 @@
         "name": "Koncentracija HCHO"
       },
       "t9voclv": {
-        "name": "Raven HOS"
+        "name": "Raven HOS",
+        "state": {
+          "very_low": "Zelo nizka",
+          "low": "Nizka",
+          "moderate": "Zmerna",
+          "high": "Visoka",
+          "very_high": "Zelo visoka"
+        }
       },
       "tempf": {
         "name": "Zunanja temperatura"

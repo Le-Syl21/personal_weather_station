@@ -604,7 +604,14 @@
         "name": "Konsentrasi HCHO"
       },
       "t9voclv": {
-        "name": "Level VOC"
+        "name": "Level VOC",
+        "state": {
+          "very_low": "Sangat rendah",
+          "low": "Rendah",
+          "moderate": "Sedang",
+          "high": "Tinggi",
+          "very_high": "Sangat tinggi"
+        }
       },
       "tempf": {
         "name": "Suhu luar"

@@ -604,7 +604,14 @@
         "name": "Koncentracija HCHO"
       },
       "t9voclv": {
-        "name": "Razina HOS"
+        "name": "Razina HOS",
+        "state": {
+          "very_low": "Vrlo nisko",
+          "low": "Nisko",
+          "moderate": "Umjereno",
+          "high": "Visoko",
+          "very_high": "Vrlo visoko"
+        }
       },
       "tempf": {
         "name": "Vanjska temperatura"

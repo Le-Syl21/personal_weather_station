@@ -114,6 +114,17 @@ FIXED_ENTITY_NAMES = {
     },
 }
 
+# VOC level, as the WSLink API numbers it: 1 is the highest VOC concentration
+# and 5 the lowest. Mapped to states rather than left as a number so the scale
+# and its direction are both visible, and translated like every other string.
+VOC_LEVELS = {
+    1: "very_high",
+    2: "high",
+    3: "moderate",
+    4: "low",
+    5: "very_low",
+}
+
 SENSOR_LIST = {
 
     # Temperature
@@ -183,7 +194,7 @@ SENSOR_LIST = {
     "t1uvi": {"name": "UV Index", "icon": "mdi:weather-sunny-alert", "unit": UV_INDEX, "device_class": None, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t1solrad": {"name": "Light Intensity", "icon": "mdi:weather-sunny", "unit": UnitOfIrradiance.WATTS_PER_SQUARE_METER, "device_class": SensorDeviceClass.IRRADIANCE, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
     "t1wbgt": {"name": "WBGT Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
-    "t1bat": {"name": "Outdoor Sensor Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1 },
+    "t1bat": {"name": "Outdoor Sensor Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1 },
     "t1cn": {"name": "Outdoor Sensor Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
 
     # 7003800 Common Console Parameters
@@ -191,42 +202,42 @@ SENSOR_LIST = {
     "abar": {"name": "Absolute Air Pressure", "icon": "mdi:gauge", "unit": UnitOfPressure.HPA, "device_class": SensorDeviceClass.PRESSURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "intem": {"name": "Indoor Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "inhum": {"name": "Indoor Humidity", "icon": "mdi:water-percent", "unit": PERCENTAGE, "device_class": SensorDeviceClass.HUMIDITY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
-    "inbat": {"name": "Console Battery Level", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "inbat": {"name": "Console Battery Level", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
 
     # 7003800 Type 2/3/4 Multi-Channel Sensors (CH1-CH7)
     "t234c1tem": {"name": "CH1 Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t234c1hum": {"name": "CH1 Humidity", "icon": "mdi:water-percent", "unit": PERCENTAGE, "device_class": SensorDeviceClass.HUMIDITY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
-    "t234c1bat": {"name": "CH1 Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0,  "battery_scale": 1},
+    "t234c1bat": {"name": "CH1 Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0,  "battery_scale": 1},
     "t234c1cn": {"name": "CH1 Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t234c1tp": {"name": "CH1 Sensor Type", "icon": "mdi:identifier", "unit": None, "device_class": None},
     "t234c2tem": {"name": "CH2 Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t234c2hum": {"name": "CH2 Humidity", "icon": "mdi:water-percent", "unit": PERCENTAGE, "device_class": SensorDeviceClass.HUMIDITY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
-    "t234c2bat": {"name": "CH2 Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t234c2bat": {"name": "CH2 Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t234c2cn": {"name": "CH2 Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t234c2tp": {"name": "CH2 Sensor Type", "icon": "mdi:identifier", "unit": None, "device_class": None},
     "t234c3tem": {"name": "CH3 Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t234c3hum": {"name": "CH3 Humidity", "icon": "mdi:water-percent", "unit": PERCENTAGE, "device_class": SensorDeviceClass.HUMIDITY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
-    "t234c3bat": {"name": "CH3 Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t234c3bat": {"name": "CH3 Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t234c3cn": {"name": "CH3 Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t234c3tp": {"name": "CH3 Sensor Type", "icon": "mdi:identifier", "unit": None, "device_class": None},
     "t234c4tem": {"name": "CH4 Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t234c4hum": {"name": "CH4 Humidity", "icon": "mdi:water-percent", "unit": PERCENTAGE, "device_class": SensorDeviceClass.HUMIDITY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
-    "t234c4bat": {"name": "CH4 Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t234c4bat": {"name": "CH4 Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t234c4cn": {"name": "CH4 Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t234c4tp": {"name": "CH4 Sensor Type", "icon": "mdi:identifier", "unit": None, "device_class": None},
     "t234c5tem": {"name": "CH5 Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t234c5hum": {"name": "CH5 Humidity", "icon": "mdi:water-percent", "unit": PERCENTAGE, "device_class": SensorDeviceClass.HUMIDITY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
-    "t234c5bat": {"name": "CH5 Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t234c5bat": {"name": "CH5 Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t234c5cn": {"name": "CH5 Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t234c5tp": {"name": "CH5 Sensor Type", "icon": "mdi:identifier", "unit": None, "device_class": None},
     "t234c6tem": {"name": "CH6 Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t234c6hum": {"name": "CH6 Humidity", "icon": "mdi:water-percent", "unit": PERCENTAGE, "device_class": SensorDeviceClass.HUMIDITY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
-    "t234c6bat": {"name": "CH6 Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t234c6bat": {"name": "CH6 Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t234c6cn": {"name": "CH6 Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t234c6tp": {"name": "CH6 Sensor Type", "icon": "mdi:identifier", "unit": None, "device_class": None},
     "t234c7tem": {"name": "CH7 Temperature", "icon": "mdi:thermometer", "unit": UnitOfTemperature.CELSIUS, "device_class": SensorDeviceClass.TEMPERATURE, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t234c7hum": {"name": "CH7 Humidity", "icon": "mdi:water-percent", "unit": PERCENTAGE, "device_class": SensorDeviceClass.HUMIDITY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0},
-    "t234c7bat": {"name": "CH7 Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t234c7bat": {"name": "CH7 Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t234c7cn": {"name": "CH7 Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t234c7tp": {"name": "CH7 Sensor Type", "icon": "mdi:identifier", "unit": None, "device_class": None},
 
@@ -238,54 +249,58 @@ SENSOR_LIST = {
     "t5ls30mtc": {"name": "Lightning Strikes Last 30 Minutes", "icon": "mdi:counter", "unit": None, "device_class": None},
     "t5ls1htc": {"name": "Lightning Strikes Last 1 Hour", "icon": "mdi:counter", "unit": None, "device_class": None},
     "t5ls1dtc": {"name": "Lightning Strikes Last 1 Day", "icon": "mdi:counter", "unit": None, "device_class": None},
-    "t5lsbat": {"name": "Lightning Sensor Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t5lsbat": {"name": "Lightning Sensor Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t5lscn": {"name": "Lightning Sensor Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
 
     # 7003800 Type 6 Water Leak Sensor (CH1-CH7)
     "t6c1wls": {"name": "CH1 Water Leak Status", "icon": "mdi:water-alert", "unit": None, "device_class": None, "binary": "moisture"},
-    "t6c1bat": {"name": "CH1 Water Leak Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t6c1bat": {"name": "CH1 Water Leak Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t6c1cn": {"name": "CH1 Water Leak Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t6c2wls": {"name": "CH2 Water Leak Status", "icon": "mdi:water-alert", "unit": None, "device_class": None, "binary": "moisture"},
-    "t6c2bat": {"name": "CH2 Water Leak Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t6c2bat": {"name": "CH2 Water Leak Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t6c2cn": {"name": "CH2 Water Leak Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t6c3wls": {"name": "CH3 Water Leak Status", "icon": "mdi:water-alert", "unit": None, "device_class": None, "binary": "moisture"},
-    "t6c3bat": {"name": "CH3 Water Leak Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t6c3bat": {"name": "CH3 Water Leak Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t6c3cn": {"name": "CH3 Water Leak Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t6c4wls": {"name": "CH4 Water Leak Status", "icon": "mdi:water-alert", "unit": None, "device_class": None, "binary": "moisture"},
-    "t6c4bat": {"name": "CH4 Water Leak Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t6c4bat": {"name": "CH4 Water Leak Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t6c4cn": {"name": "CH4 Water Leak Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t6c5wls": {"name": "CH5 Water Leak Status", "icon": "mdi:water-alert", "unit": None, "device_class": None, "binary": "moisture"},
-    "t6c5bat": {"name": "CH5 Water Leak Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t6c5bat": {"name": "CH5 Water Leak Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t6c5cn": {"name": "CH5 Water Leak Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t6c6wls": {"name": "CH6 Water Leak Status", "icon": "mdi:water-alert", "unit": None, "device_class": None, "binary": "moisture"},
-    "t6c6bat": {"name": "CH6 Water Leak Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t6c6bat": {"name": "CH6 Water Leak Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t6c6cn": {"name": "CH6 Water Leak Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
     "t6c7wls": {"name": "CH7 Water Leak Status", "icon": "mdi:water-alert", "unit": None, "device_class": None, "binary": "moisture"},
-    "t6c7bat": {"name": "CH7 Water Leak Battery Status", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
+    "t6c7bat": {"name": "CH7 Water Leak Battery Status", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 1},
     "t6c7cn": {"name": "CH7 Water Leak Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
 
     # 7003800 Type 8 PM Sensor
     "t8pm25": {"name": "PM2.5 Concentration", "icon": "mdi:molecule", "unit": CONCENTRATION_MICROGRAMS_PER_CUBIC_METER, "device_class": SensorDeviceClass.PM25, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
     "t8pm10": {"name": "PM10 Concentration", "icon": "mdi:molecule", "unit": CONCENTRATION_MICROGRAMS_PER_CUBIC_METER, "device_class": SensorDeviceClass.PM10, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
-    "t8pm25ai": {"name": "PM2.5 AQI", "icon": "mdi:chart-line", "unit": None, "device_class": None, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
-    "t8pm10ai": {"name": "PM10 AQI", "icon": "mdi:chart-line", "unit": None, "device_class": None, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
-    "t8bat": {"name": "PM Sensor Battery Level", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 5},
+    "t8pm25ai": {"name": "PM2.5 AQI", "icon": "mdi:chart-line", "unit": None, "device_class": SensorDeviceClass.AQI, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
+    "t8pm10ai": {"name": "PM10 AQI", "icon": "mdi:chart-line", "unit": None, "device_class": SensorDeviceClass.AQI, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
+    "t8bat": {"name": "PM Sensor Battery Level", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 5},
     "t8cn": {"name": "PM Sensor Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
 
     # 7003800 Type 9 HCHO / VOC Sensor
     "t9hcho": {"name": "HCHO Concentration", "icon": "mdi:molecule", "unit": CONCENTRATION_PARTS_PER_BILLION, "device_class": SensorDeviceClass.VOLATILE_ORGANIC_COMPOUNDS_PARTS, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
-    "t9voclv": {"name": "VOC Level", "icon": "mdi:molecule", "unit": None, "device_class": None, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
-    "t9bat": {"name": "HCHO/VOC Sensor Battery Level", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 5},
+    # The API defines this one as `1~5`, "1 is the highest level, 5 is the
+    # lowest VOC level" — the scale runs backwards. A bare 3 says neither how
+    # far it can go nor which end is bad, and "3 / 5" would still read as
+    # "middling to good" when 5 is the clean end. Named states say it outright.
+    "t9voclv": {"name": "VOC Level", "icon": "mdi:molecule", "unit": None, "device_class": SensorDeviceClass.ENUM, "options": VOC_LEVELS},
+    "t9bat": {"name": "HCHO/VOC Sensor Battery Level", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 5},
     "t9cn": {"name": "HCHO/VOC Sensor Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
 
     # 7003800 Type 10 CO2 Sensor
     "t10co2": {"name": "CO2 Concentration", "icon": "mdi:molecule-co2", "unit": CONCENTRATION_PARTS_PER_MILLION, "device_class": SensorDeviceClass.CO2, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
-    "t10bat": {"name": "CO2 Sensor Battery Level", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 5},
+    "t10bat": {"name": "CO2 Sensor Battery Level", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 5},
     "t10cn": {"name": "CO2 Sensor Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
 
     # 7003800 Type 11 CO Sensor
     "t11co": {"name": "CO Concentration", "icon": "mdi:molecule-co", "unit": CONCENTRATION_PARTS_PER_MILLION, "device_class": SensorDeviceClass.CO, "state_class": SensorStateClass.MEASUREMENT, "precision": 1},
-    "t11bat": {"name": "CO Sensor Battery Level", "icon": "mdi:battery", "unit": None, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 5},
+    "t11bat": {"name": "CO Sensor Battery Level", "icon": "mdi:battery", "unit": PERCENTAGE, "device_class": SensorDeviceClass.BATTERY, "state_class": SensorStateClass.MEASUREMENT, "precision": 0, "battery_scale": 5},
     "t11cn": {"name": "CO Sensor Connection Status", "icon": "mdi:access-point-check", "unit": None, "device_class": None, "binary": "connectivity"},
 
     # Clouds / Visibility

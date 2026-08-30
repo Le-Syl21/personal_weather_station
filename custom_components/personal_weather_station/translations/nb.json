@@ -604,7 +604,14 @@
         "name": "HCHO-konsentrasjon"
       },
       "t9voclv": {
-        "name": "VOC-nivå"
+        "name": "VOC-nivå",
+        "state": {
+          "very_low": "Svært lav",
+          "low": "Lav",
+          "moderate": "Moderat",
+          "high": "Høy",
+          "very_high": "Svært høy"
+        }
       },
       "tempf": {
         "name": "Utetemperatur"

@@ -107,6 +107,13 @@
     "Set north from current": "Iestatīt ziemeļus pēc pašreizējās vērtības",
     "Reset wind offset": "Atiestatīt nobīdi"
   },
+  "states": {
+    "Very low": "Ļoti zems",
+    "Low": "Zems",
+    "Moderate": "Vidējs",
+    "High": "Augsts",
+    "Very high": "Ļoti augsts"
+  },
   "ui": {
     "config::step::user::title": "Personīgā meteostacija",
     "config::step::user::description": "Iestatiet šeit stacijas atslēgu, kas jūsu meteostacijām jāpārsūta, lai to dati netiktu noraidīti. Ja atstāsiet lauku tukšu, tiks pieņemti visi pieprasījumi.",

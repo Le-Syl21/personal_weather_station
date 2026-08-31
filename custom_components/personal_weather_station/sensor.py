@@ -139,6 +139,11 @@ class PwsSensor(PwsEntity, RestoreSensor):
         self._meta = SENSOR_LIST.get(key, {"name": key, "icon": "mdi:help"})
         self._attr_translation_key = SENSOR_TRANSLATION_KEYS.get(key, slugify(key))
 
+        # Readings about the station rather than about the weather belong with
+        # the diagnostics, next to the batteries and the last contact time.
+        if self._meta.get("diagnostic"):
+            self._attr_entity_category = EntityCategory.DIAGNOSTIC
+
         super().__init__(device, key, self._meta.get("name", key))
 
     @property

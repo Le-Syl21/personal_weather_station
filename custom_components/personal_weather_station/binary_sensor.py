@@ -117,11 +117,19 @@ class PwsBinarySensor(PwsEntity, BinarySensorEntity):
 
         self._meta = SENSOR_LIST[key]
         self._attr_translation_key = SENSOR_TRANSLATION_KEYS.get(key, slugify(key))
-        self._attr_device_class = BinarySensorDeviceClass(self._meta["binary"])
+        binary = self._meta["binary"]
 
-        if self._attr_device_class in (
-            BinarySensorDeviceClass.CONNECTIVITY,
-            BinarySensorDeviceClass.BATTERY,
+        # A string names a Home Assistant device class; True just means "this
+        # is a binary reading". The batteries take that second form on purpose:
+        # the battery class renders as Normal / Low, and a console sitting on
+        # mains power has no battery level to be normal about.
+        self._attr_device_class = (
+            BinarySensorDeviceClass(binary) if isinstance(binary, str) else None
+        )
+
+        if (
+            self._attr_device_class is BinarySensorDeviceClass.CONNECTIVITY
+            or self._meta.get("diagnostic")
         ):
             self._attr_entity_category = EntityCategory.DIAGNOSTIC
 
@@ -130,20 +138,16 @@ class PwsBinarySensor(PwsEntity, BinarySensorEntity):
     @property
     def is_on(self):
         """
-        Both protocols use 1 for the active state — except for batteries.
+        Both protocols use 1 for the active state.
 
-        Connected=1 for a connection status, Leak=1 for a water leak sensor.
-        A battery reports Normal=1, Low=0, and Home Assistant's battery class
-        is on when the battery is low, so that one reads the other way round.
+        Connected=1 for a connection status, Leak=1 for a water leak sensor,
+        Normal=1 for a battery — which reads as on when the battery is fine.
         """
 
         value = self.device.data.get(self._key)
 
         if value is None:
             return None
-
-        if self._attr_device_class is BinarySensorDeviceClass.BATTERY:
-            return value == 0
 
         return value == 1
 

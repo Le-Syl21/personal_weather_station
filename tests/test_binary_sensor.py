@@ -98,12 +98,13 @@ async def test_new_station_gets_binary_sensors(hass, setup_pws):
     assert state_of(hass, DEVICE_ID, "t1cn") is None
 
 
-async def test_a_low_battery_turns_the_sensor_on(hass, setup_pws):
+async def test_a_battery_reads_on_when_it_is_fine(hass, setup_pws):
     """
-    The station reports Normal=1, Low=0; the battery class is on when low.
+    The station reports Normal=1, Low=0, and the sensor follows that directly.
 
-    That is the one binary reading whose polarity is inverted, and getting it
-    backwards would report every healthy battery as flat.
+    Deliberately no battery device class: that one renders as Normal / Low,
+    which says nothing useful about a console sitting on mains power. Plain
+    on/off, with on meaning the battery is fine.
     """
 
     _, client = await setup_pws()
@@ -112,10 +113,10 @@ async def test_a_low_battery_turns_the_sensor_on(hass, setup_pws):
     await hass.async_block_till_done()
 
     healthy = state_of(hass, DEVICE_ID, "t1bat", "binary_sensor")
-    assert healthy.state == STATE_OFF
-    assert healthy.attributes["device_class"] == "battery"
+    assert healthy.state == STATE_ON
+    assert "device_class" not in healthy.attributes
 
-    assert state_of(hass, DEVICE_ID, "t234c1bat", "binary_sensor").state == STATE_ON
+    assert state_of(hass, DEVICE_ID, "t234c1bat", "binary_sensor").state == STATE_OFF
 
     # No numeric leftover alongside it.
     assert state_of(hass, DEVICE_ID, "t1bat") is None

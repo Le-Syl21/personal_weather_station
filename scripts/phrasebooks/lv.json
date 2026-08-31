@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Vēja virziens (neapstrādāts)",
     "Wind direction offset": "Vēja virziena nobīde",
     "Set north from current": "Iestatīt ziemeļus pēc pašreizējās vērtības",
-    "Reset wind offset": "Atiestatīt nobīdi"
+    "Reset wind offset": "Atiestatīt nobīdi",
+    "Station online": "Stacija tiešsaistē"
   },
   "states": {
     "Very low": "Ļoti zems",

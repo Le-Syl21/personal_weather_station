@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Tuule suund (toores)",
     "Wind direction offset": "Tuule suuna nihe",
     "Set north from current": "Määra põhi praeguse väärtuse järgi",
-    "Reset wind offset": "Lähtesta nihe"
+    "Reset wind offset": "Lähtesta nihe",
+    "Station online": "Jaam võrgus"
   },
   "states": {
     "Very low": "Väga madal",

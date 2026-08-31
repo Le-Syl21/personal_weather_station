@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Dirección del viento (bruta)",
     "Wind direction offset": "Desfase de dirección del viento",
     "Set north from current": "Fijar el norte con el valor actual",
-    "Reset wind offset": "Restablecer el desfase"
+    "Reset wind offset": "Restablecer el desfase",
+    "Station online": "Estación en línea"
   },
   "states": {
     "Very low": "Muy bajo",

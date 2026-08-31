@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Vėjo kryptis (neapdorota)",
     "Wind direction offset": "Vėjo krypties poslinkis",
     "Set north from current": "Nustatyti šiaurę pagal dabartinę vertę",
-    "Reset wind offset": "Atstatyti poslinkį"
+    "Reset wind offset": "Atstatyti poslinkį",
+    "Station online": "Stotis prisijungusi"
   },
   "states": {
     "Very low": "Labai žemas",

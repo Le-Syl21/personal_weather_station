@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Напрямок вітру (вихідний)",
     "Wind direction offset": "Зміщення напрямку вітру",
     "Set north from current": "Задати північ за поточним значенням",
-    "Reset wind offset": "Скинути зміщення"
+    "Reset wind offset": "Скинути зміщення",
+    "Station online": "Станція на зв'язку"
   },
   "states": {
     "Very low": "Дуже низький",

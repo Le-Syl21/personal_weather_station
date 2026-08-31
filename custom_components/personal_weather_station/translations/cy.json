@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Gorsaf ar-lein"
+      },
       "t10cn": {
         "name": "Cyflwr cysylltiad y synhwyrydd CO2"
       },

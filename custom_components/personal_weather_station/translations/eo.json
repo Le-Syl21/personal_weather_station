@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Stacio enreta"
+      },
       "t10cn": {
         "name": "Konekta stato de CO2-sensilo"
       },

@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Правец на ветерот (суров)",
     "Wind direction offset": "Поместување на правецот на ветерот",
     "Set north from current": "Постави север според тековната вредност",
-    "Reset wind offset": "Ресетирај го поместувањето"
+    "Reset wind offset": "Ресетирај го поместувањето",
+    "Station online": "Станицата е на линија"
   },
   "states": {
     "Very low": "Многу ниско",

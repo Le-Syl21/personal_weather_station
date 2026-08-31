@@ -105,7 +105,8 @@
     "Wind direction (raw)": "כיוון הרוח (גולמי)",
     "Wind direction offset": "היסט כיוון הרוח",
     "Set north from current": "קבע צפון לפי הערך הנוכחי",
-    "Reset wind offset": "אפס את ההיסט"
+    "Reset wind offset": "אפס את ההיסט",
+    "Station online": "התחנה מחוברת"
   },
   "states": {
     "Very low": "נמוך מאוד",

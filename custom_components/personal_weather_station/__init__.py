@@ -38,6 +38,7 @@ from .const import (
     ISSUE_TRACKER_URL,
     ISSUE_UNKNOWN_PARAMETERS,
     KEY_LAST_UPDATE,
+    KEY_STATION_ONLINE,
     KEY_WIND_DIR_RAW,
     PLATFORMS,
     RATE_LIMIT_REQUESTS,
@@ -801,7 +802,11 @@ class PwsView(HomeAssistantView):
 
         # Only rewrite what this payload actually touched: a station posting
         # every minute would otherwise fill the recorder with unchanged states.
-        write_keys = [*updated_keys, KEY_LAST_UPDATE]
+        # KEY_STATION_ONLINE has to be rewritten here rather than left to the
+        # availability tick: accepting this payload already set was_available,
+        # so the tick sees no change and would leave the entity saying the
+        # station is offline for as long as it keeps posting.
+        write_keys = [*updated_keys, KEY_LAST_UPDATE, KEY_STATION_ONLINE]
 
         if any(SENSOR_LIST[key].get("wind_offset") for key in updated_keys):
             write_keys.append(KEY_WIND_DIR_RAW)

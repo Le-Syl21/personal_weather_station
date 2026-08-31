@@ -105,7 +105,8 @@
     "Wind direction (raw)": "हवा की दिशा (कच्ची)",
     "Wind direction offset": "हवा की दिशा ऑफसेट",
     "Set north from current": "वर्तमान मान को उत्तर बनाएं",
-    "Reset wind offset": "ऑफसेट रीसेट करें"
+    "Reset wind offset": "ऑफसेट रीसेट करें",
+    "Station online": "स्टेशन ऑनलाइन"
   },
   "states": {
     "Very low": "बहुत कम",

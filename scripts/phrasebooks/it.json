@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Direzione del vento (grezza)",
     "Wind direction offset": "Scostamento direzione del vento",
     "Set north from current": "Imposta il nord sul valore attuale",
-    "Reset wind offset": "Azzera lo scostamento"
+    "Reset wind offset": "Azzera lo scostamento",
+    "Station online": "Stazione in linea"
   },
   "states": {
     "Very low": "Molto basso",

@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Estación en línea"
+      },
       "t10cn": {
         "name": "Estado de conexión del sensor de CO2"
       },

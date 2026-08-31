@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Szélirány (nyers)",
     "Wind direction offset": "Szélirány eltolása",
     "Set north from current": "Észak beállítása a jelenlegi értékre",
-    "Reset wind offset": "Eltolás visszaállítása"
+    "Reset wind offset": "Eltolás visszaállítása",
+    "Station online": "Állomás online"
   },
   "states": {
     "Very low": "Nagyon alacsony",

@@ -105,7 +105,8 @@
     "Wind direction (raw)": "風向（原始值）",
     "Wind direction offset": "風向偏移",
     "Set north from current": "將目前值設為正北",
-    "Reset wind offset": "重設偏移"
+    "Reset wind offset": "重設偏移",
+    "Station online": "氣象站上線"
   },
   "states": {
     "Very low": "極低",

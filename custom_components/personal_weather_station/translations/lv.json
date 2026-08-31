@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Stacija tiešsaistē"
+      },
       "t10cn": {
         "name": "CO2 sensora savienojuma stāvoklis"
       },

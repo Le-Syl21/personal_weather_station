@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Rüzgâr yönü (ham)",
     "Wind direction offset": "Rüzgâr yönü sapması",
     "Set north from current": "Kuzeyi mevcut değere ayarla",
-    "Reset wind offset": "Sapmayı sıfırla"
+    "Reset wind offset": "Sapmayı sıfırla",
+    "Station online": "İstasyon çevrimiçi"
   },
   "states": {
     "Very low": "Çok düşük",

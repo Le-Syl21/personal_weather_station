@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Wynrjochting (rau)",
     "Wind direction offset": "Ferskowing fan wynrjochting",
     "Set north from current": "Stel it noarden yn op de hjoeddeistige wearde",
-    "Reset wind offset": "Ferskowing weromsette"
+    "Reset wind offset": "Ferskowing weromsette",
+    "Station online": "Stasjon online"
   },
   "states": {
     "Very low": "Tige leech",

@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "气象站在线"
+      },
       "t10cn": {
         "name": "CO2 传感器连接状态"
       },

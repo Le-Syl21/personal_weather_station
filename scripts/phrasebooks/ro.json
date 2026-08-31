@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Direcția vântului (brută)",
     "Wind direction offset": "Decalajul direcției vântului",
     "Set north from current": "Setează nordul pe valoarea actuală",
-    "Reset wind offset": "Resetează decalajul"
+    "Reset wind offset": "Resetează decalajul",
+    "Station online": "Stație online"
   },
   "states": {
     "Very low": "Foarte scăzut",

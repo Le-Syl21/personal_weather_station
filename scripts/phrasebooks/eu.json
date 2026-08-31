@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Haizearen norabidea (gordina)",
     "Wind direction offset": "Haizearen norabidearen desplazamendua",
     "Set north from current": "Ezarri iparra uneko balioarekin",
-    "Reset wind offset": "Berrezarri desplazamendua"
+    "Reset wind offset": "Berrezarri desplazamendua",
+    "Station online": "Estazioa linean"
   },
   "states": {
     "Very low": "Oso baxua",

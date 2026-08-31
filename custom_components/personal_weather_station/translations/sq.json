@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Stacioni në linjë"
+      },
       "t10cn": {
         "name": "Gjendja e lidhjes së sensorit CO2"
       },

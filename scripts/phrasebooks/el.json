@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Διεύθυνση ανέμου (ακατέργαστη)",
     "Wind direction offset": "Μετατόπιση διεύθυνσης ανέμου",
     "Set north from current": "Ορισμός βορρά από την τρέχουσα τιμή",
-    "Reset wind offset": "Επαναφορά μετατόπισης"
+    "Reset wind offset": "Επαναφορά μετατόπισης",
+    "Station online": "Σταθμός σε σύνδεση"
   },
   "states": {
     "Very low": "Πολύ χαμηλό",

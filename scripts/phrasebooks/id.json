@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Arah angin (mentah)",
     "Wind direction offset": "Pergeseran arah angin",
     "Set north from current": "Tetapkan utara dari nilai saat ini",
-    "Reset wind offset": "Atur ulang pergeseran"
+    "Reset wind offset": "Atur ulang pergeseran",
+    "Station online": "Stasiun daring"
   },
   "states": {
     "Very low": "Sangat rendah",

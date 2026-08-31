@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Windrichtung (roh)",
     "Wind direction offset": "Windrichtungs-Offset",
     "Set north from current": "Norden auf aktuellen Wert setzen",
-    "Reset wind offset": "Offset zurücksetzen"
+    "Reset wind offset": "Offset zurücksetzen",
+    "Station online": "Station online"
   },
   "states": {
     "Very low": "Sehr niedrig",

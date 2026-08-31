@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Stasie aanlyn"
+      },
       "t10cn": {
         "name": "Verbindingstoestand van CO2-sensor"
       },

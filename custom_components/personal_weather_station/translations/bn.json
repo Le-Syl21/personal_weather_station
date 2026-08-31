@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "স্টেশন অনলাইন"
+      },
       "t10cn": {
         "name": "CO2 সেন্সরের সংযোগের অবস্থা"
       },

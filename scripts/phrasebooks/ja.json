@@ -105,7 +105,8 @@
     "Wind direction (raw)": "風向（生値）",
     "Wind direction offset": "風向オフセット",
     "Set north from current": "現在の値を北に設定",
-    "Reset wind offset": "オフセットをリセット"
+    "Reset wind offset": "オフセットをリセット",
+    "Station online": "ステーション接続"
   },
   "states": {
     "Very low": "非常に低い",

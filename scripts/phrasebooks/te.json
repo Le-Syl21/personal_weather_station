@@ -105,7 +105,8 @@
     "Wind direction (raw)": "గాలి దిశ (ముడి)",
     "Wind direction offset": "గాలి దిశ ఆఫ్‌సెట్",
     "Set north from current": "ప్రస్తుత విలువను ఉత్తరంగా సెట్ చేయి",
-    "Reset wind offset": "ఆఫ్‌సెట్ రీసెట్ చేయి"
+    "Reset wind offset": "ఆఫ్‌సెట్ రీసెట్ చేయి",
+    "Station online": "స్టేషన్ ఆన్‌లైన్"
   },
   "states": {
     "Very low": "చాలా తక్కువ",

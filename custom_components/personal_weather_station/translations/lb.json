@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Statioun online"
+      },
       "t10cn": {
         "name": "Verbindungszoustand vum CO2-Sensor"
       },

@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Смер ветра (сирови)",
     "Wind direction offset": "Померај смера ветра",
     "Set north from current": "Постави север према тренутној вредности",
-    "Reset wind offset": "Поништи померај"
+    "Reset wind offset": "Поништи померај",
+    "Station online": "Станица на вези"
   },
   "states": {
     "Very low": "Врло ниско",

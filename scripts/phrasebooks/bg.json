@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Посока на вятъра (необработена)",
     "Wind direction offset": "Отместване на посоката на вятъра",
     "Set north from current": "Задай север по текущата стойност",
-    "Reset wind offset": "Нулирай отместването"
+    "Reset wind offset": "Нулирай отместването",
+    "Station online": "Станцията е на линия"
   },
   "states": {
     "Very low": "Много ниско",

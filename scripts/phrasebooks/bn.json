@@ -105,7 +105,8 @@
     "Wind direction (raw)": "বাতাসের দিক (অপ্রক্রিয়াকৃত)",
     "Wind direction offset": "বাতাসের দিকের অফসেট",
     "Set north from current": "বর্তমান মানকে উত্তর হিসেবে সেট করুন",
-    "Reset wind offset": "অফসেট রিসেট করুন"
+    "Reset wind offset": "অফসেট রিসেট করুন",
+    "Station online": "স্টেশন অনলাইন"
   },
   "states": {
     "Very low": "খুব কম",

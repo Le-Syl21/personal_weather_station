@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Cyfeiriad y gwynt (crai)",
     "Wind direction offset": "Gwrthbwyso cyfeiriad y gwynt",
     "Set north from current": "Gosod y gogledd yn ôl y gwerth presennol",
-    "Reset wind offset": "Ailosod y gwrthbwysiad"
+    "Reset wind offset": "Ailosod y gwrthbwysiad",
+    "Station online": "Gorsaf ar-lein"
   },
   "states": {
     "Very low": "Isel iawn",

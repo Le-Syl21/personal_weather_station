@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Trạm trực tuyến"
+      },
       "t10cn": {
         "name": "Trạng thái kết nối cảm biến CO2"
       },

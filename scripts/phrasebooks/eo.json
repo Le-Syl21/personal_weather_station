@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Venta direkto (kruda)",
     "Wind direction offset": "Deŝovo de venta direkto",
     "Set north from current": "Agordi nordon laŭ nuna valoro",
-    "Reset wind offset": "Restarigi la deŝovon"
+    "Reset wind offset": "Restarigi la deŝovon",
+    "Station online": "Stacio enreta"
   },
   "states": {
     "Very low": "Tre malalta",

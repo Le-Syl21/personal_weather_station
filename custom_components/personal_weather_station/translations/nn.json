@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Stasjon tilkopla"
+      },
       "t10cn": {
         "name": "Tilkoplingsstatus for CO2-sensor"
       },

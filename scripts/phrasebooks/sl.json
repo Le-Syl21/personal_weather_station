@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Smer vetra (surova)",
     "Wind direction offset": "Zamik smeri vetra",
     "Set north from current": "Nastavi sever po trenutni vrednosti",
-    "Reset wind offset": "Ponastavi zamik"
+    "Reset wind offset": "Ponastavi zamik",
+    "Station online": "Postaja na spletu"
   },
   "states": {
     "Very low": "Zelo nizka",

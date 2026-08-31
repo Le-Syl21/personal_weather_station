@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Stáisiún ar líne"
+      },
       "t10cn": {
         "name": "Stádas ceangail an bhraiteora CO2"
       },

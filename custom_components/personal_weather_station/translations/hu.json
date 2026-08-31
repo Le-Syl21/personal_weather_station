@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Állomás online"
+      },
       "t10cn": {
         "name": "CO2 érzékelő kapcsolatának állapota"
       },

@@ -105,7 +105,8 @@
     "Wind direction (raw)": "جهت باد (خام)",
     "Wind direction offset": "انحراف جهت باد",
     "Set north from current": "تنظیم شمال بر اساس مقدار فعلی",
-    "Reset wind offset": "بازنشانی انحراف"
+    "Reset wind offset": "بازنشانی انحراف",
+    "Station online": "ایستگاه آنلاین"
   },
   "states": {
     "Very low": "خیلی کم",

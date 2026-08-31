@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Kierunek wiatru (surowy)",
     "Wind direction offset": "Przesunięcie kierunku wiatru",
     "Set north from current": "Ustaw północ na bieżącą wartość",
-    "Reset wind offset": "Wyzeruj przesunięcie"
+    "Reset wind offset": "Wyzeruj przesunięcie",
+    "Station online": "Stacja online"
   },
   "states": {
     "Very low": "Bardzo niski",

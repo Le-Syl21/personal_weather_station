@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Postaja na spletu"
+      },
       "t10cn": {
         "name": "Stanje povezave senzorja CO2"
       },

@@ -84,6 +84,7 @@ WIND_DIR_PRIMARY_KEYS = ("t1wdir", "winddir")
 # Suffixes of the entities that are built by the integration itself rather than
 # derived from a payload key. Used to rebuild them from the entity registry.
 KEY_LAST_UPDATE = "last_update"
+KEY_STATION_ONLINE = "station_online"
 KEY_WIND_DIR_RAW = "wind_direction_raw"
 KEY_WIND_OFFSET = "wind_offset"
 KEY_SET_NORTH = "set_north"
@@ -107,6 +108,7 @@ FIXED_ENTITY_NAMES = {
         KEY_LAST_UPDATE: "Last update",
         KEY_WIND_DIR_RAW: "Wind direction (raw)",
     },
+    "binary_sensor": {KEY_STATION_ONLINE: "Station online"},
     "number": {KEY_WIND_OFFSET: "Wind direction offset"},
     "button": {
         KEY_SET_NORTH: "Set north from current",

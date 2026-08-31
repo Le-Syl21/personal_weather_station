@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Windrichting (ruw)",
     "Wind direction offset": "Windrichtingcorrectie",
     "Set north from current": "Noorden instellen op huidige waarde",
-    "Reset wind offset": "Correctie wissen"
+    "Reset wind offset": "Correctie wissen",
+    "Station online": "Station online"
   },
   "states": {
     "Very low": "Zeer laag",

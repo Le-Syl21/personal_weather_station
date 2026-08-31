@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Քամու ուղղություն (չմշակված)",
     "Wind direction offset": "Քամու ուղղության շեղում",
     "Set north from current": "Սահմանել հյուսիսը ընթացիկ արժեքով",
-    "Reset wind offset": "Զրոյացնել շեղումը"
+    "Reset wind offset": "Զրոյացնել շեղումը",
+    "Station online": "Կայանը կապի մեջ է"
   },
   "states": {
     "Very low": "Շատ ցածր",

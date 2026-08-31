@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Tuulen suunta (raaka)",
     "Wind direction offset": "Tuulen suunnan korjaus",
     "Set north from current": "Aseta pohjoinen nykyisestä arvosta",
-    "Reset wind offset": "Nollaa korjaus"
+    "Reset wind offset": "Nollaa korjaus",
+    "Station online": "Asema verkossa"
   },
   "states": {
     "Very low": "Erittäin matala",

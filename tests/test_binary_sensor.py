@@ -1,15 +1,20 @@
 """Connection and water leak readings as binary sensors."""
 
 
+from datetime import timedelta
+
 from homeassistant.const import STATE_OFF, STATE_ON
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers import issue_registry as ir
+from pytest_homeassistant_custom_component.common import async_fire_time_changed
 
 from custom_components.personal_weather_station.const import (
     BINARY_KEYS,
+    CONF_AVAILABILITY_TIMEOUT,
     DOMAIN,
     ISSUE_LEGACY_STATUS_SENSORS,
+    KEY_STATION_ONLINE,
     SENSOR_LIST,
 )
 from custom_components.personal_weather_station.migration import (
@@ -182,3 +187,39 @@ async def test_repair_converts_on_confirmation(hass, setup_pws):
 
     assert state_of(hass, DEVICE_ID, "t6c1wls", "binary_sensor").state == STATE_OFF
     assert state_of(hass, DEVICE_ID, "t1cn", "binary_sensor").state == STATE_ON
+
+
+async def test_the_station_reports_its_own_silence(hass, setup_pws, freezer):
+    """
+    Every other connection status comes from the station itself.
+
+    None of them covers the console, because the console is what does the
+    posting: when it stops, nobody is left to say so. This one is derived from
+    the availability timeout instead.
+    """
+
+    _, client = await setup_pws(options={CONF_AVAILABILITY_TIMEOUT: 15})
+
+    await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1tem=21.5")
+    await hass.async_block_till_done()
+
+    online = state_of(hass, DEVICE_ID, KEY_STATION_ONLINE, "binary_sensor")
+    assert online.state == STATE_ON
+
+    freezer.tick(timedelta(minutes=20))
+    async_fire_time_changed(hass)
+    await hass.async_block_till_done()
+
+    online = state_of(hass, DEVICE_ID, KEY_STATION_ONLINE, "binary_sensor")
+
+    # Available, and saying the station is not: an entity that went unavailable
+    # itself could not report the outage.
+    assert online.state == STATE_OFF
+
+    await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1tem=22.0")
+    await hass.async_block_till_done()
+
+    assert (
+        state_of(hass, DEVICE_ID, KEY_STATION_ONLINE, "binary_sensor").state
+        == STATE_ON
+    )

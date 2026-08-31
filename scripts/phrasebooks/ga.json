@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Treo na gaoithe (amh)",
     "Wind direction offset": "Fritháireamh threo na gaoithe",
     "Set north from current": "Socraigh an tuaisceart de réir an luacha reatha",
-    "Reset wind offset": "Athshocraigh an fritháireamh"
+    "Reset wind offset": "Athshocraigh an fritháireamh",
+    "Station online": "Stáisiún ar líne"
   },
   "states": {
     "Very low": "An-íseal",

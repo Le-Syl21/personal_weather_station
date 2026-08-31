@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Vindátt (hrá)",
     "Wind direction offset": "Frávik vindáttar",
     "Set north from current": "Stilla norður á núverandi gildi",
-    "Reset wind offset": "Núllstilla frávik"
+    "Reset wind offset": "Núllstilla frávik",
+    "Station online": "Stöð tengd"
   },
   "states": {
     "Very low": "Mjög lágt",

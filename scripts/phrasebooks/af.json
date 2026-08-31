@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Windrigting (rou)",
     "Wind direction offset": "Windrigtingverskuiwing",
     "Set north from current": "Stel noord volgens huidige waarde",
-    "Reset wind offset": "Herstel verskuiwing"
+    "Reset wind offset": "Herstel verskuiwing",
+    "Station online": "Stasie aanlyn"
   },
   "states": {
     "Very low": "Baie laag",

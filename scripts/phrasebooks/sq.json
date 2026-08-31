@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Drejtimi i erës (i papërpunuar)",
     "Wind direction offset": "Zhvendosja e drejtimit të erës",
     "Set north from current": "Cakto veriun sipas vlerës aktuale",
-    "Reset wind offset": "Rivendos zhvendosjen"
+    "Reset wind offset": "Rivendos zhvendosjen",
+    "Station online": "Stacioni në linjë"
   },
   "states": {
     "Very low": "Shumë i ulët",

@@ -52,6 +52,11 @@
 
 ### Added
 
+- **A `Station online` binary sensor**, one per station. Every other connection
+  status comes from the station itself, which says nothing about the console —
+  the console is what does the posting, so when it stops there is nobody left to
+  report it. This one is derived from the availability timeout instead, and
+  stays available precisely when the station is not.
 - **The setup wizard is now a walkthrough, with the screenshots.** Five screens
   matching the station app's own, one picture each, ending on Home Assistant
   waiting with you for the first upload — and saying so explicitly when nothing

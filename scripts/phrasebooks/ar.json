@@ -105,7 +105,8 @@
     "Wind direction (raw)": "اتجاه الرياح (خام)",
     "Wind direction offset": "إزاحة اتجاه الرياح",
     "Set north from current": "تعيين الشمال حسب القيمة الحالية",
-    "Reset wind offset": "إعادة تعيين الإزاحة"
+    "Reset wind offset": "إعادة تعيين الإزاحة",
+    "Station online": "المحطة متصلة"
   },
   "states": {
     "Very low": "منخفض جدًا",

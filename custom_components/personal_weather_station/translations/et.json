@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Jaam võrgus"
+      },
       "t10cn": {
         "name": "CO2 anduri ühenduse olek"
       },

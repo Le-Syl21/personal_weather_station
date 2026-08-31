@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Smer vetra (surový)",
     "Wind direction offset": "Posun smeru vetra",
     "Set north from current": "Nastaviť sever podľa aktuálnej hodnoty",
-    "Reset wind offset": "Vynulovať posun"
+    "Reset wind offset": "Vynulovať posun",
+    "Station online": "Stanica online"
   },
   "states": {
     "Very low": "Veľmi nízka",

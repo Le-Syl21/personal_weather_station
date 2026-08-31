@@ -105,7 +105,8 @@
     "Wind direction (raw)": "ہوا کی سمت (خام)",
     "Wind direction offset": "ہوا کی سمت کا فرق",
     "Set north from current": "موجودہ قدر کو شمال مقرر کریں",
-    "Reset wind offset": "فرق ری سیٹ کریں"
+    "Reset wind offset": "فرق ری سیٹ کریں",
+    "Station online": "اسٹیشن آن لائن"
   },
   "states": {
     "Very low": "بہت کم",

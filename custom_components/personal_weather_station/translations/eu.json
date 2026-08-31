@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "Estazioa linean"
+      },
       "t10cn": {
         "name": "CO2 sentsorearen konexio-egoera"
       },

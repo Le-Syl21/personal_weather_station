@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "station_online": {
+        "name": "المحطة متصلة"
+      },
       "t10cn": {
         "name": "حالة اتصال مستشعر CO2"
       },

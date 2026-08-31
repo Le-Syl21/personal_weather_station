@@ -105,7 +105,8 @@
     "Wind direction (raw)": "ทิศทางลม (ดิบ)",
     "Wind direction offset": "ค่าชดเชยทิศทางลม",
     "Set north from current": "ตั้งค่าทิศเหนือจากค่าปัจจุบัน",
-    "Reset wind offset": "รีเซ็ตค่าชดเชย"
+    "Reset wind offset": "รีเซ็ตค่าชดเชย",
+    "Station online": "สถานีออนไลน์"
   },
   "states": {
     "Very low": "ต่ำมาก",

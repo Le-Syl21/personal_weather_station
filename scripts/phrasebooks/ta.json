@@ -105,7 +105,8 @@
     "Wind direction (raw)": "காற்றின் திசை (மூல)",
     "Wind direction offset": "காற்றின் திசை ஈடுசெய்தல்",
     "Set north from current": "தற்போதைய மதிப்பை வடக்காக அமை",
-    "Reset wind offset": "ஈடுசெய்தலை மீட்டமை"
+    "Reset wind offset": "ஈடுசெய்தலை மீட்டமை",
+    "Station online": "நிலையம் இணைப்பில்"
   },
   "states": {
     "Very low": "மிகக் குறைவு",

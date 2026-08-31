@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Vindriktning (rå)",
     "Wind direction offset": "Förskjutning av vindriktning",
     "Set north from current": "Ställ in norr efter aktuellt värde",
-    "Reset wind offset": "Nollställ förskjutningen"
+    "Reset wind offset": "Nollställ förskjutningen",
+    "Station online": "Station ansluten"
   },
   "states": {
     "Very low": "Mycket låg",

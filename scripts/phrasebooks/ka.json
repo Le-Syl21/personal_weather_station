@@ -105,7 +105,8 @@
     "Wind direction (raw)": "ქარის მიმართულება (დაუმუშავებელი)",
     "Wind direction offset": "ქარის მიმართულების წანაცვლება",
     "Set north from current": "ჩრდილოეთის დაყენება მიმდინარე მნიშვნელობით",
-    "Reset wind offset": "წანაცვლების განულება"
+    "Reset wind offset": "წანაცვლების განულება",
+    "Station online": "სადგური ხაზზეა"
   },
   "states": {
     "Very low": "ძალიან დაბალი",

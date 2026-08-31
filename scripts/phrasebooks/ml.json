@@ -105,7 +105,8 @@
     "Wind direction (raw)": "കാറ്റിന്റെ ദിശ (അസംസ്കൃതം)",
     "Wind direction offset": "കാറ്റിന്റെ ദിശയുടെ ഓഫ്‌സെറ്റ്",
     "Set north from current": "നിലവിലെ മൂല്യം വടക്കായി സജ്ജമാക്കുക",
-    "Reset wind offset": "ഓഫ്‌സെറ്റ് പുനഃസജ്ജമാക്കുക"
+    "Reset wind offset": "ഓഫ്‌സെറ്റ് പുനഃസജ്ജമാക്കുക",
+    "Station online": "സ്റ്റേഷൻ ഓൺലൈൻ"
   },
   "states": {
     "Very low": "വളരെ കുറവ്",

@@ -105,7 +105,8 @@
     "Wind direction (raw)": "Hướng gió (thô)",
     "Wind direction offset": "Độ lệch hướng gió",
     "Set north from current": "Đặt hướng bắc theo giá trị hiện tại",
-    "Reset wind offset": "Đặt lại độ lệch"
+    "Reset wind offset": "Đặt lại độ lệch",
+    "Station online": "Trạm trực tuyến"
   },
   "states": {
     "Very low": "Rất thấp",

@@ -4,6 +4,13 @@
 
 ### Fixed
 
+- **A `0~5` battery level no longer reads as 0%.** The six levels were spread
+  evenly over 0-100, so a sensor merely in its lowest band reported a flat
+  battery — and stayed there for months while working perfectly well. Each
+  level is now reported as the middle of the band it stands for: 5, 20, 40, 60,
+  80, 95. Only the PM2.5/10, HCHO/VOC, CO₂ and CO sensors use that scale; the
+  other batteries are binary and unchanged.
+
 - **The batteries had no unit, so they read as a bare number.** `Console
   battery level 0` could mean empty or fine, and Home Assistant logs a warning
   for a `battery` sensor without `%`. The readings were already normalised to

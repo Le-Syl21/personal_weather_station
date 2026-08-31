@@ -43,9 +43,17 @@ def test_parse_value_keeps_int_type():
         # The document's own example sends 2 for a sensor it describes as
         # binary, so the clamp has to hold.
         (2, 1, 100),
-        (5, 5, 100),
+        # A 0~5 level is a band, not a charge. The lowest band is not a flat
+        # battery, and the highest is not a brand new one.
+        (0, 5, 5),
+        (1, 5, 20),
+        (2, 5, 40),
         (3, 5, 60),
-        (0, 5, 0),
+        (4, 5, 80),
+        (5, 5, 95),
+        # Out of range in either direction still lands on a real level.
+        (9, 5, 95),
+        (-1, 5, 5),
         (None, 5, None),
         ("abc", 5, None),
         (-4, 1, 0),

@@ -40,6 +40,16 @@ def parse_value(raw):
         return raw
 
 
+# What each step of the 0~5 battery indicator is worth, as a percentage.
+#
+# The station reports a level, not a charge. Spreading the six levels evenly
+# over 0-100 makes level 0 read as 0%, which says the battery is flat when it
+# only means "the lowest of six bands" — a sensor sits there for months and
+# keeps working. Each level is reported as the middle of the band it stands
+# for, so the lowest band reads 5% and the highest 95%.
+BATTERY_LEVELS = (5, 20, 40, 60, 80, 95)
+
+
 def normalize_battery(value, scale=None):
     """
     Convert a raw battery reading to a percentage.
@@ -60,6 +70,11 @@ def normalize_battery(value, scale=None):
         value = float(value)
     except (TypeError, ValueError):
         return None
+
+    if scale == len(BATTERY_LEVELS) - 1:
+        level = int(max(0, min(len(BATTERY_LEVELS) - 1, round(value))))
+
+        return BATTERY_LEVELS[level]
 
     if scale:
         value = value / scale * 100

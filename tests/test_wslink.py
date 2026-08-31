@@ -59,9 +59,10 @@ async def test_battery_scales(hass, setup_pws, wslink_payload):
     # The document's example sends 2 here, outside its own documented range.
     assert state_of(hass, DEVICE_ID, "t234c2bat").state == "100"
 
-    # "0~5, remark: 5 is full"
-    assert state_of(hass, DEVICE_ID, "t11bat").state == "100"
-    assert state_of(hass, DEVICE_ID, "t8bat").state == "0"
+    # "0~5, remark: 5 is full" — reported as the middle of the band each level
+    # stands for, so the lowest one does not claim the battery is flat.
+    assert state_of(hass, DEVICE_ID, "t11bat").state == "95"
+    assert state_of(hass, DEVICE_ID, "t8bat").state == "5"
 
 
 async def test_unknown_parameters_are_ignored(hass, setup_pws):

@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Bağlantı ve kaçak durumları hâlâ sayı",
+      "title": "Bağlantı, sızıntı ve pil değerleri hâlâ sayı",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "İkili sensörlere dönüştür",
-            "description": "Bağlantı ve su kaçağı durumları 1 veya 0 olarak gönderilir. 1.0.8 sürümüne kadar sayısal sensör olarak gösteriliyordu; örneğin `{example}`, bunlar Home Assistant'ın standart kaçak kartları ve uyarılarıyla kullanılamaz. Yeni istasyonlar artık **Islak / Kuru** ve **Bağlı / Bağlantı yok** gösteren ikili sensörler alıyor.\n\n**{count} varlık** dönüştürülebilir. Pil seviyeleri etkilenmez: yüzde olarak kalır, düşük pil uyarıları bunun üzerinden çalışır.\n\nPlatform değiştirmek bir yeniden adlandırma değildir, bu yüzden eski varlıklar kaldırılır ve `binary_sensor` olarak yeniden oluşturulur. **Kayıtlı geçmişleri kaybolur** — bu okumaların uzun vadeli istatistiği yoktur, dolayısıyla yalnızca ham geçmiş etkilenir — ve **onlara işaret eden otomasyonlar, betikler, sahneler ve panolar güncellenmelidir**. Yeni varlıklar istasyonun bir sonraki gönderiminde görünür.\n\nOlduğu gibi bırakmayı tercih ederseniz bu onarımı yok sayın."
+            "description": "Bağlantı, su sızıntısı ve pil değerleri 1 veya 0 olarak gönderilir. 1.0.8 sürümüne kadar `{example}` gibi sayısal algılayıcılar olarak sunuluyorlardı; bunlar Home Assistant'ın standart sızıntı, bağlantı ve düşük pil kartlarıyla kullanılamaz. Yeni istasyonlar **Islak / Kuru**, **Bağlı / Bağlantı yok** ve **Düşük / Normal** gösteren ikili algılayıcılar alır.\n\n**{count} varlık** dönüştürülebilir. Hava kalitesi algılayıcılarının 0~5 pil düzeyleri yüzdesini korur: altı basamak, bir açık/kapalının taşıyabileceğinden fazladır.\n\nPlatform değiştirmek bir yeniden adlandırma değildir: eski varlıklar kaldırılır ve `binary_sensor` olarak yeniden oluşturulur. **Kaydedilmiş geçmişleri kaybolur** — bu değerlerin uzun vadeli istatistiği yoktur, dolayısıyla yalnızca ham geçmiş etkilenir — ve **bunlara işaret eden otomasyonlar, betikler, sahneler ve panolar güncellenmelidir**. Yeni varlıklar istasyonun bir sonraki gönderiminde belirir.\n\nOnları olduğu gibi bırakmayı yeğlerseniz bu onarımı yok sayın."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Konsol pil seviyesi"
+      },
       "station_online": {
         "name": "İstasyon çevrimiçi"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "CO sensörü bağlantı durumu"
       },
+      "t1bat": {
+        "name": "Dış sensör pil durumu"
+      },
       "t1cn": {
         "name": "Dış sensör bağlantı durumu"
+      },
+      "t234c1bat": {
+        "name": "CH1 pil durumu"
       },
       "t234c1cn": {
         "name": "CH1 bağlantı durumu"
       },
+      "t234c2bat": {
+        "name": "CH2 pil durumu"
+      },
       "t234c2cn": {
         "name": "CH2 bağlantı durumu"
+      },
+      "t234c3bat": {
+        "name": "CH3 pil durumu"
       },
       "t234c3cn": {
         "name": "CH3 bağlantı durumu"
       },
+      "t234c4bat": {
+        "name": "CH4 pil durumu"
+      },
       "t234c4cn": {
         "name": "CH4 bağlantı durumu"
+      },
+      "t234c5bat": {
+        "name": "CH5 pil durumu"
       },
       "t234c5cn": {
         "name": "CH5 bağlantı durumu"
       },
+      "t234c6bat": {
+        "name": "CH6 pil durumu"
+      },
       "t234c6cn": {
         "name": "CH6 bağlantı durumu"
+      },
+      "t234c7bat": {
+        "name": "CH7 pil durumu"
       },
       "t234c7cn": {
         "name": "CH7 bağlantı durumu"
       },
+      "t5lsbat": {
+        "name": "Yıldırım sensörü pil durumu"
+      },
       "t5lscn": {
         "name": "Yıldırım sensörü bağlantı durumu"
+      },
+      "t6c1bat": {
+        "name": "CH1 kaçak sensörü pil durumu"
       },
       "t6c1cn": {
         "name": "CH1 kaçak sensörü bağlantı durumu"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 su kaçağı durumu"
       },
+      "t6c2bat": {
+        "name": "CH2 kaçak sensörü pil durumu"
+      },
       "t6c2cn": {
         "name": "CH2 kaçak sensörü bağlantı durumu"
       },
       "t6c2wls": {
         "name": "CH2 su kaçağı durumu"
+      },
+      "t6c3bat": {
+        "name": "CH3 kaçak sensörü pil durumu"
       },
       "t6c3cn": {
         "name": "CH3 kaçak sensörü bağlantı durumu"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 su kaçağı durumu"
       },
+      "t6c4bat": {
+        "name": "CH4 kaçak sensörü pil durumu"
+      },
       "t6c4cn": {
         "name": "CH4 kaçak sensörü bağlantı durumu"
       },
       "t6c4wls": {
         "name": "CH4 su kaçağı durumu"
+      },
+      "t6c5bat": {
+        "name": "CH5 kaçak sensörü pil durumu"
       },
       "t6c5cn": {
         "name": "CH5 kaçak sensörü bağlantı durumu"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 su kaçağı durumu"
       },
+      "t6c6bat": {
+        "name": "CH6 kaçak sensörü pil durumu"
+      },
       "t6c6cn": {
         "name": "CH6 kaçak sensörü bağlantı durumu"
       },
       "t6c6wls": {
         "name": "CH6 su kaçağı durumu"
+      },
+      "t6c7bat": {
+        "name": "CH7 kaçak sensörü pil durumu"
       },
       "t6c7cn": {
         "name": "CH7 kaçak sensörü bağlantı durumu"

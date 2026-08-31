@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Stany połączenia i wycieku to nadal liczby",
+      "title": "Odczyty połączenia, wycieku i baterii wciąż są liczbami",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Przekształć w czujniki binarne",
-            "description": "Stany połączenia i wycieku wody przesyłane są jako 1 lub 0. Do wersji 1.0.8 były pokazywane jako czujniki liczbowe, jak `{example}`, których nie da się użyć ze standardowymi kartami i alertami wycieku w Home Assistant. Nowe stacje otrzymują teraz czujniki binarne pokazujące **Mokro / Sucho** oraz **Połączono / Rozłączono**.\n\n**{count} encji** można przekształcić. Poziomy baterii nie są objęte: pozostają procentami, na których działają alerty o niskim poziomie baterii.\n\nZmiana platformy nie jest zmianą nazwy, więc stare encje są usuwane i tworzone na nowo jako `binary_sensor`. **Ich zapisana historia zostaje utracona** — te odczyty nie mają statystyk długoterminowych, więc dotyczy to tylko surowej historii — a **automatyzacje, skrypty, sceny i pulpity wskazujące na nie trzeba zaktualizować**. Nowe encje pojawią się przy następnej wysyłce stacji.\n\nJeśli wolisz zostawić je bez zmian, zignoruj tę naprawę."
+            "description": "Odczyty połączenia, wycieku wody i baterii są wysyłane jako 1 albo 0. Do wersji 1.0.8 wystawiano je jako czujniki liczbowe, na przykład `{example}`, których nie da się użyć ze standardowymi kartami wycieku, łączności i słabej baterii w Home Assistancie. Nowe stacje dostają czujniki binarne pokazujące **Mokro / Sucho**, **Połączono / Rozłączono** oraz **Niski / Normalny**.\n\nMożna przekształcić **{count} encji**. Poziomy baterii 0~5 czujników jakości powietrza zachowują swój procent: sześć stopni to więcej, niż zdoła unieść włączone/wyłączone.\n\nZmiana platformy nie jest zmianą nazwy: stare encje zostają usunięte i utworzone na nowo jako `binary_sensor`. **Ich zapisana historia przepada** — te odczyty nie mają statystyk długoterminowych, więc dotyczy to wyłącznie historii surowej — a **automatyzacje, skrypty, sceny i pulpity, które na nie wskazują, trzeba zaktualizować**. Nowe encje pojawią się przy następnym wysłaniu ze stacji.\n\nJeśli wolisz zostawić je tak, jak są, zignoruj tę naprawę."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Poziom baterii konsoli"
+      },
       "station_online": {
         "name": "Stacja online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Stan połączenia czujnika CO"
       },
+      "t1bat": {
+        "name": "Stan baterii czujnika zewnętrznego"
+      },
       "t1cn": {
         "name": "Stan połączenia czujnika zewnętrznego"
+      },
+      "t234c1bat": {
+        "name": "CH1 stan baterii"
       },
       "t234c1cn": {
         "name": "CH1 stan połączenia"
       },
+      "t234c2bat": {
+        "name": "CH2 stan baterii"
+      },
       "t234c2cn": {
         "name": "CH2 stan połączenia"
+      },
+      "t234c3bat": {
+        "name": "CH3 stan baterii"
       },
       "t234c3cn": {
         "name": "CH3 stan połączenia"
       },
+      "t234c4bat": {
+        "name": "CH4 stan baterii"
+      },
       "t234c4cn": {
         "name": "CH4 stan połączenia"
+      },
+      "t234c5bat": {
+        "name": "CH5 stan baterii"
       },
       "t234c5cn": {
         "name": "CH5 stan połączenia"
       },
+      "t234c6bat": {
+        "name": "CH6 stan baterii"
+      },
       "t234c6cn": {
         "name": "CH6 stan połączenia"
+      },
+      "t234c7bat": {
+        "name": "CH7 stan baterii"
       },
       "t234c7cn": {
         "name": "CH7 stan połączenia"
       },
+      "t5lsbat": {
+        "name": "Stan baterii czujnika burzowego"
+      },
       "t5lscn": {
         "name": "Stan połączenia czujnika burzowego"
+      },
+      "t6c1bat": {
+        "name": "CH1 stan baterii czujnika wycieku"
       },
       "t6c1cn": {
         "name": "CH1 stan połączenia czujnika wycieku"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 stan wycieku wody"
       },
+      "t6c2bat": {
+        "name": "CH2 stan baterii czujnika wycieku"
+      },
       "t6c2cn": {
         "name": "CH2 stan połączenia czujnika wycieku"
       },
       "t6c2wls": {
         "name": "CH2 stan wycieku wody"
+      },
+      "t6c3bat": {
+        "name": "CH3 stan baterii czujnika wycieku"
       },
       "t6c3cn": {
         "name": "CH3 stan połączenia czujnika wycieku"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 stan wycieku wody"
       },
+      "t6c4bat": {
+        "name": "CH4 stan baterii czujnika wycieku"
+      },
       "t6c4cn": {
         "name": "CH4 stan połączenia czujnika wycieku"
       },
       "t6c4wls": {
         "name": "CH4 stan wycieku wody"
+      },
+      "t6c5bat": {
+        "name": "CH5 stan baterii czujnika wycieku"
       },
       "t6c5cn": {
         "name": "CH5 stan połączenia czujnika wycieku"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 stan wycieku wody"
       },
+      "t6c6bat": {
+        "name": "CH6 stan baterii czujnika wycieku"
+      },
       "t6c6cn": {
         "name": "CH6 stan połączenia czujnika wycieku"
       },
       "t6c6wls": {
         "name": "CH6 stan wycieku wody"
+      },
+      "t6c7bat": {
+        "name": "CH7 stan baterii czujnika wycieku"
       },
       "t6c7cn": {
         "name": "CH7 stan połączenia czujnika wycieku"

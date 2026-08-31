@@ -55,20 +55,26 @@ def seed_numeric_status(hass, entry):
         )
 
 
-def test_only_connection_and_leak_keys_are_binary():
-    """Battery levels stay percentages, where low-battery alerts work."""
+def test_which_keys_are_binary():
+    """
+    Connection, leak, and the Normal/Low batteries.
 
-    assert len(BINARY_KEYS) == 27
+    The 0~5 batteries stay numeric: they carry six levels, which a percentage
+    can express and an on/off cannot.
+    """
+
+    assert len(BINARY_KEYS) == 44
 
     for key in BINARY_KEYS:
-        assert key.endswith(("cn", "wls")), key
+        assert key.endswith(("cn", "wls", "bat")), key
 
-    batteries = [
-        key
-        for key, meta in SENSOR_LIST.items()
-        if meta.get("battery_scale") == 1 and not meta.get("binary")
+    graded = [
+        key for key, meta in SENSOR_LIST.items() if meta.get("battery_scale") == 5
     ]
-    assert len(batteries) == 17
+    assert sorted(graded) == ["t10bat", "t11bat", "t8bat", "t9bat"]
+
+    for key in graded:
+        assert not SENSOR_LIST[key].get("binary"), key
 
 
 async def test_new_station_gets_binary_sensors(hass, setup_pws):
@@ -92,16 +98,27 @@ async def test_new_station_gets_binary_sensors(hass, setup_pws):
     assert state_of(hass, DEVICE_ID, "t1cn") is None
 
 
-async def test_batteries_stay_numeric(hass, setup_pws):
+async def test_a_low_battery_turns_the_sensor_on(hass, setup_pws):
+    """
+    The station reports Normal=1, Low=0; the battery class is on when low.
+
+    That is the one binary reading whose polarity is inverted, and getting it
+    backwards would report every healthy battery as flat.
+    """
+
     _, client = await setup_pws()
 
-    await client.get(PAYLOAD)
+    await client.get(f"{WSLINK_ENDPOINT}?wsid={DEVICE_ID}&t1bat=1&t234c1bat=0")
     await hass.async_block_till_done()
 
-    battery = state_of(hass, DEVICE_ID, "t1bat")
-    assert battery.state == "100"
-    assert battery.attributes["device_class"] == "battery"
-    assert state_of(hass, DEVICE_ID, "t1bat", "binary_sensor") is None
+    healthy = state_of(hass, DEVICE_ID, "t1bat", "binary_sensor")
+    assert healthy.state == STATE_OFF
+    assert healthy.attributes["device_class"] == "battery"
+
+    assert state_of(hass, DEVICE_ID, "t234c1bat", "binary_sensor").state == STATE_ON
+
+    # No numeric leftover alongside it.
+    assert state_of(hass, DEVICE_ID, "t1bat") is None
 
 
 async def test_a_leak_turns_the_sensor_on(hass, setup_pws):

@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Connection and leak readings are still numbers",
+      "title": "Connection, leak and battery readings are still numbers",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Convert to binary sensors",
-            "description": "Connection and water leak readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak cards and alerts of Home Assistant. New stations now get binary sensors showing **Wet / Dry** and **Connected / Disconnected**.\n\n**{count} entities** can be converted. Battery levels are not affected: they stay percentages, where the low-battery alerts work on them.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
+            "description": "Connection, water leak and battery readings are reported as 1 or 0. Up to version 1.0.8 they were exposed as numeric sensors, such as `{example}`, which cannot be used with the standard leak, connectivity and low-battery cards of Home Assistant. New stations get binary sensors showing **Wet / Dry**, **Connected / Disconnected** and **Low / Normal**.\n\n**{count} entities** can be converted. The 0~5 battery levels of the air quality sensors keep their percentage: six steps are more than an on/off can carry.\n\nChanging platform is not a rename, so the old entities are removed and rebuilt as `binary_sensor`. **Their recorded history is lost** — these readings have no long-term statistics, so only the raw history is affected — and **automations, scripts, scenes and dashboards pointing at them must be updated**. The new entities appear on the station's next upload.\n\nIf you would rather keep them as they are, ignore this repair."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Console battery level"
+      },
       "station_online": {
         "name": "Station online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "CO sensor connection status"
       },
+      "t1bat": {
+        "name": "Outdoor sensor battery status"
+      },
       "t1cn": {
         "name": "Outdoor sensor connection status"
+      },
+      "t234c1bat": {
+        "name": "CH1 battery status"
       },
       "t234c1cn": {
         "name": "CH1 connection status"
       },
+      "t234c2bat": {
+        "name": "CH2 battery status"
+      },
       "t234c2cn": {
         "name": "CH2 connection status"
+      },
+      "t234c3bat": {
+        "name": "CH3 battery status"
       },
       "t234c3cn": {
         "name": "CH3 connection status"
       },
+      "t234c4bat": {
+        "name": "CH4 battery status"
+      },
       "t234c4cn": {
         "name": "CH4 connection status"
+      },
+      "t234c5bat": {
+        "name": "CH5 battery status"
       },
       "t234c5cn": {
         "name": "CH5 connection status"
       },
+      "t234c6bat": {
+        "name": "CH6 battery status"
+      },
       "t234c6cn": {
         "name": "CH6 connection status"
+      },
+      "t234c7bat": {
+        "name": "CH7 battery status"
       },
       "t234c7cn": {
         "name": "CH7 connection status"
       },
+      "t5lsbat": {
+        "name": "Lightning sensor battery status"
+      },
       "t5lscn": {
         "name": "Lightning sensor connection status"
+      },
+      "t6c1bat": {
+        "name": "CH1 water leak battery status"
       },
       "t6c1cn": {
         "name": "CH1 water leak connection status"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 water leak status"
       },
+      "t6c2bat": {
+        "name": "CH2 water leak battery status"
+      },
       "t6c2cn": {
         "name": "CH2 water leak connection status"
       },
       "t6c2wls": {
         "name": "CH2 water leak status"
+      },
+      "t6c3bat": {
+        "name": "CH3 water leak battery status"
       },
       "t6c3cn": {
         "name": "CH3 water leak connection status"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 water leak status"
       },
+      "t6c4bat": {
+        "name": "CH4 water leak battery status"
+      },
       "t6c4cn": {
         "name": "CH4 water leak connection status"
       },
       "t6c4wls": {
         "name": "CH4 water leak status"
+      },
+      "t6c5bat": {
+        "name": "CH5 water leak battery status"
       },
       "t6c5cn": {
         "name": "CH5 water leak connection status"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 water leak status"
       },
+      "t6c6bat": {
+        "name": "CH6 water leak battery status"
+      },
       "t6c6cn": {
         "name": "CH6 water leak connection status"
       },
       "t6c6wls": {
         "name": "CH6 water leak status"
+      },
+      "t6c7bat": {
+        "name": "CH7 water leak battery status"
       },
       "t6c7cn": {
         "name": "CH7 water leak connection status"

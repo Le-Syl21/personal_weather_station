@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Stanja veze i curenja su i dalje brojevi",
+      "title": "Očitavanja veze, curenja i baterije su još brojevi",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Pretvori u binarne senzore",
-            "description": "Stanja veze i curenja vode šalju se kao 1 ili 0. Do verzije 1.0.8 prikazivala su se kao numerički senzori, poput `{example}`, koji se ne mogu koristiti sa standardnim karticama i upozorenjima za curenje u Home Assistant-u. Nove stanice sada dobijaju binarne senzore koji prikazuju **Mokro / Suvo** i **Povezano / Nepovezano**.\n\n**{count} entiteta** može biti pretvoreno. Nivoi baterije nisu pogođeni: ostaju procenti, na kojima rade upozorenja o slaboj bateriji.\n\nPromena platforme nije preimenovanje, pa se stari entiteti uklanjaju i ponovo stvaraju kao `binary_sensor`. **Njihova zabeležena istorija se gubi** — ova očitavanja nemaju dugoročne statistike, pa je pogođena samo sirova istorija — i **automatizacije, skripte, scene i kontrolne table koje upućuju na njih moraju biti ažurirane**. Novi entiteti pojavljuju se pri sledećem slanju stanice.\n\nAko želite radije da ih ostavite kakvi jesu, zanemarite ovu popravku."
+            "description": "Očitavanja veze, curenja vode i baterije šalju se kao 1 ili 0. Do verzije 1.0.8 prikazivala su se kao numerički senzori, poput `{example}`, koji ne rade sa standardnim karticama za curenje, povezanost i praznu bateriju u Home Assistant-u. Nove stanice dobijaju binarne senzore koji prikazuju **Mokro / Suvo**, **Povezano / Nepovezano** i **Slaba / Normalna**.\n\nMože se pretvoriti **{count} entiteta**. Nivoi baterije 0~5 kod senzora kvaliteta vazduha zadržavaju svoj procenat: šest stepenica je više nego što uključeno/isključeno može da ponese.\n\nPromena platforme nije preimenovanje: stari entiteti se uklanjaju i ponovo stvaraju kao `binary_sensor`. **Njihova zabeležena istorija se gubi** — ova očitavanja nemaju dugoročnu statistiku, pa je pogođena samo sirova istorija — i **automatizacije, skripte, scene i table koje pokazuju na njih moraju se ažurirati**. Novi entiteti se pojavljuju pri sledećem slanju stanice.\n\nAko više volite da ih ostavite takvima kakvi su, zanemarite ovu popravku."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Nivo baterije konzole"
+      },
       "station_online": {
         "name": "Stanica na vezi"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Stanje veze senzora CO"
       },
+      "t1bat": {
+        "name": "Stanje baterije spoljnog senzora"
+      },
       "t1cn": {
         "name": "Stanje veze spoljnog senzora"
+      },
+      "t234c1bat": {
+        "name": "CH1 stanje baterije"
       },
       "t234c1cn": {
         "name": "CH1 stanje veze"
       },
+      "t234c2bat": {
+        "name": "CH2 stanje baterije"
+      },
       "t234c2cn": {
         "name": "CH2 stanje veze"
+      },
+      "t234c3bat": {
+        "name": "CH3 stanje baterije"
       },
       "t234c3cn": {
         "name": "CH3 stanje veze"
       },
+      "t234c4bat": {
+        "name": "CH4 stanje baterije"
+      },
       "t234c4cn": {
         "name": "CH4 stanje veze"
+      },
+      "t234c5bat": {
+        "name": "CH5 stanje baterije"
       },
       "t234c5cn": {
         "name": "CH5 stanje veze"
       },
+      "t234c6bat": {
+        "name": "CH6 stanje baterije"
+      },
       "t234c6cn": {
         "name": "CH6 stanje veze"
+      },
+      "t234c7bat": {
+        "name": "CH7 stanje baterije"
       },
       "t234c7cn": {
         "name": "CH7 stanje veze"
       },
+      "t5lsbat": {
+        "name": "Stanje baterije senzora munja"
+      },
       "t5lscn": {
         "name": "Stanje veze senzora munja"
+      },
+      "t6c1bat": {
+        "name": "CH1 stanje baterije senzora curenja"
       },
       "t6c1cn": {
         "name": "CH1 stanje veze senzora curenja"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 stanje curenja vode"
       },
+      "t6c2bat": {
+        "name": "CH2 stanje baterije senzora curenja"
+      },
       "t6c2cn": {
         "name": "CH2 stanje veze senzora curenja"
       },
       "t6c2wls": {
         "name": "CH2 stanje curenja vode"
+      },
+      "t6c3bat": {
+        "name": "CH3 stanje baterije senzora curenja"
       },
       "t6c3cn": {
         "name": "CH3 stanje veze senzora curenja"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 stanje curenja vode"
       },
+      "t6c4bat": {
+        "name": "CH4 stanje baterije senzora curenja"
+      },
       "t6c4cn": {
         "name": "CH4 stanje veze senzora curenja"
       },
       "t6c4wls": {
         "name": "CH4 stanje curenja vode"
+      },
+      "t6c5bat": {
+        "name": "CH5 stanje baterije senzora curenja"
       },
       "t6c5cn": {
         "name": "CH5 stanje veze senzora curenja"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 stanje curenja vode"
       },
+      "t6c6bat": {
+        "name": "CH6 stanje baterije senzora curenja"
+      },
       "t6c6cn": {
         "name": "CH6 stanje veze senzora curenja"
       },
       "t6c6wls": {
         "name": "CH6 stanje curenja vode"
+      },
+      "t6c7bat": {
+        "name": "CH7 stanje baterije senzora curenja"
       },
       "t6c7cn": {
         "name": "CH7 stanje veze senzora curenja"

@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Verbindings- en leklesings is steeds getalle",
+      "title": "Verbindings-, lek- en batterylesings is nog getalle",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Skakel om na binêre sensors",
-            "description": "Verbindings- en waterleklesings word as 1 of 0 gerapporteer. Tot weergawe 1.0.8 is hulle as numeriese sensors blootgestel, soos `{example}`, wat nie met die standaard lekkaarte en waarskuwings van Home Assistant gebruik kan word nie. Nuwe stasies kry nou binêre sensors wat **Nat / Droog** en **Gekoppel / Ontkoppel** wys.\n\n**{count} entiteite** kan omgeskakel word. Batteryvlakke word nie geraak nie: hulle bly persentasies, waarop die lae-battery-waarskuwings werk.\n\nOm van platform te verander is nie 'n hernoeming nie, dus word die ou entiteite verwyder en as `binary_sensor` herbou. **Hulle aangetekende geskiedenis gaan verlore** — hierdie lesings het geen langtermynstatistieke nie, dus word slegs die rou geskiedenis geraak — en **outomatiserings, skrifte, tonele en paneelborde wat na hulle wys, moet bygewerk word**. Die nuwe entiteite verskyn met die stasie se volgende oplaai.\n\nAs u hulle eerder so wil hou, ignoreer hierdie herstelwerk."
+            "description": "Verbindings-, waterlek- en batterylesings word as 1 of 0 gestuur. Tot weergawe 1.0.8 is hulle as numeriese sensors gewys, soos `{example}`, wat nie met Home Assistant se standaardkaarte vir lek, konnektiwiteit en lae battery werk nie. Nuwe stasies kry binêre sensors wat **Nat / Droog**, **Gekoppel / Ontkoppel** en **Laag / Normaal** wys.\n\n**{count} entiteite** kan omgeskakel word. Die 0~5-batteryvlakke van die luggehaltesensors behou hul persentasie: ses trappe is meer as wat 'n aan/af kan dra.\n\nOm van platform te verander is nie 'n hernoeming nie: die ou entiteite word verwyder en as `binary_sensor` herskep. **Hul aangetekende geskiedenis gaan verlore** — hierdie lesings het geen langtermynstatistiek nie, dus raak dit net die rou geskiedenis — en **outomatisasies, skrifte, tonele en paneelborde wat na hulle wys moet bygewerk word**. Die nuwe entiteite verskyn met die stasie se volgende oplaai.\n\nAs jy hulle eerder wil los soos hulle is, ignoreer hierdie herstel."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Batteryvlak van konsole"
+      },
       "station_online": {
         "name": "Stasie aanlyn"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Verbindingstoestand van CO-sensor"
       },
+      "t1bat": {
+        "name": "Batterytoestand van buitesensor"
+      },
       "t1cn": {
         "name": "Verbindingstoestand van buitesensor"
+      },
+      "t234c1bat": {
+        "name": "CH1 batterytoestand"
       },
       "t234c1cn": {
         "name": "CH1 verbindingstoestand"
       },
+      "t234c2bat": {
+        "name": "CH2 batterytoestand"
+      },
       "t234c2cn": {
         "name": "CH2 verbindingstoestand"
+      },
+      "t234c3bat": {
+        "name": "CH3 batterytoestand"
       },
       "t234c3cn": {
         "name": "CH3 verbindingstoestand"
       },
+      "t234c4bat": {
+        "name": "CH4 batterytoestand"
+      },
       "t234c4cn": {
         "name": "CH4 verbindingstoestand"
+      },
+      "t234c5bat": {
+        "name": "CH5 batterytoestand"
       },
       "t234c5cn": {
         "name": "CH5 verbindingstoestand"
       },
+      "t234c6bat": {
+        "name": "CH6 batterytoestand"
+      },
       "t234c6cn": {
         "name": "CH6 verbindingstoestand"
+      },
+      "t234c7bat": {
+        "name": "CH7 batterytoestand"
       },
       "t234c7cn": {
         "name": "CH7 verbindingstoestand"
       },
+      "t5lsbat": {
+        "name": "Batterytoestand van weerligsensor"
+      },
       "t5lscn": {
         "name": "Verbindingstoestand van weerligsensor"
+      },
+      "t6c1bat": {
+        "name": "CH1 batterytoestand van lekkasiesensor"
       },
       "t6c1cn": {
         "name": "CH1 verbindingstoestand van lekkasiesensor"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 waterlekkasietoestand"
       },
+      "t6c2bat": {
+        "name": "CH2 batterytoestand van lekkasiesensor"
+      },
       "t6c2cn": {
         "name": "CH2 verbindingstoestand van lekkasiesensor"
       },
       "t6c2wls": {
         "name": "CH2 waterlekkasietoestand"
+      },
+      "t6c3bat": {
+        "name": "CH3 batterytoestand van lekkasiesensor"
       },
       "t6c3cn": {
         "name": "CH3 verbindingstoestand van lekkasiesensor"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 waterlekkasietoestand"
       },
+      "t6c4bat": {
+        "name": "CH4 batterytoestand van lekkasiesensor"
+      },
       "t6c4cn": {
         "name": "CH4 verbindingstoestand van lekkasiesensor"
       },
       "t6c4wls": {
         "name": "CH4 waterlekkasietoestand"
+      },
+      "t6c5bat": {
+        "name": "CH5 batterytoestand van lekkasiesensor"
       },
       "t6c5cn": {
         "name": "CH5 verbindingstoestand van lekkasiesensor"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 waterlekkasietoestand"
       },
+      "t6c6bat": {
+        "name": "CH6 batterytoestand van lekkasiesensor"
+      },
       "t6c6cn": {
         "name": "CH6 verbindingstoestand van lekkasiesensor"
       },
       "t6c6wls": {
         "name": "CH6 waterlekkasietoestand"
+      },
+      "t6c7bat": {
+        "name": "CH7 batterytoestand van lekkasiesensor"
       },
       "t6c7cn": {
         "name": "CH7 verbindingstoestand van lekkasiesensor"

@@ -52,12 +52,13 @@ async def test_battery_scales(hass, setup_pws, wslink_payload):
     await client.get(f"{WSLINK_ENDPOINT}{wslink_payload}")
     await hass.async_block_till_done()
 
-    # "Normal=1, Low battery=0"
-    assert state_of(hass, DEVICE_ID, "t1bat").state == "100"
-    assert state_of(hass, DEVICE_ID, "t6c1bat").state == "0"
+    # "Normal=1, Low battery=0", as a binary sensor whose on state means low.
+    assert state_of(hass, DEVICE_ID, "t1bat", "binary_sensor").state == "off"
+    assert state_of(hass, DEVICE_ID, "t6c1bat", "binary_sensor").state == "on"
 
     # The document's example sends 2 here, outside its own documented range.
-    assert state_of(hass, DEVICE_ID, "t234c2bat").state == "100"
+    # Anything that is not 0 is not a low battery.
+    assert state_of(hass, DEVICE_ID, "t234c2bat", "binary_sensor").state == "off"
 
     # "0~5, remark: 5 is full" — reported as the middle of the band each level
     # stands for, so the lowest one does not claim the battery is flat.

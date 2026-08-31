@@ -82,6 +82,43 @@ def normalize_battery(value, scale=None):
     return max(0, min(100, round(value)))
 
 
+def denormalize_battery(percentage, scale=None):
+    """
+    Turn a percentage back into the level the station actually sent.
+
+    Restored states come back as the percentage that was displayed, while the
+    device dictionary holds what the station sent. Feeding a percentage back
+    through normalize_battery would not round-trip — 5% and 95% both clamp to
+    the same level on the 0~5 scale — so the mapping is inverted explicitly.
+
+    Args:
+        percentage: Value read back from the recorder.
+        scale: The same scale normalize_battery was given.
+
+    Returns:
+        The raw level, or None when the value is unusable.
+    """
+
+    if percentage is None:
+        return None
+
+    try:
+        percentage = float(percentage)
+    except (TypeError, ValueError):
+        return None
+
+    if scale == len(BATTERY_LEVELS) - 1:
+        return min(
+            range(len(BATTERY_LEVELS)),
+            key=lambda level: abs(BATTERY_LEVELS[level] - percentage),
+        )
+
+    if scale:
+        return round(percentage * scale / 100)
+
+    return percentage
+
+
 def apply_wind_offset(value, offset):
     """
     Rotate a wind direction by the configured calibration offset.

@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Ühenduse ja lekke olekud on endiselt numbrid",
+      "title": "Ühenduse, lekke ja aku näidud on endiselt arvud",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Teisenda kahendanduriteks",
-            "description": "Ühenduse ja veelekke olekud saadetakse 1 või 0 kujul. Kuni versioonini 1.0.8 näidati neid arvuliste anduritena, nagu `{example}`, mida ei saa kasutada Home Assistanti tavaliste lekkekaartide ja hoiatustega. Uued jaamad saavad nüüd kahendandurid, mis näitavad **Märg / Kuiv** ja **Ühendatud / Ühendamata**.\n\n**{count} olemit** saab teisendada. Aku tase jääb puutumata: see püsib protsentides, mille peal töötavad tühjeneva aku hoiatused.\n\nPlatvormi vahetus ei ole ümbernimetamine, seega vanad olemid eemaldatakse ja luuakse uuesti kui `binary_sensor`. **Nende salvestatud ajalugu läheb kaotsi** — neil näitudel pole pikaajalist statistikat, seega mõjutab see üksnes toorajalugu — ja **neile viitavad automatiseeringud, skriptid, stseenid ja töölauad tuleb üle vaadata**. Uued olemid ilmuvad jaama järgmise saadetisega.\n\nKui eelistate need niisama jätta, eirake seda parandust."
+            "description": "Ühenduse, veelekke ja aku näidud saadetakse 1 või 0 kujul. Kuni versioonini 1.0.8 kuvati neid arvuliste anduritena, näiteks `{example}`, mis ei sobi Home Assistanti tavapäraste lekke-, ühenduvuse ja tühja aku kaartidega. Uued jaamad saavad kahendandurid, mis näitavad **Märg / Kuiv**, **Ühendatud / Ühendamata** ja **Madal / Tavaline**.\n\nTeisendada saab **{count} olemit**. Õhukvaliteedi andurite 0~5 akutasemed säilitavad oma protsendi: kuus astet on rohkem, kui sees/väljas suudab kanda.\n\nPlatvormi vahetus ei ole ümbernimetamine: vanad olemid eemaldatakse ja luuakse uuesti kui `binary_sensor`. **Nende salvestatud ajalugu läheb kaotsi** — neil näitudel pole pikaajalist statistikat, seega puudutab see ainult toorajalugu — ja **automaatikad, skriptid, stseenid ja töölauad, mis neile osutavad, tuleb üle vaadata**. Uued olemid ilmuvad jaama järgmise saadetisega.\n\nKui eelistate need nii jätta, eirake seda parandust."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Konsooli aku tase"
+      },
       "station_online": {
         "name": "Jaam võrgus"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "CO anduri ühenduse olek"
       },
+      "t1bat": {
+        "name": "Välisanduri aku olek"
+      },
       "t1cn": {
         "name": "Välisanduri ühenduse olek"
+      },
+      "t234c1bat": {
+        "name": "CH1 aku olek"
       },
       "t234c1cn": {
         "name": "CH1 ühenduse olek"
       },
+      "t234c2bat": {
+        "name": "CH2 aku olek"
+      },
       "t234c2cn": {
         "name": "CH2 ühenduse olek"
+      },
+      "t234c3bat": {
+        "name": "CH3 aku olek"
       },
       "t234c3cn": {
         "name": "CH3 ühenduse olek"
       },
+      "t234c4bat": {
+        "name": "CH4 aku olek"
+      },
       "t234c4cn": {
         "name": "CH4 ühenduse olek"
+      },
+      "t234c5bat": {
+        "name": "CH5 aku olek"
       },
       "t234c5cn": {
         "name": "CH5 ühenduse olek"
       },
+      "t234c6bat": {
+        "name": "CH6 aku olek"
+      },
       "t234c6cn": {
         "name": "CH6 ühenduse olek"
+      },
+      "t234c7bat": {
+        "name": "CH7 aku olek"
       },
       "t234c7cn": {
         "name": "CH7 ühenduse olek"
       },
+      "t5lsbat": {
+        "name": "Välguanduri aku olek"
+      },
       "t5lscn": {
         "name": "Välguanduri ühenduse olek"
+      },
+      "t6c1bat": {
+        "name": "CH1 lekkeanduri aku olek"
       },
       "t6c1cn": {
         "name": "CH1 lekkeanduri ühenduse olek"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 veelekke olek"
       },
+      "t6c2bat": {
+        "name": "CH2 lekkeanduri aku olek"
+      },
       "t6c2cn": {
         "name": "CH2 lekkeanduri ühenduse olek"
       },
       "t6c2wls": {
         "name": "CH2 veelekke olek"
+      },
+      "t6c3bat": {
+        "name": "CH3 lekkeanduri aku olek"
       },
       "t6c3cn": {
         "name": "CH3 lekkeanduri ühenduse olek"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 veelekke olek"
       },
+      "t6c4bat": {
+        "name": "CH4 lekkeanduri aku olek"
+      },
       "t6c4cn": {
         "name": "CH4 lekkeanduri ühenduse olek"
       },
       "t6c4wls": {
         "name": "CH4 veelekke olek"
+      },
+      "t6c5bat": {
+        "name": "CH5 lekkeanduri aku olek"
       },
       "t6c5cn": {
         "name": "CH5 lekkeanduri ühenduse olek"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 veelekke olek"
       },
+      "t6c6bat": {
+        "name": "CH6 lekkeanduri aku olek"
+      },
       "t6c6cn": {
         "name": "CH6 lekkeanduri ühenduse olek"
       },
       "t6c6wls": {
         "name": "CH6 veelekke olek"
+      },
+      "t6c7bat": {
+        "name": "CH7 lekkeanduri aku olek"
       },
       "t6c7cn": {
         "name": "CH7 lekkeanduri ühenduse olek"

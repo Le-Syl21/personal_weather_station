@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "D Verbindigs- und Leck-Wärt sind immer no Zahle",
+      "title": "Verbindigs-, Läck- und Batteriewärt sind no Zahle",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "I binäri Sensore umwandle",
-            "description": "D Verbindigs- und Wasserleck-Wärt werded als 1 oder 0 gmeldet. Bis zur Version 1.0.8 sind si als Zahlesensore zeigt worde, zum Bispil `{example}`, wo mer nöd mit de normale Leck-Charte und Warnige vo Home Assistant bruuche cha. Neui Statione überchömed jetzt binäri Sensore, wo **Nass / Trocke** und **Verbunde / Getrennt** zeiged.\n\n**{count} Entitäte** chönd umgwandlet werde. D Batterieständ sind nöd betroffe: si bliibed Prozänt, wo d Warnige bi schwacher Batterie druf schaffed.\n\nE Plattformwächsel isch kei Umbenennig, drum werded d alte Entitäte glöscht und als `binary_sensor` neu aagleit. **Ihre ufzeichnet Verlauf goht verlore** — die Wärt händ kei Langzytstatistike, drum isch nur de rohi Verlauf betroffe — und **Automatisierige, Skript, Szene und Dashboards, wo druf zeiged, müend aapasst werde**. D neue Entitäte tauchid bi de nächste Übertragig vo de Station uf.\n\nWenn dus lieber so lah wotsch, ignorier die Reparatur."
+            "description": "Verbindigs-, Wasserläck- und Batteriewärt werde als 1 oder 0 gschickt. Bis Version 1.0.8 sind si als numerischi Sensore zeigt worde, öppe `{example}`, wo sich mit de Standardkarte für Läckaasch, Verbindig und schwachi Batterie im Home Assistant nid bruuche lönd. Neui Stazione überchömed binäri Sensore, wo **Nass / Trochne**, **Verbunde / Trennt** und **Schwach / Normal** zeiged.\n\n**{count} Entitäte** chöi umgstellt werde. D Batteriestufe 0~5 vo de Luftqualitätssensore bhalted ihre Prozentwärt: sächs Stuefe sind meh, als es Ii/Uus cha trage.\n\nE Plattform-Wächsel isch kei Umbenennig: di alte Entitäte werded glöscht und als `binary_sensor` neu aaglegt. **Ihre ufzeichnet Verlauf gaht verlore** — die Wärt hend kei Langziitstatistik, drum isch nume de rohi Verlauf betroffe — und **Automatisierige, Skript, Szene und Dashboards, wo druf zeiged, müend aapasst werde**. D neue Entitäte tauched bim nächschte Upload vo de Stazion uf.\n\nWenn du si lieber so wotsch la, ignorier die Reparatur."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Batteriestand vo de Konsole"
+      },
       "station_online": {
         "name": "Stazion online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Verbindigszuestand vom CO-Sensor"
       },
+      "t1bat": {
+        "name": "Batteriezuestand vom Ussesensor"
+      },
       "t1cn": {
         "name": "Verbindigszuestand vom Ussesensor"
+      },
+      "t234c1bat": {
+        "name": "CH1 batteriezuestand"
       },
       "t234c1cn": {
         "name": "CH1 verbindigszuestand"
       },
+      "t234c2bat": {
+        "name": "CH2 batteriezuestand"
+      },
       "t234c2cn": {
         "name": "CH2 verbindigszuestand"
+      },
+      "t234c3bat": {
+        "name": "CH3 batteriezuestand"
       },
       "t234c3cn": {
         "name": "CH3 verbindigszuestand"
       },
+      "t234c4bat": {
+        "name": "CH4 batteriezuestand"
+      },
       "t234c4cn": {
         "name": "CH4 verbindigszuestand"
+      },
+      "t234c5bat": {
+        "name": "CH5 batteriezuestand"
       },
       "t234c5cn": {
         "name": "CH5 verbindigszuestand"
       },
+      "t234c6bat": {
+        "name": "CH6 batteriezuestand"
+      },
       "t234c6cn": {
         "name": "CH6 verbindigszuestand"
+      },
+      "t234c7bat": {
+        "name": "CH7 batteriezuestand"
       },
       "t234c7cn": {
         "name": "CH7 verbindigszuestand"
       },
+      "t5lsbat": {
+        "name": "Batteriezuestand vom Blitzsensor"
+      },
       "t5lscn": {
         "name": "Verbindigszuestand vom Blitzsensor"
+      },
+      "t6c1bat": {
+        "name": "CH1 batteriezuestand vom Leck-Sensor"
       },
       "t6c1cn": {
         "name": "CH1 verbindigszuestand vom Leck-Sensor"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 wasserleck-Zuestand"
       },
+      "t6c2bat": {
+        "name": "CH2 batteriezuestand vom Leck-Sensor"
+      },
       "t6c2cn": {
         "name": "CH2 verbindigszuestand vom Leck-Sensor"
       },
       "t6c2wls": {
         "name": "CH2 wasserleck-Zuestand"
+      },
+      "t6c3bat": {
+        "name": "CH3 batteriezuestand vom Leck-Sensor"
       },
       "t6c3cn": {
         "name": "CH3 verbindigszuestand vom Leck-Sensor"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 wasserleck-Zuestand"
       },
+      "t6c4bat": {
+        "name": "CH4 batteriezuestand vom Leck-Sensor"
+      },
       "t6c4cn": {
         "name": "CH4 verbindigszuestand vom Leck-Sensor"
       },
       "t6c4wls": {
         "name": "CH4 wasserleck-Zuestand"
+      },
+      "t6c5bat": {
+        "name": "CH5 batteriezuestand vom Leck-Sensor"
       },
       "t6c5cn": {
         "name": "CH5 verbindigszuestand vom Leck-Sensor"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 wasserleck-Zuestand"
       },
+      "t6c6bat": {
+        "name": "CH6 batteriezuestand vom Leck-Sensor"
+      },
       "t6c6cn": {
         "name": "CH6 verbindigszuestand vom Leck-Sensor"
       },
       "t6c6wls": {
         "name": "CH6 wasserleck-Zuestand"
+      },
+      "t6c7bat": {
+        "name": "CH7 batteriezuestand vom Leck-Sensor"
       },
       "t6c7cn": {
         "name": "CH7 verbindigszuestand vom Leck-Sensor"

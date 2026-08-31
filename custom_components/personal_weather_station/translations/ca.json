@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Els estats de connexió i de fuita encara són nombres",
+      "title": "Les lectures de connexió, fuita i bateria encara són nombres",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Convertir en sensors binaris",
-            "description": "Els estats de connexió i de fuita d'aigua s'envien com a 1 o 0. Fins a la versió 1.0.8 s'exposaven com a sensors numèrics, com ara `{example}`, que no es poden fer servir amb les targetes i alertes de fuita estàndard de Home Assistant. Les estacions noves ara reben sensors binaris que mostren **Mullat / Sec** i **Connectat / Desconnectat**.\n\n**{count} entitats** es poden convertir. Els nivells de bateria no es veuen afectats: continuen sent percentatges, sobre els quals funcionen les alertes de bateria baixa.\n\nCanviar de plataforma no és un canvi de nom, de manera que les entitats antigues s'eliminen i es reconstrueixen com a `binary_sensor`. **El seu historial enregistrat es perd** — aquestes lectures no tenen estadístiques a llarg termini, així que només afecta l'historial en brut — i **les automatitzacions, scripts, escenes i taulers que hi apunten s'hauran d'actualitzar**. Les entitats noves apareixen al següent enviament de l'estació.\n\nSi preferiu deixar-los tal com estan, ignoreu aquesta reparació."
+            "description": "Les lectures de connexió, fuita d'aigua i bateria es transmeten com a 1 o 0. Fins a la versió 1.0.8 s'exposaven com a sensors numèrics, per exemple `{example}`, que no serveixen amb les targetes estàndard de fuita, connectivitat i bateria baixa de Home Assistant. Les estacions noves reben sensors binaris que mostren **Mullat / Sec**, **Connectat / Desconnectat** i **Baixa / Normal**.\n\nEs poden convertir **{count} entitats**. Els nivells de bateria 0~5 dels sensors de qualitat de l'aire mantenen el percentatge: sis graons són més del que un encès/apagat pot portar.\n\nCanviar de plataforma no és un canvi de nom: les entitats antigues s'eliminen i es recreen com a `binary_sensor`. **El seu historial enregistrat es perd** — aquestes lectures no tenen estadístiques a llarg termini, així que només afecta l'historial en brut — i **les automatitzacions, scripts, escenes i taulers que hi apunten s'han d'actualitzar**. Les entitats noves apareixen en el següent enviament de l'estació.\n\nSi preferiu deixar-les tal com estan, ignoreu aquesta reparació."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Nivell de bateria de la consola"
+      },
       "station_online": {
         "name": "Estació en línia"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Estat de connexió del sensor de CO"
       },
+      "t1bat": {
+        "name": "Estat de la bateria del sensor exterior"
+      },
       "t1cn": {
         "name": "Estat de connexió del sensor exterior"
+      },
+      "t234c1bat": {
+        "name": "CH1 estat de la bateria"
       },
       "t234c1cn": {
         "name": "CH1 estat de connexió"
       },
+      "t234c2bat": {
+        "name": "CH2 estat de la bateria"
+      },
       "t234c2cn": {
         "name": "CH2 estat de connexió"
+      },
+      "t234c3bat": {
+        "name": "CH3 estat de la bateria"
       },
       "t234c3cn": {
         "name": "CH3 estat de connexió"
       },
+      "t234c4bat": {
+        "name": "CH4 estat de la bateria"
+      },
       "t234c4cn": {
         "name": "CH4 estat de connexió"
+      },
+      "t234c5bat": {
+        "name": "CH5 estat de la bateria"
       },
       "t234c5cn": {
         "name": "CH5 estat de connexió"
       },
+      "t234c6bat": {
+        "name": "CH6 estat de la bateria"
+      },
       "t234c6cn": {
         "name": "CH6 estat de connexió"
+      },
+      "t234c7bat": {
+        "name": "CH7 estat de la bateria"
       },
       "t234c7cn": {
         "name": "CH7 estat de connexió"
       },
+      "t5lsbat": {
+        "name": "Estat de la bateria del sensor de llamps"
+      },
       "t5lscn": {
         "name": "Estat de connexió del sensor de llamps"
+      },
+      "t6c1bat": {
+        "name": "CH1 estat de la bateria del detector de fuites"
       },
       "t6c1cn": {
         "name": "CH1 estat de connexió del detector de fuites"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 estat de fuita d'aigua"
       },
+      "t6c2bat": {
+        "name": "CH2 estat de la bateria del detector de fuites"
+      },
       "t6c2cn": {
         "name": "CH2 estat de connexió del detector de fuites"
       },
       "t6c2wls": {
         "name": "CH2 estat de fuita d'aigua"
+      },
+      "t6c3bat": {
+        "name": "CH3 estat de la bateria del detector de fuites"
       },
       "t6c3cn": {
         "name": "CH3 estat de connexió del detector de fuites"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 estat de fuita d'aigua"
       },
+      "t6c4bat": {
+        "name": "CH4 estat de la bateria del detector de fuites"
+      },
       "t6c4cn": {
         "name": "CH4 estat de connexió del detector de fuites"
       },
       "t6c4wls": {
         "name": "CH4 estat de fuita d'aigua"
+      },
+      "t6c5bat": {
+        "name": "CH5 estat de la bateria del detector de fuites"
       },
       "t6c5cn": {
         "name": "CH5 estat de connexió del detector de fuites"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 estat de fuita d'aigua"
       },
+      "t6c6bat": {
+        "name": "CH6 estat de la bateria del detector de fuites"
+      },
       "t6c6cn": {
         "name": "CH6 estat de connexió del detector de fuites"
       },
       "t6c6wls": {
         "name": "CH6 estat de fuita d'aigua"
+      },
+      "t6c7bat": {
+        "name": "CH7 estat de la bateria del detector de fuites"
       },
       "t6c7cn": {
         "name": "CH7 estat de connexió del detector de fuites"

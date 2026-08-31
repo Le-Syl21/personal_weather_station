@@ -50,7 +50,7 @@ from .const import (
 from .instructions import async_ensure_images, async_placeholders_for_entry
 from .migration import async_find_legacy_entities, async_find_status_sensors
 from .models import PwsRuntime
-from .normalizer import normalize_battery, parse_value
+from .normalizer import parse_value
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -760,13 +760,10 @@ class PwsView(HomeAssistantView):
                     unknown_keys.add(key)
                     continue
 
-                value = parse_value(value)
-                meta = SENSOR_LIST[canonical]
-
-                if (battery_scale := meta.get("battery_scale")) is not None:
-                    value = normalize_battery(value, battery_scale)
-
-                device.data[canonical] = value
+                # Stored exactly as received, like every other reading: a
+                # battery level is turned into a percentage when read, so the
+                # binary sensors can still see the 1 or 0 the station sent.
+                device.data[canonical] = parse_value(value)
                 updated_keys.append(canonical)
 
             except Exception:

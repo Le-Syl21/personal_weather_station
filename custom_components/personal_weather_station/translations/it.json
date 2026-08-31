@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Gli stati di connessione e di perdita sono ancora numeri",
+      "title": "Le letture di connessione, perdita e batteria sono ancora numeri",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Convertire in sensori binari",
-            "description": "Gli stati di connessione e di perdita d'acqua vengono trasmessi come 1 o 0. Fino alla versione 1.0.8 erano esposti come sensori numerici, ad esempio `{example}`, inutilizzabili con le schede e gli avvisi di perdita standard di Home Assistant. Le nuove stazioni ricevono ora sensori binari che mostrano **Bagnato / Asciutto** e **Connesso / Disconnesso**.\n\nÈ possibile convertire **{count} entità**. I livelli della batteria non sono interessati: restano percentuali, con le quali funzionano gli avvisi di batteria scarica.\n\nUn cambio di piattaforma non è una ridenominazione: le vecchie entità vengono rimosse e ricreate come `binary_sensor`. **La loro cronologia registrata va persa** — queste letture non hanno statistiche a lungo termine, è interessata solo la cronologia grezza — e **automazioni, script, scene e dashboard che vi fanno riferimento andranno aggiornati**. Le nuove entità compaiono al prossimo invio della stazione.\n\nSe preferisci lasciarle come sono, ignora questa riparazione."
+            "description": "Le letture di connessione, perdita d'acqua e batteria sono trasmesse come 1 o 0. Fino alla versione 1.0.8 erano esposte come sensori numerici, ad esempio `{example}`, inutilizzabili con le schede standard di perdita, connettività e batteria scarica di Home Assistant. Le stazioni nuove ricevono sensori binari che mostrano **Bagnato / Asciutto**, **Connesso / Disconnesso** e **Scarica / Normale**.\n\n**{count} entità** possono essere convertite. I livelli di batteria 0~5 dei sensori di qualità dell'aria mantengono la percentuale: sei gradini sono più di quanto un on/off possa portare.\n\nCambiare piattaforma non è una rinomina: le vecchie entità vengono rimosse e ricreate come `binary_sensor`. **La loro cronologia registrata va persa** — queste letture non hanno statistiche a lungo termine, quindi è interessata solo la cronologia grezza — e **automazioni, script, scene e dashboard che le puntano vanno aggiornati**. Le nuove entità compaiono al prossimo caricamento della stazione.\n\nSe preferite lasciarle come sono, ignorate questa riparazione."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Livello batteria della console"
+      },
       "station_online": {
         "name": "Stazione in linea"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Stato di connessione del sensore CO"
       },
+      "t1bat": {
+        "name": "Stato della batteria del sensore esterno"
+      },
       "t1cn": {
         "name": "Stato di connessione del sensore esterno"
+      },
+      "t234c1bat": {
+        "name": "CH1 stato della batteria"
       },
       "t234c1cn": {
         "name": "CH1 stato di connessione"
       },
+      "t234c2bat": {
+        "name": "CH2 stato della batteria"
+      },
       "t234c2cn": {
         "name": "CH2 stato di connessione"
+      },
+      "t234c3bat": {
+        "name": "CH3 stato della batteria"
       },
       "t234c3cn": {
         "name": "CH3 stato di connessione"
       },
+      "t234c4bat": {
+        "name": "CH4 stato della batteria"
+      },
       "t234c4cn": {
         "name": "CH4 stato di connessione"
+      },
+      "t234c5bat": {
+        "name": "CH5 stato della batteria"
       },
       "t234c5cn": {
         "name": "CH5 stato di connessione"
       },
+      "t234c6bat": {
+        "name": "CH6 stato della batteria"
+      },
       "t234c6cn": {
         "name": "CH6 stato di connessione"
+      },
+      "t234c7bat": {
+        "name": "CH7 stato della batteria"
       },
       "t234c7cn": {
         "name": "CH7 stato di connessione"
       },
+      "t5lsbat": {
+        "name": "Stato della batteria del sensore fulmini"
+      },
       "t5lscn": {
         "name": "Stato di connessione del sensore fulmini"
+      },
+      "t6c1bat": {
+        "name": "CH1 stato della batteria del rilevatore di perdite"
       },
       "t6c1cn": {
         "name": "CH1 stato di connessione del rilevatore di perdite"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 stato perdita d'acqua"
       },
+      "t6c2bat": {
+        "name": "CH2 stato della batteria del rilevatore di perdite"
+      },
       "t6c2cn": {
         "name": "CH2 stato di connessione del rilevatore di perdite"
       },
       "t6c2wls": {
         "name": "CH2 stato perdita d'acqua"
+      },
+      "t6c3bat": {
+        "name": "CH3 stato della batteria del rilevatore di perdite"
       },
       "t6c3cn": {
         "name": "CH3 stato di connessione del rilevatore di perdite"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 stato perdita d'acqua"
       },
+      "t6c4bat": {
+        "name": "CH4 stato della batteria del rilevatore di perdite"
+      },
       "t6c4cn": {
         "name": "CH4 stato di connessione del rilevatore di perdite"
       },
       "t6c4wls": {
         "name": "CH4 stato perdita d'acqua"
+      },
+      "t6c5bat": {
+        "name": "CH5 stato della batteria del rilevatore di perdite"
       },
       "t6c5cn": {
         "name": "CH5 stato di connessione del rilevatore di perdite"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 stato perdita d'acqua"
       },
+      "t6c6bat": {
+        "name": "CH6 stato della batteria del rilevatore di perdite"
+      },
       "t6c6cn": {
         "name": "CH6 stato di connessione del rilevatore di perdite"
       },
       "t6c6wls": {
         "name": "CH6 stato perdita d'acqua"
+      },
+      "t6c7bat": {
+        "name": "CH7 stato della batteria del rilevatore di perdite"
       },
       "t6c7cn": {
         "name": "CH7 stato di connessione del rilevatore di perdite"

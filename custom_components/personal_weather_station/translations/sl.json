@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Stanji povezave in puščanja sta še vedno števili",
+      "title": "Odčitki povezave, puščanja in baterije so še vedno števila",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Pretvori v binarne senzorje",
-            "description": "Stanji povezave in puščanja vode se pošiljata kot 1 ali 0. Do različice 1.0.8 sta bili prikazani kot številska senzorja, na primer `{example}`, ki ju ni mogoče uporabiti s standardnimi karticami in opozorili za puščanje v Home Assistantu. Nove postaje zdaj dobijo binarne senzorje, ki prikazujejo **Mokro / Suho** in **Povezano / Nepovezano**.\n\n**{count} entitet** je mogoče pretvoriti. Ravni baterije to ne prizadene: ostajajo odstotki, na katerih delujejo opozorila o skoraj prazni bateriji.\n\nZamenjava platforme ni preimenovanje, zato se stare entitete odstranijo in znova ustvarijo kot `binary_sensor`. **Njihova zabeležena zgodovina se izgubi** — te meritve nimajo dolgoročnih statistik, zato je prizadeta le surova zgodovina — in **avtomatizacije, skripti, scene in nadzorne plošče, ki se sklicujejo nanje, je treba posodobiti**. Nove entitete se pojavijo ob naslednjem pošiljanju postaje.\n\nČe jih raje pustite takšne, kot so, prezrite to popravilo."
+            "description": "Odčitki povezave, puščanja vode in baterije se pošiljajo kot 1 ali 0. Do različice 1.0.8 so bili izpostavljeni kot številski senzorji, na primer `{example}`, ki jih ni mogoče uporabiti s standardnimi karticami za puščanje, povezljivost in prazno baterijo v Home Assistantu. Nove postaje dobijo binarne senzorje, ki prikazujejo **Mokro / Suho**, **Povezano / Prekinjeno** in **Nizka / Normalna**.\n\nPretvoriti je mogoče **{count} entitet**. Ravni baterije 0~5 pri senzorjih kakovosti zraka ohranijo svoj odstotek: šest stopenj je več, kot zmore nositi vklop/izklop.\n\nZamenjava platforme ni preimenovanje: stare entitete se odstranijo in znova ustvarijo kot `binary_sensor`. **Njihova zabeležena zgodovina se izgubi** — ti odčitki nimajo dolgoročne statistike, zato je prizadeta le surova zgodovina — in **avtomatizacije, skripte, scene in nadzorne plošče, ki kažejo nanje, je treba posodobiti**. Nove entitete se pojavijo ob naslednjem pošiljanju postaje.\n\nČe jih raje pustite takšne, kot so, to popravilo prezrite."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Raven baterije konzole"
+      },
       "station_online": {
         "name": "Postaja na spletu"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Stanje povezave senzorja CO"
       },
+      "t1bat": {
+        "name": "Stanje baterije zunanjega senzorja"
+      },
       "t1cn": {
         "name": "Stanje povezave zunanjega senzorja"
+      },
+      "t234c1bat": {
+        "name": "CH1 stanje baterije"
       },
       "t234c1cn": {
         "name": "CH1 stanje povezave"
       },
+      "t234c2bat": {
+        "name": "CH2 stanje baterije"
+      },
       "t234c2cn": {
         "name": "CH2 stanje povezave"
+      },
+      "t234c3bat": {
+        "name": "CH3 stanje baterije"
       },
       "t234c3cn": {
         "name": "CH3 stanje povezave"
       },
+      "t234c4bat": {
+        "name": "CH4 stanje baterije"
+      },
       "t234c4cn": {
         "name": "CH4 stanje povezave"
+      },
+      "t234c5bat": {
+        "name": "CH5 stanje baterije"
       },
       "t234c5cn": {
         "name": "CH5 stanje povezave"
       },
+      "t234c6bat": {
+        "name": "CH6 stanje baterije"
+      },
       "t234c6cn": {
         "name": "CH6 stanje povezave"
+      },
+      "t234c7bat": {
+        "name": "CH7 stanje baterije"
       },
       "t234c7cn": {
         "name": "CH7 stanje povezave"
       },
+      "t5lsbat": {
+        "name": "Stanje baterije senzorja strel"
+      },
       "t5lscn": {
         "name": "Stanje povezave senzorja strel"
+      },
+      "t6c1bat": {
+        "name": "CH1 stanje baterije senzorja puščanja"
       },
       "t6c1cn": {
         "name": "CH1 stanje povezave senzorja puščanja"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 stanje puščanja vode"
       },
+      "t6c2bat": {
+        "name": "CH2 stanje baterije senzorja puščanja"
+      },
       "t6c2cn": {
         "name": "CH2 stanje povezave senzorja puščanja"
       },
       "t6c2wls": {
         "name": "CH2 stanje puščanja vode"
+      },
+      "t6c3bat": {
+        "name": "CH3 stanje baterije senzorja puščanja"
       },
       "t6c3cn": {
         "name": "CH3 stanje povezave senzorja puščanja"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 stanje puščanja vode"
       },
+      "t6c4bat": {
+        "name": "CH4 stanje baterije senzorja puščanja"
+      },
       "t6c4cn": {
         "name": "CH4 stanje povezave senzorja puščanja"
       },
       "t6c4wls": {
         "name": "CH4 stanje puščanja vode"
+      },
+      "t6c5bat": {
+        "name": "CH5 stanje baterije senzorja puščanja"
       },
       "t6c5cn": {
         "name": "CH5 stanje povezave senzorja puščanja"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 stanje puščanja vode"
       },
+      "t6c6bat": {
+        "name": "CH6 stanje baterije senzorja puščanja"
+      },
       "t6c6cn": {
         "name": "CH6 stanje povezave senzorja puščanja"
       },
       "t6c6wls": {
         "name": "CH6 stanje puščanja vode"
+      },
+      "t6c7bat": {
+        "name": "CH7 stanje baterije senzorja puščanja"
       },
       "t6c7cn": {
         "name": "CH7 stanje povezave senzorja puščanja"

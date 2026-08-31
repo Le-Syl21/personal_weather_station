@@ -56,9 +56,9 @@ async def test_battery_reads_as_a_percentage(hass, setup_pws):
     assert state.state == "40"
     assert state.attributes["unit_of_measurement"] == PERCENTAGE
 
-    flat = state_of(hass, DEVICE_ID, "t1bat")
-    assert flat.state == "0"
-    assert flat.attributes["unit_of_measurement"] == PERCENTAGE
+    # The Normal/Low one is a binary sensor, and 0 means low.
+    assert state_of(hass, DEVICE_ID, "t1bat") is None
+    assert state_of(hass, DEVICE_ID, "t1bat", "binary_sensor").state == "on"
 
 
 async def test_voc_level_reads_as_a_named_state(hass, setup_pws):

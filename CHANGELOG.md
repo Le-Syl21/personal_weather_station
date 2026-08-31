@@ -52,6 +52,13 @@
 
 ### Added
 
+- **The Normal/Low batteries are binary sensors now.** Seventeen of them —
+  outdoor array, console, each channel, lightning, leak detectors — report
+  nothing but "Normal" or "Low battery", which a percentage could only render
+  as 100% or 0%. New stations get a `binary_sensor` with the battery class, so
+  the standard low-battery cards and alerts work on them; existing stations keep
+  their numeric sensors until they accept the repair. The 0~5 levels of the air
+  quality sensors stay percentages, where six steps are worth expressing.
 - **A `Station online` binary sensor**, one per station. Every other connection
   status comes from the station itself, which says nothing about the console —
   the console is what does the posting, so when it stops there is nobody left to

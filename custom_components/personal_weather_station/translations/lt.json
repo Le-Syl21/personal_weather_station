@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Ryšio ir nuotėkio būsenos vis dar yra skaičiai",
+      "title": "Ryšio, nuotėkio ir baterijos rodmenys vis dar yra skaičiai",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Konvertuoti į dvejetainius jutiklius",
-            "description": "Ryšio ir vandens nuotėkio būsenos siunčiamos kaip 1 arba 0. Iki 1.0.8 versijos jos buvo rodomos kaip skaitiniai jutikliai, pavyzdžiui `{example}`, kurių negalima naudoti su standartinėmis Home Assistant nuotėkio kortelėmis ir įspėjimais. Naujos stotys dabar gauna dvejetainius jutiklius, rodančius **Šlapia / Sausa** ir **Prisijungta / Atjungta**.\n\n**{count} objektų** galima konvertuoti. Baterijos lygiai nepaveikti: jie lieka procentais, kuriais remiasi žemos baterijos įspėjimai.\n\nPlatformos keitimas nėra pervadinimas, todėl seni objektai pašalinami ir sukuriami iš naujo kaip `binary_sensor`. **Jų įrašyta istorija prarandama** — šie rodmenys neturi ilgalaikės statistikos, todėl paveikiama tik neapdorota istorija — ir **į juos nukreiptos automatizacijos, scenarijai, scenos ir skydeliai turi būti atnaujinti**. Nauji objektai pasirodo per kitą stoties siuntimą.\n\nJei norite palikti juos tokius, kokie yra, nepaisykite šio taisymo."
+            "description": "Ryšio, vandens nuotėkio ir baterijos rodmenys siunčiami kaip 1 arba 0. Iki 1.0.8 versijos jie buvo rodomi kaip skaitiniai jutikliai, pavyzdžiui `{example}`, kurių negalima naudoti su standartinėmis Home Assistant nuotėkio, ryšio ir senkančios baterijos kortelėmis. Naujos stotys gauna dvejetainius jutiklius, rodančius **Šlapia / Sausa**, **Prisijungęs / Atsijungęs** ir **Senka / Normali**.\n\nGalima konvertuoti **{count} objektus**. Oro kokybės jutiklių 0~5 baterijos lygiai išlaiko savo procentus: šeši laipteliai yra daugiau, nei gali panešti įjungta/išjungta.\n\nPlatformos keitimas nėra pervadinimas: seni objektai pašalinami ir sukuriami iš naujo kaip `binary_sensor`. **Jų įrašyta istorija prarandama** — šie rodmenys neturi ilgalaikės statistikos, tad paliečiama tik neapdorota istorija — ir **į juos nukreiptas automatizacijas, scenarijus, scenas ir skydelius reikės atnaujinti**. Nauji objektai atsiranda per kitą stoties siuntą.\n\nJei mieliau paliktumėte juos tokius, kokie yra, nepaisykite šio taisymo."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Pulto baterijos lygis"
+      },
       "station_online": {
         "name": "Stotis prisijungusi"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "CO jutiklio ryšio būsena"
       },
+      "t1bat": {
+        "name": "Lauko jutiklio baterijos būsena"
+      },
       "t1cn": {
         "name": "Lauko jutiklio ryšio būsena"
+      },
+      "t234c1bat": {
+        "name": "CH1 baterijos būsena"
       },
       "t234c1cn": {
         "name": "CH1 ryšio būsena"
       },
+      "t234c2bat": {
+        "name": "CH2 baterijos būsena"
+      },
       "t234c2cn": {
         "name": "CH2 ryšio būsena"
+      },
+      "t234c3bat": {
+        "name": "CH3 baterijos būsena"
       },
       "t234c3cn": {
         "name": "CH3 ryšio būsena"
       },
+      "t234c4bat": {
+        "name": "CH4 baterijos būsena"
+      },
       "t234c4cn": {
         "name": "CH4 ryšio būsena"
+      },
+      "t234c5bat": {
+        "name": "CH5 baterijos būsena"
       },
       "t234c5cn": {
         "name": "CH5 ryšio būsena"
       },
+      "t234c6bat": {
+        "name": "CH6 baterijos būsena"
+      },
       "t234c6cn": {
         "name": "CH6 ryšio būsena"
+      },
+      "t234c7bat": {
+        "name": "CH7 baterijos būsena"
       },
       "t234c7cn": {
         "name": "CH7 ryšio būsena"
       },
+      "t5lsbat": {
+        "name": "Žaibo jutiklio baterijos būsena"
+      },
       "t5lscn": {
         "name": "Žaibo jutiklio ryšio būsena"
+      },
+      "t6c1bat": {
+        "name": "CH1 nuotėkio jutiklio baterijos būsena"
       },
       "t6c1cn": {
         "name": "CH1 nuotėkio jutiklio ryšio būsena"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 vandens nuotėkio būsena"
       },
+      "t6c2bat": {
+        "name": "CH2 nuotėkio jutiklio baterijos būsena"
+      },
       "t6c2cn": {
         "name": "CH2 nuotėkio jutiklio ryšio būsena"
       },
       "t6c2wls": {
         "name": "CH2 vandens nuotėkio būsena"
+      },
+      "t6c3bat": {
+        "name": "CH3 nuotėkio jutiklio baterijos būsena"
       },
       "t6c3cn": {
         "name": "CH3 nuotėkio jutiklio ryšio būsena"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 vandens nuotėkio būsena"
       },
+      "t6c4bat": {
+        "name": "CH4 nuotėkio jutiklio baterijos būsena"
+      },
       "t6c4cn": {
         "name": "CH4 nuotėkio jutiklio ryšio būsena"
       },
       "t6c4wls": {
         "name": "CH4 vandens nuotėkio būsena"
+      },
+      "t6c5bat": {
+        "name": "CH5 nuotėkio jutiklio baterijos būsena"
       },
       "t6c5cn": {
         "name": "CH5 nuotėkio jutiklio ryšio būsena"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 vandens nuotėkio būsena"
       },
+      "t6c6bat": {
+        "name": "CH6 nuotėkio jutiklio baterijos būsena"
+      },
       "t6c6cn": {
         "name": "CH6 nuotėkio jutiklio ryšio būsena"
       },
       "t6c6wls": {
         "name": "CH6 vandens nuotėkio būsena"
+      },
+      "t6c7bat": {
+        "name": "CH7 nuotėkio jutiklio baterijos būsena"
       },
       "t6c7cn": {
         "name": "CH7 nuotėkio jutiklio ryšio būsena"

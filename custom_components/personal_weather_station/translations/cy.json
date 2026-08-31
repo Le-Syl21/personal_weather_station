@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Mae darlleniadau cysylltiad a gollyngiad yn rhifau o hyd",
+      "title": "Mae darlleniadau cysylltiad, gollyngiad a batri yn rhifau o hyd",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Trosi'n synwyryddion deuaidd",
-            "description": "Adroddir darlleniadau cysylltiad a gollyngiad dŵr fel 1 neu 0. Hyd at fersiwn 1.0.8 fe'u dangoswyd fel synwyryddion rhifiadol, fel `{example}`, na ellir eu defnyddio gyda chardiau a rhybuddion gollwng safonol Home Assistant. Mae gorsafoedd newydd bellach yn cael synwyryddion deuaidd sy'n dangos **Gwlyb / Sych** a **Cysylltiedig / Datgysylltiedig**.\n\nGellir trosi **{count} endid**. Nid effeithir ar lefelau batri: maent yn aros yn ganrannau, y mae'r rhybuddion batri isel yn gweithio arnynt.\n\nNid ailenwi yw newid platfform, felly caiff yr hen endidau eu tynnu a'u hailadeiladu fel `binary_sensor`. **Collir eu hanes wedi'i gofnodi** — nid oes gan y darlleniadau hyn ystadegau hirdymor, felly dim ond yr hanes crai yr effeithir arno — a **rhaid diweddaru awtomeiddiadau, sgriptiau, golygfeydd a byrddau gwaith sy'n cyfeirio atynt**. Mae'r endidau newydd yn ymddangos ar uwchlwythiad nesaf yr orsaf.\n\nOs byddai'n well gennych eu cadw fel y maent, anwybyddwch yr atgyweiriad hwn."
+            "description": "Anfonir darlleniadau cysylltiad, gollyngiad dŵr a batri fel 1 neu 0. Hyd at fersiwn 1.0.8 fe'u dangosid fel synwyryddion rhifol, megis `{example}`, nad ydynt yn gweithio gyda cherdyn safonol gollyngiad, cysylltedd a batri isel Home Assistant. Mae gorsafoedd newydd yn cael synwyryddion deuaidd sy'n dangos **Gwlyb / Sych**, **Cysylltiedig / Datgysylltiedig** a **Isel / Arferol**.\n\nGellir trosi **{count} endid**. Mae lefelau batri 0~5 y synwyryddion ansawdd aer yn cadw eu canran: mae chwe gris yn fwy nag y gall ymlaen/i ffwrdd ei gario.\n\nNid ailenwi yw newid platfform: caiff yr hen endidau eu dileu a'u hailgreu fel `binary_sensor`. **Collir eu hanes cofnodedig** — nid oes ystadegau hirdymor i'r darlleniadau hyn, felly dim ond yr hanes crai a effeithir — a **rhaid diweddaru unrhyw awtomeiddio, sgriptiau, golygfeydd a dangosfyrddau sy'n pwyntio atynt**. Bydd yr endidau newydd yn ymddangos ar lwythiad nesaf yr orsaf.\n\nOs byddai'n well gennych eu gadael fel y maent, anwybyddwch yr atgyweiriad hwn."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Lefel batri'r consol"
+      },
       "station_online": {
         "name": "Gorsaf ar-lein"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Cyflwr cysylltiad y synhwyrydd CO"
       },
+      "t1bat": {
+        "name": "Cyflwr batri'r synhwyrydd allanol"
+      },
       "t1cn": {
         "name": "Cyflwr cysylltiad y synhwyrydd allanol"
+      },
+      "t234c1bat": {
+        "name": "CH1 cyflwr y batri"
       },
       "t234c1cn": {
         "name": "CH1 cyflwr y cysylltiad"
       },
+      "t234c2bat": {
+        "name": "CH2 cyflwr y batri"
+      },
       "t234c2cn": {
         "name": "CH2 cyflwr y cysylltiad"
+      },
+      "t234c3bat": {
+        "name": "CH3 cyflwr y batri"
       },
       "t234c3cn": {
         "name": "CH3 cyflwr y cysylltiad"
       },
+      "t234c4bat": {
+        "name": "CH4 cyflwr y batri"
+      },
       "t234c4cn": {
         "name": "CH4 cyflwr y cysylltiad"
+      },
+      "t234c5bat": {
+        "name": "CH5 cyflwr y batri"
       },
       "t234c5cn": {
         "name": "CH5 cyflwr y cysylltiad"
       },
+      "t234c6bat": {
+        "name": "CH6 cyflwr y batri"
+      },
       "t234c6cn": {
         "name": "CH6 cyflwr y cysylltiad"
+      },
+      "t234c7bat": {
+        "name": "CH7 cyflwr y batri"
       },
       "t234c7cn": {
         "name": "CH7 cyflwr y cysylltiad"
       },
+      "t5lsbat": {
+        "name": "Cyflwr batri'r synhwyrydd mellt"
+      },
       "t5lscn": {
         "name": "Cyflwr cysylltiad y synhwyrydd mellt"
+      },
+      "t6c1bat": {
+        "name": "CH1 cyflwr batri'r synhwyrydd gollwng"
       },
       "t6c1cn": {
         "name": "CH1 cyflwr cysylltiad y synhwyrydd gollwng"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 cyflwr gollyngiad dŵr"
       },
+      "t6c2bat": {
+        "name": "CH2 cyflwr batri'r synhwyrydd gollwng"
+      },
       "t6c2cn": {
         "name": "CH2 cyflwr cysylltiad y synhwyrydd gollwng"
       },
       "t6c2wls": {
         "name": "CH2 cyflwr gollyngiad dŵr"
+      },
+      "t6c3bat": {
+        "name": "CH3 cyflwr batri'r synhwyrydd gollwng"
       },
       "t6c3cn": {
         "name": "CH3 cyflwr cysylltiad y synhwyrydd gollwng"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 cyflwr gollyngiad dŵr"
       },
+      "t6c4bat": {
+        "name": "CH4 cyflwr batri'r synhwyrydd gollwng"
+      },
       "t6c4cn": {
         "name": "CH4 cyflwr cysylltiad y synhwyrydd gollwng"
       },
       "t6c4wls": {
         "name": "CH4 cyflwr gollyngiad dŵr"
+      },
+      "t6c5bat": {
+        "name": "CH5 cyflwr batri'r synhwyrydd gollwng"
       },
       "t6c5cn": {
         "name": "CH5 cyflwr cysylltiad y synhwyrydd gollwng"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 cyflwr gollyngiad dŵr"
       },
+      "t6c6bat": {
+        "name": "CH6 cyflwr batri'r synhwyrydd gollwng"
+      },
       "t6c6cn": {
         "name": "CH6 cyflwr cysylltiad y synhwyrydd gollwng"
       },
       "t6c6wls": {
         "name": "CH6 cyflwr gollyngiad dŵr"
+      },
+      "t6c7bat": {
+        "name": "CH7 cyflwr batri'r synhwyrydd gollwng"
       },
       "t6c7cn": {
         "name": "CH7 cyflwr cysylltiad y synhwyrydd gollwng"

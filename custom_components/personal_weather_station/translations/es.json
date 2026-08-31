@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Los estados de conexión y de fuga siguen siendo números",
+      "title": "Las lecturas de conexión, fuga y batería siguen siendo números",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Convertir en sensores binarios",
-            "description": "Los estados de conexión y de fuga de agua se transmiten como 1 o 0. Hasta la versión 1.0.8 se exponían como sensores numéricos, como `{example}`, que no pueden usarse con las tarjetas y alertas de fuga estándar de Home Assistant. Las estaciones nuevas reciben ahora sensores binarios que muestran **Húmedo / Seco** y **Conectado / Desconectado**.\n\nSe pueden convertir **{count} entidades**. Los niveles de batería no se ven afectados: siguen siendo porcentajes, con los que funcionan las alertas de batería baja.\n\nUn cambio de plataforma no es un cambio de nombre: las entidades antiguas se eliminan y se recrean como `binary_sensor`. **Su historial registrado se pierde** — estas lecturas no tienen estadísticas a largo plazo, solo se ve afectado el historial en bruto — y **las automatizaciones, scripts, escenas y paneles que las referencien deberán actualizarse**. Las entidades nuevas aparecen en el siguiente envío de la estación.\n\nSi prefiere dejarlas como están, ignore esta reparación."
+            "description": "Las lecturas de conexión, fuga de agua y batería se transmiten como 1 o 0. Hasta la versión 1.0.8 se exponían como sensores numéricos, por ejemplo `{example}`, que no sirven con las tarjetas estándar de fuga, conectividad y batería baja de Home Assistant. Las estaciones nuevas reciben sensores binarios que muestran **Mojado / Seco**, **Conectado / Desconectado** y **Baja / Normal**.\n\n**{count} entidades** se pueden convertir. Los niveles de batería 0~5 de los sensores de calidad del aire mantienen su porcentaje: seis escalones son más de lo que un on/off puede llevar.\n\nCambiar de plataforma no es un renombrado: las entidades antiguas se eliminan y se recrean como `binary_sensor`. **Su historial registrado se pierde** — estas lecturas no tienen estadísticas a largo plazo, así que solo afecta al historial en bruto — y **las automatizaciones, scripts, escenas y paneles que apunten a ellas deben actualizarse**. Las nuevas entidades aparecen en el siguiente envío de la estación.\n\nSi prefiere dejarlas como están, ignore esta reparación."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Nivel de batería de la consola"
+      },
       "station_online": {
         "name": "Estación en línea"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Estado de conexión del sensor de CO"
       },
+      "t1bat": {
+        "name": "Estado de la batería del sensor exterior"
+      },
       "t1cn": {
         "name": "Estado de conexión del sensor exterior"
+      },
+      "t234c1bat": {
+        "name": "CH1 estado de la batería"
       },
       "t234c1cn": {
         "name": "CH1 estado de conexión"
       },
+      "t234c2bat": {
+        "name": "CH2 estado de la batería"
+      },
       "t234c2cn": {
         "name": "CH2 estado de conexión"
+      },
+      "t234c3bat": {
+        "name": "CH3 estado de la batería"
       },
       "t234c3cn": {
         "name": "CH3 estado de conexión"
       },
+      "t234c4bat": {
+        "name": "CH4 estado de la batería"
+      },
       "t234c4cn": {
         "name": "CH4 estado de conexión"
+      },
+      "t234c5bat": {
+        "name": "CH5 estado de la batería"
       },
       "t234c5cn": {
         "name": "CH5 estado de conexión"
       },
+      "t234c6bat": {
+        "name": "CH6 estado de la batería"
+      },
       "t234c6cn": {
         "name": "CH6 estado de conexión"
+      },
+      "t234c7bat": {
+        "name": "CH7 estado de la batería"
       },
       "t234c7cn": {
         "name": "CH7 estado de conexión"
       },
+      "t5lsbat": {
+        "name": "Estado de la batería del sensor de rayos"
+      },
       "t5lscn": {
         "name": "Estado de conexión del sensor de rayos"
+      },
+      "t6c1bat": {
+        "name": "CH1 estado de la batería del detector de fugas"
       },
       "t6c1cn": {
         "name": "CH1 estado de conexión del detector de fugas"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 estado de fuga de agua"
       },
+      "t6c2bat": {
+        "name": "CH2 estado de la batería del detector de fugas"
+      },
       "t6c2cn": {
         "name": "CH2 estado de conexión del detector de fugas"
       },
       "t6c2wls": {
         "name": "CH2 estado de fuga de agua"
+      },
+      "t6c3bat": {
+        "name": "CH3 estado de la batería del detector de fugas"
       },
       "t6c3cn": {
         "name": "CH3 estado de conexión del detector de fugas"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 estado de fuga de agua"
       },
+      "t6c4bat": {
+        "name": "CH4 estado de la batería del detector de fugas"
+      },
       "t6c4cn": {
         "name": "CH4 estado de conexión del detector de fugas"
       },
       "t6c4wls": {
         "name": "CH4 estado de fuga de agua"
+      },
+      "t6c5bat": {
+        "name": "CH5 estado de la batería del detector de fugas"
       },
       "t6c5cn": {
         "name": "CH5 estado de conexión del detector de fugas"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 estado de fuga de agua"
       },
+      "t6c6bat": {
+        "name": "CH6 estado de la batería del detector de fugas"
+      },
       "t6c6cn": {
         "name": "CH6 estado de conexión del detector de fugas"
       },
       "t6c6wls": {
         "name": "CH6 estado de fuga de agua"
+      },
+      "t6c7bat": {
+        "name": "CH7 estado de la batería del detector de fugas"
       },
       "t6c7cn": {
         "name": "CH7 estado de conexión del detector de fugas"

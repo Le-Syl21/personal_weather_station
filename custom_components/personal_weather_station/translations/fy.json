@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Ferbinings- en lekstatussen binne noch sifers",
+      "title": "Ferbinings-, lek- en batterijwearden binne noch sifers",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Omsette nei binêre sensoren",
-            "description": "Ferbinings- en wetterlekstatussen wurde as 1 of 0 trochjûn. Oant ferzje 1.0.8 waarden se as numerike sensoren toand, lykas `{example}`, dy't net brûkber binne mei de standert lekkaarten en warskôgings fan Home Assistant. Nije stasjons krije no binêre sensoren dy't **Wiet / Droech** en **Ferbûn / Net ferbûn** sjen litte.\n\n**{count} entiteiten** kinne omset wurde. Batterijnivo's wurde net rekke: dy bliuwe persintaazjes, wêrop de warskôgings foar in lege batterij wurkje.\n\nIn platfoarmwiksel is gjin omneaming, dus de âlde entiteiten wurde fuorthelle en opnij oanmakke as `binary_sensor`. **Harren fêstleine skiednis giet ferlern** — dizze mjittings hawwe gjin lange-termynstatistiken, dus allinnich de rûge skiednis wurdt rekke — en **automatisearrings, skripts, sênes en dashboards dy't dernei ferwize moatte bywurke wurde**. De nije entiteiten ferskine by de folgjende upload fan it stasjon.\n\nWolle jo se leaver sa litte, negearje dan dizze reparaasje."
+            "description": "Ferbinings-, wetterlek- en batterijwearden wurde as 1 of 0 trochjûn. Oant ferzje 1.0.8 waarden se as numerike sensoren toand, lykas `{example}`, dy't net brûkber binne mei de standertkaarten foar lekkaazje, ferbining en lege batterij fan Home Assistant. Nije stasjons krije binêre sensoren dy't **Wiet / Droech**, **Ferbûn / Net ferbûn** en **Leech / Normaal** sjen litte.\n\n**{count} entiteiten** kinne omset wurde. De 0~5-batterijnivo's fan de loftkwaliteitssensoren hâlde har persintaazje: seis stappen binne mear as in oan/út drage kin.\n\nFan platfoarm wikselje is gjin omneaming: de âlde entiteiten wurde fuorthelle en op 'e nij oanmakke as `binary_sensor`. **Har opnommen skiednis giet ferlern** — dizze wearden hawwe gjin langetermynstatistyk, dus allinnich de rûge skiednis wurdt rekke — en **automatisearrings, skripts, sênes en dashboards dy't dernei ferwize moatte bywurke wurde**. De nije entiteiten ferskine by de folgjende oplaad fan it stasjon.\n\nWolle jo se leaver litte sa't se binne, negearje dizze reparaasje dan."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Batterijnivo fan konsole"
+      },
       "station_online": {
         "name": "Stasjon online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Ferbiningssteat fan CO-sensor"
       },
+      "t1bat": {
+        "name": "Batterijsteat fan bûtensensor"
+      },
       "t1cn": {
         "name": "Ferbiningssteat fan bûtensensor"
+      },
+      "t234c1bat": {
+        "name": "CH1 batterijsteat"
       },
       "t234c1cn": {
         "name": "CH1 ferbiningssteat"
       },
+      "t234c2bat": {
+        "name": "CH2 batterijsteat"
+      },
       "t234c2cn": {
         "name": "CH2 ferbiningssteat"
+      },
+      "t234c3bat": {
+        "name": "CH3 batterijsteat"
       },
       "t234c3cn": {
         "name": "CH3 ferbiningssteat"
       },
+      "t234c4bat": {
+        "name": "CH4 batterijsteat"
+      },
       "t234c4cn": {
         "name": "CH4 ferbiningssteat"
+      },
+      "t234c5bat": {
+        "name": "CH5 batterijsteat"
       },
       "t234c5cn": {
         "name": "CH5 ferbiningssteat"
       },
+      "t234c6bat": {
+        "name": "CH6 batterijsteat"
+      },
       "t234c6cn": {
         "name": "CH6 ferbiningssteat"
+      },
+      "t234c7bat": {
+        "name": "CH7 batterijsteat"
       },
       "t234c7cn": {
         "name": "CH7 ferbiningssteat"
       },
+      "t5lsbat": {
+        "name": "Batterijsteat fan blikseemsensor"
+      },
       "t5lscn": {
         "name": "Ferbiningssteat fan blikseemsensor"
+      },
+      "t6c1bat": {
+        "name": "CH1 batterijsteat fan lekaazjesensor"
       },
       "t6c1cn": {
         "name": "CH1 ferbiningssteat fan lekaazjesensor"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 wetterlekaazjesteat"
       },
+      "t6c2bat": {
+        "name": "CH2 batterijsteat fan lekaazjesensor"
+      },
       "t6c2cn": {
         "name": "CH2 ferbiningssteat fan lekaazjesensor"
       },
       "t6c2wls": {
         "name": "CH2 wetterlekaazjesteat"
+      },
+      "t6c3bat": {
+        "name": "CH3 batterijsteat fan lekaazjesensor"
       },
       "t6c3cn": {
         "name": "CH3 ferbiningssteat fan lekaazjesensor"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 wetterlekaazjesteat"
       },
+      "t6c4bat": {
+        "name": "CH4 batterijsteat fan lekaazjesensor"
+      },
       "t6c4cn": {
         "name": "CH4 ferbiningssteat fan lekaazjesensor"
       },
       "t6c4wls": {
         "name": "CH4 wetterlekaazjesteat"
+      },
+      "t6c5bat": {
+        "name": "CH5 batterijsteat fan lekaazjesensor"
       },
       "t6c5cn": {
         "name": "CH5 ferbiningssteat fan lekaazjesensor"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 wetterlekaazjesteat"
       },
+      "t6c6bat": {
+        "name": "CH6 batterijsteat fan lekaazjesensor"
+      },
       "t6c6cn": {
         "name": "CH6 ferbiningssteat fan lekaazjesensor"
       },
       "t6c6wls": {
         "name": "CH6 wetterlekaazjesteat"
+      },
+      "t6c7bat": {
+        "name": "CH7 batterijsteat fan lekaazjesensor"
       },
       "t6c7cn": {
         "name": "CH7 ferbiningssteat fan lekaazjesensor"

@@ -148,9 +148,8 @@
     "issues::legacy_entity_ids::title": "엔티티 ID에 관측소 이름이 두 번 들어 있습니다",
     "issues::legacy_entity_ids::fix_flow::step::confirm::title": "엔티티 ID 줄이기",
     "issues::legacy_entity_ids::fix_flow::step::confirm::description": "버전 1.0.8까지 이 통합은 관측소 이름이 두 번 들어간 엔티티 ID를 만들었습니다(예: `{example_old}`). 새 관측소는 더 이상 그렇지 않습니다.\n\n**{count}개 엔티티**의 이름을 바꿀 수 있습니다. 예를 들어 `{example_new}` 로.\n\n기록과 장기 통계는 이름 변경을 자동으로 따라갑니다. **자동화, 스크립트, 장면, 대시보드는 따라가지 않습니다** — 이전 ID를 참조하는 것은 직접 갱신해야 합니다.\n\n그대로 두고 싶다면 이 복구를 무시하세요.",
-    "issues::legacy_status_sensors::title": "연결 및 누수 상태가 아직 숫자입니다",
     "issues::legacy_status_sensors::fix_flow::step::confirm::title": "바이너리 센서로 변환",
-    "issues::legacy_status_sensors::fix_flow::step::confirm::description": "연결 및 누수 상태는 1 또는 0으로 전송됩니다. 버전 1.0.8까지는 숫자 센서로 표시되어(예: `{example}`) Home Assistant의 표준 누수 카드와 알림에 사용할 수 없었습니다. 새 관측소는 이제 **젖음 / 마름** 과 **연결됨 / 연결 끊김** 을 표시하는 바이너리 센서를 받습니다.\n\n**{count}개 엔티티**를 변환할 수 있습니다. 배터리 잔량은 영향을 받지 않습니다: 백분율로 남으며, 배터리 부족 알림이 이를 기준으로 작동합니다.\n\n플랫폼 변경은 이름 변경이 아니므로 이전 엔티티는 제거되고 `binary_sensor` 로 다시 만들어집니다. **기록된 기록은 사라집니다** — 이 값들은 장기 통계가 없으므로 원시 기록만 영향을 받습니다 — 그리고 **이를 가리키는 자동화, 스크립트, 장면, 대시보드는 갱신해야 합니다.** 새 엔티티는 관측소의 다음 전송 시 나타납니다.\n\n그대로 두고 싶다면 이 복구를 무시하세요.",
+    "issues::legacy_status_sensors::fix_flow::step::confirm::description": "연결, 누수, 배터리 값은 1 또는 0으로 전송됩니다. 버전 1.0.8까지는 `{example}` 처럼 숫자 센서로 노출되어, Home Assistant 의 표준 누수·연결·배터리 부족 카드에서 쓸 수 없었습니다. 새 스테이션에는 **젖음 / 마름**, **연결됨 / 끊김**, **부족 / 정상** 을 표시하는 바이너리 센서가 만들어집니다.\n\n**{count}개 엔터티** 를 변환할 수 있습니다. 공기질 센서의 0~5 배터리 단계는 백분율을 유지합니다. 여섯 단계는 켜짐/꺼짐이 담을 수 있는 것보다 많습니다.\n\n플랫폼 변경은 이름 변경이 아닙니다. 기존 엔터티는 제거되고 `binary_sensor` 로 다시 만들어집니다. **기록된 기록은 사라집니다** — 이 값들에는 장기 통계가 없으므로 원시 기록만 영향을 받습니다 — 그리고 **이를 가리키는 자동화, 스크립트, 장면, 대시보드는 수정해야 합니다**. 새 엔터티는 스테이션의 다음 전송 때 나타납니다.\n\n그대로 두고 싶으시면 이 복구 항목을 무시하십시오.",
     "issues::unknown_parameters::title": "{station} 스테이션이 버려지고 있는 측정값을 보내고 있습니다",
     "issues::unknown_parameters::description": "**{station}** 의 **{count}개 매개변수** 를 인식할 수 없어 전송할 때마다 그 값이 버려지고 있습니다:\n\n{parameters}\n\n흔한 원인은 스테이션이 프로토콜이 실어 나를 수 있는 것보다 더 많이 보고하는 경우입니다. Weather Underground 에는 추가 센서를 위한 자리가 **4개** 뿐입니다. 스테이션이 *API type* 으로 **WSLink** 를 제공한다면, 그쪽으로 바꾸면 7개 채널과 약 두 배의 측정값을 쓸 수 있습니다.\n\n원인이 그것이 아니라면, 버그 보고에 꼭 필요한 것이 바로 이 매개변수 이름들입니다. [이슈 트래커]({issue_tracker}) 에 보고해 주시면 추가할 수 있습니다.\n\n무시해도 됩니다 — 고장 난 것은 없고, 이 값들만 도착하지 않을 뿐입니다.",
     "config::step::station::title": "5단계 중 1단계 — 스테이션",
@@ -167,6 +166,7 @@
     "config::step::received::description": "**{station}** 이(가) 방금 첫 전송을 보냈습니다.\n\n센서는 다음 전송에서 나타나며, 스테이션이 실제로 보내는 내용에서 만들어집니다. 여기서 고를 것은 없습니다.",
     "config::step::timeout::title": "아직 아무것도 도착하지 않았습니다",
     "config::step::timeout::description": "지난 {minutes}분 동안 어떤 스테이션도 데이터를 보내지 않았습니다.{key_hint_extra}\n\n흔한 원인은 스테이션이 닿지 못하는 주소, 누르지 않은 **Confirm & Exit**, 또는 HTTPS 를 요구하는 3.02 이상의 펌웨어입니다.\n\n가리킬 주소는 다음과 같습니다:\n{urls}\n전송을 기다리는 엔드포인트는 다음과 같습니다:\n{endpoints}\n\n그래도 마치려면 «다음» 을 누르십시오. 설정은 유지되고, 엔드포인트가 실제로 수신을 시작하며, 스테이션이 나타날 때까지 복구 항목이 이곳으로 다시 데려옵니다.",
-    "config::progress::waiting_for_station": "스테이션의 첫 전송을 기다리는 중…"
+    "config::progress::waiting_for_station": "스테이션의 첫 전송을 기다리는 중…",
+    "issues::legacy_status_sensors::title": "연결·누수·배터리 값이 아직 숫자입니다"
   }
 }

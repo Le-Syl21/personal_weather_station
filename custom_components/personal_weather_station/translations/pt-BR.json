@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Os status de conexão e de vazamento ainda são números",
+      "title": "As leituras de conexão, vazamento e bateria ainda são números",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Converter em sensores binários",
-            "description": "Os status de conexão e de vazamento de água são transmitidos como 1 ou 0. Até a versão 1.0.8 eram expostos como sensores numéricos, como `{example}`, que não podem ser usados com os cartões e alertas de vazamento padrão do Home Assistant. As estações novas recebem agora sensores binários que mostram **Molhado / Seco** e **Conectado / Desconectado**.\n\n**{count} entidades** podem ser convertidas. Os níveis de bateria não são afetados: continuam em porcentagem, com a qual os alertas de bateria fraca funcionam.\n\nUma mudança de plataforma não é uma renomeação: as entidades antigas são removidas e recriadas como `binary_sensor`. **O histórico registrado delas é perdido** — essas leituras não têm estatísticas de longo prazo, apenas o histórico bruto é afetado — e **as automações, scripts, cenas e painéis que as referenciam precisarão ser atualizados**. As novas entidades aparecem no próximo envio da estação.\n\nSe preferir mantê-las como estão, ignore este reparo."
+            "description": "As leituras de conexão, vazamento de água e bateria são transmitidas como 1 ou 0. Até a versão 1.0.8 eram expostas como sensores numéricos, por exemplo `{example}`, que não servem com os cartões padrão de vazamento, conectividade e bateria fraca do Home Assistant. As estações novas recebem sensores binários que mostram **Molhado / Seco**, **Conectado / Desconectado** e **Fraca / Normal**.\n\n**{count} entidades** podem ser convertidas. Os níveis de bateria 0~5 dos sensores de qualidade do ar mantêm a porcentagem: seis degraus são mais do que um liga/desliga consegue carregar.\n\nMudar de plataforma não é uma renomeação: as entidades antigas são removidas e recriadas como `binary_sensor`. **O histórico registrado delas se perde** — essas leituras não têm estatísticas de longo prazo, então só o histórico bruto é afetado — e **as automações, scripts, cenas e painéis que apontam para elas precisam ser atualizados**. As novas entidades aparecem no próximo envio da estação.\n\nSe preferir mantê-las como estão, ignore este reparo."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Nível da bateria do console"
+      },
       "station_online": {
         "name": "Estação on-line"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Status da conexão do sensor de CO"
       },
+      "t1bat": {
+        "name": "Status da bateria do sensor externo"
+      },
       "t1cn": {
         "name": "Status da conexão do sensor externo"
+      },
+      "t234c1bat": {
+        "name": "CH1 status da bateria"
       },
       "t234c1cn": {
         "name": "CH1 status da conexão"
       },
+      "t234c2bat": {
+        "name": "CH2 status da bateria"
+      },
       "t234c2cn": {
         "name": "CH2 status da conexão"
+      },
+      "t234c3bat": {
+        "name": "CH3 status da bateria"
       },
       "t234c3cn": {
         "name": "CH3 status da conexão"
       },
+      "t234c4bat": {
+        "name": "CH4 status da bateria"
+      },
       "t234c4cn": {
         "name": "CH4 status da conexão"
+      },
+      "t234c5bat": {
+        "name": "CH5 status da bateria"
       },
       "t234c5cn": {
         "name": "CH5 status da conexão"
       },
+      "t234c6bat": {
+        "name": "CH6 status da bateria"
+      },
       "t234c6cn": {
         "name": "CH6 status da conexão"
+      },
+      "t234c7bat": {
+        "name": "CH7 status da bateria"
       },
       "t234c7cn": {
         "name": "CH7 status da conexão"
       },
+      "t5lsbat": {
+        "name": "Status da bateria do sensor de raios"
+      },
       "t5lscn": {
         "name": "Status da conexão do sensor de raios"
+      },
+      "t6c1bat": {
+        "name": "CH1 status da bateria do detector de vazamento"
       },
       "t6c1cn": {
         "name": "CH1 status da conexão do detector de vazamento"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 status de vazamento de água"
       },
+      "t6c2bat": {
+        "name": "CH2 status da bateria do detector de vazamento"
+      },
       "t6c2cn": {
         "name": "CH2 status da conexão do detector de vazamento"
       },
       "t6c2wls": {
         "name": "CH2 status de vazamento de água"
+      },
+      "t6c3bat": {
+        "name": "CH3 status da bateria do detector de vazamento"
       },
       "t6c3cn": {
         "name": "CH3 status da conexão do detector de vazamento"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 status de vazamento de água"
       },
+      "t6c4bat": {
+        "name": "CH4 status da bateria do detector de vazamento"
+      },
       "t6c4cn": {
         "name": "CH4 status da conexão do detector de vazamento"
       },
       "t6c4wls": {
         "name": "CH4 status de vazamento de água"
+      },
+      "t6c5bat": {
+        "name": "CH5 status da bateria do detector de vazamento"
       },
       "t6c5cn": {
         "name": "CH5 status da conexão do detector de vazamento"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 status de vazamento de água"
       },
+      "t6c6bat": {
+        "name": "CH6 status da bateria do detector de vazamento"
+      },
       "t6c6cn": {
         "name": "CH6 status da conexão do detector de vazamento"
       },
       "t6c6wls": {
         "name": "CH6 status de vazamento de água"
+      },
+      "t6c7bat": {
+        "name": "CH7 status da bateria do detector de vazamento"
       },
       "t6c7cn": {
         "name": "CH7 status da conexão do detector de vazamento"

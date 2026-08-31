@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Yhteyden ja vuodon tilat ovat yhä numeroita",
+      "title": "Yhteyden, vuodon ja akun lukemat ovat yhä numeroita",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Muunna binäärisensoreiksi",
-            "description": "Yhteyden ja vesivuodon tilat lähetetään arvoina 1 tai 0. Versioon 1.0.8 asti ne näytettiin numeerisina antureina, kuten `{example}`, joita ei voi käyttää Home Assistantin tavallisten vuotokorttien ja -hälytysten kanssa. Uudet asemat saavat nyt binäärisensorit, jotka näyttävät **Märkä / Kuiva** ja **Yhdistetty / Ei yhteyttä**.\n\n**{count} entiteettiä** voidaan muuntaa. Akkutasot eivät muutu: ne pysyvät prosentteina, joiden varassa vähäisen akun hälytykset toimivat.\n\nAlustan vaihto ei ole uudelleennimeäminen, joten vanhat entiteetit poistetaan ja luodaan uudelleen muodossa `binary_sensor`. **Niiden tallennettu historia menetetään** — näillä lukemilla ei ole pitkän aikavälin tilastoja, joten vain raakahistoria kärsii — ja **niihin viittaavat automaatiot, skriptit, kohtaukset ja koontinäytöt on päivitettävä**. Uudet entiteetit ilmestyvät aseman seuraavalla lähetyksellä.\n\nJos haluat mieluummin pitää ne ennallaan, ohita tämä korjaus."
+            "description": "Yhteyden, vesivuodon ja akun lukemat lähetetään arvona 1 tai 0. Versioon 1.0.8 asti ne näytettiin numeerisina antureina, kuten `{example}`, joita ei voi käyttää Home Assistantin vakiokorttien kanssa vuodolle, yhteydelle ja vähäiselle akulle. Uudet asemat saavat binääriset anturit, jotka näyttävät **Märkä / Kuiva**, **Yhdistetty / Ei yhteyttä** ja **Vähissä / Normaali**.\n\n**{count} entiteettiä** voidaan muuntaa. Ilmanlaatuantureiden 0~5-akkutasot säilyttävät prosenttinsa: kuusi porrasta on enemmän kuin päällä/pois pystyy kantamaan.\n\nAlustan vaihto ei ole uudelleennimeäminen: vanhat entiteetit poistetaan ja luodaan uudelleen muodossa `binary_sensor`. **Niiden tallennettu historia menetetään** — näillä lukemilla ei ole pitkän aikavälin tilastoja, joten vain raakahistoria kärsii — ja **automaatiot, skriptit, näkymät ja koontinäytöt, jotka osoittavat niihin, on päivitettävä**. Uudet entiteetit ilmestyvät aseman seuraavan lähetyksen myötä.\n\nJos jätät ne mieluummin ennalleen, ohita tämä korjaus."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Konsolin akun taso"
+      },
       "station_online": {
         "name": "Asema verkossa"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "CO-anturin yhteyden tila"
       },
+      "t1bat": {
+        "name": "Ulkoanturin akun tila"
+      },
       "t1cn": {
         "name": "Ulkoanturin yhteyden tila"
+      },
+      "t234c1bat": {
+        "name": "CH1 akun tila"
       },
       "t234c1cn": {
         "name": "CH1 yhteyden tila"
       },
+      "t234c2bat": {
+        "name": "CH2 akun tila"
+      },
       "t234c2cn": {
         "name": "CH2 yhteyden tila"
+      },
+      "t234c3bat": {
+        "name": "CH3 akun tila"
       },
       "t234c3cn": {
         "name": "CH3 yhteyden tila"
       },
+      "t234c4bat": {
+        "name": "CH4 akun tila"
+      },
       "t234c4cn": {
         "name": "CH4 yhteyden tila"
+      },
+      "t234c5bat": {
+        "name": "CH5 akun tila"
       },
       "t234c5cn": {
         "name": "CH5 yhteyden tila"
       },
+      "t234c6bat": {
+        "name": "CH6 akun tila"
+      },
       "t234c6cn": {
         "name": "CH6 yhteyden tila"
+      },
+      "t234c7bat": {
+        "name": "CH7 akun tila"
       },
       "t234c7cn": {
         "name": "CH7 yhteyden tila"
       },
+      "t5lsbat": {
+        "name": "Salama-anturin akun tila"
+      },
       "t5lscn": {
         "name": "Salama-anturin yhteyden tila"
+      },
+      "t6c1bat": {
+        "name": "CH1 vuotoanturin akun tila"
       },
       "t6c1cn": {
         "name": "CH1 vuotoanturin yhteyden tila"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 vesivuodon tila"
       },
+      "t6c2bat": {
+        "name": "CH2 vuotoanturin akun tila"
+      },
       "t6c2cn": {
         "name": "CH2 vuotoanturin yhteyden tila"
       },
       "t6c2wls": {
         "name": "CH2 vesivuodon tila"
+      },
+      "t6c3bat": {
+        "name": "CH3 vuotoanturin akun tila"
       },
       "t6c3cn": {
         "name": "CH3 vuotoanturin yhteyden tila"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 vesivuodon tila"
       },
+      "t6c4bat": {
+        "name": "CH4 vuotoanturin akun tila"
+      },
       "t6c4cn": {
         "name": "CH4 vuotoanturin yhteyden tila"
       },
       "t6c4wls": {
         "name": "CH4 vesivuodon tila"
+      },
+      "t6c5bat": {
+        "name": "CH5 vuotoanturin akun tila"
       },
       "t6c5cn": {
         "name": "CH5 vuotoanturin yhteyden tila"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 vesivuodon tila"
       },
+      "t6c6bat": {
+        "name": "CH6 vuotoanturin akun tila"
+      },
       "t6c6cn": {
         "name": "CH6 vuotoanturin yhteyden tila"
       },
       "t6c6wls": {
         "name": "CH6 vesivuodon tila"
+      },
+      "t6c7bat": {
+        "name": "CH7 vuotoanturin akun tila"
       },
       "t6c7cn": {
         "name": "CH7 vuotoanturin yhteyden tila"

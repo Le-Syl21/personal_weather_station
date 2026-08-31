@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "D'Verbindungs- a Leckzoustänn sinn nach Zuelen",
+      "title": "Verbindungs-, Leck- a Batteriewäerter sinn nach Zuelen",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "An binär Sensoren ëmwandelen",
-            "description": "D'Verbindungs- a Waasserleckzoustänn ginn als 1 oder 0 geschéckt. Bis zur Versioun 1.0.8 goufe se als numeresch Sensoren ugewisen, wéi `{example}`, déi mat de Standard-Leckkaarten an -Warnungen vum Home Assistant net ze benotze sinn. Nei Statioune kréien elo binär Sensoren, déi **Naass / Dréchen** an **Verbonnen / Net verbonnen** weisen.\n\n**{count} Entitéiten** kënnen ëmgewandelt ginn. D'Batterieniveaue sinn net betraff: si bleiwe Prozenter, op deene d'Warnunge bei schwaacher Batterie schaffen.\n\nE Plattformwiessel ass keng Ëmbenennung, dofir ginn déi al Entitéite geläscht an als `binary_sensor` nei ugeluecht. **Hir opgezeechent Historique geet verluer** — dës Miessunge hu keng Laangzäitstatistiken, also ass nëmmen déi réi Historique betraff — an **Automatiséierungen, Skripten, Zeenen an Dashboards, déi drop verweisen, mussen ugepasst ginn**. Déi nei Entitéiten erschénge bei der nächster Iwwerdroung vun der Statioun.\n\nWann Dir se léiwer esou loosst, ignoréiert dës Reparatur."
+            "description": "Verbindungs-, Waasserleck- a Batteriewäerter ginn als 1 oder 0 geschéckt. Bis Versioun 1.0.8 goufe se als numeresch Sensoren ugewisen, wéi `{example}`, déi sech mat de Standardkaarte fir Leck, Verbindung a schwaach Batterie am Home Assistant net notze loossen. Nei Statioune kréien binär Sensoren, déi **Naass / Dréche**, **Verbonnen / Getrennt** an **Schwaach / Normal** weisen.\n\n**{count} Entitéiten** kënnen ëmgestallt ginn. D'Batteriestufe 0~5 vun de Loftqualitéitssensore behalen hire Prozentwäert: sechs Stufe si méi, wéi en Un/Aus droe kann.\n\nE Plattformwiessel ass keng Ëmbenennung: déi al Entitéite gi geläscht an als `binary_sensor` nei ugeluecht. **Hir opgezeechent Geschicht geet verluer** — dës Wäerter hu keng Laangzäitstatistik, dofir ass nëmmen déi roh Geschicht betraff — an **Automatisatiounen, Skripten, Zeenen an Dashboards, déi op si weisen, mussen ugepasst ginn**. Déi nei Entitéiten erschéngen beim nächsten Envoi vun der Statioun.\n\nWann Dir se léiwer esou loosse wëllt, ignoréiert dës Reparatur."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Batterieniveau vun der Konsol"
+      },
       "station_online": {
         "name": "Statioun online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Verbindungszoustand vum CO-Sensor"
       },
+      "t1bat": {
+        "name": "Batteriezoustand vum Baussesensor"
+      },
       "t1cn": {
         "name": "Verbindungszoustand vum Baussesensor"
+      },
+      "t234c1bat": {
+        "name": "CH1 batteriezoustand"
       },
       "t234c1cn": {
         "name": "CH1 verbindungszoustand"
       },
+      "t234c2bat": {
+        "name": "CH2 batteriezoustand"
+      },
       "t234c2cn": {
         "name": "CH2 verbindungszoustand"
+      },
+      "t234c3bat": {
+        "name": "CH3 batteriezoustand"
       },
       "t234c3cn": {
         "name": "CH3 verbindungszoustand"
       },
+      "t234c4bat": {
+        "name": "CH4 batteriezoustand"
+      },
       "t234c4cn": {
         "name": "CH4 verbindungszoustand"
+      },
+      "t234c5bat": {
+        "name": "CH5 batteriezoustand"
       },
       "t234c5cn": {
         "name": "CH5 verbindungszoustand"
       },
+      "t234c6bat": {
+        "name": "CH6 batteriezoustand"
+      },
       "t234c6cn": {
         "name": "CH6 verbindungszoustand"
+      },
+      "t234c7bat": {
+        "name": "CH7 batteriezoustand"
       },
       "t234c7cn": {
         "name": "CH7 verbindungszoustand"
       },
+      "t5lsbat": {
+        "name": "Batteriezoustand vum Blëtzsensor"
+      },
       "t5lscn": {
         "name": "Verbindungszoustand vum Blëtzsensor"
+      },
+      "t6c1bat": {
+        "name": "CH1 batteriezoustand vum Lecksensor"
       },
       "t6c1cn": {
         "name": "CH1 verbindungszoustand vum Lecksensor"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 zoustand vum Waasserleck"
       },
+      "t6c2bat": {
+        "name": "CH2 batteriezoustand vum Lecksensor"
+      },
       "t6c2cn": {
         "name": "CH2 verbindungszoustand vum Lecksensor"
       },
       "t6c2wls": {
         "name": "CH2 zoustand vum Waasserleck"
+      },
+      "t6c3bat": {
+        "name": "CH3 batteriezoustand vum Lecksensor"
       },
       "t6c3cn": {
         "name": "CH3 verbindungszoustand vum Lecksensor"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 zoustand vum Waasserleck"
       },
+      "t6c4bat": {
+        "name": "CH4 batteriezoustand vum Lecksensor"
+      },
       "t6c4cn": {
         "name": "CH4 verbindungszoustand vum Lecksensor"
       },
       "t6c4wls": {
         "name": "CH4 zoustand vum Waasserleck"
+      },
+      "t6c5bat": {
+        "name": "CH5 batteriezoustand vum Lecksensor"
       },
       "t6c5cn": {
         "name": "CH5 verbindungszoustand vum Lecksensor"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 zoustand vum Waasserleck"
       },
+      "t6c6bat": {
+        "name": "CH6 batteriezoustand vum Lecksensor"
+      },
       "t6c6cn": {
         "name": "CH6 verbindungszoustand vum Lecksensor"
       },
       "t6c6wls": {
         "name": "CH6 zoustand vum Waasserleck"
+      },
+      "t6c7bat": {
+        "name": "CH7 batteriezoustand vum Lecksensor"
       },
       "t6c7cn": {
         "name": "CH7 verbindungszoustand vum Lecksensor"

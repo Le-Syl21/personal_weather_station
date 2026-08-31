@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Gjendjet e lidhjes dhe të rrjedhjes janë ende numra",
+      "title": "Leximet e lidhjes, rrjedhjes dhe baterisë janë ende numra",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Konvertoni në sensorë binarë",
-            "description": "Gjendjet e lidhjes dhe të rrjedhjes së ujit dërgohen si 1 ose 0. Deri te versioni 1.0.8 shfaqeshin si sensorë numerikë, si `{example}`, që nuk mund të përdoren me kartat dhe alarmet standarde të rrjedhjes në Home Assistant. Stacionet e reja marrin tani sensorë binarë që shfaqin **I lagësht / I thatë** dhe **I lidhur / I shkëputur**.\n\n**{count} entitete** mund të konvertohen. Nivelet e baterisë nuk preken: mbeten përqindje, mbi të cilat funksionojnë alarmet e baterisë së ulët.\n\nNdryshimi i platformës nuk është riemërtim, prandaj entitetet e vjetra hiqen dhe rindërtohen si `binary_sensor`. **Historiku i tyre i regjistruar humbet** — këto lexime nuk kanë statistika afatgjata, prandaj preket vetëm historiku i papërpunuar — dhe **automatizimet, skriptet, skenat dhe panelet që u referohen duhet të përditësohen**. Entitetet e reja shfaqen në ngarkimin e radhës të stacionit.\n\nNëse preferoni t'i lini ashtu siç janë, shpërfillni këtë riparim."
+            "description": "Leximet e lidhjes, rrjedhjes së ujit dhe baterisë dërgohen si 1 ose 0. Deri te versioni 1.0.8 ato shfaqeshin si sensorë numerikë, si `{example}`, që nuk përdoren dot me kartat standarde të rrjedhjes, lidhjes dhe baterisë së ulët në Home Assistant. Stacionet e reja marrin sensorë binarë që tregojnë **I lagësht / I thatë**, **I lidhur / I shkëputur** dhe **E ulët / Normale**.\n\nMund të konvertohen **{count} entitete**. Nivelet e baterisë 0~5 të sensorëve të cilësisë së ajrit e ruajnë përqindjen: gjashtë shkallë janë më shumë nga sa mund të mbajë një ndezur/fikur.\n\nNdryshimi i platformës nuk është riemërtim: entitetet e vjetra hiqen dhe rikrijohen si `binary_sensor`. **Historiku i tyre i regjistruar humbet** — këto lexime nuk kanë statistika afatgjata, prandaj preket vetëm historiku i papërpunuar — dhe **automatizimet, skriptet, skenat dhe panelet që i drejtohen atyre duhen përditësuar**. Entitetet e reja shfaqen në ngarkimin e ardhshëm të stacionit.\n\nNëse parapëlqeni t'i lini ashtu siç janë, shpërfillni këtë riparim."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Niveli i baterisë së konsolës"
+      },
       "station_online": {
         "name": "Stacioni në linjë"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Gjendja e lidhjes së sensorit CO"
       },
+      "t1bat": {
+        "name": "Gjendja e baterisë së sensorit të jashtëm"
+      },
       "t1cn": {
         "name": "Gjendja e lidhjes së sensorit të jashtëm"
+      },
+      "t234c1bat": {
+        "name": "CH1 gjendja e baterisë"
       },
       "t234c1cn": {
         "name": "CH1 gjendja e lidhjes"
       },
+      "t234c2bat": {
+        "name": "CH2 gjendja e baterisë"
+      },
       "t234c2cn": {
         "name": "CH2 gjendja e lidhjes"
+      },
+      "t234c3bat": {
+        "name": "CH3 gjendja e baterisë"
       },
       "t234c3cn": {
         "name": "CH3 gjendja e lidhjes"
       },
+      "t234c4bat": {
+        "name": "CH4 gjendja e baterisë"
+      },
       "t234c4cn": {
         "name": "CH4 gjendja e lidhjes"
+      },
+      "t234c5bat": {
+        "name": "CH5 gjendja e baterisë"
       },
       "t234c5cn": {
         "name": "CH5 gjendja e lidhjes"
       },
+      "t234c6bat": {
+        "name": "CH6 gjendja e baterisë"
+      },
       "t234c6cn": {
         "name": "CH6 gjendja e lidhjes"
+      },
+      "t234c7bat": {
+        "name": "CH7 gjendja e baterisë"
       },
       "t234c7cn": {
         "name": "CH7 gjendja e lidhjes"
       },
+      "t5lsbat": {
+        "name": "Gjendja e baterisë së sensorit të vetëtimave"
+      },
       "t5lscn": {
         "name": "Gjendja e lidhjes së sensorit të vetëtimave"
+      },
+      "t6c1bat": {
+        "name": "CH1 gjendja e baterisë së sensorit të rrjedhjes"
       },
       "t6c1cn": {
         "name": "CH1 gjendja e lidhjes së sensorit të rrjedhjes"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 gjendja e rrjedhjes së ujit"
       },
+      "t6c2bat": {
+        "name": "CH2 gjendja e baterisë së sensorit të rrjedhjes"
+      },
       "t6c2cn": {
         "name": "CH2 gjendja e lidhjes së sensorit të rrjedhjes"
       },
       "t6c2wls": {
         "name": "CH2 gjendja e rrjedhjes së ujit"
+      },
+      "t6c3bat": {
+        "name": "CH3 gjendja e baterisë së sensorit të rrjedhjes"
       },
       "t6c3cn": {
         "name": "CH3 gjendja e lidhjes së sensorit të rrjedhjes"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 gjendja e rrjedhjes së ujit"
       },
+      "t6c4bat": {
+        "name": "CH4 gjendja e baterisë së sensorit të rrjedhjes"
+      },
       "t6c4cn": {
         "name": "CH4 gjendja e lidhjes së sensorit të rrjedhjes"
       },
       "t6c4wls": {
         "name": "CH4 gjendja e rrjedhjes së ujit"
+      },
+      "t6c5bat": {
+        "name": "CH5 gjendja e baterisë së sensorit të rrjedhjes"
       },
       "t6c5cn": {
         "name": "CH5 gjendja e lidhjes së sensorit të rrjedhjes"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 gjendja e rrjedhjes së ujit"
       },
+      "t6c6bat": {
+        "name": "CH6 gjendja e baterisë së sensorit të rrjedhjes"
+      },
       "t6c6cn": {
         "name": "CH6 gjendja e lidhjes së sensorit të rrjedhjes"
       },
       "t6c6wls": {
         "name": "CH6 gjendja e rrjedhjes së ujit"
+      },
+      "t6c7bat": {
+        "name": "CH7 gjendja e baterisë së sensorit të rrjedhjes"
       },
       "t6c7cn": {
         "name": "CH7 gjendja e lidhjes së sensorit të rrjedhjes"

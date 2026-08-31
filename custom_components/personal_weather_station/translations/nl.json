@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Verbindings- en lekstatus zijn nog getallen",
+      "title": "Verbindings-, lek- en batterijwaarden zijn nog getallen",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Omzetten naar binaire sensoren",
-            "description": "Verbindings- en waterlekstatus worden als 1 of 0 doorgegeven. Tot versie 1.0.8 werden ze als numerieke sensoren getoond, zoals `{example}`, die niet bruikbaar zijn met de standaard lekkaarten en -meldingen van Home Assistant. Nieuwe stations krijgen nu binaire sensoren die **Nat / Droog** en **Verbonden / Niet verbonden** tonen.\n\n**{count} entiteiten** kunnen worden omgezet. Batterijniveaus blijven ongemoeid: die blijven percentages, waarmee de meldingen bij een lege batterij werken.\n\nEen platformwissel is geen hernoeming: de oude entiteiten worden verwijderd en opnieuw aangemaakt als `binary_sensor`. **Hun opgeslagen geschiedenis gaat verloren** — deze metingen hebben geen langetermijnstatistieken, alleen de ruwe geschiedenis is betrokken — en **automatiseringen, scripts, scènes en dashboards die ernaar verwijzen moeten worden bijgewerkt**. De nieuwe entiteiten verschijnen bij de volgende upload van het station.\n\nWilt u ze liever zo laten, negeer dan deze reparatie."
+            "description": "Verbindings-, waterlek- en batterijwaarden worden als 1 of 0 doorgegeven. Tot versie 1.0.8 werden ze als numerieke sensoren getoond, zoals `{example}`, die niet bruikbaar zijn met de standaardkaarten voor lekkage, connectiviteit en lege batterij van Home Assistant. Nieuwe stations krijgen binaire sensoren met **Nat / Droog**, **Verbonden / Niet verbonden** en **Laag / Normaal**.\n\n**{count} entiteiten** kunnen worden omgezet. De 0~5-batterijniveaus van de luchtkwaliteitssensoren houden hun percentage: zes stappen zijn meer dan een aan/uit kan dragen.\n\nVan platform wisselen is geen hernoeming: de oude entiteiten worden verwijderd en opnieuw aangemaakt als `binary_sensor`. **Hun opgenomen geschiedenis gaat verloren** — deze waarden hebben geen langetermijnstatistieken, dus alleen de ruwe geschiedenis is betrokken — en **automatiseringen, scripts, scènes en dashboards die ernaar verwijzen moeten worden bijgewerkt**. De nieuwe entiteiten verschijnen bij de volgende upload van het station.\n\nWilt u ze liever laten zoals ze zijn, negeer deze reparatie dan."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Batterijniveau console"
+      },
       "station_online": {
         "name": "Station online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Verbindingsstatus CO-sensor"
       },
+      "t1bat": {
+        "name": "Batterijstatus buitensensor"
+      },
       "t1cn": {
         "name": "Verbindingsstatus buitensensor"
+      },
+      "t234c1bat": {
+        "name": "CH1 batterijstatus"
       },
       "t234c1cn": {
         "name": "CH1 verbindingsstatus"
       },
+      "t234c2bat": {
+        "name": "CH2 batterijstatus"
+      },
       "t234c2cn": {
         "name": "CH2 verbindingsstatus"
+      },
+      "t234c3bat": {
+        "name": "CH3 batterijstatus"
       },
       "t234c3cn": {
         "name": "CH3 verbindingsstatus"
       },
+      "t234c4bat": {
+        "name": "CH4 batterijstatus"
+      },
       "t234c4cn": {
         "name": "CH4 verbindingsstatus"
+      },
+      "t234c5bat": {
+        "name": "CH5 batterijstatus"
       },
       "t234c5cn": {
         "name": "CH5 verbindingsstatus"
       },
+      "t234c6bat": {
+        "name": "CH6 batterijstatus"
+      },
       "t234c6cn": {
         "name": "CH6 verbindingsstatus"
+      },
+      "t234c7bat": {
+        "name": "CH7 batterijstatus"
       },
       "t234c7cn": {
         "name": "CH7 verbindingsstatus"
       },
+      "t5lsbat": {
+        "name": "Batterijstatus bliksemsensor"
+      },
       "t5lscn": {
         "name": "Verbindingsstatus bliksemsensor"
+      },
+      "t6c1bat": {
+        "name": "CH1 batterijstatus waterlekmelder"
       },
       "t6c1cn": {
         "name": "CH1 verbindingsstatus waterlekmelder"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 waterlekstatus"
       },
+      "t6c2bat": {
+        "name": "CH2 batterijstatus waterlekmelder"
+      },
       "t6c2cn": {
         "name": "CH2 verbindingsstatus waterlekmelder"
       },
       "t6c2wls": {
         "name": "CH2 waterlekstatus"
+      },
+      "t6c3bat": {
+        "name": "CH3 batterijstatus waterlekmelder"
       },
       "t6c3cn": {
         "name": "CH3 verbindingsstatus waterlekmelder"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 waterlekstatus"
       },
+      "t6c4bat": {
+        "name": "CH4 batterijstatus waterlekmelder"
+      },
       "t6c4cn": {
         "name": "CH4 verbindingsstatus waterlekmelder"
       },
       "t6c4wls": {
         "name": "CH4 waterlekstatus"
+      },
+      "t6c5bat": {
+        "name": "CH5 batterijstatus waterlekmelder"
       },
       "t6c5cn": {
         "name": "CH5 verbindingsstatus waterlekmelder"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 waterlekstatus"
       },
+      "t6c6bat": {
+        "name": "CH6 batterijstatus waterlekmelder"
+      },
       "t6c6cn": {
         "name": "CH6 verbindingsstatus waterlekmelder"
       },
       "t6c6wls": {
         "name": "CH6 waterlekstatus"
+      },
+      "t6c7bat": {
+        "name": "CH7 batterijstatus waterlekmelder"
       },
       "t6c7cn": {
         "name": "CH7 verbindingsstatus waterlekmelder"

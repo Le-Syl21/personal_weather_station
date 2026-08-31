@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Stavy pripojenia a úniku sú stále čísla",
+      "title": "Údaje o spojení, úniku a batérii sú stále čísla",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Previesť na binárne snímače",
-            "description": "Stavy pripojenia a úniku vody sa posielajú ako 1 alebo 0. Do verzie 1.0.8 sa zobrazovali ako číselné snímače, napríklad `{example}`, ktoré sa nedajú použiť so štandardnými kartami a upozorneniami na únik v Home Assistante. Nové stanice teraz dostávajú binárne snímače zobrazujúce **Mokro / Sucho** a **Pripojené / Odpojené**.\n\n**{count} entít** možno previesť. Úrovne batérie to neovplyvní: zostávajú percentami, na ktorých fungujú upozornenia na slabú batériu.\n\nZmena platformy nie je premenovanie, takže staré entity sa odstránia a vytvoria nanovo ako `binary_sensor`. **Ich zaznamenaná história sa stratí** — tieto merania nemajú dlhodobé štatistiky, takže je dotknutá len surová história — a **automatizácie, skripty, scény a nástenky, ktoré na ne odkazujú, treba upraviť**. Nové entity sa objavia pri ďalšom odoslaní stanice.\n\nAk ich radšej chcete nechať tak, ako sú, túto opravu ignorujte."
+            "description": "Údaje o spojení, úniku vody a batérii sa posielajú ako 1 alebo 0. Až do verzie 1.0.8 sa vystavovali ako číselné senzory, napríklad `{example}`, ktoré sa nedajú použiť so štandardnými kartami pre únik, konektivitu a slabú batériu v Home Assistante. Nové stanice dostávajú binárne senzory zobrazujúce **Mokro / Sucho**, **Pripojené / Odpojené** a **Slabá / Normálna**.\n\nPreviesť možno **{count} entít**. Úrovne batérie 0~5 pri senzoroch kvality ovzdušia si ponechávajú percentá: šesť stupňov je viac, než dokáže uniesť zapnuté/vypnuté.\n\nZmena platformy nie je premenovanie: staré entity sa odstránia a znova vytvoria ako `binary_sensor`. **Ich zaznamenaná história sa stratí** — tieto údaje nemajú dlhodobú štatistiku, takže je dotknutá len surová história — a **automatizácie, skripty, scény a nástenky, ktoré na ne ukazujú, treba upraviť**. Nové entity sa objavia pri ďalšom odoslaní stanice.\n\nAk ich radšej necháte tak, ako sú, túto opravu ignorujte."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Úroveň batérie konzoly"
+      },
       "station_online": {
         "name": "Stanica online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Stav pripojenia snímača CO"
       },
+      "t1bat": {
+        "name": "Stav batérie vonkajšieho snímača"
+      },
       "t1cn": {
         "name": "Stav pripojenia vonkajšieho snímača"
+      },
+      "t234c1bat": {
+        "name": "CH1 stav batérie"
       },
       "t234c1cn": {
         "name": "CH1 stav pripojenia"
       },
+      "t234c2bat": {
+        "name": "CH2 stav batérie"
+      },
       "t234c2cn": {
         "name": "CH2 stav pripojenia"
+      },
+      "t234c3bat": {
+        "name": "CH3 stav batérie"
       },
       "t234c3cn": {
         "name": "CH3 stav pripojenia"
       },
+      "t234c4bat": {
+        "name": "CH4 stav batérie"
+      },
       "t234c4cn": {
         "name": "CH4 stav pripojenia"
+      },
+      "t234c5bat": {
+        "name": "CH5 stav batérie"
       },
       "t234c5cn": {
         "name": "CH5 stav pripojenia"
       },
+      "t234c6bat": {
+        "name": "CH6 stav batérie"
+      },
       "t234c6cn": {
         "name": "CH6 stav pripojenia"
+      },
+      "t234c7bat": {
+        "name": "CH7 stav batérie"
       },
       "t234c7cn": {
         "name": "CH7 stav pripojenia"
       },
+      "t5lsbat": {
+        "name": "Stav batérie snímača bleskov"
+      },
       "t5lscn": {
         "name": "Stav pripojenia snímača bleskov"
+      },
+      "t6c1bat": {
+        "name": "CH1 stav batérie detektora úniku"
       },
       "t6c1cn": {
         "name": "CH1 stav pripojenia detektora úniku"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 stav úniku vody"
       },
+      "t6c2bat": {
+        "name": "CH2 stav batérie detektora úniku"
+      },
       "t6c2cn": {
         "name": "CH2 stav pripojenia detektora úniku"
       },
       "t6c2wls": {
         "name": "CH2 stav úniku vody"
+      },
+      "t6c3bat": {
+        "name": "CH3 stav batérie detektora úniku"
       },
       "t6c3cn": {
         "name": "CH3 stav pripojenia detektora úniku"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 stav úniku vody"
       },
+      "t6c4bat": {
+        "name": "CH4 stav batérie detektora úniku"
+      },
       "t6c4cn": {
         "name": "CH4 stav pripojenia detektora úniku"
       },
       "t6c4wls": {
         "name": "CH4 stav úniku vody"
+      },
+      "t6c5bat": {
+        "name": "CH5 stav batérie detektora úniku"
       },
       "t6c5cn": {
         "name": "CH5 stav pripojenia detektora úniku"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 stav úniku vody"
       },
+      "t6c6bat": {
+        "name": "CH6 stav batérie detektora úniku"
+      },
       "t6c6cn": {
         "name": "CH6 stav pripojenia detektora úniku"
       },
       "t6c6wls": {
         "name": "CH6 stav úniku vody"
+      },
+      "t6c7bat": {
+        "name": "CH7 stav batérie detektora úniku"
       },
       "t6c7cn": {
         "name": "CH7 stav pripojenia detektora úniku"

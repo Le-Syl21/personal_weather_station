@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Forbindelses- og lækagetilstande er stadig tal",
+      "title": "Forbindelses-, læk- og batteriaflæsninger er stadig tal",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Konvertér til binære sensorer",
-            "description": "Forbindelses- og vandlækagetilstande sendes som 1 eller 0. Op til version 1.0.8 blev de vist som numeriske sensorer, såsom `{example}`, der ikke kan bruges med Home Assistants almindelige lækagekort og -advarsler. Nye stationer får nu binære sensorer, der viser **Våd / Tør** og **Forbundet / Afbrudt**.\n\n**{count} entiteter** kan konverteres. Batteriniveauer er ikke berørt: de forbliver procenter, som advarslerne om lavt batteri arbejder på.\n\nAt skifte platform er ikke en omdøbning, så de gamle entiteter fjernes og bygges op igen som `binary_sensor`. **Deres registrerede historik går tabt** — disse aflæsninger har ingen langtidsstatistik, så kun den rå historik berøres — og **automatiseringer, scripts, scener og dashboards, der peger på dem, skal opdateres**. De nye entiteter dukker op ved stationens næste upload.\n\nVil du hellere beholde dem, som de er, så ignorér denne reparation."
+            "description": "Forbindelses-, vandlæk- og batteriaflæsninger sendes som 1 eller 0. Op til version 1.0.8 blev de vist som numeriske sensorer, såsom `{example}`, der ikke kan bruges med Home Assistants standardkort til læk, forbindelse og lavt batteri. Nye stationer får binære sensorer, der viser **Våd / Tør**, **Forbundet / Afbrudt** og **Lavt / Normalt**.\n\n**{count} enheder** kan konverteres. De 0~5 batteriniveauer på luftkvalitetssensorerne beholder deres procent: seks trin er mere, end et til/fra kan bære.\n\nAt skifte platform er ikke en omdøbning: de gamle enheder fjernes og genskabes som `binary_sensor`. **Deres registrerede historik går tabt** — disse aflæsninger har ingen langtidsstatistik, så kun den rå historik berøres — og **automatiseringer, scripts, scener og dashboards, der peger på dem, skal opdateres**. De nye enheder dukker op ved stationens næste upload.\n\nVil du hellere lade dem være, som de er, så ignorér denne reparation."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Batteriniveau for konsol"
+      },
       "station_online": {
         "name": "Station online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Forbindelsesstatus for CO-sensor"
       },
+      "t1bat": {
+        "name": "Batteristatus for udendørssensor"
+      },
       "t1cn": {
         "name": "Forbindelsesstatus for udendørssensor"
+      },
+      "t234c1bat": {
+        "name": "CH1 batteristatus"
       },
       "t234c1cn": {
         "name": "CH1 forbindelsesstatus"
       },
+      "t234c2bat": {
+        "name": "CH2 batteristatus"
+      },
       "t234c2cn": {
         "name": "CH2 forbindelsesstatus"
+      },
+      "t234c3bat": {
+        "name": "CH3 batteristatus"
       },
       "t234c3cn": {
         "name": "CH3 forbindelsesstatus"
       },
+      "t234c4bat": {
+        "name": "CH4 batteristatus"
+      },
       "t234c4cn": {
         "name": "CH4 forbindelsesstatus"
+      },
+      "t234c5bat": {
+        "name": "CH5 batteristatus"
       },
       "t234c5cn": {
         "name": "CH5 forbindelsesstatus"
       },
+      "t234c6bat": {
+        "name": "CH6 batteristatus"
+      },
       "t234c6cn": {
         "name": "CH6 forbindelsesstatus"
+      },
+      "t234c7bat": {
+        "name": "CH7 batteristatus"
       },
       "t234c7cn": {
         "name": "CH7 forbindelsesstatus"
       },
+      "t5lsbat": {
+        "name": "Batteristatus for lynsensor"
+      },
       "t5lscn": {
         "name": "Forbindelsesstatus for lynsensor"
+      },
+      "t6c1bat": {
+        "name": "CH1 batteristatus for lækagesensor"
       },
       "t6c1cn": {
         "name": "CH1 forbindelsesstatus for lækagesensor"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 vandlækagestatus"
       },
+      "t6c2bat": {
+        "name": "CH2 batteristatus for lækagesensor"
+      },
       "t6c2cn": {
         "name": "CH2 forbindelsesstatus for lækagesensor"
       },
       "t6c2wls": {
         "name": "CH2 vandlækagestatus"
+      },
+      "t6c3bat": {
+        "name": "CH3 batteristatus for lækagesensor"
       },
       "t6c3cn": {
         "name": "CH3 forbindelsesstatus for lækagesensor"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 vandlækagestatus"
       },
+      "t6c4bat": {
+        "name": "CH4 batteristatus for lækagesensor"
+      },
       "t6c4cn": {
         "name": "CH4 forbindelsesstatus for lækagesensor"
       },
       "t6c4wls": {
         "name": "CH4 vandlækagestatus"
+      },
+      "t6c5bat": {
+        "name": "CH5 batteristatus for lækagesensor"
       },
       "t6c5cn": {
         "name": "CH5 forbindelsesstatus for lækagesensor"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 vandlækagestatus"
       },
+      "t6c6bat": {
+        "name": "CH6 batteristatus for lækagesensor"
+      },
       "t6c6cn": {
         "name": "CH6 forbindelsesstatus for lækagesensor"
       },
       "t6c6wls": {
         "name": "CH6 vandlækagestatus"
+      },
+      "t6c7bat": {
+        "name": "CH7 batteristatus for lækagesensor"
       },
       "t6c7cn": {
         "name": "CH7 forbindelsesstatus for lækagesensor"

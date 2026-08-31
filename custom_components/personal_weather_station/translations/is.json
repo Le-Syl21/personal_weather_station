@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Tengi- og lekastöður eru enn tölur",
+      "title": "Tengingar-, leka- og rafhlöðugildi eru enn tölur",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Umbreyta í tvíundarnema",
-            "description": "Tengi- og vatnslekastöður eru sendar sem 1 eða 0. Fram að útgáfu 1.0.8 birtust þær sem tölulegir nemar, eins og `{example}`, sem ekki er hægt að nota með stöðluðum lekaspjöldum og viðvörunum Home Assistant. Nýjar stöðvar fá nú tvíundarnema sem sýna **Blautt / Þurrt** og **Tengt / Ótengt**.\n\nHægt er að umbreyta **{count} einingum**. Rafhlöðustaða verður óbreytt: hún helst í prósentum, sem viðvaranir um litla rafhlöðu byggja á.\n\nAð skipta um vettvang er ekki endurnefning, því eru gömlu einingarnar fjarlægðar og endurbyggðar sem `binary_sensor`. **Skráð saga þeirra tapast** — þessi gildi hafa enga langtímatölfræði, svo aðeins hráa sagan verður fyrir áhrifum — og **sjálfvirkni, skriftur, senur og mælaborð sem vísa í þær þarf að uppfæra**. Nýju einingarnar birtast við næstu sendingu stöðvarinnar.\n\nEf þú vilt frekar hafa þær óbreyttar skaltu hunsa þessa viðgerð."
+            "description": "Tengingar-, vatnsleka- og rafhlöðugildi eru send sem 1 eða 0. Fram að útgáfu 1.0.8 birtust þau sem tölulegir skynjarar, svo sem `{example}`, sem nýtast ekki með stöðluðum spjöldum Home Assistant fyrir leka, tengingu og lága rafhlöðu. Nýjar stöðvar fá tvíundarskynjara sem sýna **Blautt / Þurrt**, **Tengt / Ótengt** og **Lágt / Eðlilegt**.\n\nHægt er að umbreyta **{count} einingum**. Rafhlöðuþrep 0~5 á loftgæðaskynjurunum halda prósentu sinni: sex þrep eru meira en kveikt/slökkt ræður við.\n\nAð skipta um vettvang er ekki endurnefning: gömlu einingarnar eru fjarlægðar og endurskapaðar sem `binary_sensor`. **Skráð saga þeirra glatast** — þessi gildi hafa enga langtímatölfræði, svo aðeins hrá sagan verður fyrir áhrifum — og **sjálfvirkni, skriftur, senur og mælaborð sem vísa á þau þarf að uppfæra**. Nýju einingarnar birtast við næstu sendingu stöðvarinnar.\n\nViljir þú frekar hafa þau óbreytt skaltu hunsa þessa viðgerð."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Rafhlöðustaða stjórnstöðvar"
+      },
       "station_online": {
         "name": "Stöð tengd"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Tengistaða CO-nema"
       },
+      "t1bat": {
+        "name": "Rafhlöðustaða útinema"
+      },
       "t1cn": {
         "name": "Tengistaða útinema"
+      },
+      "t234c1bat": {
+        "name": "CH1 rafhlöðustaða"
       },
       "t234c1cn": {
         "name": "CH1 tengistaða"
       },
+      "t234c2bat": {
+        "name": "CH2 rafhlöðustaða"
+      },
       "t234c2cn": {
         "name": "CH2 tengistaða"
+      },
+      "t234c3bat": {
+        "name": "CH3 rafhlöðustaða"
       },
       "t234c3cn": {
         "name": "CH3 tengistaða"
       },
+      "t234c4bat": {
+        "name": "CH4 rafhlöðustaða"
+      },
       "t234c4cn": {
         "name": "CH4 tengistaða"
+      },
+      "t234c5bat": {
+        "name": "CH5 rafhlöðustaða"
       },
       "t234c5cn": {
         "name": "CH5 tengistaða"
       },
+      "t234c6bat": {
+        "name": "CH6 rafhlöðustaða"
+      },
       "t234c6cn": {
         "name": "CH6 tengistaða"
+      },
+      "t234c7bat": {
+        "name": "CH7 rafhlöðustaða"
       },
       "t234c7cn": {
         "name": "CH7 tengistaða"
       },
+      "t5lsbat": {
+        "name": "Rafhlöðustaða eldinganema"
+      },
       "t5lscn": {
         "name": "Tengistaða eldinganema"
+      },
+      "t6c1bat": {
+        "name": "CH1 rafhlöðustaða lekanema"
       },
       "t6c1cn": {
         "name": "CH1 tengistaða lekanema"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 staða vatnsleka"
       },
+      "t6c2bat": {
+        "name": "CH2 rafhlöðustaða lekanema"
+      },
       "t6c2cn": {
         "name": "CH2 tengistaða lekanema"
       },
       "t6c2wls": {
         "name": "CH2 staða vatnsleka"
+      },
+      "t6c3bat": {
+        "name": "CH3 rafhlöðustaða lekanema"
       },
       "t6c3cn": {
         "name": "CH3 tengistaða lekanema"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 staða vatnsleka"
       },
+      "t6c4bat": {
+        "name": "CH4 rafhlöðustaða lekanema"
+      },
       "t6c4cn": {
         "name": "CH4 tengistaða lekanema"
       },
       "t6c4wls": {
         "name": "CH4 staða vatnsleka"
+      },
+      "t6c5bat": {
+        "name": "CH5 rafhlöðustaða lekanema"
       },
       "t6c5cn": {
         "name": "CH5 tengistaða lekanema"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 staða vatnsleka"
       },
+      "t6c6bat": {
+        "name": "CH6 rafhlöðustaða lekanema"
+      },
       "t6c6cn": {
         "name": "CH6 tengistaða lekanema"
       },
       "t6c6wls": {
         "name": "CH6 staða vatnsleka"
+      },
+      "t6c7bat": {
+        "name": "CH7 rafhlöðustaða lekanema"
       },
       "t6c7cn": {
         "name": "CH7 tengistaða lekanema"

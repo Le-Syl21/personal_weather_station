@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Stările de conexiune și de scurgere sunt încă numere",
+      "title": "Valorile de conexiune, scurgere și baterie sunt încă numere",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Convertiți în senzori binari",
-            "description": "Stările de conexiune și de scurgere a apei sunt trimise ca 1 sau 0. Până la versiunea 1.0.8 erau afișate ca senzori numerici, precum `{example}`, care nu pot fi folosiți cu cardurile și alertele standard de scurgere din Home Assistant. Stațiile noi primesc acum senzori binari care afișează **Ud / Uscat** și **Conectat / Deconectat**.\n\n**{count} entități** pot fi convertite. Nivelurile bateriei nu sunt afectate: rămân procente, pe care funcționează alertele de baterie descărcată.\n\nSchimbarea platformei nu este o redenumire, așa că vechile entități sunt eliminate și reconstruite ca `binary_sensor`. **Istoricul lor înregistrat se pierde** — aceste citiri nu au statistici pe termen lung, deci este afectat doar istoricul brut — iar **automatizările, scripturile, scenele și tablourile de bord care le indică trebuie actualizate**. Entitățile noi apar la următoarea transmisie a stației.\n\nDacă preferați să le lăsați așa cum sunt, ignorați această reparație."
+            "description": "Valorile de conexiune, scurgere de apă și baterie sunt trimise ca 1 sau 0. Până la versiunea 1.0.8 erau expuse ca senzori numerici, de exemplu `{example}`, care nu pot fi folosiți cu cardurile standard de scurgere, conectivitate și baterie descărcată din Home Assistant. Stațiile noi primesc senzori binari care arată **Ud / Uscat**, **Conectat / Deconectat** și **Scăzut / Normal**.\n\nPot fi convertite **{count} entități**. Nivelurile de baterie 0~5 ale senzorilor de calitate a aerului își păstrează procentul: șase trepte înseamnă mai mult decât poate duce un pornit/oprit.\n\nSchimbarea platformei nu este o redenumire: entitățile vechi sunt eliminate și recreate ca `binary_sensor`. **Istoricul lor înregistrat se pierde** — aceste valori nu au statistici pe termen lung, deci este afectat doar istoricul brut — și **automatizările, scripturile, scenele și tablourile care le indică trebuie actualizate**. Entitățile noi apar la următorul transfer al stației.\n\nDacă preferați să le lăsați așa cum sunt, ignorați această reparație."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Nivelul bateriei consolei"
+      },
       "station_online": {
         "name": "Stație online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Starea conexiunii senzorului CO"
       },
+      "t1bat": {
+        "name": "Starea bateriei senzorului exterior"
+      },
       "t1cn": {
         "name": "Starea conexiunii senzorului exterior"
+      },
+      "t234c1bat": {
+        "name": "CH1 starea bateriei"
       },
       "t234c1cn": {
         "name": "CH1 starea conexiunii"
       },
+      "t234c2bat": {
+        "name": "CH2 starea bateriei"
+      },
       "t234c2cn": {
         "name": "CH2 starea conexiunii"
+      },
+      "t234c3bat": {
+        "name": "CH3 starea bateriei"
       },
       "t234c3cn": {
         "name": "CH3 starea conexiunii"
       },
+      "t234c4bat": {
+        "name": "CH4 starea bateriei"
+      },
       "t234c4cn": {
         "name": "CH4 starea conexiunii"
+      },
+      "t234c5bat": {
+        "name": "CH5 starea bateriei"
       },
       "t234c5cn": {
         "name": "CH5 starea conexiunii"
       },
+      "t234c6bat": {
+        "name": "CH6 starea bateriei"
+      },
       "t234c6cn": {
         "name": "CH6 starea conexiunii"
+      },
+      "t234c7bat": {
+        "name": "CH7 starea bateriei"
       },
       "t234c7cn": {
         "name": "CH7 starea conexiunii"
       },
+      "t5lsbat": {
+        "name": "Starea bateriei senzorului de fulgere"
+      },
       "t5lscn": {
         "name": "Starea conexiunii senzorului de fulgere"
+      },
+      "t6c1bat": {
+        "name": "CH1 starea bateriei detectorului de scurgeri"
       },
       "t6c1cn": {
         "name": "CH1 starea conexiunii detectorului de scurgeri"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 starea scurgerii de apă"
       },
+      "t6c2bat": {
+        "name": "CH2 starea bateriei detectorului de scurgeri"
+      },
       "t6c2cn": {
         "name": "CH2 starea conexiunii detectorului de scurgeri"
       },
       "t6c2wls": {
         "name": "CH2 starea scurgerii de apă"
+      },
+      "t6c3bat": {
+        "name": "CH3 starea bateriei detectorului de scurgeri"
       },
       "t6c3cn": {
         "name": "CH3 starea conexiunii detectorului de scurgeri"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 starea scurgerii de apă"
       },
+      "t6c4bat": {
+        "name": "CH4 starea bateriei detectorului de scurgeri"
+      },
       "t6c4cn": {
         "name": "CH4 starea conexiunii detectorului de scurgeri"
       },
       "t6c4wls": {
         "name": "CH4 starea scurgerii de apă"
+      },
+      "t6c5bat": {
+        "name": "CH5 starea bateriei detectorului de scurgeri"
       },
       "t6c5cn": {
         "name": "CH5 starea conexiunii detectorului de scurgeri"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 starea scurgerii de apă"
       },
+      "t6c6bat": {
+        "name": "CH6 starea bateriei detectorului de scurgeri"
+      },
       "t6c6cn": {
         "name": "CH6 starea conexiunii detectorului de scurgeri"
       },
       "t6c6wls": {
         "name": "CH6 starea scurgerii de apă"
+      },
+      "t6c7bat": {
+        "name": "CH7 starea bateriei detectorului de scurgeri"
       },
       "t6c7cn": {
         "name": "CH7 starea conexiunii detectorului de scurgeri"

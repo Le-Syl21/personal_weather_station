@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Trạng thái kết nối và rò rỉ vẫn là số",
+      "title": "Giá trị kết nối, rò rỉ và pin vẫn là số",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Chuyển thành cảm biến nhị phân",
-            "description": "Trạng thái kết nối và rò rỉ nước được gửi dưới dạng 1 hoặc 0. Cho tới phiên bản 1.0.8, chúng hiển thị như cảm biến số, chẳng hạn `{example}`, không thể dùng với các thẻ và cảnh báo rò rỉ tiêu chuẩn của Home Assistant. Các trạm mới nay nhận cảm biến nhị phân hiển thị **Ướt / Khô** và **Đã kết nối / Mất kết nối**.\n\nCó thể chuyển đổi **{count} thực thể**. Mức pin không bị ảnh hưởng: chúng vẫn là phần trăm, thứ mà cảnh báo pin yếu dựa vào.\n\nĐổi nền tảng không phải đổi tên, nên các thực thể cũ bị xóa và tạo lại dưới dạng `binary_sensor`. **Lịch sử đã ghi của chúng sẽ mất** — các số đọc này không có thống kê dài hạn, nên chỉ lịch sử thô bị ảnh hưởng — và **tự động hóa, kịch bản, cảnh và bảng điều khiển trỏ tới chúng phải được cập nhật**. Các thực thể mới xuất hiện ở lần tải lên kế tiếp của trạm.\n\nNếu bạn muốn giữ nguyên, hãy bỏ qua mục sửa chữa này."
+            "description": "Giá trị kết nối, rò rỉ nước và pin được gửi dưới dạng 1 hoặc 0. Cho tới phiên bản 1.0.8, chúng hiện ra như cảm biến số, ví dụ `{example}`, vốn không dùng được với các thẻ chuẩn về rò rỉ, kết nối và pin yếu của Home Assistant. Trạm mới sẽ nhận cảm biến nhị phân hiển thị **Ướt / Khô**, **Đã kết nối / Mất kết nối** và **Yếu / Bình thường**.\n\nCó thể chuyển đổi **{count} thực thể**. Các mức pin 0~5 của cảm biến chất lượng không khí vẫn giữ phần trăm: sáu nấc là nhiều hơn những gì một bật/tắt chở nổi.\n\nĐổi nền tảng không phải là đổi tên: các thực thể cũ bị xóa và tạo lại thành `binary_sensor`. **Lịch sử đã ghi của chúng sẽ mất** — những giá trị này không có thống kê dài hạn, nên chỉ lịch sử thô bị ảnh hưởng — và **các tự động hóa, kịch bản, cảnh và bảng điều khiển trỏ tới chúng phải được cập nhật**. Các thực thể mới xuất hiện ở lần tải lên kế tiếp của trạm.\n\nNếu bạn muốn giữ nguyên như cũ, hãy bỏ qua mục sửa chữa này."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Mức pin bảng điều khiển"
+      },
       "station_online": {
         "name": "Trạm trực tuyến"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Trạng thái kết nối cảm biến CO"
       },
+      "t1bat": {
+        "name": "Trạng thái pin cảm biến ngoài trời"
+      },
       "t1cn": {
         "name": "Trạng thái kết nối cảm biến ngoài trời"
+      },
+      "t234c1bat": {
+        "name": "CH1 trạng thái pin"
       },
       "t234c1cn": {
         "name": "CH1 trạng thái kết nối"
       },
+      "t234c2bat": {
+        "name": "CH2 trạng thái pin"
+      },
       "t234c2cn": {
         "name": "CH2 trạng thái kết nối"
+      },
+      "t234c3bat": {
+        "name": "CH3 trạng thái pin"
       },
       "t234c3cn": {
         "name": "CH3 trạng thái kết nối"
       },
+      "t234c4bat": {
+        "name": "CH4 trạng thái pin"
+      },
       "t234c4cn": {
         "name": "CH4 trạng thái kết nối"
+      },
+      "t234c5bat": {
+        "name": "CH5 trạng thái pin"
       },
       "t234c5cn": {
         "name": "CH5 trạng thái kết nối"
       },
+      "t234c6bat": {
+        "name": "CH6 trạng thái pin"
+      },
       "t234c6cn": {
         "name": "CH6 trạng thái kết nối"
+      },
+      "t234c7bat": {
+        "name": "CH7 trạng thái pin"
       },
       "t234c7cn": {
         "name": "CH7 trạng thái kết nối"
       },
+      "t5lsbat": {
+        "name": "Trạng thái pin cảm biến sét"
+      },
       "t5lscn": {
         "name": "Trạng thái kết nối cảm biến sét"
+      },
+      "t6c1bat": {
+        "name": "CH1 trạng thái pin cảm biến rò rỉ"
       },
       "t6c1cn": {
         "name": "CH1 trạng thái kết nối cảm biến rò rỉ"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 trạng thái rò rỉ nước"
       },
+      "t6c2bat": {
+        "name": "CH2 trạng thái pin cảm biến rò rỉ"
+      },
       "t6c2cn": {
         "name": "CH2 trạng thái kết nối cảm biến rò rỉ"
       },
       "t6c2wls": {
         "name": "CH2 trạng thái rò rỉ nước"
+      },
+      "t6c3bat": {
+        "name": "CH3 trạng thái pin cảm biến rò rỉ"
       },
       "t6c3cn": {
         "name": "CH3 trạng thái kết nối cảm biến rò rỉ"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 trạng thái rò rỉ nước"
       },
+      "t6c4bat": {
+        "name": "CH4 trạng thái pin cảm biến rò rỉ"
+      },
       "t6c4cn": {
         "name": "CH4 trạng thái kết nối cảm biến rò rỉ"
       },
       "t6c4wls": {
         "name": "CH4 trạng thái rò rỉ nước"
+      },
+      "t6c5bat": {
+        "name": "CH5 trạng thái pin cảm biến rò rỉ"
       },
       "t6c5cn": {
         "name": "CH5 trạng thái kết nối cảm biến rò rỉ"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 trạng thái rò rỉ nước"
       },
+      "t6c6bat": {
+        "name": "CH6 trạng thái pin cảm biến rò rỉ"
+      },
       "t6c6cn": {
         "name": "CH6 trạng thái kết nối cảm biến rò rỉ"
       },
       "t6c6wls": {
         "name": "CH6 trạng thái rò rỉ nước"
+      },
+      "t6c7bat": {
+        "name": "CH7 trạng thái pin cảm biến rò rỉ"
       },
       "t6c7cn": {
         "name": "CH7 trạng thái kết nối cảm biến rò rỉ"

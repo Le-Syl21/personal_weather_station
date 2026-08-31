@@ -18,7 +18,11 @@ from .const import (
 )
 from .entity import PwsAlwaysAvailableEntity, PwsEntity
 from .models import PwsDevice
-from .normalizer import apply_wind_offset
+from .normalizer import (
+    apply_wind_offset,
+    denormalize_battery,
+    normalize_battery,
+)
 from .registry import async_rebuild_platform
 
 
@@ -149,6 +153,9 @@ class PwsSensor(PwsEntity, RestoreSensor):
 
         value = self.device.data.get(self._key)
 
+        if (scale := self._meta.get("battery_scale")) is not None:
+            return normalize_battery(value, scale)
+
         if self._meta.get("wind_offset"):
             return apply_wind_offset(value, self.device.wind_offset)
 
@@ -205,9 +212,11 @@ class PwsSensor(PwsEntity, RestoreSensor):
 
         value = last_data.native_value
 
-        # The stored state went through the calibration offset, so undo it to
-        # get back to the raw reading the device dictionary holds.
-        if self._meta.get("wind_offset"):
+        # The stored state is what was displayed; the device dictionary holds
+        # what the station sent. Undo whichever conversion applies.
+        if (scale := self._meta.get("battery_scale")) is not None:
+            value = denormalize_battery(value, scale)
+        elif self._meta.get("wind_offset"):
             value = apply_wind_offset(value, -self.device.wind_offset)
 
         self.device.data[self._key] = value

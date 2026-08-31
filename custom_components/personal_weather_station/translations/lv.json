@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Savienojuma un noplūdes stāvokļi joprojām ir skaitļi",
+      "title": "Savienojuma, noplūdes un baterijas rādījumi joprojām ir skaitļi",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Pārveidot par binārajiem sensoriem",
-            "description": "Savienojuma un ūdens noplūdes stāvokļi tiek sūtīti kā 1 vai 0. Līdz versijai 1.0.8 tie tika rādīti kā skaitliski sensori, piemēram `{example}`, kurus nevar izmantot ar Home Assistant standarta noplūdes kartēm un brīdinājumiem. Jaunas stacijas tagad saņem binārus sensorus, kas rāda **Slapjš / Sauss** un **Savienots / Nesavienots**.\n\n**{count} entītijas** var pārveidot. Bateriju līmeņi netiek skarti: tie paliek procentos, uz kuriem balstās zema bateriju līmeņa brīdinājumi.\n\nPlatformas maiņa nav pārdēvēšana, tāpēc vecās entītijas tiek noņemtas un izveidotas no jauna kā `binary_sensor`. **To ierakstītā vēsture tiek zaudēta** — šiem rādījumiem nav ilgtermiņa statistikas, tāpēc skarta tiek tikai neapstrādātā vēsture — un **automatizācijas, skripti, ainas un paneļi, kas uz tiem norāda, jāatjaunina**. Jaunās entītijas parādās nākamajā stacijas sūtījumā.\n\nJa labāk vēlaties tos atstāt kā ir, ignorējiet šo labojumu."
+            "description": "Savienojuma, ūdens noplūdes un baterijas rādījumi tiek sūtīti kā 1 vai 0. Līdz versijai 1.0.8 tie tika rādīti kā skaitliski sensori, piemēram `{example}`, kurus nevar izmantot ar Home Assistant standarta noplūdes, savienojuma un tukšas baterijas kartēm. Jaunās stacijas saņem binārus sensorus, kas rāda **Slapjš / Sauss**, **Savienots / Atvienots** un **Zems / Normāls**.\n\nVar pārveidot **{count} vienības**. Gaisa kvalitātes sensoru 0~5 baterijas līmeņi saglabā savu procentu: seši pakāpieni ir vairāk, nekā ieslēgts/izslēgts spēj panest.\n\nPlatformas maiņa nav pārdēvēšana: vecās vienības tiek noņemtas un izveidotas no jauna kā `binary_sensor`. **To ierakstītā vēsture zūd** — šiem rādījumiem nav ilgtermiņa statistikas, tāpēc skarta tikai neapstrādātā vēsture — un **automatizācijas, skripti, ainas un paneļi, kas uz tiem norāda, ir jāatjaunina**. Jaunās vienības parādās stacijas nākamajā sūtījumā.\n\nJa labprātāk atstātu tās tādas, kādas ir, ignorējiet šo labojumu."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Konsoles baterijas līmenis"
+      },
       "station_online": {
         "name": "Stacija tiešsaistē"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "CO sensora savienojuma stāvoklis"
       },
+      "t1bat": {
+        "name": "Āra sensora baterijas stāvoklis"
+      },
       "t1cn": {
         "name": "Āra sensora savienojuma stāvoklis"
+      },
+      "t234c1bat": {
+        "name": "CH1 baterijas stāvoklis"
       },
       "t234c1cn": {
         "name": "CH1 savienojuma stāvoklis"
       },
+      "t234c2bat": {
+        "name": "CH2 baterijas stāvoklis"
+      },
       "t234c2cn": {
         "name": "CH2 savienojuma stāvoklis"
+      },
+      "t234c3bat": {
+        "name": "CH3 baterijas stāvoklis"
       },
       "t234c3cn": {
         "name": "CH3 savienojuma stāvoklis"
       },
+      "t234c4bat": {
+        "name": "CH4 baterijas stāvoklis"
+      },
       "t234c4cn": {
         "name": "CH4 savienojuma stāvoklis"
+      },
+      "t234c5bat": {
+        "name": "CH5 baterijas stāvoklis"
       },
       "t234c5cn": {
         "name": "CH5 savienojuma stāvoklis"
       },
+      "t234c6bat": {
+        "name": "CH6 baterijas stāvoklis"
+      },
       "t234c6cn": {
         "name": "CH6 savienojuma stāvoklis"
+      },
+      "t234c7bat": {
+        "name": "CH7 baterijas stāvoklis"
       },
       "t234c7cn": {
         "name": "CH7 savienojuma stāvoklis"
       },
+      "t5lsbat": {
+        "name": "Zibens sensora baterijas stāvoklis"
+      },
       "t5lscn": {
         "name": "Zibens sensora savienojuma stāvoklis"
+      },
+      "t6c1bat": {
+        "name": "CH1 noplūdes sensora baterijas stāvoklis"
       },
       "t6c1cn": {
         "name": "CH1 noplūdes sensora savienojuma stāvoklis"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 ūdens noplūdes stāvoklis"
       },
+      "t6c2bat": {
+        "name": "CH2 noplūdes sensora baterijas stāvoklis"
+      },
       "t6c2cn": {
         "name": "CH2 noplūdes sensora savienojuma stāvoklis"
       },
       "t6c2wls": {
         "name": "CH2 ūdens noplūdes stāvoklis"
+      },
+      "t6c3bat": {
+        "name": "CH3 noplūdes sensora baterijas stāvoklis"
       },
       "t6c3cn": {
         "name": "CH3 noplūdes sensora savienojuma stāvoklis"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 ūdens noplūdes stāvoklis"
       },
+      "t6c4bat": {
+        "name": "CH4 noplūdes sensora baterijas stāvoklis"
+      },
       "t6c4cn": {
         "name": "CH4 noplūdes sensora savienojuma stāvoklis"
       },
       "t6c4wls": {
         "name": "CH4 ūdens noplūdes stāvoklis"
+      },
+      "t6c5bat": {
+        "name": "CH5 noplūdes sensora baterijas stāvoklis"
       },
       "t6c5cn": {
         "name": "CH5 noplūdes sensora savienojuma stāvoklis"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 ūdens noplūdes stāvoklis"
       },
+      "t6c6bat": {
+        "name": "CH6 noplūdes sensora baterijas stāvoklis"
+      },
       "t6c6cn": {
         "name": "CH6 noplūdes sensora savienojuma stāvoklis"
       },
       "t6c6wls": {
         "name": "CH6 ūdens noplūdes stāvoklis"
+      },
+      "t6c7bat": {
+        "name": "CH7 noplūdes sensora baterijas stāvoklis"
       },
       "t6c7cn": {
         "name": "CH7 noplūdes sensora savienojuma stāvoklis"

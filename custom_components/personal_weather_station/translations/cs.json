@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Stavy připojení a úniku jsou stále čísla",
+      "title": "Údaje o spojení, úniku a baterii jsou stále čísla",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Převést na binární senzory",
-            "description": "Stavy připojení a úniku vody se hlásí jako 1 nebo 0. Do verze 1.0.8 byly vystaveny jako číselné senzory, například `{example}`, které nelze použít se standardními kartami a upozorněními na únik v Home Assistantu. Nové stanice nyní dostávají binární senzory zobrazující **Mokro / Sucho** a **Připojeno / Odpojeno**.\n\n**{count} entit** lze převést. Úrovně baterie to neovlivní: zůstávají procenty, na kterých fungují upozornění na slabou baterii.\n\nZměna platformy není přejmenování, takže staré entity se odstraní a znovu vytvoří jako `binary_sensor`. **Jejich zaznamenaná historie se ztratí** — tato měření nemají dlouhodobé statistiky, takže je dotčena jen surová historie — a **automatizace, skripty, scény a nástěnky, které na ně odkazují, je nutné upravit**. Nové entity se objeví při dalším odeslání stanice.\n\nPokud je raději chcete nechat tak, jak jsou, tuto opravu ignorujte."
+            "description": "Údaje o spojení, úniku vody a baterii se posílají jako 1 nebo 0. Až do verze 1.0.8 se vystavovaly jako číselné senzory, například `{example}`, které nelze použít se standardními kartami pro únik, konektivitu a slabou baterii v Home Assistantu. Nové stanice dostávají binární senzory zobrazující **Mokro / Sucho**, **Připojeno / Odpojeno** a **Slabá / Normální**.\n\nPřevést lze **{count} entit**. Úrovně baterie 0~5 u senzorů kvality ovzduší si ponechávají procenta: šest stupňů je víc, než dokáže zapnuto/vypnuto unést.\n\nZměna platformy není přejmenování: staré entity se odstraní a znovu vytvoří jako `binary_sensor`. **Jejich zaznamenaná historie se ztratí** — tyto údaje nemají dlouhodobou statistiku, takže je dotčena jen surová historie — a **automatizace, skripty, scény a nástěnky, které na ně míří, je nutné upravit**. Nové entity se objeví při dalším odeslání stanice.\n\nPokud je raději necháte tak, jak jsou, tuto opravu ignorujte."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Úroveň baterie konzole"
+      },
       "station_online": {
         "name": "Stanice online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Stav připojení čidla CO"
       },
+      "t1bat": {
+        "name": "Stav baterie venkovního čidla"
+      },
       "t1cn": {
         "name": "Stav připojení venkovního čidla"
+      },
+      "t234c1bat": {
+        "name": "CH1 stav baterie"
       },
       "t234c1cn": {
         "name": "CH1 stav připojení"
       },
+      "t234c2bat": {
+        "name": "CH2 stav baterie"
+      },
       "t234c2cn": {
         "name": "CH2 stav připojení"
+      },
+      "t234c3bat": {
+        "name": "CH3 stav baterie"
       },
       "t234c3cn": {
         "name": "CH3 stav připojení"
       },
+      "t234c4bat": {
+        "name": "CH4 stav baterie"
+      },
       "t234c4cn": {
         "name": "CH4 stav připojení"
+      },
+      "t234c5bat": {
+        "name": "CH5 stav baterie"
       },
       "t234c5cn": {
         "name": "CH5 stav připojení"
       },
+      "t234c6bat": {
+        "name": "CH6 stav baterie"
+      },
       "t234c6cn": {
         "name": "CH6 stav připojení"
+      },
+      "t234c7bat": {
+        "name": "CH7 stav baterie"
       },
       "t234c7cn": {
         "name": "CH7 stav připojení"
       },
+      "t5lsbat": {
+        "name": "Stav baterie čidla blesků"
+      },
       "t5lscn": {
         "name": "Stav připojení čidla blesků"
+      },
+      "t6c1bat": {
+        "name": "CH1 stav baterie detektoru úniku"
       },
       "t6c1cn": {
         "name": "CH1 stav připojení detektoru úniku"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 stav úniku vody"
       },
+      "t6c2bat": {
+        "name": "CH2 stav baterie detektoru úniku"
+      },
       "t6c2cn": {
         "name": "CH2 stav připojení detektoru úniku"
       },
       "t6c2wls": {
         "name": "CH2 stav úniku vody"
+      },
+      "t6c3bat": {
+        "name": "CH3 stav baterie detektoru úniku"
       },
       "t6c3cn": {
         "name": "CH3 stav připojení detektoru úniku"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 stav úniku vody"
       },
+      "t6c4bat": {
+        "name": "CH4 stav baterie detektoru úniku"
+      },
       "t6c4cn": {
         "name": "CH4 stav připojení detektoru úniku"
       },
       "t6c4wls": {
         "name": "CH4 stav úniku vody"
+      },
+      "t6c5bat": {
+        "name": "CH5 stav baterie detektoru úniku"
       },
       "t6c5cn": {
         "name": "CH5 stav připojení detektoru úniku"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 stav úniku vody"
       },
+      "t6c6bat": {
+        "name": "CH6 stav baterie detektoru úniku"
+      },
       "t6c6cn": {
         "name": "CH6 stav připojení detektoru úniku"
       },
       "t6c6wls": {
         "name": "CH6 stav úniku vody"
+      },
+      "t6c7bat": {
+        "name": "CH7 stav baterie detektoru úniku"
       },
       "t6c7cn": {
         "name": "CH7 stav připojení detektoru úniku"

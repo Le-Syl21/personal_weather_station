@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Les états de connexion et de fuite sont encore des nombres",
+      "title": "Les états de connexion, de fuite et de batterie sont encore des nombres",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Convertir en capteurs binaires",
-            "description": "Les états de connexion et de fuite d'eau sont transmis sous forme de 1 ou 0. Jusqu'à la version 1.0.8 ils étaient exposés comme capteurs numériques, tel `{example}`, inutilisables avec les cartes et alertes de fuite standard de Home Assistant. Les nouvelles stations reçoivent désormais des capteurs binaires affichant **Humide / Sec** et **Connecté / Déconnecté**.\n\n**{count} entités** peuvent être converties. Les niveaux de batterie ne sont pas concernés : ils restent en pourcentage, là où les alertes de batterie faible fonctionnent.\n\nUn changement de plateforme n'est pas un renommage : les anciennes entités sont supprimées puis recréées en `binary_sensor`. **Leur historique enregistré est perdu** — ces relevés n'ont pas de statistiques long terme, seul l'historique brut est concerné — et **les automatisations, scripts, scènes et tableaux de bord qui les référencent devront être mis à jour**. Les nouvelles entités apparaissent au prochain envoi de la station.\n\nSi vous préférez les conserver telles quelles, ignorez cette réparation."
+            "description": "Les états de connexion, de fuite d'eau et de batterie sont transmis en 1 ou 0. Jusqu'à la version 1.0.8 ils étaient exposés en capteurs numériques, comme `{example}`, inutilisables avec les cartes standard de fuite, de connectivité et de batterie faible de Home Assistant. Les nouvelles stations reçoivent des capteurs binaires affichant **Mouillé / Sec**, **Connecté / Déconnecté** et **Faible / Normale**.\n\n**{count} entités** peuvent être converties. Les niveaux de batterie 0~5 des sondes de qualité d'air gardent leur pourcentage : six échelons, c'est plus qu'un on/off ne peut porter.\n\nChanger de plateforme n'est pas un renommage : les anciennes entités sont supprimées et recréées en `binary_sensor`. **Leur historique enregistré est perdu** — ces relevés n'ont pas de statistiques long terme, seul l'historique brut est concerné — et **les automatisations, scripts, scènes et tableaux de bord qui les visent doivent être mis à jour**. Les nouvelles entités apparaissent au prochain envoi de la station.\n\nSi vous préférez les garder telles quelles, ignorez cette réparation."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Niveau de batterie de la console"
+      },
       "station_online": {
         "name": "Station en ligne"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "État de connexion du capteur de CO"
       },
+      "t1bat": {
+        "name": "État de la batterie du capteur extérieur"
+      },
       "t1cn": {
         "name": "État de connexion du capteur extérieur"
+      },
+      "t234c1bat": {
+        "name": "CH1 état de la batterie"
       },
       "t234c1cn": {
         "name": "CH1 état de connexion"
       },
+      "t234c2bat": {
+        "name": "CH2 état de la batterie"
+      },
       "t234c2cn": {
         "name": "CH2 état de connexion"
+      },
+      "t234c3bat": {
+        "name": "CH3 état de la batterie"
       },
       "t234c3cn": {
         "name": "CH3 état de connexion"
       },
+      "t234c4bat": {
+        "name": "CH4 état de la batterie"
+      },
       "t234c4cn": {
         "name": "CH4 état de connexion"
+      },
+      "t234c5bat": {
+        "name": "CH5 état de la batterie"
       },
       "t234c5cn": {
         "name": "CH5 état de connexion"
       },
+      "t234c6bat": {
+        "name": "CH6 état de la batterie"
+      },
       "t234c6cn": {
         "name": "CH6 état de connexion"
+      },
+      "t234c7bat": {
+        "name": "CH7 état de la batterie"
       },
       "t234c7cn": {
         "name": "CH7 état de connexion"
       },
+      "t5lsbat": {
+        "name": "État de la batterie du capteur de foudre"
+      },
       "t5lscn": {
         "name": "État de connexion du capteur de foudre"
+      },
+      "t6c1bat": {
+        "name": "CH1 état de la batterie du détecteur de fuite"
       },
       "t6c1cn": {
         "name": "CH1 état de connexion du détecteur de fuite"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 état de fuite d'eau"
       },
+      "t6c2bat": {
+        "name": "CH2 état de la batterie du détecteur de fuite"
+      },
       "t6c2cn": {
         "name": "CH2 état de connexion du détecteur de fuite"
       },
       "t6c2wls": {
         "name": "CH2 état de fuite d'eau"
+      },
+      "t6c3bat": {
+        "name": "CH3 état de la batterie du détecteur de fuite"
       },
       "t6c3cn": {
         "name": "CH3 état de connexion du détecteur de fuite"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 état de fuite d'eau"
       },
+      "t6c4bat": {
+        "name": "CH4 état de la batterie du détecteur de fuite"
+      },
       "t6c4cn": {
         "name": "CH4 état de connexion du détecteur de fuite"
       },
       "t6c4wls": {
         "name": "CH4 état de fuite d'eau"
+      },
+      "t6c5bat": {
+        "name": "CH5 état de la batterie du détecteur de fuite"
       },
       "t6c5cn": {
         "name": "CH5 état de connexion du détecteur de fuite"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 état de fuite d'eau"
       },
+      "t6c6bat": {
+        "name": "CH6 état de la batterie du détecteur de fuite"
+      },
       "t6c6cn": {
         "name": "CH6 état de connexion du détecteur de fuite"
       },
       "t6c6wls": {
         "name": "CH6 état de fuite d'eau"
+      },
+      "t6c7bat": {
+        "name": "CH7 état de la batterie du détecteur de fuite"
       },
       "t6c7cn": {
         "name": "CH7 état de connexion du détecteur de fuite"

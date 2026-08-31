@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Verbindungs- und Leckstatus sind noch Zahlen",
+      "title": "Verbindungs-, Leck- und Batteriewerte sind noch Zahlen",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "In Binärsensoren umwandeln",
-            "description": "Verbindungs- und Wasserleckstatus werden als 1 oder 0 übertragen. Bis Version 1.0.8 wurden sie als numerische Sensoren dargestellt, etwa `{example}`, die sich mit den Standard-Leckkarten und -Warnungen von Home Assistant nicht verwenden lassen. Neue Stationen erhalten jetzt Binärsensoren mit **Feucht / Trocken** und **Verbunden / Getrennt**.\n\n**{count} Entitäten** können umgewandelt werden. Batteriestände sind nicht betroffen: Sie bleiben Prozentwerte, mit denen die Warnungen bei schwacher Batterie funktionieren.\n\nEin Plattformwechsel ist keine Umbenennung: Die alten Entitäten werden entfernt und als `binary_sensor` neu angelegt. **Ihr aufgezeichneter Verlauf geht verloren** — diese Werte haben keine Langzeitstatistiken, betroffen ist nur der Rohverlauf — und **Automationen, Skripte, Szenen und Dashboards, die darauf verweisen, müssen angepasst werden**. Die neuen Entitäten erscheinen bei der nächsten Übertragung der Station.\n\nWenn Sie sie lieber so lassen möchten, ignorieren Sie diese Reparatur."
+            "description": "Verbindungs-, Wasserleck- und Batteriewerte werden als 1 oder 0 übertragen. Bis Version 1.0.8 wurden sie als numerische Sensoren ausgegeben, etwa `{example}`, die sich mit den Standardkarten für Leckage, Konnektivität und schwache Batterie in Home Assistant nicht verwenden lassen. Neue Stationen erhalten binäre Sensoren mit **Nass / Trocken**, **Verbunden / Getrennt** und **Schwach / Normal**.\n\n**{count} Entitäten** können umgestellt werden. Die 0~5-Batteriestufen der Luftqualitätssensoren behalten ihren Prozentwert: sechs Stufen sind mehr, als ein Ein/Aus tragen kann.\n\nEin Plattformwechsel ist keine Umbenennung: die alten Entitäten werden entfernt und als `binary_sensor` neu angelegt. **Ihr aufgezeichneter Verlauf geht verloren** — diese Werte haben keine Langzeitstatistik, betroffen ist also nur der Rohverlauf — und **Automatisierungen, Skripte, Szenen und Dashboards, die auf sie zeigen, müssen angepasst werden**. Die neuen Entitäten erscheinen beim nächsten Upload der Station.\n\nWenn Sie sie lieber so lassen möchten, ignorieren Sie diese Reparatur."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Batteriestand der Konsole"
+      },
       "station_online": {
         "name": "Station online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Verbindungsstatus des CO-Sensors"
       },
+      "t1bat": {
+        "name": "Batteriestatus des Außensensors"
+      },
       "t1cn": {
         "name": "Verbindungsstatus des Außensensors"
+      },
+      "t234c1bat": {
+        "name": "CH1 batteriestatus"
       },
       "t234c1cn": {
         "name": "CH1 verbindungsstatus"
       },
+      "t234c2bat": {
+        "name": "CH2 batteriestatus"
+      },
       "t234c2cn": {
         "name": "CH2 verbindungsstatus"
+      },
+      "t234c3bat": {
+        "name": "CH3 batteriestatus"
       },
       "t234c3cn": {
         "name": "CH3 verbindungsstatus"
       },
+      "t234c4bat": {
+        "name": "CH4 batteriestatus"
+      },
       "t234c4cn": {
         "name": "CH4 verbindungsstatus"
+      },
+      "t234c5bat": {
+        "name": "CH5 batteriestatus"
       },
       "t234c5cn": {
         "name": "CH5 verbindungsstatus"
       },
+      "t234c6bat": {
+        "name": "CH6 batteriestatus"
+      },
       "t234c6cn": {
         "name": "CH6 verbindungsstatus"
+      },
+      "t234c7bat": {
+        "name": "CH7 batteriestatus"
       },
       "t234c7cn": {
         "name": "CH7 verbindungsstatus"
       },
+      "t5lsbat": {
+        "name": "Batteriestatus des Blitzsensors"
+      },
       "t5lscn": {
         "name": "Verbindungsstatus des Blitzsensors"
+      },
+      "t6c1bat": {
+        "name": "CH1 batteriestatus des Wassermelders"
       },
       "t6c1cn": {
         "name": "CH1 verbindungsstatus des Wassermelders"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 wasserleckstatus"
       },
+      "t6c2bat": {
+        "name": "CH2 batteriestatus des Wassermelders"
+      },
       "t6c2cn": {
         "name": "CH2 verbindungsstatus des Wassermelders"
       },
       "t6c2wls": {
         "name": "CH2 wasserleckstatus"
+      },
+      "t6c3bat": {
+        "name": "CH3 batteriestatus des Wassermelders"
       },
       "t6c3cn": {
         "name": "CH3 verbindungsstatus des Wassermelders"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 wasserleckstatus"
       },
+      "t6c4bat": {
+        "name": "CH4 batteriestatus des Wassermelders"
+      },
       "t6c4cn": {
         "name": "CH4 verbindungsstatus des Wassermelders"
       },
       "t6c4wls": {
         "name": "CH4 wasserleckstatus"
+      },
+      "t6c5bat": {
+        "name": "CH5 batteriestatus des Wassermelders"
       },
       "t6c5cn": {
         "name": "CH5 verbindungsstatus des Wassermelders"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 wasserleckstatus"
       },
+      "t6c6bat": {
+        "name": "CH6 batteriestatus des Wassermelders"
+      },
       "t6c6cn": {
         "name": "CH6 verbindungsstatus des Wassermelders"
       },
       "t6c6wls": {
         "name": "CH6 wasserleckstatus"
+      },
+      "t6c7bat": {
+        "name": "CH7 batteriestatus des Wassermelders"
       },
       "t6c7cn": {
         "name": "CH7 verbindungsstatus des Wassermelders"

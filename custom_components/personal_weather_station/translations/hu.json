@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "A kapcsolat és a szivárgás állapota még mindig szám",
+      "title": "A kapcsolat-, szivárgás- és akkumulátorértékek még számok",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Átalakítás bináris érzékelőkké",
-            "description": "A kapcsolat és a vízszivárgás állapotát 1 vagy 0 értékként küldik. Az 1.0.8-as verzióig numerikus érzékelőként jelentek meg, például `{example}`, amelyek nem használhatók a Home Assistant szokásos szivárgáskártyáival és riasztásaival. Az új állomások mostantól bináris érzékelőket kapnak, amelyek **Nedves / Száraz** és **Csatlakoztatva / Nincs kapcsolat** állapotot mutatnak.\n\n**{count} entitás** alakítható át. Az akkumulátorszinteket ez nem érinti: százalékok maradnak, amelyeken az alacsony töltöttségre figyelmeztetések működnek.\n\nA platformváltás nem átnevezés, ezért a régi entitások eltávolításra és `binary_sensor` formában újraépítésre kerülnek. **A rögzített előzményeik elvesznek** — ezeknek a méréseknek nincs hosszú távú statisztikájuk, így csak a nyers előzmények érintettek — és **a rájuk hivatkozó automatizálásokat, szkripteket, jeleneteket és irányítópultokat frissíteni kell**. Az új entitások az állomás következő feltöltésekor jelennek meg.\n\nHa inkább úgy hagyná őket, hagyja figyelmen kívül ezt a javítást."
+            "description": "A kapcsolat, a vízszivárgás és az akkumulátor értékeit 1 vagy 0 formájában küldi az állomás. Az 1.0.8-as változatig numerikus érzékelőként jelentek meg, például `{example}`, amelyek nem használhatók a Home Assistant szokásos szivárgás-, kapcsolat- és gyenge akkumulátor kártyáival. Az új állomások bináris érzékelőket kapnak, amelyek a **Nedves / Száraz**, **Csatlakoztatva / Leválasztva** és **Gyenge / Normál** állapotot mutatják.\n\n**{count} entitás** alakítható át. A levegőminőség-érzékelők 0~5-ös akkumulátorszintjei megtartják a százalékukat: hat fokozat több annál, mint amennyit egy be/ki elbír.\n\nA platformváltás nem átnevezés: a régi entitások törlődnek, és `binary_sensor` néven jönnek létre újra. **A rögzített előzményeik elvesznek** — ezeknek az értékeknek nincs hosszú távú statisztikájuk, tehát csak a nyers előzmény érintett — és **a rájuk mutató automatizálásokat, szkripteket, jeleneteket és vezérlőpultokat frissíteni kell**. Az új entitások az állomás következő feltöltésekor jelennek meg.\n\nHa inkább úgy hagyná őket, ahogy vannak, hagyja figyelmen kívül ezt a javítást."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Konzol akkumulátorszintje"
+      },
       "station_online": {
         "name": "Állomás online"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "CO érzékelő kapcsolatának állapota"
       },
+      "t1bat": {
+        "name": "Kültéri érzékelő akkumulátorának állapota"
+      },
       "t1cn": {
         "name": "Kültéri érzékelő kapcsolatának állapota"
+      },
+      "t234c1bat": {
+        "name": "CH1 akkumulátor állapota"
       },
       "t234c1cn": {
         "name": "CH1 kapcsolat állapota"
       },
+      "t234c2bat": {
+        "name": "CH2 akkumulátor állapota"
+      },
       "t234c2cn": {
         "name": "CH2 kapcsolat állapota"
+      },
+      "t234c3bat": {
+        "name": "CH3 akkumulátor állapota"
       },
       "t234c3cn": {
         "name": "CH3 kapcsolat állapota"
       },
+      "t234c4bat": {
+        "name": "CH4 akkumulátor állapota"
+      },
       "t234c4cn": {
         "name": "CH4 kapcsolat állapota"
+      },
+      "t234c5bat": {
+        "name": "CH5 akkumulátor állapota"
       },
       "t234c5cn": {
         "name": "CH5 kapcsolat állapota"
       },
+      "t234c6bat": {
+        "name": "CH6 akkumulátor állapota"
+      },
       "t234c6cn": {
         "name": "CH6 kapcsolat állapota"
+      },
+      "t234c7bat": {
+        "name": "CH7 akkumulátor állapota"
       },
       "t234c7cn": {
         "name": "CH7 kapcsolat állapota"
       },
+      "t5lsbat": {
+        "name": "Villámérzékelő akkumulátorának állapota"
+      },
       "t5lscn": {
         "name": "Villámérzékelő kapcsolatának állapota"
+      },
+      "t6c1bat": {
+        "name": "CH1 szivárgásérzékelő akkumulátorának állapota"
       },
       "t6c1cn": {
         "name": "CH1 szivárgásérzékelő kapcsolatának állapota"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 vízszivárgás állapota"
       },
+      "t6c2bat": {
+        "name": "CH2 szivárgásérzékelő akkumulátorának állapota"
+      },
       "t6c2cn": {
         "name": "CH2 szivárgásérzékelő kapcsolatának állapota"
       },
       "t6c2wls": {
         "name": "CH2 vízszivárgás állapota"
+      },
+      "t6c3bat": {
+        "name": "CH3 szivárgásérzékelő akkumulátorának állapota"
       },
       "t6c3cn": {
         "name": "CH3 szivárgásérzékelő kapcsolatának állapota"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 vízszivárgás állapota"
       },
+      "t6c4bat": {
+        "name": "CH4 szivárgásérzékelő akkumulátorának állapota"
+      },
       "t6c4cn": {
         "name": "CH4 szivárgásérzékelő kapcsolatának állapota"
       },
       "t6c4wls": {
         "name": "CH4 vízszivárgás állapota"
+      },
+      "t6c5bat": {
+        "name": "CH5 szivárgásérzékelő akkumulátorának állapota"
       },
       "t6c5cn": {
         "name": "CH5 szivárgásérzékelő kapcsolatának állapota"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 vízszivárgás állapota"
       },
+      "t6c6bat": {
+        "name": "CH6 szivárgásérzékelő akkumulátorának állapota"
+      },
       "t6c6cn": {
         "name": "CH6 szivárgásérzékelő kapcsolatának állapota"
       },
       "t6c6wls": {
         "name": "CH6 vízszivárgás állapota"
+      },
+      "t6c7bat": {
+        "name": "CH7 szivárgásérzékelő akkumulátorának állapota"
       },
       "t6c7cn": {
         "name": "CH7 szivárgásérzékelő kapcsolatának állapota"

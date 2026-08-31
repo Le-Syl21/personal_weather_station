@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "La statoj de konekto kaj likado ankoraŭ estas nombroj",
+      "title": "La legaĵoj de konekto, likado kaj baterio ankoraŭ estas nombroj",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Konverti al duumaj sensiloj",
-            "description": "La statoj de konekto kaj akvolikado estas senditaj kiel 1 aŭ 0. Ĝis versio 1.0.8 ili estis montritaj kiel nombraj sensiloj, kiel `{example}`, kiuj ne uzeblas kun la normaj likkartoj kaj avertoj de Home Assistant. Novaj stacioj nun ricevas duumajn sensilojn montrantajn **Malseka / Seka** kaj **Konektita / Malkonektita**.\n\n**{count} entoj** povas esti konvertitaj. La bateriaj niveloj ne estas tuŝitaj: ili restas procentoj, sur kiuj funkcias la avertoj pri malalta baterio.\n\nŜanĝi platformon ne estas renomo, do la malnovaj entoj estas forigitaj kaj rekonstruitaj kiel `binary_sensor`. **Ilia registrita historio perdiĝas** — ĉi tiuj mezuroj ne havas longdaŭrajn statistikojn, do nur la kruda historio estas tuŝita — kaj **aŭtomatigoj, skriptoj, scenoj kaj paneloj montrantaj al ili devas esti ĝisdatigitaj**. La novaj entoj aperas ĉe la sekva alŝuto de la stacio.\n\nSe vi preferas lasi ilin kiel ili estas, ignoru ĉi tiun riparon."
+            "description": "La legaĵoj de konekto, akvolikado kaj baterio estas senditaj kiel 1 aŭ 0. Ĝis versio 1.0.8 ili estis montrataj kiel nombraj sensiloj, ekzemple `{example}`, kiuj ne uzeblas kun la normaj kartoj de likado, konekteco kaj malalta baterio de Home Assistant. Novaj stacioj ricevas duumajn sensilojn montrantajn **Malseka / Seka**, **Konektita / Malkonektita** kaj **Malalta / Normala**.\n\n**{count} entoj** povas esti konvertitaj. La bateriaj niveloj 0~5 de la aerkvalitaj sensiloj konservas sian procenton: ses ŝtupoj estas pli ol ŝalto/malŝalto povas porti.\n\nŜanĝi platformon ne estas renomado: la malnovaj entoj estas forigitaj kaj rekreitaj kiel `binary_sensor`. **Ilia registrita historio perdiĝas** — ĉi tiuj legaĵoj ne havas longdaŭrajn statistikojn, do nur la kruda historio estas tuŝita — kaj **aŭtomatigoj, skriptoj, scenoj kaj panelaroj kiuj celas ilin devas esti ĝisdatigitaj**. La novaj entoj aperas ĉe la sekva alŝuto de la stacio.\n\nSe vi preferas lasi ilin tiaj, ignoru ĉi tiun riparon."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Bateria nivelo de konzolo"
+      },
       "station_online": {
         "name": "Stacio enreta"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Konekta stato de CO-sensilo"
       },
+      "t1bat": {
+        "name": "Bateria stato de ekstera sensilo"
+      },
       "t1cn": {
         "name": "Konekta stato de ekstera sensilo"
+      },
+      "t234c1bat": {
+        "name": "CH1 bateria stato"
       },
       "t234c1cn": {
         "name": "CH1 konekta stato"
       },
+      "t234c2bat": {
+        "name": "CH2 bateria stato"
+      },
       "t234c2cn": {
         "name": "CH2 konekta stato"
+      },
+      "t234c3bat": {
+        "name": "CH3 bateria stato"
       },
       "t234c3cn": {
         "name": "CH3 konekta stato"
       },
+      "t234c4bat": {
+        "name": "CH4 bateria stato"
+      },
       "t234c4cn": {
         "name": "CH4 konekta stato"
+      },
+      "t234c5bat": {
+        "name": "CH5 bateria stato"
       },
       "t234c5cn": {
         "name": "CH5 konekta stato"
       },
+      "t234c6bat": {
+        "name": "CH6 bateria stato"
+      },
       "t234c6cn": {
         "name": "CH6 konekta stato"
+      },
+      "t234c7bat": {
+        "name": "CH7 bateria stato"
       },
       "t234c7cn": {
         "name": "CH7 konekta stato"
       },
+      "t5lsbat": {
+        "name": "Bateria stato de fulmosensilo"
+      },
       "t5lscn": {
         "name": "Konekta stato de fulmosensilo"
+      },
+      "t6c1bat": {
+        "name": "CH1 bateria stato de likosensilo"
       },
       "t6c1cn": {
         "name": "CH1 konekta stato de likosensilo"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 stato de akvolikado"
       },
+      "t6c2bat": {
+        "name": "CH2 bateria stato de likosensilo"
+      },
       "t6c2cn": {
         "name": "CH2 konekta stato de likosensilo"
       },
       "t6c2wls": {
         "name": "CH2 stato de akvolikado"
+      },
+      "t6c3bat": {
+        "name": "CH3 bateria stato de likosensilo"
       },
       "t6c3cn": {
         "name": "CH3 konekta stato de likosensilo"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 stato de akvolikado"
       },
+      "t6c4bat": {
+        "name": "CH4 bateria stato de likosensilo"
+      },
       "t6c4cn": {
         "name": "CH4 konekta stato de likosensilo"
       },
       "t6c4wls": {
         "name": "CH4 stato de akvolikado"
+      },
+      "t6c5bat": {
+        "name": "CH5 bateria stato de likosensilo"
       },
       "t6c5cn": {
         "name": "CH5 konekta stato de likosensilo"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 stato de akvolikado"
       },
+      "t6c6bat": {
+        "name": "CH6 bateria stato de likosensilo"
+      },
       "t6c6cn": {
         "name": "CH6 konekta stato de likosensilo"
       },
       "t6c6wls": {
         "name": "CH6 stato de akvolikado"
+      },
+      "t6c7bat": {
+        "name": "CH7 bateria stato de likosensilo"
       },
       "t6c7cn": {
         "name": "CH7 konekta stato de likosensilo"

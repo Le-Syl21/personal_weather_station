@@ -109,12 +109,12 @@
       }
     },
     "legacy_status_sensors": {
-      "title": "Is uimhreacha iad léamha an cheangail agus an sceite fós",
+      "title": "Is uimhreacha fós iad léamha ceangail, sceite agus ceallraí",
       "fix_flow": {
         "step": {
           "confirm": {
             "title": "Tiontaigh go braiteoirí dénártha",
-            "description": "Tuairiscítear léamha an cheangail agus sceite uisce mar 1 nó 0. Suas go dtí leagan 1.0.8 taispeánadh iad mar bhraiteoirí uimhriúla, mar `{example}`, nach féidir a úsáid le cártaí agus foláirimh sceite caighdeánacha Home Assistant. Faigheann stáisiúin nua braiteoirí dénártha anois a thaispeánann **Fliuch / Tirim** agus **Ceangailte / Dícheangailte**.\n\nIs féidir **{count} aonán** a thiontú. Ní chuirtear isteach ar leibhéil ceallraí: fanann siad ina gcéatadáin, agus is orthu sin a oibríonn na foláirimh ceallraí ísle.\n\nNí athainmniú é ardán a athrú, mar sin baintear na sean-aonáin agus atógtar iad mar `binary_sensor`. **Cailltear a stair thaifeadta** — níl aon staitisticí fadtéarmacha ag na léamha seo, mar sin ní chuirtear isteach ach ar an stair amh — agus **caithfear uathoibrithe, scripteanna, radhairc agus deaisbhoird a thagraíonn dóibh a nuashonrú**. Tagann na haonáin nua chun cinn ag an gcéad uaslódáil eile ón stáisiún.\n\nMás fearr leat iad a fhágáil mar atá, déan neamhaird den deisiúchán seo."
+            "description": "Seoltar léamha ceangail, sceite uisce agus ceallraí mar 1 nó 0. Suas go dtí leagan 1.0.8 nochtaíodh iad mar bhraiteoirí uimhriúla, ar nós `{example}`, nach féidir a úsáid le cártaí caighdeánacha sceite, ceangail agus ceallraí íseal Home Assistant. Faigheann stáisiúin nua braiteoirí dénártha a thaispeánann **Fliuch / Tirim**, **Ceangailte / Dícheangailte** agus **Íseal / Gnách**.\n\nIs féidir **{count} aonán** a thiontú. Coinníonn leibhéil cheallraí 0~5 na mbraiteoirí cáilíochta aeir a gcéatadán: is mó sé chéim ná mar is féidir le ann/as a iompar.\n\nNí athainmniú é athrú ardáin: baintear na sean-aonáin agus cruthaítear as an nua iad mar `binary_sensor`. **Cailltear a stair thaifeadta** — níl aon staitisticí fadtéarmacha ag na léamha seo, mar sin ní dhéantar difear ach don amhstair — agus **ní mór uathoibriú, scripteanna, radhairc agus deaisbhoird a dhíríonn orthu a nuashonrú**. Tagann na haonáin nua chun solais leis an gcéad uaslódáil eile ón stáisiún.\n\nMás fearr leat iad a fhágáil mar atá siad, déan neamhaird den deisiú seo."
           }
         }
       }
@@ -660,6 +660,9 @@
       }
     },
     "binary_sensor": {
+      "inbat": {
+        "name": "Leibhéal ceallraí an chonsóil"
+      },
       "station_online": {
         "name": "Stáisiún ar líne"
       },
@@ -669,32 +672,62 @@
       "t11cn": {
         "name": "Stádas ceangail an bhraiteora CO"
       },
+      "t1bat": {
+        "name": "Stádas ceallraí an bhraiteora amuigh"
+      },
       "t1cn": {
         "name": "Stádas ceangail an bhraiteora amuigh"
+      },
+      "t234c1bat": {
+        "name": "CH1 stádas ceallraí"
       },
       "t234c1cn": {
         "name": "CH1 stádas ceangail"
       },
+      "t234c2bat": {
+        "name": "CH2 stádas ceallraí"
+      },
       "t234c2cn": {
         "name": "CH2 stádas ceangail"
+      },
+      "t234c3bat": {
+        "name": "CH3 stádas ceallraí"
       },
       "t234c3cn": {
         "name": "CH3 stádas ceangail"
       },
+      "t234c4bat": {
+        "name": "CH4 stádas ceallraí"
+      },
       "t234c4cn": {
         "name": "CH4 stádas ceangail"
+      },
+      "t234c5bat": {
+        "name": "CH5 stádas ceallraí"
       },
       "t234c5cn": {
         "name": "CH5 stádas ceangail"
       },
+      "t234c6bat": {
+        "name": "CH6 stádas ceallraí"
+      },
       "t234c6cn": {
         "name": "CH6 stádas ceangail"
+      },
+      "t234c7bat": {
+        "name": "CH7 stádas ceallraí"
       },
       "t234c7cn": {
         "name": "CH7 stádas ceangail"
       },
+      "t5lsbat": {
+        "name": "Stádas ceallraí an bhraiteora tintrí"
+      },
       "t5lscn": {
         "name": "Stádas ceangail an bhraiteora tintrí"
+      },
+      "t6c1bat": {
+        "name": "CH1 stádas ceallraí an bhraiteora sceite"
       },
       "t6c1cn": {
         "name": "CH1 stádas ceangail an bhraiteora sceite"
@@ -702,11 +735,17 @@
       "t6c1wls": {
         "name": "CH1 stádas sceite uisce"
       },
+      "t6c2bat": {
+        "name": "CH2 stádas ceallraí an bhraiteora sceite"
+      },
       "t6c2cn": {
         "name": "CH2 stádas ceangail an bhraiteora sceite"
       },
       "t6c2wls": {
         "name": "CH2 stádas sceite uisce"
+      },
+      "t6c3bat": {
+        "name": "CH3 stádas ceallraí an bhraiteora sceite"
       },
       "t6c3cn": {
         "name": "CH3 stádas ceangail an bhraiteora sceite"
@@ -714,11 +753,17 @@
       "t6c3wls": {
         "name": "CH3 stádas sceite uisce"
       },
+      "t6c4bat": {
+        "name": "CH4 stádas ceallraí an bhraiteora sceite"
+      },
       "t6c4cn": {
         "name": "CH4 stádas ceangail an bhraiteora sceite"
       },
       "t6c4wls": {
         "name": "CH4 stádas sceite uisce"
+      },
+      "t6c5bat": {
+        "name": "CH5 stádas ceallraí an bhraiteora sceite"
       },
       "t6c5cn": {
         "name": "CH5 stádas ceangail an bhraiteora sceite"
@@ -726,11 +771,17 @@
       "t6c5wls": {
         "name": "CH5 stádas sceite uisce"
       },
+      "t6c6bat": {
+        "name": "CH6 stádas ceallraí an bhraiteora sceite"
+      },
       "t6c6cn": {
         "name": "CH6 stádas ceangail an bhraiteora sceite"
       },
       "t6c6wls": {
         "name": "CH6 stádas sceite uisce"
+      },
+      "t6c7bat": {
+        "name": "CH7 stádas ceallraí an bhraiteora sceite"
       },
       "t6c7cn": {
         "name": "CH7 stádas ceangail an bhraiteora sceite"
